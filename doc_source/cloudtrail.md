@@ -1,0 +1,3 @@
+# Monitoring Events with CloudTrail<a name="cloudtrail"></a>
+
+With AWS CloudTrail, you can monitor your AWS deployments in the cloud by getting a history of AWS API calls for your accounts\. You can also identify which users and accounts called AWS APIs for services that support CloudTrail, the source IP address the calls were made from, and when the calls occurred\. You can integrate CloudTrail into applications using the API, automate trail creation for your organization, check the status of your trails, and control how administrators turn CloudTrail logging on and off\. For more information, see *[AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)*\.
