@@ -2,7 +2,7 @@
 
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\.
 
-When users perform work in an AWS account in your landing zone, they're subject to guardrails\. Currently, there are 20 guardrails that you can apply to an organizational unit \(OU\)\. There are 17 prevention guardrails, and 3 detection guardrails\.
+When users perform work in an AWS account in your landing zone, they're subject to guardrails\. Currently, there are 25 guardrails that you can apply to an organizational unit \(OU\)\.
 
 The behavior of each guardrail is either prevention or detection\.
 + **Prevention** – A preventive guardrail ensures that your accounts maintain compliance\. The status of a preventive guardrail behavior is either **enforced** or **not\-enabled**\. A preventive guardrail prevents policy violations by using service control policies, AWS Config Rules, and AWS Lambda functions\. Preventive guardrails are supported in all AWS Regions\.

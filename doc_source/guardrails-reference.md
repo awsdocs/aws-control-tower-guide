@@ -21,8 +21,13 @@ The following sections include a reference for each of the guardrails available 
 + [Enable Encryption for Amazon EBS Volumes Attached to Amazon EC2 Instances](#ebs-enable-encryption)
 + [Disallow Changes to IAM Roles Set Up by AWS Control Tower](#iam-disallow-changes)
 + [Disallow Changes to Lambda Functions Set Up by AWS Control Tower](#lambda-disallow-changes)
++ [Disallow Changes to Amazon SNS Set Up by AWS Control Tower](#sns-disallow-changes)
++ [Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower](#sns-subscriptions-disallow-changes)
 + [Disallow Internet Connection Through RDP](#rdp-disallow-internet)
 + [Disallow Internet Connection Through SSH](#ssh-disallow-internet)
++ [Enable MFA for the Root User](#enable-root-mfa)
++ [Disallow Public Read Access to Amazon S3 Buckets](#s3-disallow-public-read)
++ [Disallow Public Write Access to Amazon S3 Buckets](#s3-disallow-public-write)
 
 ## Enable Encryption at Rest for Log Archive<a name="log-archive-encryption-enabled"></a>
 
@@ -576,6 +581,69 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
+## Disallow Changes to Amazon SNS Set Up by AWS Control Tower<a name="sns-disallow-changes"></a>
+
+This guardrail disallows changes to Amazon SNS set up by AWS Control Tower\. This protects the integrity of Amazon SNS notification settings for your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRSNSTOPICPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "sns:AddPermission",
+        "sns:CreateTopic",
+        "sns:DeleteTopic",
+        "sns:RemovePermission",
+        "sns:SetTopicAttributes"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:aws-controltower-*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower<a name="sns-subscriptions-disallow-changes"></a>
+
+This guardrail disallows changes to Amazon SNS subscriptions set up by AWS Control Tower\. This protects the integrity of Amazon SNS subscriptions settings for your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRSNSSUBSCRIPTIONPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "sns:Subscribe",
+        "sns:Unsubscribe"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:aws-controltower-SecurityNotifications"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+        }
+      }
+    }
+  ]
+}
+```
+
 ## Disallow Internet Connection Through RDP<a name="rdp-disallow-internet"></a>
 
 This guardrail disallows internet connections to Amazon EC2 instances through services like Remote Desktop Protocol \(RDP\)\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
@@ -700,4 +768,105 @@ Resources:
       Source:
         Owner: AWS
         SourceIdentifier: INCOMING_SSH_DISABLED
+```
+
+## Enable MFA for the Root User<a name="enable-root-mfa"></a>
+
+This guardrail enables multi\-factor authentication \(MFA\) for the root user of the master account\. This reduces vulnerability risks from weak authentication by adding an extra authentication code on top of a user name and password\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following AWS Config rule\.
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Description: Configure AWS Config rules to require MFA for root access to accounts
+Parameters:
+  ConfigRuleName:
+    Type: 'String'
+    Description: 'Name for the Config rule'
+  MaximumExecutionFrequency:
+    Type: String
+    Default: 24hours
+    Description: The frequency that you want AWS Config to run evaluations for the rule.
+    AllowedValues:
+    - 1hour
+    - 3hours
+    - 6hours
+    - 12hours
+    - 24hours
+Mappings:
+  Settings:
+    FrequencyMap:
+      1hour   : One_Hour
+      3hours  : Three_Hours
+      6hours  : Six_Hours
+      12hours : Twelve_Hours
+      24hours : TwentyFour_Hours
+Resources:
+  CheckForRootMfa:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: !Sub ${ConfigRuleName}
+      Description: Checks whether the root user of your AWS account requires multi-factor authentication for console sign-in.
+      Source:
+        Owner: AWS
+        SourceIdentifier: ROOT_ACCOUNT_MFA_ENABLED
+      MaximumExecutionFrequency:
+        !FindInMap
+          - Settings
+          - FrequencyMap
+          - !Ref MaximumExecutionFrequency
+```
+
+## Disallow Public Read Access to Amazon S3 Buckets<a name="s3-disallow-public-read"></a>
+
+This guardrail disallows public read access to Amazon S3 buckets\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following AWS Config rule\.
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Description: Configure AWS Config rules to check that your S3 buckets do not allow public access
+Parameters:
+  ConfigRuleName:
+    Type: 'String'
+    Description: 'Name for the Config rule'
+Resources:
+  CheckForS3PublicRead:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: !Sub ${ConfigRuleName}
+      Description: Checks that your S3 buckets do not allow public read access. If an S3 bucket policy or bucket ACL allows public read access, the bucket is noncompliant.
+      Source:
+        Owner: AWS
+        SourceIdentifier: S3_BUCKET_PUBLIC_READ_PROHIBITED
+      Scope:
+        ComplianceResourceTypes:
+          - AWS::S3::Bucket
+```
+
+## Disallow Public Write Access to Amazon S3 Buckets<a name="s3-disallow-public-write"></a>
+
+This guardrail disallows public write access to Amazon S3 buckets\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following AWS Config rule\.
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Description: Configure AWS Config rules to check that your S3 buckets do not allow public access
+Parameters:
+  ConfigRuleName:
+    Type: 'String'
+    Description: 'Name for the Config rule'
+Resources:
+  CheckForS3PublicWrite:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: !Sub ${ConfigRuleName}
+      Description: Checks that your S3 buckets do not allow public write access. If an S3 bucket policy or bucket ACL allows public write access, the bucket is noncompliant.
+      Source:
+        Owner: AWS
+        SourceIdentifier: S3_BUCKET_PUBLIC_WRITE_PROHIBITED
+      Scope:
+        ComplianceResourceTypes:
+          - AWS::S3::Bucket
 ```
