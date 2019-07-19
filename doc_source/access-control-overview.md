@@ -22,7 +22,7 @@ In AWS Control Tower, the primary resource is a *landing zone*\. AWS Control Tow
 
 The AWS account owns the resources that are created in the account, regardless of who created the resources\. Specifically, the resource owner is the AWS account of the [principal entity](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html) \(that is, the AWS account root user, an IAM user, or an IAM role\) that authenticates the resource creation request\. The following examples illustrate how this works:
 + If you use the AWS account root user credentials of your AWS account to set up a landing zone, your AWS account is the owner of the resource\.
-+ If you create an IAM user in your AWS account and grant permissions to set up a landing zone to that user, the user can set up a landing zone as long as their account meets the prerequisites\. However, your AWS account, to which the user belongs, owns the file system resource\.
++ If you create an IAM user in your AWS account and grant permissions to set up a landing zone to that user, the user can set up a landing zone as long as their account meets the prerequisites\. However, your AWS account, to which the user belongs, owns the landing zone resource\.
 + If you create an IAM role in your AWS account with permissions to set up a landing zone, anyone who can assume the role can set up a landing zone\. Your AWS account, to which the role belongs, owns the landing zone resource\. 
 
 ## Managing Access to Resources<a name="access-control-manage-access-intro"></a>

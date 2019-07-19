@@ -74,13 +74,13 @@ For more information on using AWS SSO with AWS Control Tower, see [Managing User
    + The **SSOUserEmail** can be a new email address, or the email address associated with an existing AWS SSO user\. Whichever you choose, this user will have administrative access to the account you're provisioning\.
    + The **AccountEmail** must be an email address that isn't already associated with an AWS account, and it must be in the same domain as the email addresses used in your shared accounts\. If you used a new email address in **SSOUserEmail**, you can use that email address here\.
 
-1. When you're finished, choose **NEXT** and choose your tag and notification options\.
+1. When you're finished, choose **NEXT** until you get to the **Review** page of the wizard\. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\.
 
-1. Review your account settings, and then choose **LAUNCH**\.
+1. Review your account settings, and then choose **LAUNCH**\. Do not create a resource plan, otherwise the account will fail to be provisioned\.
 
 1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\.
 
-Accounts that you provision can be unmanaged or closed\. You can also repurpose accounts for other workloads and users by updating email addresses for the account\. This is easier and has less administrative overhead than closing or unmanaging accounts requires\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\.
+Accounts that you provision can be unmanaged or closed\. You can also repurpose accounts for other workloads and users by updating the email addresses for the account\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\.
 
 ### Updating Account Factory Accounts<a name="updating-account-factory-accounts"></a>
 

@@ -105,7 +105,7 @@ When you set up your landing zone, the following AWS resources are created withi
 
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\. Compliance needs evolve, so while each guardrail enforces a single rule, you can change which strongly recommended guardrails are enforced at any time from the AWS Control Tower console\. Mandatory guardrails are always applied, and can't be changed\.
 
-Preventative guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
+preventive guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
 Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the **Enable encryption for EBS volumes attached to EC2 instances** detects if an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
@@ -121,4 +121,6 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US West \(Oregon\)
 + EU \(Ireland\)
 
-When you create a landing zone, the Region that you're using to access the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, like OUs, and AWS accounts are global\. To ensure that your guardrails apply to those resources, access all of these resources within one of the supported Regions\.
+When you create a landing zone, the Region that you're using to access the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, like OUs, and AWS accounts are global\.
+
+Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in AWS Control Tower supported regions\.

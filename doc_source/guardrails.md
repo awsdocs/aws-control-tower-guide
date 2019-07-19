@@ -27,7 +27,7 @@ In the guardrail details page of the console, you can find the following details
 + **Description** – A description of the guardrail\.
 + **Guidance** – The guidance is either strongly recommended or mandatory\. Mandatory guardrails are automatically applied to all OUs by AWS Control Tower\. Strongly recommended guardrails can be enabled by central cloud administrators from the AWS Control Tower console\.
 + **Category** – The category can be Audit Logs, Monitoring, Data Security, Network, IAM, or Control Tower Setup\.
-+ **Behavior** – A guardrail's behavior is set to either PREVENTATIVE or DETECTIVE\.
++ **Behavior** – A guardrail's behavior is set to either preventive or DETECTIVE\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.
 
 On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.

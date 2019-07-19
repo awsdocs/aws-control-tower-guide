@@ -1,6 +1,6 @@
 # Limits<a name="limits"></a>
 
-This chapter covers the AWS service limits that you should keep in mind as you use AWS Control Tower\.
+This chapter covers the AWS service limits that you should keep in mind as you use AWS Control Tower\. If you're unable to set up your landing zone due to a service limit issue, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
 ## Limits for Integrated Services<a name="integrated-services-limits"></a>
 
