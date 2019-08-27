@@ -11,9 +11,7 @@ The AWS Control Tower console indicates when your landing zone needs to be updat
 
 **To update your landing zone**
 
-1. Open a web browser, and navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\.
-
-1. Choose **Update your landing zone**\.
+1. Open a web browser, and navigate to the AWS Control Tower console at [https://us\-west\-2\.console\.aws\.amazon\.com/controltower/home/update](https://console.aws.amazon.com/controltower/home/update)\.
 
 1. Review the information in the wizard and choose **Update**\. This updates the backend of the landing zone as well as your shared accounts\. This process can take a little more than an hour\.
 
@@ -38,7 +36,7 @@ The AWS Control Tower console indicates when your landing zone needs to be updat
 
    1. Choose the radio button next to the **Version** of the product you want to update, and choose **NEXT**\.
 
-   1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationlUnit** choose the OU that the account is in\. You can find this information in the AWS Control Tower console, under **Accounts**\.
+   1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationalUnit** choose the OU that the account is in\. You can find this information in the AWS Control Tower console, under **Accounts**\.
 
    1. Choose **NEXT**\.
 

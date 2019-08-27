@@ -1,10 +1,8 @@
 # Guardrails in AWS Control Tower<a name="guardrails"></a>
 
-A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\.
+A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\. When users perform work in an AWS account in your landing zone, they're subject to guardrails\.
 
-When users perform work in an AWS account in your landing zone, they're subject to guardrails\. Currently, there are 25 guardrails that you can apply to an organizational unit \(OU\)\.
-
-The behavior of each guardrail is either prevention or detection\.
+The behavior of each guardrail is either preventive or detective\.
 + **Prevention** – A preventive guardrail ensures that your accounts maintain compliance\. The status of a preventive guardrail behavior is either **enforced** or **not\-enabled**\. A preventive guardrail prevents policy violations by using service control policies, AWS Config Rules, and AWS Lambda functions\. Preventive guardrails are supported in all AWS Regions\.
 + **Detection** – A detective guardrail detects noncompliance of resources within your accounts\. The status of a detective behavior is either **clear** or **in violation**\. A detective guardrail detects policy violations and provides alerts through the dashboard\. Detective guardrails only apply in the AWS Regions supported by AWS Control Tower\.
 
@@ -20,12 +18,22 @@ When working with guardrails, consider the following:
 + Accounts created through Account Factory inherit their parent OU's guardrails\. Accounts created outside of a landing zone do not, and are not displayed in the AWS Control Tower console\.
 + The root user and any IAM administrators in the master account can perform work that guardrails would otherwise deny\. This is intentional\. This prevents the master account from entering into an unusable state\. While this is the case, all actions taken within the master account continue to be tracked in the logs in the log archive account\. The logs enable accountability and auditing\.
 
+## Optional Guardrails<a name="optional-guardrails"></a>
+
+Three kinds of guidance apply to guardrails: mandatory, strongly recommended, and elective\. Mandatory guardrails are always enforced\. Strongly recommended guardrails are based on best practices for well\-architected multi\-account environments\. Elective guardrails enable you to track or lock down actions that are commonly restricted in an AWS enterprise environment\.
+
+Strongly recommended and elective guardrails are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. Optional guardrails are not enabled by default\. For more information, see the following guardrail references:
++ [Strongly Recommended Guardrails](strongly-recommended-guardrails.md)
++ [Elective Guardrails](elective-guardrails.md)
+
+ The guidance of a guardrail is independent of whether it is preventive or detective\. 
+
 ## Guardrail Details<a name="guardrail-details"></a>
 
 In the guardrail details page of the console, you can find the following details for each guardrail:
 + **Name** – The name of the guardrail\.
 + **Description** – A description of the guardrail\.
-+ **Guidance** – The guidance is either strongly recommended or mandatory\. Mandatory guardrails are automatically applied to all OUs by AWS Control Tower\. Strongly recommended guardrails can be enabled by central cloud administrators from the AWS Control Tower console\.
++ **Guidance** – The guidance is either mandatory, strongly recommended, or elective\.
 + **Category** – The category can be Audit Logs, Monitoring, Data Security, Network, IAM, or Control Tower Setup\.
 + **Behavior** – A guardrail's behavior is set to either preventive or DETECTIVE\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.

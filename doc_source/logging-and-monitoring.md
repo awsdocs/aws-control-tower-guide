@@ -4,4 +4,10 @@ Monitoring is an important part of the well\-architected nature of AWS Control T
 
 You should collect monitoring data from all of the parts of your AWS solution so that you can more easily debug a multi\-point failure if one occurs\. AWS provides several tools for monitoring your resources and activity in your landing zone, allowing you to plan for and respond to potential incidents\.
 
-For more information, see [Monitoring AWS Control Tower](monitoring-overview.md)\.
+Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\.
+
+The following sections describe monitoring and logging in AWS Control Tower with more detail:
+
+**Topics**
++ [Monitoring ](monitoring-overview.md)
++  [Logging AWS Control Tower Actions with AWS CloudTrail](logging-using-cloudtrail.md)

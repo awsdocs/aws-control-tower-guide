@@ -23,13 +23,40 @@ We recommend the following when you use AWS Control Tower\. This guidance might 
 **Account Factory Guidance**
 + When you use Account Factory to provision new accounts in AWS Service Catalog, do not define `TagOptions`, enable notifications, or create a provisioned product plan\. Doing so can result in a failure to provision a new account\.
 
+## Pre\-Launch Checks for Your Master Account<a name="getting-started-prereqs"></a>
+
+Before AWS Control Tower does any work in your account to set up the landing zone, it runs a series of pre\-launch checks\. These ensure that your master account is ready for the changes that establish your landing zone\. The checks that run before setting up a landing zone are as follows:
++ The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limits](limits.md)\.
++ The AWS account cannot be a member of an existing AWS Organizations OU \(regardless of whether it’s set up with all features enabled or for consolidated billing\)\.
++ The AWS account must be subscribed to the following AWS services:
+  + Amazon Simple Storage Service \(Amazon S3\)
+  + Amazon SNS
+  + Amazon Virtual Private Cloud \(Amazon VPC\)
+  + AWS CloudFormation
+  + AWS CloudTrail
+  + Amazon CloudWatch
+  + AWS Config
+  + AWS Identity and Access Management \(IAM\)
+  + AWS Lambda
+**Note**  
+By default, all accounts are subscribed to these services\.
++ The AWS account must not have an AWS Config aggregator already configured\.
++ The AWS account must not have AWS Single Sign\-On \(AWS SSO\) already set up\.
+
+When you set up a landing zone, AWS Control Tower performs the following actions in your master account on your behalf:
++ Creates three Organizations organizational units \(OUs\): Root, Core, and Custom\.
++ Creates two shared accounts: the log archive account and audit account\.
++ Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
++ Applies 17 preventive guardrails to enforce policies\.
++ Applies three detective guardrails to detect configuration violations\.
+
 ## Step One: Create Your Shared Account Email Addresses<a name="step-one"></a>
 
-Before you use AWS Control Tower, make sure you meet the following prerequisites:
-+ This guide assumes that you're setting up your landing zone in a new AWS account\. For information on creating your account and your IAM administrator, see [Setting Up](setting-up.md)\.
-+ To set up your landing zone, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. These email addresses should each be a collaborative inbox, a shared email account for the different users in your enterprise that will do specific work related to AWS Control Tower\. These email addresses must all share the same root and subdomain\. The email addresses are:
-  + **Audit account** – This is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
-  + **Log archive account** – This is for your team of users that need access to all the logging information for all of your managed accounts within managed OUs in your landing zone\.
+This guide assumes that you're setting up your landing zone in a new AWS account\. For information on creating your account and your IAM administrator, see [Setting Up](setting-up.md)\.
+
+To set up your landing zone, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. These email addresses should each be a collaborative inbox, a shared email account for the different users in your enterprise that will do specific work related to AWS Control Tower\. The email addresses are:
++ **Audit account** – This is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
++ **Log archive account** – This is for your team of users that need access to all the logging information for all of your managed accounts within managed OUs in your landing zone\.
 
 ## Step Two: Set Up Your Landing Zone<a name="step-two"></a>
 
@@ -41,13 +68,16 @@ AWS Control Tower has no APIs or programmatic access\. To set up your landing zo
 
 1. Choose **Set up your landing zone**\.
 
-1. Provide the email addresses for your log archive and audit accounts\. These email addresses must share the same domain as your master account\.
+1. Provide the email addresses for your log archive and audit accounts\. Note that the email addresses must not already have associated AWS accounts\.
 
 1. Review the **Service permissions**, and when you're ready, choose **I understand the permissions AWS Control Tower will use to administer AWS resources and enforce rules on my behalf**\.
 
 1. Choose **Launch your AWS Control Tower**\.
 
 This starts the process of setting up your landing zone, which can take about an hour to complete\. During setup, your core accounts are created, your root and Core OUs are created, and AWS resources are created, modified, or deleted\.
+
+**Important**  
+The email address you provided for the audit account will receive **AWS Notification \- Subscription Confirmation** emails from every AWS Region supported by AWS Control Tower\. To receive compliance emails in your audit account, you must choose the **Confirm subscription** link within each email from each AWS Region supported by AWS Control Tower\. 
 
 ## Next Steps<a name="getting-started-next"></a>
 
