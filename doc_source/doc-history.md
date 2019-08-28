@@ -1,5 +1,5 @@
 # Document History<a name="doc-history"></a>
-+ **Latest documentation update:** June 24, 2019
++ **Latest documentation update:** August 27, 2019
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
