@@ -2,33 +2,6 @@
 
 The following describes at a high level how AWS Control Tower works\. Your landing zone is a well\-architected multi\-account environment for all of your AWS resources\. You can use this environment to enforce compliance regulations on all of your AWS accounts\.
 
-## What Happens When You Set Up a Landing Zone<a name="how-it-works-setup"></a>
-
-Before AWS Control Tower does any work in your account to set up the landing zone, it runs a series of prechecks\. These prechecks ensure that your master account is ready for the changes that establish your landing zone\. The prechecks that run before setting up a landing zone are as follows:
-+ The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limits](limits.md)\.
-+ The AWS account cannot be a member of an existing AWS Organizations OU \(regardless of whether it’s set up with all features enabled or for consolidated billing\)\.
-+ The AWS account must be subscribed to the following AWS services:
-  + Amazon Simple Storage Service \(Amazon S3\)
-  + Amazon SNS
-  + Amazon Virtual Private Cloud \(Amazon VPC\)
-  + AWS CloudFormation
-  + AWS CloudTrail
-  + Amazon CloudWatch
-  + AWS Config
-  + AWS Identity and Access Management \(IAM\)
-  + AWS Lambda
-**Note**  
-By default, all accounts are subscribed to these services\.
-+ The AWS account must not have an AWS Config aggregator already configured\.
-+ The AWS account must not have AWS Single Sign\-On \(AWS SSO\) already set up\.
-
-When you set up a landing zone, AWS Control Tower performs the following actions in your master account on your behalf:
-+ Creates three Organizations organizational units \(OUs\): Root, Core, and Custom\.
-+ Creates two shared accounts: the log archive account and audit account\.
-+ Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
-+ Applies 17 preventive guardrails to enforce policies\.
-+ Applies three detective guardrails to detect configuration violations\.
-
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
 In AWS Control Tower, there are three shared accounts, which are not provisioned in Account Factory: the master account, the log archive account, and the audit account\.

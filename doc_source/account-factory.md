@@ -4,7 +4,7 @@ This chapter includes an overview and procedures for Account Factory, the AWS Se
 
 ## Configuring and Provisioning Accounts Through AWS Service Catalog<a name="configure-provision-new-account"></a>
 
-With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that do this work must be in the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\. However, if you're provisioning accounts programmatically, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
+With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group\. However, if you're provisioning accounts programmatically, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
 
 ```
 {
@@ -72,7 +72,7 @@ For more information on using AWS SSO with AWS Control Tower, see [Managing User
 
 1. Fill in the information, and keep the following in mind:
    + The **SSOUserEmail** can be a new email address, or the email address associated with an existing AWS SSO user\. Whichever you choose, this user will have administrative access to the account you're provisioning\.
-   + The **AccountEmail** must be an email address that isn't already associated with an AWS account, and it must be in the same domain as the email addresses used in your shared accounts\. If you used a new email address in **SSOUserEmail**, you can use that email address here\.
+   + The **AccountEmail** must be an email address that isn't already associated with an AWS account\. If you used a new email address in **SSOUserEmail**, you can use that email address here\.
 
 1. When you're finished, choose **NEXT** until you get to the **Review** page of the wizard\. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\.
 
@@ -135,7 +135,7 @@ On the Account Factory page, you can view the Amazon VPC configuration options a
 
 1. Choose the maximum number of private subnets in Amazon VPC from the list\. By default, 0 is selected\. The allowed maximum number of private subnets are 2\.
 
-1. Enter the range of addresses for creating your account VPCs\. The value must be in the form of classless inter\-domain routing \(CIDR\) block \(for example, `10.0.0.0/16`\)\. This is the primary CIDR block for your VPC\.
+1. Enter the range of addresses for creating your account VPCs\. The value must be in the form of classless inter\-domain routing \(CIDR\) block \(for example, `10.0.0.0/16`\)\. This is the primary CIDR block for your the VPC that will be created in your Account Factory provisioned account\. Note that your provisioned account VPCs might overlap in address ranges\.
 
 1. Choose a Region or all the Regions for creating a VPC when an account is provisioned\.
 
