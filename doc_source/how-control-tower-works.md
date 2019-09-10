@@ -78,7 +78,7 @@ When you set up your landing zone, the following AWS resources are created withi
 
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\. Compliance needs evolve, so while each guardrail enforces a single rule, you can change which strongly recommended guardrails are enforced at any time from the AWS Control Tower console\. Mandatory guardrails are always applied, and can't be changed\.
 
-preventive guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
+Preventive guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
 Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the **Enable encryption for EBS volumes attached to EC2 instances** detects if an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
