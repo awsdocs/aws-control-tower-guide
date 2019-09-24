@@ -7,7 +7,7 @@ If you encounter issues while using AWS Control Tower, you can use the following
 If your master account is less than an hour old, then you may encounter issues when the additional accounts are created\.
 
 **Action to take**  
-If you encounter this issue, we recommend that you wait an hour, and then try again\. If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
+If you encounter this issue, check your email. You may have been sent confirmation email that is awaiting response. Alternatively, we recommend that you wait an hour, and then try again\. If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
 ## Don't Change Email Addresses Outside of AWS Control Tower<a name="email-change"></a>
 
