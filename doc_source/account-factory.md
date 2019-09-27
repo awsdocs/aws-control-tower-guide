@@ -80,11 +80,14 @@ For more information on using AWS SSO with AWS Control Tower, see [Managing User
 
 1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\.
 
-Accounts that you provision can be unmanaged or closed\. You can also repurpose accounts for other workloads and users by updating the email addresses for the account\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\.
+Accounts that you provision can be closed or they can be changed to unmanaged accounts\. Alternatively, you can repurpose accounts for other workloads and other users by updating the email addresses and user parameters for the account\. You can change the Organizational Unit for the account by following the update procedures\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\.
 
 ### Updating Account Factory Accounts<a name="updating-account-factory-accounts"></a>
 
-The following procedure guides you through how to update your Account Factory accounts\.
+The following procedure guides you through how to update or migrate your Account Factory accounts\.
+
+**Important**  
+Use this procedure to migrate an account's OU, as for any other update\.
 
 **To update an Account Factory account**
 
@@ -111,7 +114,7 @@ You must be signed in as a user with the permissions to provision new products i
 
    1. Choose the button next to the **Version** of the product you want to update, and choose **NEXT**\.
 
-   1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationlUnit**, choose the OU that the account was already in\. A central cloud administrator can find this information in the AWS Control Tower console, under **Accounts**\.
+   1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationlUnit**, choose the OU that the account was already in, or to migrate to a new OU, choose the new OU for the account\. A central cloud administrator can find this information in the AWS Control Tower console, under **Accounts**\.
 
    1. Choose **NEXT**\.
 
@@ -121,27 +124,21 @@ You must be signed in as a user with the permissions to provision new products i
 
 Account Factory enables you to create pre\-approved baselines and configuration options for accounts in your organization\. You can configure and provision new accounts through AWS Service Catalog\.
 
-On the Account Factory page, you can view the Amazon VPC configuration options available to your end users when they provision new accounts\. You can see a list of organizational units \(OUs\) with their allow list status\. By default, all OUs are on the allow list for accounts to be provisioned under them\. You can disable certain OUs for account provisioning through AWS Service Catalog\.
+On the Account Factory page, you can view the Amazon VPC configuration options available to your end users when they provision new accounts\. You can see a list of organizational units \(OUs\) and their **allow list** status\. By default, all OUs are on the allow list, which means that accounts can be provisioned under them\. You can disable certain OUs for account provisioning through AWS Service Catalog\.
 
 **To configure Amazon VPC settings in Account Factory**
 
 1. As a central cloud administrator, sign into the AWS Control Tower console with administrator permissions in the master account\.
 
-1. To modify these settings, choose **Edit**\.
+1. From the left side of the dashboard, select **Account Factory** to navigate to the Account Factory network configuration page\. There you can see the default network settings displayed\. To edit, select **Edit** and view the editable version of your Account Factory network configuration settings\. 
 
-1. On the Edit Account Factory network configuration page, you can edit your Account Factory network configuration settings\. Choose the appropriate VPC configuration options for new accounts\. 
-
-1. Choose **disabled** or **enabled** to create a public subnet in Amazon VPC\. By default, the internet\-accessible subnet is disallowed\.
-
-1. Choose the maximum number of private subnets in Amazon VPC from the list\. By default, 0 is selected\. The allowed maximum number of private subnets are 2\.
-
-1. Enter the range of addresses for creating your account VPCs\. The value must be in the form of classless inter\-domain routing \(CIDR\) block \(for example, `10.0.0.0/16`\)\. This is the primary CIDR block for your the VPC that will be created in your Account Factory provisioned account\. Note that your provisioned account VPCs might overlap in address ranges\.
-
-1. Choose a Region or all the Regions for creating a VPC when an account is provisioned\.
-
-1. From the list, choose the number of Availability Zones to configure subnets for in each VPC\.
-
-1. Choose **Save**\.
+1. You can modify the each field of the default settings as needed\. Choose the VPC configuration options you'd like to establish for all new Account Factory accounts that your end users may create, and enter these settings into the fields: 
++ Choose **disabled** or **enabled** to create a public subnet in Amazon VPC\. By default, the internet\-accessible subnet is disallowed\.
++ Choose the maximum number of private subnets in Amazon VPC from the list\. By default, 1 is selected\. The maximum number of private subnets allowed is 2\.
++  Enter the range of IP addresses for creating your account VPCs\. The value must be in the form of a classless inter\-domain routing \(CIDR\) block \(for example, the default is `172.31.0.0/16`\)\. This CIDR block provides the overall range of subnet IP addresses for the VPC that Account Factory creates for your account\. Within your VPC, subnets are assigned automatically from the range you specify, and they are equal in size\. By default, subnets within your VPC do not overlap\. However, subnet IP address ranges in the VPCs of all your provisioned accounts could overlap\.
++ Choose a region or all the regions for creating a VPC when an account is provisioned\. By default all available regions are selected\.
++ From the list, choose the number of Availability Zones to configure subnets for in each VPC\. The default and recommended number is 3\.
++ Choose **Save**\.
 
 ### Unmanaging a Member Account<a name="unmanage-account"></a>
 
@@ -165,8 +162,10 @@ The word *terminate* is specific to AWS Service Catalog\. When you terminate an 
 
 1. To update the displayed account status, refresh the page\. When the account has been unmanaged, its status changes to **terminated**\.
 
+1. If you no longer need the terminated account, close it\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*
+
 **Note**  
-When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating Account Factory Accounts](#updating-account-factory-accounts)\.
+An unmanaged \(terminated\) account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating Account Factory Accounts](#updating-account-factory-accounts)\.
 
 ### Closing an Account Created in Account Factory<a name="delete-account"></a>
 
