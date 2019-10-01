@@ -3,12 +3,16 @@
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\. When users perform work in an AWS account in your landing zone, they're subject to guardrails\.
 
 The behavior of each guardrail is either preventive or detective\.
-+ **Prevention** – A preventive guardrail ensures that your accounts maintain compliance\. The status of a preventive guardrail behavior is either **enforced** or **not\-enabled**\. A preventive guardrail prevents policy violations by using service control policies, AWS Config Rules, and AWS Lambda functions\. Preventive guardrails are supported in all AWS Regions\.
++ **Prevention** – A preventive guardrail ensures that your accounts maintain compliance\. The status of a preventive guardrail behavior is either **enforced** or **not\-enabled**\. A preventive guardrail prevents policy violations by using service control policies and AWS Lambda functions\. Preventive guardrails are supported in all AWS Regions\.
 + **Detection** – A detective guardrail detects noncompliance of resources within your accounts\. The status of a detective behavior is either **clear** or **in violation**\. A detective guardrail detects policy violations and provides alerts through the dashboard\. Detective guardrails only apply in the AWS Regions supported by AWS Control Tower\.
 
-AWS Control Tower provides mandatory and strongly recommended guardrails\. When you create a new landing zone, all mandatory guardrails are enforced by default, and strongly recommended guardrails are not enabled\.
+AWS Control Tower provides mandatory, strongly recommended, and elective guardrails\. When you create a new landing zone, all mandatory guardrails are enforced by default\. Strongly recommended and elective guardrails are not enabled\.
 
 Guardrails enable you to express your policy intentions\. AWS Control Tower implements preventive or detective controls to govern and monitor compliance of your resources across AWS accounts\. For example, enable the **Disallow public read access to S3 buckets** guardrail to deny public read access to all S3 buckets for all accounts under an OU\. When you enable guardrails on organizational units, they are applied to all child accounts under the OU\.
+
+Implementation of guardrails:
++ The preventive guardrails are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\.
++ The detective guardrails are implemented using AWS Config rules and AWS Lambda functions\.
 
 ## Considerations<a name="guardrail-considerations"></a>
 
@@ -35,14 +39,14 @@ In the guardrail details page of the console, you can find the following details
 + **Description** – A description of the guardrail\.
 + **Guidance** – The guidance is either mandatory, strongly recommended, or elective\.
 + **Category** – The category can be Audit Logs, Monitoring, Data Security, Network, IAM, or Control Tower Setup\.
-+ **Behavior** – A guardrail's behavior is set to either preventive or DETECTIVE\.
++ **Behavior** – A guardrail's behavior is set to either preventive or detective\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.
 
 On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
 
 ## Enabling Guardrails<a name="enable-guardrails"></a>
 
-While most guardrails are enabled automatically according to an OU's configuration, some guardrails can be enabled manually on your OUs\. The following procedure describes the steps for enabling guardrails on an OU\.
+Most guardrails are enabled automatically according to an OU's configuration, and some guardrails can be enabled manually on your OUs\. The following procedure describes the steps for enabling guardrails on an OU\.
 
 **Important**  
 When you enable guardrails with strongly recommended guidance, AWS Control Tower managed AWS resources are created in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.

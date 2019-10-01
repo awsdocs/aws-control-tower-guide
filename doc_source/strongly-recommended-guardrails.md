@@ -2,6 +2,64 @@
 
 Strongly recommended guardrails are based on best practices for well\-architected multi\-account environments\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the strongly recommended guardrails available in AWS Control Tower\.
 
+## Disallow Creation of Access Keys for the Root User<a name="disallow-root-access-keys"></a>
+
+Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users with limited permissions to interact with your AWS account\. This is a preventive guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRRESTRICTROOTUSERACCESSKEYS",
+            "Effect": "Deny",
+            "Action": "iam:CreateAccessKey",
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "aws:PrincipalArn": [
+                        "arn:aws:iam::*:root"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+## Disallow Actions as a Root User<a name="disallow-root-auser-actions"></a>
+
+Secures your AWS accounts by disallowing account access with root user credentials, which are credentials of the account owner that allow unrestricted access to all resources in the account\. Instead, we recommend that you create AWS Identity and Access Management \(IAM\) users for everyday interaction with your AWS account\. This is a preventive guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRRESTRICTROOTUSER",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": [
+        "*"
+      ],
+      "Condition": {
+        "StringLike": {
+          "aws:PrincipalArn": [
+            "arn:aws:iam::*:root"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
 ## Enable Encryption for Amazon EBS Volumes Attached to Amazon EC2 Instances<a name="ebs-enable-encryption"></a>
 
 This guardrail detects whether encryption is enabled for Amazon EBS volumes attached to Amazon EC2 instances in your landing zone\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail isn't enabled on any OUs\.

@@ -76,9 +76,9 @@ When you set up your landing zone, the following AWS resources are created withi
 
 ## How Guardrails Work<a name="how-guardrails-work"></a>
 
-A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. It's expressed in plain language\. Compliance needs evolve, so while each guardrail enforces a single rule, you can change which strongly recommended guardrails are enforced at any time from the AWS Control Tower console\. Mandatory guardrails are always applied, and can't be changed\.
+A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each guardrail enforces a single rule, and it's expressed in plain language\. Compliance needs evolve, and you can change the elective or strongly recommended guardrails that are in force, at any time, from the AWS Control Tower console\. Mandatory guardrails are always applied, and they can't be changed\.
 
-preventive guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
+Preventive guardrails prevent actions from occurring\. For example, the **Disallow policy changes to log archive** guardrail prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
 Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the **Enable encryption for EBS volumes attached to EC2 instances** detects if an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
@@ -94,6 +94,14 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US West \(Oregon\)
 + EU \(Ireland\)
 
-When you create a landing zone, the Region that you're using to access the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, like OUs, and AWS accounts are global\.
+When you create a landing zone, the region that you're using for access to the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
 
-Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in AWS Control Tower supported regions\.
+Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in regions where AWS Control Tower is supported\.
+
+## How AWS Control Tower Works With Roles to Create Accounts<a name="roles-how"></a>
+
+AWS Control Tower creates a customer's account by calling the `CreateAccount` API of AWS Organizations\. When AWS Organizations creates this account, it creates a role within that account, which AWS Control Tower names by passing in a parameter to the API\. The name is `AWSControlTowerExecution`\.
+
+AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by AccountFactory\. Using this role, AWS Control Tower baselines the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
+
+**Note:** To baseline an account is the process of setting up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\.

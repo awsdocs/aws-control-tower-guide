@@ -448,7 +448,7 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
-### Disallow Changes to IAM Roles Set Up by AWS Control Tower<a name="iam-disallow-changes"></a>
+## Disallow Changes to IAM Roles Set Up by AWS Control Tower<a name="iam-disallow-changes"></a>
 
 This guardrail disallows changes to the IAM roles that were created by AWS Control Tower when the landing zone was set up\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 
@@ -488,7 +488,7 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
-### Disallow Changes to Lambda Functions Set Up by AWS Control Tower<a name="lambda-disallow-changes"></a>
+## Disallow Changes to Lambda Functions Set Up by AWS Control Tower<a name="lambda-disallow-changes"></a>
 
 This guardrail disallows changes to Lambda functions set up by AWS Control Tower\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 
@@ -527,7 +527,7 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
-### Disallow Changes to Amazon SNS Set Up by AWS Control Tower<a name="sns-disallow-changes"></a>
+## Disallow Changes to Amazon SNS Set Up by AWS Control Tower<a name="sns-disallow-changes"></a>
 
 This guardrail disallows changes to Amazon SNS set up by AWS Control Tower\. It protects the integrity of Amazon SNS notification settings for your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 
@@ -560,7 +560,7 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
-### Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower<a name="sns-subscriptions-disallow-changes"></a>
+## Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower<a name="sns-subscriptions-disallow-changes"></a>
 
 This guardrail disallows changes to Amazon SNS subscriptions set up by AWS Control Tower\. It protects the integrity of Amazon SNS subscriptions settings for your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 

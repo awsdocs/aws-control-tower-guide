@@ -2,6 +2,62 @@
 
 Elective guardrails enable you to lock down or track attempts at performing commonly restricted actions in an AWS enterprise environment\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the elective guardrails available in AWS Control Tower\.
 
+## Disallow Cross\-Region Replication for Amazon S3 Buckets<a name="disallow-s3-ccr"></a>
+
+Restricts the location of your Amazon S3 data to a single AWS Region by disabling any automatic, asynchronous copying of objects across buckets to other AWS Regions\. This is a preventive guardrail with elective guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRRESTRICTS3CROSSREGIONREPLICATION",
+            "Effect": "Deny",
+            "Action": [
+                "s3:PutReplicationConfiguration"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+```
+
+## Disallow Delete Actions on Amazon S3 Buckets Without MFA<a name="disallow-s3-delete-mfa"></a>
+
+Protects your Amazon S3 buckets by requiring MFA for delete actions\. MFA adds an extra authentication code on top of a user name and password\. This is a preventive guardrail with elective guidance\. By default, this guardrail is not enabled\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRRESTRICTS3DELETEWITHOUTMFA",
+            "Effect": "Deny",
+            "Action": [
+                "s3:DeleteObject",
+                "s3:DeleteBucket"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "BoolIfExists": {
+                    "aws:MultiFactorAuthPresent": [
+                        "false"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
 ## Disallow Access to IAM Users Without MFA<a name="disallow-access-mfa"></a>
 
 Protects your account by requiring MFA for all IAM users in the account\. MFA adds an extra authentication code on top of a username and password\. This guardrail detects whether MFA is enabled\. This guardrail does not change the status of the account\. This is a detective guardrail with elective guidance\. By default, this guardrail is not enabled\.

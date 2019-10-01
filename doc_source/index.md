@@ -16,6 +16,7 @@ Amazon's trademarks and trade dress may not be used in
 ## Contents
 + [What Is AWS Control Tower?](what-is-control-tower.md)
    + [How AWS Control Tower Works](how-control-tower-works.md)
+   + [AWS Control Tower and VPCs](vpc-concepts.md)
 + [Setting Up](setting-up.md)
 + [Getting Started with AWS Control Tower](getting-started-with-control-tower.md)
 + [Guardrails in AWS Control Tower](guardrails.md)
@@ -53,6 +54,7 @@ Amazon's trademarks and trade dress may not be used in
 + [Limits](limits.md)
 + [Walkthroughs](walkthroughs.md)
    + [Walkthrough: Cleaning up AWS Control Tower Managed Resources](walkthrough-delete.md)
+   + [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)
 + [Troubleshooting](troubleshooting.md)
 + [Document History](doc-history.md)
 + [AWS Glossary](glossary.md)
