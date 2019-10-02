@@ -8,7 +8,7 @@ If your master account is less than an hour old, you may encounter issues when t
 
 **Action to take**  
 
-If you encounter this issue, check your email\. You might have been sent confirmation email that is awaiting response\. Be sure to not disable any [STS endpoint regions](https://console.aws.amazon.com/iam/home#/account_settings)\ prior to launching AWS Control Tower\. Alternatively, we recommend that you wait an hour, and then try again\.
+If you encounter this issue, check your email\. You might have been sent confirmation email that is awaiting response\. Be sure to not disable any default [STS endpoint regions](https://console.aws.amazon.com/iam/home#/account_settings) prior to launching AWS Control Tower\. Alternatively, we recommend that you wait an hour, and then try again\.
 
 If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
