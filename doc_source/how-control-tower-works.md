@@ -35,7 +35,7 @@ When you set up your landing zone, the following AWS resources are created withi
 
 ### What Is the Log Archive Account?<a name="what-is-log-archive"></a>
 
-This account is used as a repository of logs of API activities and resource configurations from all accounts in the landing zone\.
+This account works as a repository for logs of API activities and resource configurations from all accounts in the landing zone\.
 
 When you set up your landing zone, the following AWS resources are created within your log archive account\.
 
@@ -56,7 +56,7 @@ When you set up your landing zone, the following AWS resources are created withi
 
 ### What Is the Audit Account?<a name="what-is-audit"></a>
 
-A restricted account for your security and compliance teams to gain read and write access to all accounts in your landing zone\.
+The audit account is a restricted account that's designed to give your security and compliance teams read and write access to all accounts in your landing zone\. 
 
 When you set up your landing zone, the following AWS resources are created within your audit account\.
 
@@ -98,10 +98,11 @@ When you create a landing zone, the region that you're using for access to the A
 
 Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in regions where AWS Control Tower is supported\.
 
-## How AWS Control Tower Works With Roles to Create Accounts<a name="roles-how"></a>
+## How AWS Control Tower Works With Roles to Create and Manage Accounts<a name="roles-how"></a>
 
 AWS Control Tower creates a customer's account by calling the `CreateAccount` API of AWS Organizations\. When AWS Organizations creates this account, it creates a role within that account, which AWS Control Tower names by passing in a parameter to the API\. The name is `AWSControlTowerExecution`\.
 
-AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by AccountFactory\. Using this role, AWS Control Tower baselines the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
+AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by Account Factory\. Using this role, AWS Control Tower baselines the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
 
-**Note:** To baseline an account is the process of setting up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\.
+**Note**  
+To baseline an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\.

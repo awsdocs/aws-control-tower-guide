@@ -2,11 +2,11 @@
 
 When you create your landing zone, the landing zone and all the OUs, accounts, and resources are compliant with all the governance rules enforced by your chosen guardrails\. As you and your users use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
 
-Regardless, changes can complicate your compliance story\. You can use drift detection to identify resources that need changes or configuration updates to resolve the drift\. Resolving drift helps to ensure your compliance with governance regulations, and is a regular operations task for your master account administrators\.
+Regardless of the reason, changes can complicate your compliance story\. You can use drift detection to identify resources that need changes or configuration updates to resolve the drift\. Resolving drift helps to ensure your compliance with governance regulations, and it is a regular operations task for your master account administrators\.
 
-Currently, drift is detected automatically by AWS Control Tower, and surfaced in the Amazon SNS notifications that are aggregated in the audit account\. While detection is automatic, the steps to resolve drift are manual and must be done through the console\. Notifications in each member account send alerts to a local Amazon SNS topic, and a Lambda function\. This allows member account administrators to subscribe to the drift notifications for a specific account\.
+Currently, drift is detected automatically by AWS Control Tower\. It is surfaced in the Amazon SNS notifications that are aggregated in the audit account\. Although detection is automatic, the steps to resolve drift are manual\. They must be done through the console\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\. This implmentation allows member account administrators to subscribe to the drift notifications for a specific account\.
 
-The different types of governance drift that can be detected in AWS Control Tower are as follows:
+The types of governance drift that can be detected in AWS Control Tower are as follows:
 
 **Topics**
 + [Moved Member Account](#drift-account-moved)

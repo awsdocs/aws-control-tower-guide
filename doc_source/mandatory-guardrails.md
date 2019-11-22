@@ -4,7 +4,7 @@ Mandatory guardrails are enabled by default when you set up your landing zone an
 
 ## Enable Encryption at Rest for Log Archive<a name="log-archive-encryption-enabled"></a>
 
-This guardrail enables encryption at rest for the Amazon S3 buckets in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
+This guardrail enables encryption at rest for the Amazon S3 buckets  in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
 
 The artifact for this guardrail is the following service control policy \(SCP\)\.
 
@@ -31,7 +31,7 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
 
 ## Enable Access Logging for Log Archive<a name="log-archive-access-enabled"></a>
 
-This guardrail enables access logging for the log archive shared account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
+This guardrail enables access logging  in the log archive shared account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
 
 The artifact for this guardrail is the following SCP\.
 
@@ -56,9 +56,102 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
+## Disallow Changes to CloudWatch Logs Log Groups<a name="log-group-deletion-policy"></a>
+
+This guardrail prevents changes to CloudWatch Logs log groups that AWS Control Tower created in the log archive account when you set up your landing zone\. It also prevents modifying retention policy in customer accounts\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRLOGGROUPPOLICY",
+            "Effect": "Deny",
+            "Action": [
+                "logs:DeleteLogGroup",
+                "logs:PutRetentionPolicy"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:log-group:*aws-controltower*"
+            ],
+            "Condition": {
+                "StringNotLike": {
+                    "aws:PrincipalArn": [
+                        "arn:aws:iam::*:role/AWSControlTowerExecution"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
+
+## Disallow Deletion of AWS Config Aggregation Authorization<a name="config-aggregation-authorization-policy"></a>
+
+This guardrail prevents deletion of AWS Config aggregation authorizations that AWS Control Tower created in the audit account when you set up your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRCONFIGAGGREGATIONAUTHORIZATIONPOLICY",
+      "Effect": "Deny",
+      "Action": [
+        "config:DeleteAggregationAuthorization"
+      ],
+      "Resource": [
+        "arn:aws:config:*:*:aggregation-authorization*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalArn": "arn:aws:iam::*:role/AWSControlTowerExecution"
+        },
+        "StringLike": {
+          "aws:ResourceTag/aws-control-tower": "managed-by-control-tower"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Disallow Deletion of Log Archive<a name="disallow-audit-bucket-deletion"></a>
+
+This guardrail prevents deletion of Amazon S3 buckets created by AWS Control Tower in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
+
+The artifact for this guardrail is the following SCP\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GRAUDITBUCKETDELETIONPROHIBITED",
+      "Effect": "Deny",
+      "Action": [
+        "s3:DeleteBucket"
+        ],
+      "Resource": [
+        "arn:aws:s3:::aws-controltower*"
+        ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"
+          }
+      }
+    }
+  ]
+}
+```
+
 ## Disallow Policy Changes to Log Archive<a name="log-archive-policy-changes"></a>
 
-This guardrail disallows any policy changes from occurring in the log archive shared account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
+This guardrail disallows any policy changes from occurring  in the log archive shared account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
 
 The artifact for this guardrail is the following SCP\.
 
@@ -139,7 +232,7 @@ Resources:
 
 ## Set a Retention Policy for Log Archive<a name="log-archive-retention-policy"></a>
 
-This guardrail sets a retention policy on the logs in the log archive shared account of 365 days\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
+This guardrail sets a retention policy of 365 days on the logs  in the log archive shared account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
 
 The artifact for this guardrail is the following SCP\.
 
@@ -153,7 +246,7 @@ The artifact for this guardrail is the following SCP\.
             "Action": [
                 "s3:PutLifecycleConfiguration"
             ],
-            "Resource": ["*"],
+            "Resource": ["*"], 
             "Condition": {
                 "ArnNotLike": {
                     "aws:PrincipalARN":"arn:aws:iam::*:role/AWSControlTowerExecution"

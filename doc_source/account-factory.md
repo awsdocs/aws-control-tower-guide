@@ -4,7 +4,9 @@ This chapter includes an overview and procedures for Account Factory, the AWS Se
 
 ## Configuring and Provisioning Accounts Through AWS Service Catalog<a name="configure-provision-new-account"></a>
 
-With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group\. However, if you're provisioning accounts programmatically, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
+With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group or the master group\. Exercise caution when working from the master account, as you would when using any account that has generous permissions across your organization\.
+
+ However, if you're provisioning accounts programmatically, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
 
 ```
 {

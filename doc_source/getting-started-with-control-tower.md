@@ -87,7 +87,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 + Creates two organizational units \(OUs\), **Core** and **Custom**\.
 + Creates two accounts: the log archive account and the security audit account within the Core OU\.
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups, permission sets, and single sign\-on access\.
-+ Applies 10 preventive guardrails, to enforce policies\.
++ Applies 17 preventive guardrails, to enforce policies\.
 + Applies two detective guardrails, to detect configuration violations\.
 + Creates the Account Factory product in AWS Service Catalog so your end\-users can provision new AWS accounts within your landing zone\.
 

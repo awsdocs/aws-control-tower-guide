@@ -28,11 +28,11 @@ The default CIDR range is `172.31.0.0/16`\.
 
 ## Options for VPC Peering in AWS Control Tower<a name="ct-peering-options"></a>
 
-Instead of peering, AWS Control Tower offers [VPC endpoint services](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.htm) through [AWS PrivateLink](https://docs.aws.amazon.com/https://aws.amazon.com/privatelink) as the recommended solution for VPC peering among AWS Control Tower VPCs\. Packets can be sent directly from a specific IP address in one VPC to another specific IP address within another VPC\. 
+Instead of peering, AWS Control Tower offers [VPC endpoint services](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-gateway.html) through [AWS PrivateLink](https://aws.amazon.com/privatelink) as the recommended solution for VPC peering among AWS Control Tower VPCs\. Packets can be sent directly from a specific IP address in one VPC to another specific IP address within another VPC\. 
 
 However, another option is available\. Within AWS Control Tower, if you change the CIDR range in the settings of Account Factory, all new accounts that are subsequently created by AWS Control Tower \(using Account Factory\) are assigned the new CIDR range\. The old accounts are not updated\. For example, you can create an account, then change the CIDR range and create a new account, and the VPCs allocated to those two accounts can be peered\. Peering is possible because their IP address ranges are not identical\. For information about how to change account settings, see the [ Account Factory documentation](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory.html#updating-account-factory-accounts) on updating an account\.
 
-**Notes on VPC and CIDR**
+## Notes on VPC and CIDR<a name="bad-peering-options"></a>
 
 Some network administrators may realize that it is possible to peer two subnets in two different VPCs \(that is, in two different accounts\) without changing the CIDR settings for accounts\. Because the nine subnets in a VPC do not overlap, peering technically is possible from *\[VPC1, subnet 1\]* to *\[VPC2, subnet 2\]*, for example\. However, this approach depends on an implementation detail of how subnet ranges are allocated within a VPC\. We don't recommend this method of peering, because it could fail at any time\.
 

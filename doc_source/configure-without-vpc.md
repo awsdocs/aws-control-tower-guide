@@ -2,7 +2,7 @@
 
 This topic walks through how to configure your AWS Control Tower accounts without a VPC\.
 
-**If your workload does not require a VPC**
+If your workload does not require a VPC, you can do the following:
 + You can delete the AWS Control Tower master account virtual private cloud \(VPC\)\. This VPC was created when you set up your landing zone\.
 + You can change your Account Factory settings so that new AWS Control Tower accounts are created without an associated VPC\.
 
@@ -34,7 +34,7 @@ If your end user workloads do not require VPCs, you can use this method to set u
 
 From the AWS Control Tower dashboard, you can view and edit your network configurations settings\. After you change the settings so that AWS Control Tower accounts are created without an associated VPC, all new accounts are created without a VPC until you change the settings again\.
 
-**To view your current **Network Configuration** on the Account Factory page**
+**To configure Account Factory for creating accounts without VPCs**
 
 1. Open a web browser, and navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\.
 
@@ -44,22 +44,22 @@ From the AWS Control Tower dashboard, you can view and edit your network configu
 
 1. Note the current settings if you intend to restore them later\.
 
-1. To edit your **Network Configuration** settings, choose the **Edit** button\.
+1. Choose the **Edit** button in the **Network Configuration** section\.
 
-1.  You then see the **Edit account factory network configuration** page, with a section titled **VPC Configuration options for new accounts**
+1.  In the **Edit account factory network configuration** page, go to the **VPC Configuration options for new accounts** section\.
 
-1. Within that section, follow these steps:
+   1. Turn off the **Internet\-accessible subnet** toggle switch\.
 
-1. Turn off the **Internet\-accessible subnet** toggle switch\.
+   1. Set the **Maximum number of private subnets** value to 0\.
 
-1. Set the **Maximum number of private subnets** value to 0\.
+   1. Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
-1. Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
-
-1. Clear every checkbox in the **Regions for VPC creation** column\.
+   1. Clear every checkbox in the **Regions for VPC creation** column\.
 
 1. Choose **Save**\.
 
-**Notes on Possible Errors**
-+ If you leave the default CIDR in place when setting up to launch new accounts without a VPC, your request fails with an error that *the CIDR is not valid*\.
+### Possible Errors<a name="error-notes"></a>
+
+Be aware of these possible errors that could occur when you delete your AWS Control Tower master account VPC or reconfigure Account Factory to create accounts without VPCs\. 
 + Your existing master account may have dependencies or resources in the AWS Control Tower master account VPC, which can cause a *deletion failure* error\. 
++ If you leave the default CIDR in place when setting up to launch new accounts without a VPC, your request fails with an error that *the CIDR is not valid*\.

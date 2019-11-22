@@ -19,6 +19,7 @@ Amazon's trademarks and trade dress may not be used in
    + [AWS Control Tower and VPCs](vpc-concepts.md)
 + [Setting Up](setting-up.md)
 + [Getting Started with AWS Control Tower](getting-started-with-control-tower.md)
++ [Best Practices for Account Administrators](best-practices.md)
 + [Guardrails in AWS Control Tower](guardrails.md)
    + [Guardrail Reference](guardrails-reference.md)
       + [Mandatory Guardrails](mandatory-guardrails.md)
