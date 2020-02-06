@@ -24,9 +24,9 @@ Note your AWS account number, because you need it for the next task\.
 
 ## Create an IAM User<a name="setting-up-iam"></a>
 
-Services in AWS, such as AWS Control Tower, require that you provide credentials when you access them, so that the service can determine whether you have permissions to access its resources\. AWS recommends that you don't use the AWS account root user credentials of your AWS account to make requests\. Instead, create an AWS Identity and Access Management \(IAM\) user and grant that user full access\. We call these users administrators\.
+Services in AWS, such as AWS Control Tower, require that your user account must provide credentials, so that the service can determine whether you have permission to utilize its resources\. AWS recommends that you don't make requests to other services from the *root user* credentials of your AWS account\. Instead, create an AWS Identity and Access Management \(IAM\) user and grant that user full access\. We call these full\-access users *administrators*\.
 
-You can use the administrator credentials, instead of AWS account root user credentials of your account, to interact with AWS and perform tasks, such as create users and grant them permissions\. For more information, see [Root Account Credentials vs\. IAM User Credentials](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html) in the *AWS General Reference* and [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\. 
+You can use the administrator credentials, instead of AWS account root user credentials of your account, to interact with AWS and perform tasks, such as create users and grant them the appropriate permissions\. For more information, see [Root Account Credentials vs\. IAM User Credentials](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html) in the *AWS General Reference* and [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\. 
 
 If you signed up for AWS but have not created an IAM user for yourself, you can create one using the IAM Management Console\.
 

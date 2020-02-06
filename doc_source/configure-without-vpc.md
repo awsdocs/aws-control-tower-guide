@@ -28,6 +28,8 @@ You can delete the AWS Control Tower master account VPC, but if you later need a
 
 1. To delete the VPC, choose **Actions** and then choose **Delete VPC**\.
 
+An AWS *\(default\)* VPC already exists in every region for the AWS Control Tower master account\. To follow security best practices, if you choose to delete the AWS Control Tower master account VPC, it's best also to delete the AWS default VPC associated with the master account from all AWS Regions\. Therefore, to secure the master account, remove the default VPC from each Region, as well as removing the VPC created by Control Tower in your AWS Control Tower home region\.
+
 ## Create an Account in AWS Control Tower Without a VPC<a name="create-without-vpc"></a>
 
 If your end user workloads do not require VPCs, you can use this method to set up user accounts that don't have VPCs created for them automatically\.

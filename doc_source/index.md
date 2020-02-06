@@ -1,7 +1,7 @@
 # AWS Control Tower User Guide
 
 -----
-*****Copyright &copy; 2019 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -48,14 +48,16 @@ Amazon's trademarks and trade dress may not be used in
    + [Logging and Monitoring in AWS Control Tower](logging-and-monitoring.md)
       + [Monitoring](monitoring-overview.md)
       + [Logging AWS Control Tower Actions with AWS CloudTrail](logging-using-cloudtrail.md)
+      + [Lifecycle Events in AWS Control Tower](lifecycle-events.md)
    + [Compliance Validation for AWS Control Tower](compliance-program-info.md)
    + [Resilience in AWS Control Tower](disaster-recovery-resiliency.md)
    + [Infrastructure Security in AWS Control Tower](infrastructure-security.md)
    + [Configuration Update Management in AWS Control Tower](configuration-updates.md)
-+ [Limits](limits.md)
++ [Quotas in AWS Control Tower](limits.md)
 + [Walkthroughs](walkthroughs.md)
    + [Walkthrough: Cleaning up AWS Control Tower Managed Resources](walkthrough-delete.md)
    + [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)
+   + [Walkthrough: Customize Your AWS Control Tower Landing Zone](customize-landing-zone.md)
 + [Troubleshooting](troubleshooting.md)
 + [Document History](doc-history.md)
 + [AWS Glossary](glossary.md)

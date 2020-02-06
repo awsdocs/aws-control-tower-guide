@@ -1,12 +1,23 @@
 # Account Factory<a name="account-factory"></a>
 
-This chapter includes an overview and procedures for Account Factory, the AWS Service Catalog console\-based product used to provision new accounts in your landing zone\.
+This chapter includes an overview and procedures for provisioning new accounts in your landing zone\. The standard way to provision accounts is through Account Factory, a console\-based product that's part of the AWS Service Catalog\. 
 
-## Configuring and Provisioning Accounts Through AWS Service Catalog<a name="configure-provision-new-account"></a>
+## Configuring and Provisioning Accounts<a name="configure-provision-new-account"></a>
 
-With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group or the master group\. Exercise caution when working from the master account, as you would when using any account that has generous permissions across your organization\.
+The AWS Control Tower account factory enables cloud administrators and AWS Single Sign\-On end users to provision accounts in your landing zone, and to specify standardized baselines and network configurations for all accounts in your organization\. With the appropriate user group, you can configure and provision new accounts through AWS Service Catalog\.  Accounts also can be configured programmatically using Lambda code\. 
 
- However, if you're provisioning accounts programmatically, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
+With Account Factory, central cloud administrators and AWS Single Sign\-On end users can provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group or the master group\. 
+
+**Note**  
+Exercise caution when working from the master account, as you would when using any account that has generous permissions across your organization\.
+
+The master account has a trust relationship with the **AWSControlTowerExecution** role, which enables account setup from the master account, including some automated account setup\. 
+
+### Automated Account Provisioning With IAM Roles<a name="automated-provisioning"></a>
+
+To configure Account Factory accounts in a more automated way, you can create Lambda functions in the AWS Control Tower master account, which [assumes the **AWSControlTowerExecution** role ](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/) in the member account\. Then, using the role, the master account performs the desired configuration steps in each member account\.
+
+ If you're provisioning accounts using Lambda functions, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
 
 ```
 {
@@ -54,15 +65,19 @@ With Account Factory, central cloud administrators and AWS Single Sign\-On end u
 }
 ```
 
-For more information on using AWS SSO with AWS Control Tower, see [Managing Users and Access Through AWS Single Sign\-On](sso.md)\. The following procedure describes how to provision accounts as an AWS SSO end user\.
+### Provisioning Account Factory Accounts With AWS Service Catalog<a name="provision-as-end-user"></a>
+
+The following procedure describes how to provision accounts as an AWS SSO end user, through AWS Service Catalog\.
 
 **To provision accounts in Account Factory as an end user**
 
-1. Sign in your user portal URL\.
+1. Sign in from your user portal URL\.
 
 1. From **Your applications**, choose **AWS Account**\.
 
-1. From the list of accounts, choose the account ID for your master account\. It also has the label, **\(Master\)**\.
+1. From the list of accounts, choose the account ID for your master account\. This ID may also have a label, for example, **\(Master\)**\. 
+
+1. Ensure that you've selected the correct AWS Region for provisioning accounts, which should be your AWS Control Tower home region\.
 
 1. From **AWSServiceCatalogEndUserAccess**, choose **Management console**\. This opens the AWS Management Console for this user in this account\.
 
@@ -70,28 +85,31 @@ For more information on using AWS SSO with AWS Control Tower, see [Managing User
 
 1. From the navigation pane, choose **Products list**\.
 
-1. From **AWS Control Tower Account Factory**, choose the drop\-down menu and select **Launch product**\. This starts the wizard to provision a new account\.
+1. Select **AWS Control Tower Account Factory**, then choose the **Launch** button\. This selection starts the wizard to provision a new account\.
 
 1. Fill in the information, and keep the following in mind:
    + The **SSOUserEmail** can be a new email address, or the email address associated with an existing AWS SSO user\. Whichever you choose, this user will have administrative access to the account you're provisioning\.
    + The **AccountEmail** must be an email address that isn't already associated with an AWS account\. If you used a new email address in **SSOUserEmail**, you can use that email address here\.
 
-1. When you're finished, choose **NEXT** until you get to the **Review** page of the wizard\. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\.
+1. When you're finished, choose **Next** until you get to the **Review** page of the wizard\. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\.
 
-1. Review your account settings, and then choose **LAUNCH**\. Do not create a resource plan, otherwise the account will fail to be provisioned\.
+1. Review your account settings, and then choose **Launch**\. Do not create a resource plan, otherwise the account will fail to be provisioned\.
 
-1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\.
+1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\. Only one account can be provisioned at a time\.
 
-Accounts that you provision can be closed or they can be changed to unmanaged accounts\. Alternatively, you can repurpose accounts for other workloads and other users by updating the email addresses and user parameters for the account\. You can change the Organizational Unit for the account by following the update procedures\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\.
+### Tips on Managing Account Factory Accounts<a name="closing-and-repurposing"></a>
 
-### Updating Account Factory Accounts<a name="updating-account-factory-accounts"></a>
+Accounts that you provision through the AWS Control Tower Account Factory can be updated, they can be closed, or they can be repurposed\. For example, you can repurpose existing accounts for other workloads and other users by updating the email addresses and user parameters for the account\.
 
-The following procedure guides you through how to update or migrate your Account Factory accounts\.
+With Account Factory you also can change the organizational unit \(OU\) for an account, or you can unmanage an account, by following the procedures in this chapter\. For more information on unmanaging an account, see [Unmanaging a Member Account](#unmanage-account)\. Certain updates require that you or an administrator must [Log in as a Root User](best-practices.md#root-login) to the account, to gain appropriate permissions\.
 
-**Important**  
-Use this procedure to migrate an account's OU, as for any other update\.
+If you specify a new SSO user email address when you update the provisioned product associated with an account that was vended by Account Factory, AWS Control Tower creates a new SSO user account\. The previously created user account is not removed\. If you prefer to remove the previous SSO user email from AWS SSO, see [Disabling a User](https://docs.aws.amazon.com/singlesignon/latest/userguide/disableuser.html)\.
 
-**To update an Account Factory account**
+### Updating and Moving Account Factory Accounts<a name="updating-account-factory-accounts"></a>
+
+The following procedure guides you through how to update your Account Factory account or move it to a new OU\.
+
+**To update an Account Factory account or change its OU**
 
 1. Sign in to the AWS Management Console and open the AWS Single Sign\-On console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
 **Note**  
@@ -112,21 +130,27 @@ You must be signed in as a user with the permissions to provision new products i
       + **SSOUSerLastName**
       + **AccountName**
 
-   1. From **ACTIONS**, choose **Update**\.
+   1. From **Actions**, choose **Update**\.
 
-   1. Choose the button next to the **Version** of the product you want to update, and choose **NEXT**\.
+   1. Choose the button next to the **Version** of the product you want to update, and choose **Next**\.
 
-   1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationlUnit**, choose the OU that the account was already in, or to migrate to a new OU, choose the new OU for the account\. A central cloud administrator can find this information in the AWS Control Tower console, under **Accounts**\.
+   1. Provide the parameter values that were mentioned previously\.
+      + If you want to keep the existing OU, for **ManagedOrganizationalUnit**, choose the OU that the account was already in\.
+      + If you want to migrate the account to a new OU, for **ManagedOrganizationalUnit**, choose the new OU for the account\.
 
-   1. Choose **NEXT**\.
+       A central cloud administrator can find this information in the AWS Control Tower console, under **Accounts**\.
 
-   1. Review your changes, and then choose **UPDATE**\. This process can take a few minutes per account\.
+   1. Choose **Next**\.
+
+   1. Review your changes, and then choose **Update**\. This process can take a few minutes per account\.
 
 ### Configuring Account Factory with Amazon Virtual Private Cloud Settings<a name="configuring-account-factory-with-VPC-settings"></a>
 
 Account Factory enables you to create pre\-approved baselines and configuration options for accounts in your organization\. You can configure and provision new accounts through AWS Service Catalog\.
 
-On the Account Factory page, you can view the Amazon VPC configuration options available to your end users when they provision new accounts\. You can see a list of organizational units \(OUs\) and their **allow list** status\. By default, all OUs are on the allow list, which means that accounts can be provisioned under them\. You can disable certain OUs for account provisioning through AWS Service Catalog\.
+On the Account Factory page, you can see a list of organizational units \(OUs\) and their **allow list** status\. By default, all OUs are on the allow list, which means that accounts can be provisioned under them\. You can disable certain OUs for account provisioning through AWS Service Catalog\.
+
+You can view the Amazon VPC configuration options available to your end users when they provision new accounts\. 
 
 **To configure Amazon VPC settings in Account Factory**
 
@@ -142,6 +166,8 @@ On the Account Factory page, you can view the Amazon VPC configuration options a
 + From the list, choose the number of Availability Zones to configure subnets for in each VPC\. The default and recommended number is 3\.
 + Choose **Save**\.
 
+ You can set up these configuration options to create new accounts that don't include a VPC\. See the [walkthrough](https://docs.aws.amazon.com/controltower/latest/userguide/configure-without-vpc.html)\.
+
 ### Unmanaging a Member Account<a name="unmanage-account"></a>
 
 If you created an account in Account Factory that you no longer want to be managed by AWS Control Tower in a landing zone, you can unmanage the account\. This can be done in the AWS Service Catalog console by an AWS SSO user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\. For more information on AWS SSO users or groups, see [Managing Users and Access Through AWS Single Sign\-On](sso.md)\. The following procedure describes how to unmanage a member account\.
@@ -154,9 +180,9 @@ If you created an account in Account Factory that you no longer want to be manag
 
 1. From the list of provisioned accounts, choose the name of the account that you want AWS Control Tower to no longer manage\.
 
-1. On the **Provisioned product details** page, from the **ACTIONS** menu, choose **Terminate**\.
+1. On the **Provisioned product details** page, from the **Actions** menu, choose **Terminate**\.
 
-1. From the dialog box that appears, choose **TERMINATE**\.
+1. From the dialog box that appears, choose **Terminate**\.
 **Important**  
 The word *terminate* is specific to AWS Service Catalog\. When you terminate an Account Factory account in AWS Service Catalog, the account is not closed\. This action removes the account from its OU and your landing zone\.
 
@@ -167,15 +193,13 @@ The word *terminate* is specific to AWS Service Catalog\. When you terminate an 
 1. If you no longer need the terminated account, close it\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*
 
 **Note**  
-An unmanaged \(terminated\) account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating Account Factory Accounts](#updating-account-factory-accounts)\.
+An unmanaged \(terminated\) account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating and Moving Account Factory Accounts](#updating-account-factory-accounts)\.
 
 ### Closing an Account Created in Account Factory<a name="delete-account"></a>
 
 Accounts created in Account Factory are AWS accounts\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*\.
 
-## Considerations for Account Factory<a name="account-factory-considerations"></a>
-
-Accounts created through the Account Factory in AWS Control Tower inherit the guardrails of the parent OU\. Accounts created outside of AWS Control Tower won't inherit these guardrails\. These accounts also do not display in AWS Control Tower\.
+## Resource Considerations for Account Factory<a name="account-factory-considerations"></a>
 
 When an account is provisioned with Account Factory, the following AWS resources are created within the account\.
 
@@ -192,4 +216,11 @@ When an account is provisioned with Account Factory, the following AWS resources
 | AWS Lambda | Applications | StackSet\-AWSControlTowerBP\-BASELINE\-CLOUDWATCH\-\* | 
 | AWS Lambda | Functions | aws\-controltower\-NotificationForwarder | 
 
-When you enable guardrails with strongly recommended guidance, AWS Control Tower managed AWS resources are created in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.
+## Guardrails and Account Resources<a name="guardrails-and-resources"></a>
+
+Accounts created through the Account Factory in AWS Control Tower inherit the guardrails of the parent OU, and the associated resources are created\.
+
+**Note**  
+Accounts created outside of AWS Control Tower won't inherit guardrails from the parent OU in AWS Control Tower\. These accounts also do not display in AWS Control Tower\.
+
+When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages certain additional AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.

@@ -5,3 +5,4 @@ This chapter contains walkthrough procedures that can help you in your use of AW
 **Topics**
 + [Walkthrough: Cleaning up AWS Control Tower Managed Resources](walkthrough-delete.md)
 + [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)
++ [Walkthrough: Customize Your AWS Control Tower Landing Zone](customize-landing-zone.md)

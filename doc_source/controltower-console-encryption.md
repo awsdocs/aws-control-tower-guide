@@ -11,7 +11,7 @@ For data protection purposes, we recommend that you protect AWS account credenti
 
 We strongly recommend that you never put sensitive identifying information, such as your customers' account numbers, into free\-form fields such as a **Name** field\. This includes when you work with AWS Control Tower or other AWS services using the console, API, AWS CLI, or AWS SDKs\. Any data that you enter into AWS Control Tower or other services might get picked up for inclusion in diagnostic logs\. When you provide a URL to an external server, don't include credentials information in the URL to validate your request to that server\.
 
-For more information about data protection, see the [AWS Shared Responsibility Model and GDPR](https://aws.amazon.com//blogs/security/the-aws-shared-responsibility-model-and-gdpr) blog post on the *AWS Security Blog*\. AWS Control Tower provides the following options that you can use to help secure the content that exists in your landing zone:
+For more information about data protection, see the [AWS Shared Responsibility Model and GDPR](https://aws.amazon.com/blogs/security/the-aws-shared-responsibility-model-and-gdpr) blog post on the *AWS Security Blog*\. AWS Control Tower provides the following options that you can use to help secure the content that exists in your landing zone:
 
 **Topics**
 + [Encryption at Rest](#data-protection-encryption-rest)
@@ -20,7 +20,7 @@ For more information about data protection, see the [AWS Shared Responsibility M
 
 ## Encryption at Rest<a name="data-protection-encryption-rest"></a>
 
-AWS Control Tower uses Amazon S3 buckets and Amazon DynamoDB databases that are encrypted at rest by using AWS managed AWS KMS keys in support of your landing zone\. This encryption is configured by default when you set up your landing zone\. You can also establish encryption at rest for the services you use in your landing zone for the services that support it\. For more information, see the security chapter of that service's online documentation\.
+AWS Control Tower uses Amazon S3 buckets and Amazon DynamoDB databases that are encrypted at rest by using Amazon S3\-Managed Keys \(SSE\-S3\) in support of your landing zone\. This encryption is configured by default when you set up your landing zone\. You can also establish encryption at rest for the services you use in your landing zone for the services that support it\. For more information, see the security chapter of that service's online documentation\.
 
 ## Encryption in Transit<a name="data-protection-encryption-in-transit"></a>
 

@@ -1,12 +1,39 @@
 # Detecting and Resolving Drift in AWS Control Tower<a name="drift"></a>
 
-When you create your landing zone, the landing zone and all the OUs, accounts, and resources are compliant with all the governance rules enforced by your chosen guardrails\. As you and your users use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
+Identifying and resolving drift is a regular operations task for AWS Control Tower master account administrators\.
 
-Regardless of the reason, changes can complicate your compliance story\. You can use drift detection to identify resources that need changes or configuration updates to resolve the drift\. Resolving drift helps to ensure your compliance with governance regulations, and it is a regular operations task for your master account administrators\.
+When you create your landing zone, the landing zone and all the OUs, accounts, and resources are compliant with the governance rules enforced by your chosen guardrails\. As you and your organization members use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
 
-Currently, drift is detected automatically by AWS Control Tower\. It is surfaced in the Amazon SNS notifications that are aggregated in the audit account\. Although detection is automatic, the steps to resolve drift are manual\. They must be done through the console\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\. This implmentation allows member account administrators to subscribe to the drift notifications for a specific account\.
+Changes can complicate your compliance story\. Drift detection assists you in identifying resources that need changes or configuration updates to resolve the drift\. Resolving drift helps to ensure your compliance with governance regulations\.
 
-The types of governance drift that can be detected in AWS Control Tower are as follows:
+**Detecting Drift**
+
+Drift is detected automatically by AWS Control Tower\. It is surfaced in the Amazon SNS notifications that are aggregated in the audit account\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\.
+
+Member account administrators can \(and as a best practice, they should\) subscribe to the drift notifications for specific accounts\. The AWS Control Tower console indicates to master account administrators when drift has occurred\.
+
+**Resolving Drift**
+
+Although detection is automatic, the steps to resolve drift must be done through the console\. Many types of drift can be resolved through the **Settings** page\. If the **Repair** button in the **Versions** section of the page is selectable, you can choose **Repair** to repair some types of drift\.  If no drift has occurred, the **Repair** button appears greyed\-out\.
+
+Most types of drift can be resolved by administrators\. A few types of drift cannot be repaired, including deletion of an organizational unit that the AWS Control Tower landing zone requires\. Here are some examples of major drift:
+
+**Non\-repairable Drift**
++ The organizational unit originally named **Core** during landing zone setup by AWS Control Tower must not be deleted, because unrecoverable drift will result\. If this situation arises, you'll see a page instructing you to contact AWS Support\.
+
+**Repairable Drift**
++ AWS Control Tower checks certain IAM roles when you log into the console for *IAM role drift*\. If these roles are missing or inaccessible, you'll see an error page instructing you to repair your landing zone\. These roles are *AWSControlTowerAdmin*, *AWSControlTowerCloudTrailRole*, and *AWSControlTowerStackSetRole*\. 
++  If you delete the organizational unit originally named **Custom** during landing zone setup by AWS Control Tower, your landing zone will be in a state of drift, but you still can use Control Tower\. At least one non\-Core OU is required for AWS Control Tower to operate, but it doesn’t have to be the **Custom** OU\.
+
+**Drift and Account Provisioning**
+
+If your landing zone is in a state of drift, **Quick account provisioning** will not work\. In that case, you must provision accounts through AWS Service Catalog\.
+
+In particular, if you've made changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, **Quick account provisioning** will not work\. 
+
+**Types of Governance Drift**
+
+Governance drift occurs when organizations and member accounts are changed and updated\. The types of governance drift that can be detected in AWS Control Tower are as follows:
 
 **Topics**
 + [Moved Member Account](#drift-account-moved)
@@ -38,7 +65,7 @@ This kind of drift can occur when a managed account, the audit, or the log archi
 ### Resolutions<a name="drift-account-moved-resolution"></a>
 
 When this kind of drift occurs, you can resolve it as follows:
-+ **Account Factory Provisioned Account** – You can resolve the drift by updating the account in Account Factory\. For more information, see [Updating Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
++ **Account Factory Provisioned Account** – You can resolve the drift by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 + **Shared account** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## Added Member Account<a name="drift-account-added"></a>
@@ -58,7 +85,7 @@ This kind of drift can occur when a managed account is added to a managed OU\. T
 
 ### Resolution<a name="drift-account-moved-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating the account in Account Factory\. For more information, see [Updating Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+When this kind of drift occurs, you can resolve it by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 
@@ -77,7 +104,7 @@ This kind of drift can occur when a managed account is removed from a managed OU
 
 ### Resolution<a name="drift-account-removed-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating the account in Account Factory, and adding the account to a managed OU from the Account Factory update wizard\. For more information, see [Updating Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+When this kind of drift occurs, you can resolve it by updating the account in Account Factory, and adding the account to a managed OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 
 ## Unplanned Update to Managed SCP<a name="drift-scp-update"></a>
 

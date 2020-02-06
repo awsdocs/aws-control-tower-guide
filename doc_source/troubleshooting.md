@@ -9,24 +9,52 @@ If your master account is less than an hour old, you may encounter issues when t
 **Action to take**  
 If you encounter this issue, check your email\. You might have been sent confirmation email that is awaiting response\. Alternatively, we recommend that you wait an hour, and then try again\. If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\. 
 
-## Don't Change Email Addresses Outside of AWS Control Tower<a name="email-change"></a>
+## Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
-The email addresses for your shared service accounts \(the master account, the auditing account, and the log archive account\) should never be changed\. If you've changed one of these email addresses, contact AWS Support\.
+ If you encounter this issue, check for these common causes\.
 
-The email addresses for your member accounts created in Account Factory can be changed, but only by updating the account in Account Factory\. For more information, see [Updating Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+**When you filled out the account provisioning form, you may have:**
++ specified **tagOptions**,
++ enabled SNS notifications,
++ enabled provisioned product notifications\.
+
+Try again to provision your account, without specifying any of those options\. For more information, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
+
+**Another common cause for failure:**
++ If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.
+
+If your account provisioning takes longer than one hour, it's best to terminate the provisioning process and try again\.
+
+## Error When Changing Email Addresses<a name="email-change"></a>
+
+The email addresses for your shared service accounts \(the master account, the auditing account, and the log archive account\) may be changed through the AWS billing page, and then you must update your landing zone for the changes to take effect\. For more information, see [How do I change the email address associated with my AWS account?](http://aws.amazon.com/premiumsupport/knowledge-center/change-email-address/)
+
+The email addresses for your member accounts created in Account Factory cannot be changed\. If you have changed a member account email, you’ll receive an error message from the AWS Service Catalog, and your provisioned product will be in an unknown or **TAINTED** state\.
+
+**If you’ve changed the email address for a member account that was created in Account Factory, follow these steps to repair the situation:**
++ Restore the account email of the managed account in question to what it was originally\. The AWS Control Tower console should still show the old email for the account\.
++ Update the provisioned product, keeping the same email address that was used when the account was originally created\.
+
+If you still receive an error message, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
+
+For more information about updating accounts, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 
 ## Don't Migrate Your Account's Organizational Unit Outside of AWS Control Tower<a name="ou-change"></a>
 
 To migrate an account's organizational unit in AWS Control Tower, use the instructions for updating an account in Account Factory\. In step 4\(e\), choose the name of the new Organizational Unit for the account, instead of the name of the current Organizational Unit\.
 
-For more information, see [Updating Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+
+## Received an Insufficient Permissions Error<a name="insufficient-permissions"></a>
+
+ It's possible that your account may not have the necessary permissions to perform certain work in certain AWS Organizations\. If you encounter the following type of error, check all the permissions areas, such as IAM or SSO permissions, to make sure your permission is not being denied from those places:
+
+ "You have insufficient permissions to perform AWS Organizations API actions\." 
+
+If you believe your work requires the action you're attempting, and you can't locate any relevant restriction, contact your system administrator or [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
 ## AWS Support<a name="getting-support"></a>
 
- By default, your AWS Control Tower master account is created with the [Enterprise support](https://aws.amazon.com/premiumsupport/plans/enterprise/) plan\. Provisioned user accounts are launched with the Basic support plan\. They do not inherit the support plan from your AWS Control Tower master account\. 
-
-If you want to move your existing member accounts into a different support plan, the quickest way is to send the account list to your master account's [Support Concierge](https://aws.amazon.com/premiumsupport/plans/enterprise/) and request that they make the support change for your member accounts\. 
-
-If you don't have AWS Enterprise Support, you can sign in to each account with root account credentials, [compare plans](https://console.aws.amazon.com/support/plans/home#/), and set the support level that you prefer\. 
+If you want to move your existing member accounts into a different support plan, you can sign in to each account with root account credentials, [compare plans](https://console.aws.amazon.com/support/plans/home#/), and set the support level that you prefer\. 
 
 We recommend that you update the MFA and account security contacts when you make changes to your support plan\. 
