@@ -26,7 +26,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
-In AWS Control Tower, three shared accounts in your landing zone are not provisioned in Account Factory: the master account, the log archive account, and the audit account\.
+In AWS Control Tower, three shared accounts in your landing zone are provisioned in Account Factory: the master account, the log archive account, and the audit account\.
 
 ### What Is the Master Account?<a name="what-is-master"></a>
 
