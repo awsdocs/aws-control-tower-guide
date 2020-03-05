@@ -115,6 +115,7 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + Europe \(Ireland\)
 + Asia Pacific \(Sydney\)
 
+
 When you create a landing zone, the region that you're using for access to the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
 
 Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in regions where AWS Control Tower is supported\. For more information about the behavior of guardrails when you activate AWS Control Tower in a new region, see [Deploying AWS Control Tower to a New AWS Region](configuration-updates.md#deploying-to-new-region)\.
@@ -126,6 +127,7 @@ AWS Control Tower creates a customer's account by calling the `CreateAccount` AP
 AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by Account Factory\. Using this role, AWS Control Tower *baselines* the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
 
 **Note**  
+
 To baseline an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\. AWS Control Tower baselines are contained in the roles that you apply to every managed account\. 
 
 **The AWSControlTowerExecution role, explained**

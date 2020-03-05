@@ -5,6 +5,7 @@ It is the responsibility of the members of your central cloud administrators' te
 **Note**  
  The AWS Control Tower console indicates when your landing zone needs to be updated\. If you don't see an option to update, your landing zone is already up to date\.
 
+
 ## Updating Your Landing Zone<a name="update-controltower"></a>
 
 The easiest way to update your AWS Control Tower landing zone is through the **Settings** page\. Navigate to the **Settings** page by choosing **Settings** in the left navigation\.
@@ -81,3 +82,4 @@ You must wait for each account update to succeed before beginning the next accou
 The [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video) is designed for automated account provisioning, but the steps also apply to account updating, if you remember to call the "UpdateProvisionedProduct" API instead of the "ProvisionProduct" API\.
 
 A further step of automation is to check for the AWS Control Tower lifecycle "UpdateLandingZone" **Succeed** event and use it as a trigger to begin updating individual accounts as described in the video\. A lifecycle event marks the completion of a sequence of activites, so the occurrence of this event means that a landing zone update is complete\. The landing zone update must be complete before account updates begin\. For more information about working with lifecycle events, see [ Lifecycle Events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html)\.
+

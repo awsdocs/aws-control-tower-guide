@@ -83,6 +83,7 @@ To update multiple individual accounts for release 2\.3, you can use the APIs fr
 
  If you have further difficulties with enabling detective guardrails on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
+
 ## AWS Support<a name="getting-support"></a>
 
 If you want to move your existing member accounts into a different support plan, you can sign in to each account with root account credentials, [compare plans](https://console.aws.amazon.com/support/plans/home#/), and set the support level that you prefer\. 

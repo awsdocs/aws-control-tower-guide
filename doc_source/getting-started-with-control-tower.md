@@ -5,7 +5,9 @@ This is the AWS Control Tower getting started procedure for central cloud admini
 ## Automated Pre\-Launch Checks for Your Master Account<a name="getting-started-prereqs"></a>
 
 Before AWS Control Tower sets up the landing zone, it automatically runs a series of pre\-launch checks in your account\. There's no action required on your part for these checks, which ensure that your master account is ready for the changes that establish your landing zone\. Here are the checks that AWS Control Tower runs before setting up a landing zone:
+
 + The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limitations and Quotas in AWS Control Tower](limits.md)\.
+
 + The AWS account cannot be a member of an existing AWS Organizations OU \(regardless of whether it’s set up with all features enabled or for consolidated billing\)\.
 + The AWS account must be subscribed to the following AWS services:
   + Amazon Simple Storage Service \(Amazon S3\)
@@ -60,6 +62,8 @@ Now that your landing zone is set up, it's ready for use\.
 
 To learn more about how you can use AWS Control Tower, see the following topics:
 + For recommended administrative practices, see [Best Practices](https://docs.aws.amazon.com/controltower/latest/userguide/best-practices.html)\.
+
 + Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for Configuring and Provisioning Accounts](account-factory.md#configure-provision-new-account)\.
+
 + From time to time, you may need to update your landing zone to get the latest backend updates, the latest guardrails, and to keep your landing zone up\-to\-date\. For more information, see [Configuration Update Management in AWS Control Tower](configuration-updates.md)\.
 + If you encounter issues while using AWS Control Tower, see [Troubleshooting](troubleshooting.md)\.

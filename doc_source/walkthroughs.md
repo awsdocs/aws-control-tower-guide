@@ -7,3 +7,4 @@ This chapter contains walkthrough procedures that can help you in your use of AW
 + [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)
 + [Walkthrough: Customize Your AWS Control Tower Landing Zone](customize-landing-zone.md)
 + [Walkthrough: Automated Account Provisioning in AWS Control Tower](automated-provisioning-walkthrough.md)
+
