@@ -1,24 +1,38 @@
 # Managing Users and Access Through AWS Single Sign\-On<a name="sso"></a>
 
-AWS Single Sign\-On is a cloud\-based service that simplifies managing SSO access to AWS accounts and business applications\. You can control SSO access and user permissions across all your AWS accounts in AWS Organizations\. You can also administer access to popular business applications and custom applications that support Security Assertion Markup Language \(SAML\) 2\.0\. In addition, AWS SSO offers a user portal where your users can find all their assigned AWS accounts, business applications, and custom applications in one place\. For more information, see *[AWS Single Sign\-On User Guide](https://docs.aws.amazon.com/singlesignon/latest/userguide/)*\.
+AWS Single Sign\-On is a cloud\-based service that simplifies how you manage SSO access to AWS accounts and business applications\. You can control SSO access and user permissions across all your AWS accounts in AWS Organizations\. You also can administer access to popular business applications and custom applications that support Security Assertion Markup Language \(SAML\) 2\.0\. Also, AWS SSO offers a user portal where your users can find all their assigned AWS accounts, business applications, and custom applications in one place\. For more information, see *[AWS Single Sign\-On User Guide](https://docs.aws.amazon.com/singlesignon/latest/userguide/)*\.
 
-In AWS Control Tower, AWS Single Sign\-On allows both central cloud administrators and end users to manage SSO access to multiple AWS accounts and business applications\. AWS Control Tower uses this service for the creation and management of user access to the accounts created in AWS Service Catalog\.
+**Working With AWS SSO and AWS Control Tower**
 
-**Note**  
-When you first set up AWS Control Tower, only the root user and any IAM users with the correct permissions can add AWS SSO users\. However, once end users have been added in the **AWSAccountFactory** group, they can create new SSO users from the Account Factory wizard\. For more information, see [Account Factory](account-factory.md)\.
+In AWS Control Tower, AWS Single Sign\-On allows central cloud administrators and end users to manage access to multiple AWS accounts and business applications\. AWS Control Tower uses this service to set up and manage access to the accounts created through AWS Service Catalog\.
 
-Your landing zone is set up with a directory to manage user identities and single sign\-on to provide your users with federated access across accounts\. When you set up your landing zone, you have a default directory\. This directory is preconfigured with user groups and permission sets\.
+When you initially set up AWS Control Tower, only the root user and any IAM users with the correct permissions can add AWS SSO users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new SSO users from the Account Factory wizard\. For more information, see [Account Factory](account-factory.md)\.
 
-The groups are designed for you to easily manage specialized roles within your shared accounts\. You can create new groups for your end users in your member accounts\. The permission sets available cover a broad range of distinct user permission use cases like read\-only access, AWS Control Tower admin access, and AWS Service Catalog access\. These permission sets enable your end users to quickly provision their own AWS accounts in your landing zone\.
+Your landing zone is set up with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
+
+**User Groups, Roles, and Permission Sets**
+
+User groups manage specialized *roles* that are defined within your shared accounts\. Roles establish sets of permissions that belong together\. All members of a group inherit the permission sets, or roles, associated with the group\. You can create new groups for the end users of your member accounts, so that you can custom\-assign only the roles that are needed for the specific tasks a group performs\. 
+
+The permission sets available cover a broad range of distinct user permission requirements, such as read\-only access, AWS Control Tower administrative access, and AWS Service Catalog access\. These permission sets enable your end users to provision their own AWS accounts in your landing zone quickly, and in compliance with your enterprise's guidelines\.
+
+For tips on planning your allocations of users, groups, and permissions, refer to [Recommendations for Setting Up Groups, Roles, and Policies](best-practices.md#roles-recommendations)
 
 For more information on how to use this service in the context of AWS Control Tower, see the following topics in the *AWS Single Sign\-On User Guide*\.
 + To add users, see [Add Users](https://docs.aws.amazon.com/singlesignon/latest/userguide/addusers.html)\. 
 + To add users to groups, see [Add Users to Groups](https://docs.aws.amazon.com/singlesignon/latest/userguide/adduserstogroups.html)\. 
 + To edit user properties, see [Edit User Properties](https://docs.aws.amazon.com/singlesignon/latest/userguide/edituser.html)\.
-+ To add group, see [Add Groups](https://docs.aws.amazon.com/singlesignon/latest/userguide/addgroups.html)\. 
++ To add a group, see [Add Groups](https://docs.aws.amazon.com/singlesignon/latest/userguide/addgroups.html)\. 
 
 **Warning**  
-When using AWS Control Tower, your AWS SSO directory is in US East \(N\. Virginia\)\. If you set up your landing zone in another Region and then navigate to the AWS SSO console, you must change the Region to the US East \(N\. Virginia\)\. Do not delete your AWS SSO configuration in US East \(N\. Virginia\)\.
+AWS Control Tower sets up your AWS SSO directory is in US East \(N\. Virginia\)\. If you set up your landing zone in another Region and then navigate to the AWS SSO console, you must change the Region to the US East \(N\. Virginia\)\. Do not delete your AWS SSO configuration in US East \(N\. Virginia\)\.
+
+## Things to Know About SSO Accounts and AWS Control Tower<a name="sso-good-to-know"></a>
+
+Here are some good things to know when working with AWS SSO user accounts in AWS Control Tower\.
++ If your AWS SSO user account is disabled, you'll get an error message when trying to provision new accounts in Account Factory\. You can re\-enable your SSO user in the AWS SSO console\.
++ If you specify a new SSO user email address when you update the provisioned product associated with an account that was vended by Account Factory, AWS Control Tower creates a new SSO user account\. The previously created user account is not removed\. If you prefer to remove the previous SSO user email address from AWS SSO, see [Disabling a User](https://docs.aws.amazon.com/singlesignon/latest/userguide/disableuser.html)\.
++ AWS SSO has been [integrated with Microsoft Active Directory](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/), and you can connect your existing on\-premises Active Directory to AWS Control Tower\. Learn more in this [blog post](http://aws.amazon.com/blogs/mt/extend-a-self-managed-active-directory-to-aws-control-tower/)\.
 
 ## AWS SSO Groups for AWS Control Tower<a name="sso-groups"></a>
 
@@ -43,10 +57,10 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSAdministratorAccess | Users of this group in this account are the only ones that can access the AWS Control Tower console\. | 
-| Log archive account | AWSAdministratorAccess | Users will have administrator access in this account\. | 
-| Audit account | AWSAdministratorAccess | Users will have administrator access in this account\. | 
-| Member accounts | AWSOrganizationsFullAccess | Users will have full access to Organizations in this account\. | 
+| Master account | AWSAdministratorAccess | Users of this group in this account are the only ones that have access to the AWS Control Tower console\. | 
+| Log archive account | AWSAdministratorAccess | Users have administrator access in this account\. | 
+| Audit account | AWSAdministratorAccess | Users have administrator access in this account\. | 
+| Member accounts | AWSOrganizationsFullAccess | Users have full access to Organizations in this account\. | 
 
 
 **AWSSecurityAuditPowerUsers**  
@@ -73,7 +87,7 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Log archive account | AWSAdministratorAccess | Users will have administrator access in this account\. | 
+| Log archive account | AWSAdministratorAccess | Users have administrator access in this account\. | 
 
 
 **AWSLogArchiveViewers**  
@@ -87,4 +101,4 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Audit account | AWSAdministratorAccess | Users will have administrator access in this account\. | 
+| Audit account | AWSAdministratorAccess | Users have administrator access in this account\. | 
