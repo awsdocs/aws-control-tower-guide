@@ -10,3 +10,5 @@ You also can use this approach for automating account updates, by calling the [h
 ## Video Walkthrough<a name="automated-provisioning-video"></a>
 
 This video \(7:08\) describes how to automate account deployments in AWS Control Tower\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+
+LInk to video: http://youtu.be/t0gxOsByOlA
