@@ -50,6 +50,7 @@ To configure Account Factory accounts in a more automated way, you can create La
                 "sso:ProvisionApplicationProfileForAWSAccountInstance",
                 "sso:ProvisionSAMLProvider",
                 "sso:ListProfileAssociations",
+                "sso:DescribeRegisteredRegions",
                 "sso-directory:ListMembersInGroup",
                 "sso-directory:AddMemberToGroup",
                 "sso-directory:SearchGroups",
