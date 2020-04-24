@@ -16,56 +16,42 @@ Member account administrators can \(and as a best practice, they should\) subscr
 
 Although detection is automatic, the steps to resolve drift must be done through the console\. Many types of drift can be resolved through the **Settings** page\. If the **Repair** button in the **Versions** section of the page is selectable, you can choose **Repair** to repair some types of drift\.  If no drift has occurred, the **Repair** button appears greyed\-out\.
 
-## <a name="types-of-drift"></a>
-
 Most types of drift can be resolved by administrators\. A few types of drift cannot be repaired, including deletion of an organizational unit that the AWS Control Tower landing zone requires\. Here are some examples of major drift:
 
 **Non\-repairable Drift**
 + The organizational unit originally named **Core** during landing zone setup by AWS Control Tower must not be deleted, because unrecoverable drift will result\. If this situation arises, you'll see a page instructing you to contact AWS Support\.
 
 **Repairable Drift**
-+ AWS Control Tower checks certain IAM roles when you log into the console for *IAM role drift*\. If these roles are missing or inaccessible, you'll see an error page instructing you to repair your landing zone\. These roles are *AWSControlTowerAdmin*, *AWSControlTowerCloudTrailRole*, and *AWSControlTowerStackSetRole*\.
-+  If you delete the organizational unit originally named **Custom** during landing zone setup by AWS Control Tower, your landing zone will be in a state of drift, but you still can use AWS Control Tower\. At least one non\-Core OU is required for AWS Control Tower to operate, but it doesn’t have to be the **Custom** OU\.
++ AWS Control Tower checks certain IAM roles when you log into the console for *IAM role drift*\. If these roles are missing or inaccessible, you'll see an error page instructing you to repair your landing zone\. These roles are *AWSControlTowerAdmin*, *AWSControlTowerCloudTrailRole*, and *AWSControlTowerStackSetRole*\. 
++  If you delete the organizational unit originally named **Custom** during landing zone setup by AWS Control Tower, your landing zone will be in a state of drift, but you still can use Control Tower\. At least one non\-Core OU is required for AWS Control Tower to operate, but it doesn’t have to be the **Custom** OU\.
 
-## Repairable Changes to Resources<a name="repairable-changes-to-resources"></a>
+**Drift and Account Provisioning**
 
-Here's a list of changes to AWS Control Tower resources that are permitted, although they create repairable drift\. Results of these permitted operations are viewable in the AWS Control Tower console, although a refresh may be required\.
+<<<<<<< HEAD
+If your landing zone is in a state of drift, **Quick account provisioning** will not work\. In that case, you must provision accounts through AWS Service Catalog\. For instructions, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
+=======
+If your landing zone is in a state of drift, **Quick account provisioning** will not work\. In that case, you must provision accounts through AWS Service Catalog\.
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
-For more information about how to resolve the resulting drift, see [Managing Resources Outside of AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/external-resources.html)\.
+In particular, if you've made changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, **Quick account provisioning** will not work\. 
 
-**Changes Permitted Outside the AWS Control Tower Console**
-+ Change the name of a non\-Core OU\.
-+ Change the name of the Core OU\.
-+ Change the name of non\-Core \(member\) accounts\.
-+ Change the name of Core \(shared\) accounts\.
-+ Delete a non\-Core OU\.
-+ Delete a non\-Core OU \(member\) account\.
-+ Change the email address of a Core \(shared\) account\.
-+ Change the email address of a non\-core \(member\) account\.
-
-**Note**  
-Moving accounts between OUs is considered drift, and it must be repaired\.
-
-## Drift and New Account Provisioning<a name="drift-and-accounts"></a>
-
-If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
-
-In particular, if you've made certain changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.
-
-## Types of Governance Drift<a name="governance-drift"></a>
+**Types of Governance Drift**
 
 Governance drift occurs when organizations and member accounts are changed and updated\. The types of governance drift that can be detected in AWS Control Tower are as follows:
+
+**Topics**
 + [Moved Member Account](#drift-account-moved)
 + [Added Member Account](#drift-account-added)
 + [Removed Member Account](#drift-account-removed)
 + [Unplanned Update to Managed SCP](#drift-scp-update)
-+ [SCP Attached to Member Account](#drift-scp-attached-account)
++ [SCP Attached to Managed OU](#drift-scp-attached-ou)
 + [SCP Detached from Managed OU](#drift-scp-detached-ou)
++ [SCP Attached to Member Account](#drift-scp-attached-account)
 + [Deleted Managed OU](#drift-ou-deleted)
 
 ## Moved Member Account<a name="drift-account-moved"></a>
 
-This kind of drift can occur when a member account, the audit account, or the log archive account is moved from one AWS Control Tower OU to another AWS Control Tower OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This kind of drift can occur when a managed account, the audit, or the log archive account is moved from one OU to another OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
@@ -88,7 +74,7 @@ When this kind of drift occurs, you can resolve it as follows:
 
 ## Added Member Account<a name="drift-account-added"></a>
 
-This kind of drift can occur when an AWS Control Tower member account is added to an AWS Control Tower OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This kind of drift can occur when a managed account is added to a managed OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 "{
@@ -101,13 +87,13 @@ This kind of drift can occur when an AWS Control Tower member account is added t
 }"
 ```
 
-### Resolution<a name="drift-account-added-resolution"></a>
+### Resolution<a name="drift-account-moved-resolution"></a>
 
 When this kind of drift occurs, you can resolve it by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 
-This kind of drift can occur when an AWS Control Tower member account is removed from an AWS Control Tower OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This kind of drift can occur when a managed account is removed from a managed OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 "{
@@ -122,12 +108,7 @@ This kind of drift can occur when an AWS Control Tower member account is removed
 
 ### Resolution<a name="drift-account-removed-resolution"></a>
 
-When this kind of drift occurs, AWS Control Tower receives a notification and makes an automatic update\. If the deleted member account continues to be displayed, you can resolve the drift by repairing your landing zone\. You also could resolve the drift by updating the account in Account Factory, and adding the account to another registered OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
-
-For more information about resolving drift for accounts and OUs, see [Managing Resources Outside of AWS Control Tower](external-resources.md)\.
-
-**Note**  
-In AWS Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.
+When this kind of drift occurs, you can resolve it by updating the account in Account Factory, and adding the account to a managed OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 
 ## Unplanned Update to Managed SCP<a name="drift-scp-update"></a>
 
@@ -211,7 +192,7 @@ When this kind of drift occurs, you can resolve it by updating your landing zone
 
 ## Deleted Managed OU<a name="drift-ou-deleted"></a>
 
-This kind of drift can occur if an AWS Control Tower OU is deleted outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This kind of drift can occur if a managed OU is deleted outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 "{
@@ -226,6 +207,4 @@ This kind of drift can occur if an AWS Control Tower OU is deleted outside of th
 
 ### Resolution<a name="drift-ou-deleted-resolution"></a>
 
-When this kind of drift occurs, AWS Control Tower usually can update the list of registered OUs automatically\. If a deleted OU is shown, a central cloud administrator must sign in to the AWS Control Tower console and delete the OU from your list of **Organizational units**\.
-
-For more information about resolving drift for accounts and OUs, see [Managing Resources Outside of AWS Control Tower](external-resources.md)\.
+When this kind of drift occurs, a central cloud administrator must sign in to the AWS Control Tower console and delete the managed OU from your list of **Organizational units**\.

@@ -17,15 +17,21 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 + Creates three Organizations organizational units \(OUs\): Root, Core, and Custom\.
 + Creates two shared accounts: the log archive account and audit account\.
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
-+ Applies 20 preventive guardrails to enforce policies\.
-+ Applies six detective guardrails to detect configuration violations\.
++ Applies 17 preventive guardrails to enforce policies\.
++ Applies three detective guardrails to detect configuration violations\.
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)
 + When you enable guardrails with *strongly recommended* guidance, AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.
+<<<<<<< HEAD
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
+=======
+
+## What Are the Shared Accounts?<a name="what-shared"></a>
+
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 In AWS Control Tower, three shared accounts in your landing zone are not provisioned in Account Factory: the master account, the log archive account, and the audit account\.
 
 ### What Is the Master Account?<a name="what-is-master"></a>
@@ -113,7 +119,10 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US East \(Ohio\)
 + US West \(Oregon\)
 + Europe \(Ireland\)
+<<<<<<< HEAD
 + Asia Pacific \(Sydney\)
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 When you create a landing zone, the region that you're using for access to the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
 
@@ -126,6 +135,7 @@ AWS Control Tower creates a customer's account by calling the `CreateAccount` AP
 AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by Account Factory\. Using this role, AWS Control Tower *baselines* the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
 
 **Note**  
+<<<<<<< HEAD
 To baseline an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\. AWS Control Tower baselines are contained in the roles that you apply to every managed account\. 
 
 **The AWSControlTowerExecution role, explained**
@@ -137,6 +147,9 @@ The `AWSControlTowerExecution` role allows AWS Control Tower to manage your indi
 After you’ve completed setting up accounts, `AWSControlTowerExecution` ensures that your selected AWS Control Tower guardrails apply automatically to every individual account in your organization, as well as to every new account you create in AWS Control Tower\. Therefore, you can provide compliance and security reports with ease, based on the auditing and logging features embodied by AWS Control Tower guardrails\. Your security and compliance teams can verify that all requirements are met, and that no organizational drift has occurred\. For more information about drift, see [the AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/drift.html)\. 
 
 To summarize, the `AWSControlTowerExecution` role and its associated policy gives you flexible control of security and compliance across your entire organization\. Therefore, breaches of security are less likely to occur\.
+=======
+To baseline an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\.
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 ## How AWS Control Tower Works With StackSets<a name="stacksets-how"></a>
 

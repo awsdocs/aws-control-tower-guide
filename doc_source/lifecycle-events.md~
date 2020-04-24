@@ -25,17 +25,20 @@ You can view lifecycle events from the **Activities** page in your AWS Control T
 + To navigate to the **Activities** page, choose **Activities** from the left navigation pane\.
 + To get more details about a specific event, select the event and then choose the **View details** button at the upper right\.
 
- For more information about how to integrate AWS Control Tower lifecycle events into your workflows, see this blog post, [Using lifecycle events to track AWS Control Tower actions and trigger automated workflows](http://aws.amazon.com/blogs/mt/using-lifecycle-events-to-track-aws-control-tower-actions-and-trigger-automated-workflows/)\.
-
 **Lifecycle event names**
 
+<<<<<<< HEAD
 Each lifecycle event is named so that it corresponds to the originating AWS Control Tower action, which also is recorded by AWS CloudTrail\. Thus, for example, a lifecycle event originated by the AWS Control Tower `CreateManagedAccount` CloudTrail event is named `CreateManagedAccount`\.
+=======
+Each lifecycle event is named so that it corresponds to the originating AWS Control Tower action, which also is recorded by AWS CloudTrail\. Thus, for example, a lifecycle event originated by the AWS Control Tower `CreateManagedAccount` CloudTrail event is named `CreateManagedAccountStatus`\.
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 Each name in the list that follows is a link to an example of the logged detail in `JSON` format\. The additional detail shown in these examples is taken from the Amazon CloudWatch event logs\.
 
 Although `JSON` does not support comments, some comments have been added in the examples for explanatory purposes\. Comments are preceded by "//" and they appear in the right side of the examples\.
 
 In these examples, some account names and organization names are obscured\. An `accountId` is always a 12\-number sequence, which has been replaced with "xxxxxxxxxxxx" in the examples\. An `organizationalUnitID` is a unique string of letters and numbers\. Its form is preserved in the examples\.
+<<<<<<< HEAD
 + [`CreateManagedAccount`](#create-managed-account): The log records whether AWS Control Tower successfully completed every action to create and provision a new account using account factory\.
 + [`UpdateManagedAccount`](#update-managed-account): The log records whether AWS Control Tower successfully completed every action to update a provisioned product that's associated with an account you had previously created by using account factory\.
 + [`EnableGuardrail`](#enable-guardrail): The log records whether AWS Control Tower successfully completed every action to enable a guardrail on an OU that was created by AWS Control Tower\.
@@ -48,6 +51,20 @@ In these examples, some account names and organization names are obscured\. An `
 The following sections provide a list of AWS Control Tower lifecycle events, with examples of the details logged for each type of lifecycle event\.
 
 ## `CreateManagedAccount`<a name="create-managed-account"></a>
+=======
++ [`CreateManagedAccountStatus`](#create-managed-account): The log records whether AWS Control Tower successfully completed every action to create and provision a new account using account factory\.
++ [`UpdateManagedAccountStatus`](#update-managed-account): The log records whether AWS Control Tower successfully completed every action to update a provisioned product that's associated with an account you had previously created by using account factory\.
++ [`EnableGuardrailStatus`](#enable-guardrail): The log records whether AWS Control Tower successfully completed every action to enable a guardrail on an OU that was created by AWS Control Tower\.
++ [`DisableGuardrailStatus`](#disable-guardrail): The log records whether AWS Control Tower successfully completed every action to disable a guardrail on an OU that was created by AWS Control Tower\.
++ [`SetupLandingZoneStatus`](#setup-landing-zone): The log records whether AWS Control Tower successfully completed every action to set up a landing zone\.
++ [`UpdateLandingZoneStatus`](#update-landing-zone): The log records whether AWS Control Tower successfully completed every action to update your existing landing zone\.
++ [`RegisterOrganizationalUnitStatus`](#register-organizational-unit): The log records whether AWS Control Tower successfully completed every action to enable its governance features on an OU\. 
++ [`DeregisterOrganizationalUnitStatus`](#deregister-organizational-unit): The log records whether AWS Control Tower successfully completed every action to disable its governance features on an OU\.
+
+The following sections provide a list of AWS Control Tower lifecycle events, with examples of the details logged for each type of lifecycle event\.
+
+## `CreateManagedAccountStatus`<a name="create-managed-account"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully created and provisioned a new account using account factory\. This event corresponds to the AWS Control Tower `CreateManagedAccount` CloudTrail event\. The lifecycle event log includes the `accountName` and `accountId` of the newly\-created account, and the `organizationalUnitName` and `organizationalUnitId` of the OU in which the account has been placed\.
 
@@ -81,7 +98,10 @@ This lifecycle event records whether AWS Control Tower successfully created and 
                 "organizationalUnit":{
                     "organizationalUnitName":"Custom",
                     "organizationalUnitId":"ou-XXXX-l3zc8b3h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
                     },
                 "account":{
                     "accountName":"LifeCycle1",
@@ -96,7 +116,11 @@ This lifecycle event records whether AWS Control Tower successfully created and 
 }
 ```
 
+<<<<<<< HEAD
 ## `UpdateManagedAccount`<a name="update-managed-account"></a>
+=======
+## `UpdateManagedAccountStatus`<a name="update-managed-account"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully updated the provisioned product associated with an account that was created previously by using account factory\. This event corresponds to the AWS Control Tower `UpdateManagedAccount` CloudTrail event\. The lifecycle event log includes the `accountName` and `accountId` of the associated account, and the `organizationalUnitName` and `organizationalUnitId` of the OU in which the updated account is placed\. 
 
@@ -144,7 +168,11 @@ This lifecycle event records whether AWS Control Tower successfully updated the 
 }
 ```
 
+<<<<<<< HEAD
 ## `EnableGuardrail`<a name="enable-guardrail"></a>
+=======
+## `EnableGuardrailStatus`<a name="enable-guardrail"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully enabled a guardrail on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `EnableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the guardrail, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the guardrail is enabled\.
 
@@ -197,7 +225,11 @@ This lifecycle event records whether AWS Control Tower successfully enabled a gu
 }
 ```
 
+<<<<<<< HEAD
 ## `DisableGuardrail`<a name="disable-guardrail"></a>
+=======
+## `DisableGuardrailStatus`<a name="disable-guardrail"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully disabled a guardrail on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `DisableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the guardrail, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the guardrail is disabled\. 
 
@@ -252,7 +284,11 @@ This lifecycle event records whether AWS Control Tower successfully disabled a g
 }
 ```
 
+<<<<<<< HEAD
 ## `SetupLandingZone`<a name="setup-landing-zone"></a>
+=======
+## `SetupLandingZoneStatus`<a name="setup-landing-zone"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully set up a landing zone\. This event corresponds to the AWS Control Tower `SetupLandingZone` CloudTrail event\. The lifecycle event log includes the `rootOrganizationalId`, which is ID of the organization that AWS Control Tower creates from the master account\. The log entry also includes the `organizationalUnitName` and `organizationalUnitId` for each of of the OUs, and the `accountName` and `accountId` for each account, that are created when AWS Control Tower sets up the landing zone\.
 
@@ -297,7 +333,10 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
                   },
                 ],
                "accounts": [                                      // All created accounts are here. Use a list of "account" objects.
+<<<<<<< HEAD
 
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
                   {
                     "accountName": "Audit",  
                     "accountId": "XXXXXXXXXXXX"                        
@@ -315,7 +354,11 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
 }
 ```
 
+<<<<<<< HEAD
 ## `UpdateLandingZone`<a name="update-landing-zone"></a>
+=======
+## `UpdateLandingZoneStatus`<a name="update-landing-zone"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully updated your existing landing zone\. This event corresponds to the AWS Control Tower `UpdateLandingZone` CloudTrail event\. The lifecycle event log includes the `rootOrganizationalId`, which is ID of the \(updated\) organization governed by AWS Control Tower\. The log entry also includes the `organizationalUnitName` and `organizationalUnitId` for each of of the OUs, and the `accountName` and `accountId` for each account, that was created previously, when AWS Control Tower originally set up the landing zone\.
 
@@ -343,14 +386,20 @@ This lifecycle event records whether AWS Control Tower successfully updated your
         "sourceIPAddress": "AWS Internal",
         "userAgent": "AWS Internal",
         "eventID": "CloudTrail_event_ID",                        // This value is generated by CloudTrail.
+<<<<<<< HEAD
 
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
         "readOnly": false,
         "eventType": "AwsServiceEvent",
         "serviceEventDetails": {
             "updateLandingZoneStatus": {
                 "state": "SUCCEEDED",                            // Status of entire operation.
                 "message": "AWS Control Tower successfully updated a landing zone.",                
+<<<<<<< HEAD
 
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
                 "rootOrganizationalId" : "r-1234"
                 "organizationalUnits" : [                         // Use a list.
                   {
@@ -363,7 +412,10 @@ This lifecycle event records whether AWS Control Tower successfully updated your
                   },
                 ],
                "accounts": [                                       // All created accounts are here. Use a list of "account" objects.
+<<<<<<< HEAD
 
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
                   {
                     "accountName": "Audit",  
                     "accountId": "XXXXXXXXXXXX"                        
@@ -381,7 +433,11 @@ This lifecycle event records whether AWS Control Tower successfully updated your
 }
 ```
 
+<<<<<<< HEAD
 ## `RegisterOrganizationalUnit`<a name="register-organizational-unit"></a>
+=======
+## `RegisterOrganizationalUnitStatus`<a name="register-organizational-unit"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully enabled its governance features on an OU\. This event corresponds to the AWS Control Tower `RegisterOrganizationalUnit` CloudTrail event\. The lifecycle event log includes the `organizationalUnitName` and `organizationalUnitId` of the OU that AWS Control Tower has brought under its governance\.
 
@@ -413,9 +469,13 @@ This lifecycle event records whether AWS Control Tower successfully enabled its 
         "serviceEventDetails": {
             "registerOrganizationalUnitStatus": {
                 "state": "SUCCEEDED",                        
+<<<<<<< HEAD
 
                 "message": "AWS Control Tower successfully registered an organizational unit."
 
+=======
+                "message": "AWS Control Tower successfully registered an organizational unit."
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
                 "organizationalUnit" :                        
                   {
                     "organizationalUnitName": "Test",            
@@ -429,7 +489,11 @@ This lifecycle event records whether AWS Control Tower successfully enabled its 
 }
 ```
 
+<<<<<<< HEAD
 ## `DeregisterOrganizationalUnit`<a name="deregister-organizational-unit"></a>
+=======
+## `DeregisterOrganizationalUnitStatus`<a name="deregister-organizational-unit"></a>
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 This lifecycle event records whether AWS Control Tower successfully disabled its governance features on an OU\. This event corresponds to the AWS Control Tower `DeregisterOrganizationalUnit` CloudTrail event\. The lifecycle event log includes the `organizationalUnitName` and `organizationalUnitId` of the OU on which AWS Control Tower has disabled its governance features\.
 

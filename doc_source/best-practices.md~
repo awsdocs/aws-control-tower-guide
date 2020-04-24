@@ -53,26 +53,34 @@ For detailed information about the guardrails and their functions, see [Guardrai
 + Set up your landing zone and deploy your Account Factory accounts from within your home region\.
 + If you’re investing in several AWS Regions, be sure that your cloud resources are in the region where you’ll do most of your cloud administrative work and run your workloads\.
 + The audit and other buckets are created in the same AWS Region from which you launch AWS Control Tower\. We recommend that you do not move these buckets\.
-+ When launching, AWS STS endpoints must be activated in the master account, for all regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
 
 ## Administrative Tips for Landing Zone Maintenance<a name="tips-for-admin-maint"></a>
 + You can make your own log buckets in the log archive account\. Just be sure to leave the buckets created by AWS Control Tower\. Note that your Amazon S3 access logs must be in the same AWS Region as the source buckets\. 
 + By keeping your workloads and logs in the same AWS Region, you reduce the cost that would be associated with moving and retrieving log information across regions\.
 + The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the AWS Service Catalog portfolio, or to create a custom VPC that runs in only the required regions\.
-+ The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In regions where AWS Control Tower is supported, AWS Control Tower deletes the default AWS VPC when it creates the AWS Control Tower VPC\.
 +  If you delete your default VPC in your home AWS Region, it's best to delete it in all other AWS Regions\. 
 
 ## Log in as a Root User<a name="root-login"></a>
 
+<<<<<<< HEAD
 Certain administrative tasks require that you must sign in as a root user\. You can sign in as a root user to an AWS account that was created by account factory in AWS Control Tower\.
 
 **You must sign in as a root user to perform the following actions:**
+=======
+Certain administrative tasks require that you must log in as a root user\. You can log in as a root user to an AWS account that was created by account factory in AWS Control Tower\.
+
+**You must log in as a root user to perform the following actions:**
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 + Change certain account settings, including the account name, root user password, or email address\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
 + To change or enable your [AWS Support plan](https://docs.aws.amazon.com/controltower/latest/userguide/troubleshooting.html#getting-support)\.
 + To [close an AWS Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html)\.
 + For more information about actions that require root login credentials, please see [AWS Tasks that Require AWS Root Login Credentials](https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html)\.
 
+<<<<<<< HEAD
 **To sign in as root user**
+=======
+**Procedure**
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 1. Open the AWS sign\-in page\.
 
@@ -90,9 +98,7 @@ Certain administrative tasks require that you must sign in as a root user\. You 
 
 As you set up your landing zone, it's a good idea to decide ahead of time which users will require access to certain accounts and why\. For example, a security account should be accessible only to the security team, the master account should be accessible only to the cloud administrators' team, and so forth\.
 
-**Recommended Restrictions**
-
-You can restrict the scope of administrative access to your organizations by setting up an IAM role or policy that allows administrators to manage AWS Control Tower actions only\. The recommended approach is to use the IAM Policy `arn:aws:iam::aws:policy/service-role/AWSControlTowerServiceRolePolicy`\. With the `AWSControlTowerServiceRolePolicy` role enabled, an administrator can manage AWS Control Tower only\. Be sure to include appropriate access to AWS Organizations for managing your preventive guardrails, and SCPs, and access to AWS Config, for managing detective guardrails, in each account\.
+You can restrict the scope of administrative access to your organizations by setting up an IAM role or policy that allows administrators to manage AWS Control Tower actions only\. The recommended approach is to use the IAM Policy `arn:aws:iam::aws:policy/service-role/AWSControlTowerServiceRolePolicy`\. With the `AWSControlTowerServiceRolePolicy` role enabled, an administrator can manage AWS Control Tower only\. Be sure to include appropriate access to AWS Organizations for managing your preventive guardrails, and SCPs, and access to AWS Config, for managing detective guardrails, in each account\. 
 
 When you're setting up the shared audit account in your landing zone, we recommend that you assign the `AWSSecurityAuditors` group to any third\-party auditors of your accounts\. This group gives its members read\-only permission\. An account must not have write permissions on the environment that it is auditing, because it can violate compliance with Separation of Duty requirements for auditors\. 
 
@@ -104,23 +110,15 @@ We recommend the following practices as you create and modify resources in AWS C
 + Do not modify or delete resources created by AWS Control Tower in the master account or in the shared accounts\. Modification of these resources can require an update to your landing zone\.
 + Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the core organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
 + For more information about the resources created by AWS Control Tower, see [What Are the Shared Accounts?](how-control-tower-works.md#what-shared)
-+ Do not disallow usage of any AWS Regions through either SCPs or AWS STS\. Doing so will break AWS Control Tower\.
-+ In general, AWS Control Tower performs a single action at a time, which must be completed before another action can begin\. For example, if you attempt to provision an account while the process of enabling a guardrail is already in operation, account provisioning will fail\. 
 
 **AWS Organizations Guidance**
-+ Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to re\-enable affected guardrails in AWS Control Tower\. 
-+ Moving individual accounts into AWS Control Tower, from outside of a registered OU, causes drift that must be repaired\. See [Types of Governance Drift](drift.md#governance-drift)\.
-+ If you use AWS Organizations to create, invite, or move accounts within an organization registered with AWS Control Tower, those accounts are not enrolled by AWS Control Tower and those changes are not recorded\.
-+ If you use AWS Organizations to move an OU into an organization created by AWS Control Tower, the external OU is not registered by AWS Control Tower\.
-+ Nested OUs are not accessible in AWS Control Tower, because AWS Control Tower displays only the top\-level OUs\.
-+ If you use AWS Organizations to rename an account or OU that was created by AWS Control Tower, you must repair your landing zone so that the new name is displayed by AWS Control Tower\.
-+ If you use AWS Organizations to delete an OU that was created by AWS Control Tower, you also must delete the OU in AWS Control Tower\. It cannot be used to contain accounts\. You will not be able to provision a new account to this OU using Account Factory\.
++ Do not use AWS Organizations to update service control policies \(SCPs\) that are attached by AWS Control Tower to an AWS Control Tower managed OU\. Doing so could result in the guardrails entering an unknown state, which will require you to re\-enable affected guardrails\.
++ If you use Organizations to create, invite, or move accounts within an organization created by AWS Control Tower, those outside accounts will not be managed by AWS Control Tower and will not appear in the **Accounts** table\.
++ If you use Organizations to create or move OUs within an organization created by AWS Control Tower, those outside OUs will not be managed by AWS Control Tower and will not appear in the **Organizational Units** table\.
++ If you use Organizations to rename or delete an OU that was created by AWS Control Tower, this OU will continue to be displayed by AWS Control Tower using its original name\. You will not be able to provision a new account to this OU using Account Factory\.
 
 **AWS Single Sign\-On Guidance**
-+ For more information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
-+ See [Managing Users and Access Through AWS Single Sign\-On](sso.md) for more information about working with AWS Control Tower and AWS SSO\.
++ If you reconfigure your directory in AWS Single Sign\-On to Active Directory, all preconfigured users and groups in AWS SSO will be deleted\.
 
 **Account Factory Guidance**
 + When you use Account Factory to provision new accounts in AWS Service Catalog, do not define `TagOptions`, enable notifications, or create a provisioned product plan\. Doing so can result in a failure to provision a new account\.
-+ Avoid using your IAM user after set up to provision accounts in Account Factory or to use the **Enroll account** feature, because it can result in confusing errors\.
-+ Remember that only one account can be provisioned at a time\.

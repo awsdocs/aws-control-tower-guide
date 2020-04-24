@@ -25,7 +25,7 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + Europe \(Ireland\)
 + Asia Pacific \(Sydney\)
 
-## Account Provisioning Failed<a name="account-provisioning-failed"></a>
+## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
  If you encounter this issue, check for these common causes\.
 
@@ -36,30 +36,24 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 
 Try again to provision your account, without specifying any of those options\. For more information, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
 
-**Another common cause for failure:**
+**Other common causes for failure:**
 + If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.
++ Creation of a new account in Account Factory will fail while other AWS Control Tower configuration changes are in progress\. For example, while a process is running to add a guardrail to an OU, Account Factory will display an error message if you try to provision an account\.
+
+**To check the status of a previous action in AWS Control Tower**
++ Navigate to **AWS CloudFormation > AWS StackSets**
++ Check each stack set related to AWS Control Tower \(prefix: "AWSControlTower"\)
++ Look for AWS StackSets operations that are still running\.
 
 If your account provisioning takes longer than one hour, it's best to terminate the provisioning process and try again\.
 
-## Error When Changing Email Addresses<a name="email-change"></a>
+## Failed to Enroll an Existing Account<a name="enrollment-failed"></a>
 
-The email addresses for your shared service accounts \(the master account, the auditing account, and the log archive account\) may be changed through the AWS billing page, and then you must update your landing zone for the changes to take effect\. For more information, see [How do I change the email address associated with my AWS account?](http://aws.amazon.com/premiumsupport/knowledge-center/change-email-address/)
+If you try once to enroll an existing AWS account and that enrollment fails, when you try a second time, the error message may tell you that the stack set exists\. To continue, you must remove the provisioned product in Account Factory\.
 
-The email addresses for your member accounts created in Account Factory cannot be changed\. If you have changed a member account email, you’ll receive an error message from the AWS Service Catalog, and your provisioned product will be in an unknown or **TAINTED** state\.
+If the reason for the first enrollment failure was that you forgot to create the `AWSControlTowerExecution` role in the account in advance, the error message you'll receive correctly tells you to create the role\. However, when you try to create the role, you are likely to receive another error message stating that AWS Control Tower could not create the role\. This error occurs because the process has been partially completed\.
 
-**If you’ve changed the email address for a member account that was created in Account Factory, follow these steps to repair the situation:**
-+ Restore the account email of the managed account in question to what it was originally\. The AWS Control Tower console should still show the old email for the account\.
-+ Update the provisioned product, keeping the same email address that was used when the account was originally created\.
-
-If you still receive an error message, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
-
-For more information about updating accounts, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
-
-## Don't Migrate Your Account's Organizational Unit Outside of AWS Control Tower<a name="ou-change"></a>
-
-To migrate an account's organizational unit in AWS Control Tower, use the instructions for updating an account in Account Factory\. In step 4\(e\), choose the name of the new Organizational Unit for the account, instead of the name of the current Organizational Unit\.
-
-For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the provisioned product in Account Factory\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
 ## Received an Insufficient Permissions Error<a name="insufficient-permissions"></a>
 
@@ -79,10 +73,9 @@ If you have not updated your landing zone for AWS Control Tower release 2\.3, an
 
 **Action to take: Update accounts\.**
 
-To update multiple individual accounts for release 2\.3, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
+To update multiple individual accounts, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
 
  If you have further difficulties with enabling detective guardrails on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
-
 
 ## AWS Support<a name="getting-support"></a>
 

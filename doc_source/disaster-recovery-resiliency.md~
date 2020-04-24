@@ -9,7 +9,10 @@ AWS Control Tower is available in these AWS Regions:
 + US East \(Ohio\)
 + US West \(Oregon\)
 + Europe \(Ireland\)
+<<<<<<< HEAD
 + Asia Pacific \(Sydney\)
+=======
+>>>>>>> b305e77c740cf8317c222e6fcbe7e0676db7b455
 
 Your *home region* is defined as the AWS Region in which your landing zone was set up\.
 

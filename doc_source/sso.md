@@ -6,6 +6,10 @@ AWS Single Sign\-On is a cloud\-based service that simplifies how you manage SSO
 
 In AWS Control Tower, AWS Single Sign\-On allows central cloud administrators and end users to manage access to multiple AWS accounts and business applications\. AWS Control Tower uses this service to set up and manage access to the accounts created through AWS Service Catalog\.
 
+## <a name="sso-video"></a>
+
+For a brief tutorial about how to set up your SSO users and permissions in AWS Control Tower, you can view this video \(6:23\)\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+
 When you initially set up AWS Control Tower, only the root user and any IAM users with the correct permissions can add AWS SSO users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new SSO users from the Account Factory wizard\. For more information, see [Account Factory](account-factory.md)\.
 
 Your landing zone is set up with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
@@ -25,14 +29,15 @@ For more information on how to use this service in the context of AWS Control To
 + To add a group, see [Add Groups](https://docs.aws.amazon.com/singlesignon/latest/userguide/addgroups.html)\. 
 
 **Warning**  
-AWS Control Tower sets up your AWS SSO directory is in US East \(N\. Virginia\)\. If you set up your landing zone in another Region and then navigate to the AWS SSO console, you must change the Region to the US East \(N\. Virginia\)\. Do not delete your AWS SSO configuration in US East \(N\. Virginia\)\.
+AWS Control Tower sets up your AWS SSO directory in your home region\. If you set up your landing zone in another Region and then navigate to the AWS SSO console, you must change the Region to your home region\. Do not delete your AWS SSO configuration in your home region\.
 
 ## Things to Know About SSO Accounts and AWS Control Tower<a name="sso-good-to-know"></a>
 
 Here are some good things to know when working with AWS SSO user accounts in AWS Control Tower\.
 + If your AWS SSO user account is disabled, you'll get an error message when trying to provision new accounts in Account Factory\. You can re\-enable your SSO user in the AWS SSO console\.
 + If you specify a new SSO user email address when you update the provisioned product associated with an account that was vended by Account Factory, AWS Control Tower creates a new SSO user account\. The previously created user account is not removed\. If you prefer to remove the previous SSO user email address from AWS SSO, see [Disabling a User](https://docs.aws.amazon.com/singlesignon/latest/userguide/disableuser.html)\.
-+ AWS SSO has been [integrated with Microsoft Active Directory](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/), and you can connect your existing on\-premises Active Directory to AWS Control Tower\. Learn more in this [blog post](http://aws.amazon.com/blogs/mt/extend-a-self-managed-active-directory-to-aws-control-tower/)\.
++ AWS SSO has been [integrated with Azure Active Directory](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/), and you can connect your existing Azure Active Directory to AWS Control Tower\. Learn more in this [blog post](http://aws.amazon.com/blogs/mt/extend-a-self-managed-active-directory-to-aws-control-tower/)\.
++ For more information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to the [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
 
 ## AWS SSO Groups for AWS Control Tower<a name="sso-groups"></a>
 
