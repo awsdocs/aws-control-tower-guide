@@ -20,6 +20,9 @@ During the enrollment process, AWS Control Tower performs these actions:
 + Applies mandatory guardrails to the account by means of the SCPs that apply to the selected OU as a whole\.
 + Adds the AWS Config rules that apply the AWS Control Tower preventive guardrails to the account\.
 
+**Note**  
+Before enrolling, check that the existing account is not using the AWS default VPC\. AWS Control Tower removes the AWS default VPC and creates a new one\.
+
 **Recommended: You can set up a two\-step approach to account enrollment**
 + First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see [AWS Control Tower Detective Guardrails as an AWS Config Conformance Pack](http://aws.amazon.com/blogs/mt/aws-control-tower-detective-guardrails-as-an-aws-config-conformance-pack)\. 
 + Next, you may wish to enroll the account\. If the compliance results are satisfactory, the migration path is easier because you can enroll the account without unexpected consequences\.

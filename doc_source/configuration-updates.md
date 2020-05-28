@@ -5,16 +5,23 @@ It is the responsibility of the members of your central cloud administrators' te
 **Note**  
  The AWS Control Tower console indicates when your landing zone needs to be updated\. If you don't see an option to update, your landing zone is already up to date\.
 
-## Updating Your Landing Zone<a name="update-controltower"></a>
+## About Updates<a name="about-updates"></a>
+
+Updates are required to correct governance drift, or to move to a new version of AWS Control Tower\. To perform a complete update of AWS Control Tower, you must update your landing zone first and then update the enrolled accounts individually\. You may need to perform three types of updates at different times\.
++ **A landing zone update:** Most often this type of update is performed by choosing **Update** on the **Settings** page\. You may need to perform a landing zone update to repair certain types of drift, and you can choose **Repair** when necessary\.
++ **An update of one or more individual accounts:** You must update accounts if the associated information changes, or if certain types of drift have occurred\. Accounts may be updated by following the manual process, or with an automated approach\. Both are described in later sections of this page\.
++ **A full update:** A full update includes an update of your landing zone, followed by an update of all the enrolled accounts in your registered OU\. Full updates are required with a new release of AWS Control Tower such as 2\.3, 2\.4, and so forth\.
+
+## Update Your Landing Zone<a name="update-controltower"></a>
 
 The easiest way to update your AWS Control Tower landing zone is through the **Settings** page\. Navigate to the **Settings** page by choosing **Settings** in the left navigation\.
 
 The **Settings** page shows you the current version of your landing zone, and it lists any updated versions that may be available\. You can choose the **Update** button if you need to update your version\. If the **Update** button appears greyed\-out, you do not need to update\.
 
 **Note**  
-Alternatively, you can update your landing zone manually\. The update takes approximately the same amount of time, whether you use the **Update ** button or the manual process\.
+Alternatively, you can update your landing zone manually\. The update takes approximately the same amount of time, whether you use the **Update ** button or the manual process\. To perform a manual update of your landing zone only, see steps 1 and 2 that follow\.
 
-The following procedure walks you through the steps of updating your landing zone manually\.
+The following procedure walks you through the steps of a full update for AWS Control Tower manually\. To update an individual account, start at Step 3\.
 
 **To update your landing zone manually**
 
@@ -24,7 +31,7 @@ The following procedure walks you through the steps of updating your landing zon
 
 1. Update your member accounts\. From the navigation pane, choose **Accounts**\.
 
-1. Choose **Provision new account** to open the AWS Service Catalog console and the Account Factory product\.
+1. Choose **Enroll account** to open the AWS Service Catalog console and the Account Factory product\.
 
 1. From the navigation pane, choose **Provisioned products list**\.
 

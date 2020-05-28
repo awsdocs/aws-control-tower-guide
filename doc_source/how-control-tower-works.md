@@ -19,6 +19,8 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
 + Applies 20 preventive guardrails to enforce policies\.
 + Applies six detective guardrails to detect configuration violations\.
++ Preventive guardrails are not applied to the master account\.
++ Except for the master account, guardrails are applied to the organization as a whole\.
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)

@@ -55,6 +55,18 @@ If the reason for the first enrollment failure was that you forgot to create the
 
 In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the provisioned product in Account Factory\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
+## Unable to Update an Account Factory Account<a name="w92aac51c11"></a>
+
+You may encounter an issue that prevents you from updating a provisioned account\. You can see an error message similar to this one: `AWS Control Tower could not baseline VPC in the managed account because of existing resource dependencies.`
+
+**Common cause:** AWS Control Tower always removes the AWS default VPC during initial provisioning\. To have an AWS default VPC in an account, you must add it after account creation\. AWS Control Tower has its own default VPC that replaces the AWS default VPC, unless you set up Account Factory the way the walkthrough shows you—\-so that AWS Control Tower doesn’t provision a VPC at all\. Then the account has no VPC\. You’d have to re\-add the AWS default VPC if you want to use that one\.
+
+However, AWS Control Tower doesn't support the AWS default VPC\. Deploying one causes the account to enter a `Tainted` state\. When it is in that state, you cannot update the account through AWS Service Catalog\.
+
+The `Tainted` state causes a follow\-on issue: An account that is not updated may prevent enabling guardrails on the OU of which it is a part\.
+
+**Action to take:** You must delete the default VPC that you added, and then you will be able to update the account\.
+
 ## Received an Insufficient Permissions Error<a name="insufficient-permissions"></a>
 
 It's possible that your account may not have the necessary permissions to perform certain work in certain AWS Organizations\. If you encounter the following type of error, check all the permissions areas, such as IAM or SSO permissions, to make sure your permission is not being denied from those places:

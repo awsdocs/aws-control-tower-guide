@@ -30,7 +30,11 @@ AWS Control Tower requires creation of three roles to set up a landing zone\. AW
 
 ### AWSControlTowerAdmin<a name="AWSControlTowerAdmin"></a>
 
-This role provides AWS Control Tower with access to infrastructure critical to maintaining the landing zone\. Inline Policy:
+This role provides AWS Control Tower with access to infrastructure critical to maintaining the landing zone\. The role requires an inline policy, and a managed policy attachment\.
+
+Managed Policy: `AWSControlTowerStackSetRole`
+
+Inline Policy:
 
 ```
 {
@@ -45,7 +49,7 @@ This role provides AWS Control Tower with access to infrastructure critical to m
 }
 ```
 
-### AWSControlTowerServiceRolePolicy<a name="AWSControlTowerServiceRolePolicy"></a>
+### AWSControlTowerStackSetRole<a name="AWSControlTowerServiceRolePolicy"></a>
 
 AWS CloudFormation assumes this role to deploy stack sets in accounts created by AWS Control Tower\. Inline Policy: 
 

@@ -84,7 +84,7 @@ This kind of drift can occur when a member account, the audit account, or the lo
 
 When this kind of drift occurs, you can resolve it as follows:
 + **Account Factory Provisioned Account** – You can resolve the drift by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
-+ **Shared account** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
++ **Shared account** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## Added Member Account<a name="drift-account-added"></a>
 
@@ -104,6 +104,8 @@ This kind of drift can occur when an AWS Control Tower member account is added t
 ### Resolution<a name="drift-account-added-resolution"></a>
 
 When this kind of drift occurs, you can resolve it by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
+
+For more information about resolving drift for accounts and OUs, see [Managing Resources Outside of AWS Control Tower](external-resources.md)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 
@@ -147,7 +149,7 @@ This kind of drift can occur when an SCP for a guardrail is updated in the Organ
 
 ### Resolution<a name="drift-scp-update-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## SCP Attached to Managed OU<a name="drift-scp-attached-ou"></a>
 
@@ -167,7 +169,7 @@ This kind of drift can occur when an SCP is attached to an OU outside of the AWS
 
 ### Resolution<a name="drift-scp-attached-ou-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## SCP Detached from Managed OU<a name="drift-scp-detached-ou"></a>
 
@@ -187,7 +189,7 @@ This kind of drift can occur when an SCP has been detached from an OU outside of
 
 ### Resolution<a name="drift-scp-detached-ou-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## SCP Attached to Member Account<a name="drift-scp-attached-account"></a>
 
@@ -207,7 +209,7 @@ This kind of drift can occur when an SCP is attached to an account in the Organi
 
 ### Resolution<a name="drift-scp-attached-account-resolution"></a>
 
-When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Updating Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this kind of drift occurs, you can resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 ## Deleted Managed OU<a name="drift-ou-deleted"></a>
 

@@ -1,8 +1,8 @@
 # Managing Resources Outside of AWS Control Tower<a name="external-resources"></a>
 
-AWS Control Tower sets up accounts, organizational units, and other resources on your behalf, but you are the owner of these resources\. You can change these resources within AWS Control Tower or outside it, most commonly by using the AWS Organizations console\. This topic describes how to reconcile changes to AWS Control Tower resources when you make the changes outside of AWS Control Tower\.
+AWS Control Tower sets up accounts, organizational units, and other resources on your behalf, but you are the owner of these resources\. You can change these resources within AWS Control Tower or outside it\. The most common place to change resources outside of AWS Control Tower is the AWS Organizations console\. This topic describes how to reconcile changes to AWS Control Tower resources when you make the changes outside of AWS Control Tower\.
 
-Renaming, deleting, and moving resources outside of the AWS Control Tower console can cause the console to become out of sync and display outdated information\. Some changes can be reconciled automatically, and certain others require a repair to your landing zone to update the information that's displayed in the AWS Control Tower console\.
+Renaming, deleting, and moving resources outside of the AWS Control Tower console can cause the console to become out of sync and display outdated information\. Some changes can be reconciled automatically\. Other changes require a repair to your landing zone to update the information that's displayed in the AWS Control Tower console\.
 
 ****Tasks that require landing zone repair to reconcile your changes****
 + Renaming a registered organizational unit \(OU\)
@@ -36,7 +36,7 @@ You can change the names of your organizational units \(OUs\) and accounts outsi
 
 **Renaming an OU**
 
-AWS Organizations can change the name of an OU by using either the API or the console\. When you change an OU name outside of AWS Control Tower, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the core and non\-core \(workload\) OU names\. You can repair this type of drift easily from the **Settings** page\. See "Resolving Drift" in [Detecting and Resolving Drift in AWS Control Tower](drift.md)\.
+In AWS Organizations, you can change the name of an OU by using either the API or the console\. When you change an OU name outside of AWS Control Tower, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the core and non\-core \(workload\) OU names\. You can repair this type of drift easily from the **Settings** page\. See "Resolving Drift" in [Detecting and Resolving Drift in AWS Control Tower](drift.md)\.
 
 AWS Control Tower displays the names of OUs in the console and in Account Factory, and you can see when your update has succeeded\.
 
@@ -53,14 +53,14 @@ Changes that you make to your account email addresses are updated by AWS Control
 
 **Changing the email address of a governed account**
 
-AWS Control Tower retrieves and displays email addresses as required by the console experience\. Therefore, core and non\-core account email addresses are updated and shown consistently AWS Control Tower after you change them\.
+AWS Control Tower retrieves and displays email addresses as required by the console experience\. Therefore, core and non\-core account email addresses are updated and shown consistently in AWS Control Tower after you change them\.
 
 **Note**  
 In AWS Service Catalog, the Account Factory displays the parameters that were specified in the console when you created a provisioned product\. However, the original account email address is not updated automatically when the account email address changes\. That’s because the account is conceptually contained within the provisioned product; it is not the same as the provisioned product\. To update this value, you must update the provisioned product, which may cause a change in governance posture\.
 
 ### Deleting Resources<a name="deleting-resources"></a>
 
-You can delete OUs and accounts in AWS Control Tower and see the updates automatically\. Account Factory is updated automatically when you delete an OU, but not when you delete an account\.
+You can delete OUs and accounts in AWS Control Tower and you don't need to take any further action to see the updates\. Account Factory is updated automatically when you delete an OU, but not when you delete an account\.
 
 **Deleting a registered OU**
 
@@ -80,4 +80,4 @@ When you remove an enrolled, non\-core account, AWS Control Tower receives a not
 If you see a deleted account displayed in the AWS Control Tower console, repair your landing zone to remove the outdated entry\.
 
 **Note**  
-In AWS Service Catalog, the Account Factory provisioned product that represents the governed account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.
+In AWS Service Catalog, the Account Factory provisioned product that represents the governed account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.

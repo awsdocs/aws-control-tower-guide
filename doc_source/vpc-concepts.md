@@ -32,6 +32,11 @@ Instead of peering, AWS Control Tower offers [VPC endpoint services](https://doc
 
 However, another option is available\. Within AWS Control Tower, if you change the CIDR range in the settings of Account Factory, all new accounts that are subsequently created by AWS Control Tower \(using Account Factory\) are assigned the new CIDR range\. The old accounts are not updated\. For example, you can create an account, then change the CIDR range and create a new account, and the VPCs allocated to those two accounts can be peered\. Peering is possible because their IP address ranges are not identical\. For information about how to change account settings, see the [ Account Factory documentation](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory.html#updating-account-factory-accounts) on updating an account\.
 
+For more information about how to work with VPCs and AWS Control Tower see [Building a Scalable and Secure Multi\-VPC AWS Network Infrastructure](https://d1.awsstatic.com/whitepapers/building-a-scalable-and-secure-multi-vpc-aws-network-infrastructure.pdf)\.
+
+**Note**  
+When AWS Control Tower sets up an account in a supported AWS Region, AWS Control Tower automatically deletes the default AWS VPC, and it sets up a new VPC configured by AWS Control Tower\.
+
 ## Notes on VPC and CIDR<a name="bad-peering-options"></a>
 
 Some network administrators may realize that it is possible to peer two subnets in two different VPCs \(that is, in two different accounts\) without changing the CIDR settings for accounts\. Because the nine subnets in a VPC do not overlap, peering technically is possible from *\[VPC1, subnet 1\]* to *\[VPC2, subnet 2\]*, for example\. However, this approach depends on an implementation detail of how subnet ranges are allocated within a VPC\. We don't recommend this method of peering, because it could fail at any time\.
