@@ -1,11 +1,11 @@
-# Getting Started with AWS Control Tower<a name="getting-started-with-control-tower"></a>
+# Getting started with AWS Control Tower<a name="getting-started-with-control-tower"></a>
 
-This is the AWS Control Tower getting started procedure for central cloud administrators\. Use this procedure when you're ready to set up your landing zone\. From start to finish, it should take about an hour\. This procedure has a prerequisite and two steps\.
+This getting started procedure is for AWS Control Tower central cloud administrators\. Use this procedure when you're ready to set up your landing zone\. From start to finish, it should take about an hour\. This procedure has a prerequisite and two steps\.
 
 ## Prerequisite: Automated Pre\-Launch Checks for Your Master Account<a name="getting-started-prereqs"></a>
 
 Before AWS Control Tower sets up the landing zone, it automatically runs a series of pre\-launch checks in your account\. There's no action required on your part for these checks, which ensure that your master account is ready for the changes that establish your landing zone\. Here are the checks that AWS Control Tower runs before setting up a landing zone:
-+ The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limitations and Quotas in AWS Control Tower](limits.md)\.
++ The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limitations and quotas in AWS Control Tower](limits.md)\.
 + The AWS account must be subscribed to the following AWS services:
   + Amazon Simple Storage Service \(Amazon S3\)
   + Amazon Elastic Compute Cloud \(Amazon EC2\)
@@ -19,13 +19,15 @@ Before AWS Control Tower sets up the landing zone, it automatically runs a serie
   + AWS Lambda
 **Note**  
 By default, all accounts are subscribed to these services\.
-+ The AWS account must not have an AWS Config aggregator already configured\.
 + If AWS Single Sign\-On \(AWS SSO\) is already set up, the AWS Control Tower home region must be the same as the AWS SSO region\.
-+ The AWS account cannot have trusted access enabled in the organization master account for either AWS Config or AWS CloudTrail\.
++ The AWS account cannot have trusted access enabled in the organization master account for either AWS Config or AWS CloudTrail\. We recommend that you do not turn AWS Config off to set up AWS Control Tower and then turn it back on\. If you do so, you'll incur additional charges\. 
+
+**Note**  
+When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
 
 ## Step One: Create Your Shared Account Email Addresses<a name="step-one"></a>
 
-If you're setting up your landing zone in a new AWS account, for information on creating your account and your IAM administrator, see [Setting Up](setting-up.md)\.
+If you're setting up your landing zone in a new AWS account, for information on creating your account and your IAM administrator, see [Setting up](setting-up.md)\.
 
 To set up your landing zone, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. These email addresses should each be a collaborative inbox, a shared email account for the different users in your enterprise that will do specific work related to AWS Control Tower\. The email addresses are:
 + **Audit account** – This account is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
@@ -63,5 +65,5 @@ To learn more about how you can use AWS Control Tower, see the following topics:
 + You can set up AWS SSO users and groups with specific roles and permissions\. For recommendations, see [Recommendations for Setting Up Groups, Roles, and Policies](best-practices.md#roles-recommendations)\.
 + Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for Configuring and Provisioning Accounts](account-factory.md#configure-provision-new-account)\.
 + To assure [Compliance Validation for AWS Control Tower](compliance-program-info.md), your central cloud administrators can review log archives in the log archive account, and designated third\-party auditors can review audit information in the audit shared account\. 
-+ From time to time, you may need to update your landing zone to get the latest backend updates, the latest guardrails, and to keep your landing zone up\-to\-date\. For more information, see [Configuration Update Management in AWS Control Tower](configuration-updates.md)\.
++ From time to time, you may need to update your landing zone to get the latest backend updates, the latest guardrails, and to keep your landing zone up\-to\-date\. For more information, see [Configuration update management in AWS Control Tower](configuration-updates.md)\.
 + If you encounter issues while using AWS Control Tower, see [Troubleshooting](troubleshooting.md)\.

@@ -8,4 +8,3 @@ This chapter contains walkthrough procedures that can help you in your use of AW
 + [Walkthrough: Customize Your AWS Control Tower Landing Zone](customize-landing-zone.md)
 + [Walkthrough: Automated Account Provisioning in AWS Control Tower](automated-provisioning-walkthrough.md)
 + [Walkthrough: Setting Up Security Groups in AWS Control Tower With AWS Firewall Manager](firewall-setup-walkthrough.md)
-+ [Walkthrough: Use an AWS Organizations SCP to Restrict Access to AWS Regions in AWS Control Tower](region-workaround.md)

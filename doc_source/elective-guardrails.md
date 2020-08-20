@@ -2,6 +2,13 @@
 
 Elective guardrails enable you to lock down or track attempts at performing commonly restricted actions in an AWS enterprise environment\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the elective guardrails available in AWS Control Tower\.
 
+**Topics**
++ [Disallow Cross\-Region Replication for Amazon S3 Buckets](#disallow-s3-ccr)
++ [Disallow Delete Actions on Amazon S3 Buckets Without MFA](#disallow-s3-delete-mfa)
++ [Disallow Access to IAM Users Without MFA](#disallow-access-mfa)
++ [Disallow Console Access to IAM Users Without MFA](#disallow-console-access-mfa)
++ [Disallow Amazon S3 Buckets That Are Not Versioning Enabled](#disallow-s3-no-versioning)
+
 ## Disallow Cross\-Region Replication for Amazon S3 Buckets<a name="disallow-s3-ccr"></a>
 
 Restricts the location of your Amazon S3 data to a single AWS Region by disabling any automatic, asynchronous copying of objects across buckets to other AWS Regions\. This is a preventive guardrail with elective guidance\. By default, this guardrail is not enabled\.

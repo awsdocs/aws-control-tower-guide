@@ -1,6 +1,8 @@
-# Integrated Services<a name="integrated-services"></a>
+# Integrated services<a name="integrated-services"></a>
 
-AWS Control Tower is a well\-architected service that's built on top of other AWS services\. This chapter provides a brief overview of these services, including configuration information about the following services and how they work in AWS Control Tower\.
+AWS Control Tower is a service that's built on top of other AWS services, to assist you in setting up a well\-architected environment\. This chapter provides a brief overview of these services, including configuration information about the underlying services and how they work in AWS Control Tower\.
+
+For more information about how to measure a well\-architected environment, learn about the [AWS Well\-Architected Tool](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html)\.
 
 **Topics**
 + [Scripting Environments with AWS CloudFormation](cloudformation.md)

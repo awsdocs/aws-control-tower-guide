@@ -32,7 +32,7 @@ AWS Control Tower requires creation of three roles to set up a landing zone\. AW
 
 This role provides AWS Control Tower with access to infrastructure critical to maintaining the landing zone\. The role requires an inline policy, and a managed policy attachment\.
 
-Managed Policy: `AWSControlTowerStackSetRole`
+Managed Policy: `AWSControlTowerServiceRolePolicy`
 
 Inline Policy:
 

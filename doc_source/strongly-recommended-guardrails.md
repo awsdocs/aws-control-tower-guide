@@ -2,6 +2,21 @@
 
 Strongly recommended guardrails are based on best practices for well\-architected multi\-account environments\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the strongly recommended guardrails available in AWS Control Tower\.
 
+**Topics**
++ [Disallow Creation of Access Keys for the Root User](#disallow-root-access-keys)
++ [Disallow Actions as a Root User](#disallow-root-auser-actions)
++ [Enable Encryption for Amazon EBS Volumes Attached to Amazon EC2 Instances](#ebs-enable-encryption)
++ [Disallow Internet Connection Through RDP](#rdp-disallow-internet)
++ [Disallow Internet Connection Through SSH](#ssh-disallow-internet)
++ [Enable MFA for the Root User](#enable-root-mfa)
++ [Disallow Public Read Access to Amazon S3 Buckets](#s3-disallow-public-read)
++ [Disallow Public Write Access to Amazon S3 Buckets](#s3-disallow-public-write)
++ [Disallow Amazon EBS Volumes That Are Unattached to An Amazon EC2 Instance](#disallow-unattached-ebs)
++ [Disallow Amazon EC2Instance Types That Are Not Amazon EBS\-Optimized](#disallow-not-ebs-optimized)
++ [Disallow Public Access to Amazon RDS Database Instances](#disallow-rds-public-access)
++ [Disallow Public Access to Amazon RDS Database Snapshots](#disallow-rds-snapshot-public-access)
++ [Disallow Amazon RDS Database Instances That Are Not Storage Encrypted](#disallow-rds-storage-unencrypted)
+
 ## Disallow Creation of Access Keys for the Root User<a name="disallow-root-access-keys"></a>
 
 Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users with limited permissions to interact with your AWS account\. This is a preventive guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.

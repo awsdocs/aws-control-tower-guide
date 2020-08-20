@@ -1,4 +1,4 @@
-# Setting Up<a name="setting-up"></a>
+# Setting up<a name="setting-up"></a>
 
 Before you use AWS Control Tower for the first time, complete the following tasks:
 
@@ -6,7 +6,7 @@ Before you use AWS Control Tower for the first time, complete the following task
 
 1. [Create an IAM User](#setting-up-iam)
 
-These tasks create an AWS account and an IAM user with administrator privileges for the account\. For information on additional setup tasks specifically for AWS Control Tower, see [Getting Started with AWS Control Tower](getting-started-with-control-tower.md)\.
+These tasks create an AWS account and an IAM user with administrator privileges for the account\. For information on additional setup tasks specifically for AWS Control Tower, see [Getting started with AWS Control Tower](getting-started-with-control-tower.md)\.
 
 ## Sign up for AWS<a name="setting-up-signup"></a>
 
@@ -90,4 +90,4 @@ Because of the nature of AWS Control Tower, we strongly recommend that you enabl
 
 ## Next Step<a name="setting-up-next-step"></a>
 
-[Getting Started with AWS Control Tower](getting-started-with-control-tower.md)
+[Getting started with AWS Control Tower](getting-started-with-control-tower.md)

@@ -1,4 +1,4 @@
-# Configuration Update Management in AWS Control Tower<a name="configuration-updates"></a>
+# Configuration update management in AWS Control Tower<a name="configuration-updates"></a>
 
 It is the responsibility of the members of your central cloud administrators' team to keep your landing zone updated\. Updating your landing zone ensures that AWS Control Tower is patched and updated\. In addition, to protect your landing zone from potential compliance issues, the members of the central cloud administrator team should resolve drift issues as soon as they're detected and reported\.
 
@@ -46,15 +46,15 @@ The following procedure walks you through the steps of a full update for AWS Con
       + **SSOUSerLastName** \(Available in SSO\)
       + **AccountName** \(Available in SSO\)
 
-   1. From **ACTIONS**, choose **Update**\.
+   1. From **Actions**, choose **Update**\.
 
-   1. Choose the radio button next to the **Version** of the product you want to update, and choose **NEXT**\.
+   1. Choose the radio button next to the **Version** of the product you want to update, and choose **Next**\.
 
    1. Provide the parameter values that were mentioned previously\. For **ManagedOrganizationalUnit** choose the OU that the account is in\. You can find this information in the AWS Control Tower console, under **Accounts**\.
 
-   1. Choose **NEXT**\.
+   1. Choose **Next**\.
 
-   1. Review your changes, and then choose **UPDATE**\. This process can take a few minutes per account\.
+   1. Review your changes, and then choose **Update**\. This process can take a few minutes per account\.
 
 ## Resolve Drift<a name="resolve-drift"></a>
 
@@ -64,7 +64,7 @@ Resolving drift helps to ensure your organization's compliance with governance r
 
 Drift detection is automatic in AWS Control Tower\. It helps you identify resources that need changes or configuration updates that must be made to resolve the drift\.
 
-To repair most types of drift, choose **Repair** on the **Settings** page\. The **Repair** button becomes selectable when drift has occurred\. For more information, see [Detecting and Resolving Drift in AWS Control Tower](drift.md)\.
+To repair most types of drift, choose **Repair** on the **Settings** page\. The **Repair** button becomes selectable when drift has occurred\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 ## Deploying AWS Control Tower to a New AWS Region<a name="deploying-to-new-region"></a>
 
@@ -79,15 +79,15 @@ Certain significant behavioral changes in AWS Control Tower detective guardrails
 + *What exists stays the same\.* Guardrail behavior, detective as well as preventive, is unchanged for existing accounts, in existing OUs, in existing Regions\.
 + *You can’t apply new detective guardrails to existing OUs containing accounts that are not updated\.* When you’ve deployed your AWS Control Tower landing zone into the new Region \(by updating it\), you must update existing accounts in your existing OUs before you can enable new detective guardrails on those OUs and accounts\.
 + *Your existing detective guardrails begin working in the new Region as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to deploy into the new Region and then update an account, the detective guardrails that already are enabled on the OU will begin working on that account in the new Region\. 
-+ *Update only to Regions in which you need to run\.* Due to this behavior, it can be time\-consuming to deploy your AWS Control Tower landing zone into new AWS Regions if your OUs manage a lot of member accounts\. Therefore, we recommend that you avoid expanding your AWS Control Tower deployment into AWS Regions in which you do not require your workloads to run\.
++ *Update only to Regions in which you need to run\.* It can be time\-consuming to deploy landing zones into new Regions if your OUs manage a lot of member accounts\. We recommend that you avoid expanding your AWS Control Tower deployment into AWS Regions in which you do not require your workloads to run\.
 
-**Methods for automated updating of accounts**
+**Updating accounts using automation**
 
-One method of updating individual accounts after deployment to a new region is by using the API framework of AWS Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach is available in a [blog post](http://aws.amazon.com/blogs/field-notes/enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
+One method of updating individual accounts after deployment to a new Region is by using the API framework of AWS Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach is available in a [blog post](http://aws.amazon.com/blogs/field-notes/enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
 
 You must wait for each account update to succeed before beginning the next account update\. Therefore, the process may take a long time if you have a lot of accounts, but it is not complicated\. For more information about this approach, see the [Walkthrough: Automated Account Provisioning in AWS Control Tower](automated-provisioning-walkthrough.md)\. 
 
 **Note**  
-The [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video) is designed for automated account provisioning, but the steps also apply to account updating, if you remember to call the "UpdateProvisionedProduct" API instead of the "ProvisionProduct" API\.
+The [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video) is designed for automated account provisioning, but the steps also apply to account updating\. Use the `UpdateProvisionedProduct` API instead of the `ProvisionProduct` API\.
 
-A further step of automation is to check for the AWS Control Tower lifecycle "UpdateLandingZone" **Succeed** event and use it as a trigger to begin updating individual accounts as described in the video\. A lifecycle event marks the completion of a sequence of activites, so the occurrence of this event means that a landing zone update is complete\. The landing zone update must be complete before account updates begin\. For more information about working with lifecycle events, see [ Lifecycle Events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html)\.
+A further step of automation is to check for **Succeed** status of the AWS Control Tower `UpdateLandingZone` lifecycle event\. Use it as a trigger to begin updating individual accounts as described in the video\. A lifecycle event marks the completion of a sequence of activites, so the occurrence of this event means that a landing zone update is complete\. The landing zone update must be complete before account updates begin\. For more information about working with lifecycle events, see [ Lifecycle Events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html)\.

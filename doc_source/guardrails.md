@@ -8,7 +8,7 @@ A guardrail applies to an entire organizational unit \(OU\), and every AWS accou
 
 **The purpose of guardrails**
 
-Guardrails enable you to express your policy intentions\. For example, if you enable the preventive **Disallow public read access to S3 buckets** guardrail, you can deny public read access to all S3 buckets for all accounts under an OU\.
+Guardrails enable you to express your policy intentions\. For example, if you enable the detective **Disallow public read access to S3 buckets** guardrail on an OU, you can determine whether a user has attempted public read access to any S3 buckets for any accounts under that OU\.
 
 ## Guardrail Behavior and Guidance<a name="guardrail-behavior"></a>
 
@@ -39,8 +39,12 @@ AWS Control Tower provides three categories of guidance: *mandatory*, *strongly 
 When working with guardrails and OUs, consider the following properties:
 + When you enable guardrails on an organizational unit, those guardrails apply to all child accounts under the OU\.
 + After you create your landing zone, all resources in your landing zone, for example, S3 buckets, are subject to guardrails\.
-+ OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and other guardrails applied at the discretion of administrators\. In contrast, OUs created outside of an AWS Control Tower landing zone can't have guardrails applied to them\. These *ungoverned* OUs are not displayed in the AWS Control Tower console\.
-+ Accounts created through Account Factory inherit their parent OU's guardrails\. Accounts created outside of a landing zone do not inherit guardrails, and these *ungoverned* accounts are not displayed in the AWS Control Tower console\.
++ OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and other guardrails applied at the discretion of administrators\.
++ OUs created outside of an AWS Control Tower landing zone don't have guardrails applied to them automatically\.
++ Accounts created through Account Factory inherit their parent OU's guardrails\.
++  Accounts created outside of a landing zone do not inherit guardrails\.
++ *Unregistered* OUs are displayed in the AWS Control Tower console, but guardrails do not apply to them\.
++ *Unenrolled* accounts are displayed in the AWS Control Tower console, but guardrails do not apply to them\.
 
 **Exceptions to guardrails**
 + The root user and any IAM administrators in the master account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the master account from entering into an unusable state\. All actions taken within the master account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
@@ -61,7 +65,7 @@ In the guardrail details page of the console, you can find the following details
 + **Behavior** – A guardrail's behavior is set to either preventive or detective\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.
 
-On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
+On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy \(SCP\) to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
 
 ## Enabling Guardrails<a name="enable-guardrails"></a>
 

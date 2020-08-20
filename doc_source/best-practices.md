@@ -1,4 +1,4 @@
-# Best Practices for Account Administrators<a name="best-practices"></a>
+# Best practices for AWS Control Tower administrators<a name="best-practices"></a>
 
 This topic is intended primarily for master account administrators\.
 
@@ -62,12 +62,12 @@ For detailed information about the guardrails and their functions, see [Guardrai
 + The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In regions where AWS Control Tower is supported, AWS Control Tower deletes the default AWS VPC when it creates the AWS Control Tower VPC\.
 +  If you delete your default VPC in your home AWS Region, it's best to delete it in all other AWS Regions\. 
 
-## Log in as a Root User<a name="root-login"></a>
+## Sign in as a Root User<a name="root-login"></a>
 
 Certain administrative tasks require that you must sign in as a root user\. You can sign in as a root user to an AWS account that was created by account factory in AWS Control Tower\.
 
 **You must sign in as a root user to perform the following actions:**
-+ Change certain account settings, including the account name, root user password, or email address\. For more information, see [Updating and Moving Account Factory Accounts](account-factory.md#updating-account-factory-accounts)\.
++ Change certain account settings, including the account name, root user password, or email address\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
 + To change or enable your [AWS Support plan](https://docs.aws.amazon.com/controltower/latest/userguide/troubleshooting.html#getting-support)\.
 + To [close an AWS Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html)\.
 + For more information about actions that require root login credentials, please see [AWS Tasks that Require AWS Root Login Credentials](https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html)\.
@@ -108,9 +108,9 @@ We recommend the following practices as you create and modify resources in AWS C
 + In general, AWS Control Tower performs a single action at a time, which must be completed before another action can begin\. For example, if you attempt to provision an account while the process of enabling a guardrail is already in operation, account provisioning will fail\. 
 
 **AWS Organizations Guidance**
-+ Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to re\-enable affected guardrails in AWS Control Tower\. 
++ Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to re\-enable affected guardrails in AWS Control Tower\. Instead, you can create new SCPs and attach those to the OUs rather than editing the SCPs that AWS Control Tower has created\.
 + Moving individual accounts into AWS Control Tower, from outside of a registered OU, causes drift that must be repaired\. See [Types of Governance Drift](drift.md#governance-drift)\.
-+ If you use AWS Organizations to create, invite, or move accounts within an organization registered with AWS Control Tower, those accounts are not enrolled by AWS Control Tower and those changes are not recorded\.
++ If you use AWS Organizations to create, invite, or move accounts within an organization registered with AWS Control Tower, those accounts are not enrolled by AWS Control Tower and those changes are not recorded\. If you need access to these accounts through SSO, see [Member Account Access](http://aws.amazon.com/premiumsupport/knowledge-center/organizations-member-account-access/)\.
 + If you use AWS Organizations to move an OU into an organization created by AWS Control Tower, the external OU is not registered by AWS Control Tower\.
 + Nested OUs are not accessible in AWS Control Tower, because AWS Control Tower displays only the top\-level OUs\.
 + If you use AWS Organizations to rename an account or OU that was created by AWS Control Tower, you must repair your landing zone so that the new name is displayed by AWS Control Tower\.
@@ -122,5 +122,13 @@ We recommend the following practices as you create and modify resources in AWS C
 
 **Account Factory Guidance**
 + When you use Account Factory to provision new accounts in AWS Service Catalog, do not define `TagOptions`, enable notifications, or create a provisioned product plan\. Doing so can result in a failure to provision a new account\.
-+ Avoid using your IAM user after set up to provision accounts in Account Factory or to use the **Enroll account** feature, because it can result in confusing errors\.
++ If you are authenticated as an IAM user when you provision accounts in Account Factory or when you use the **Enroll account** feature, be sure the IAM user is added to the AWS Service Catalog portfolio so that it has the correct permissions\. Otherwise, you may receive an error message from AWS Service Catalog that is difficult to understand\. Common causes for this type of error are given in the Troubleshooting guide\. In particular, refer to the section entitled [No Launch Paths Found Error](troubleshooting.md#no-launch-paths-found)\.
 + Remember that only one account can be provisioned at a time\.
+
+**Guidance on Subscribing to SNS Topics**
++ The `aws-controltower-AllConfigNotifications` SNS topic receives all events published by AWS Config, including compliance notifications and AWS CloudWatch event notifications\. For example, this topic informs you if a guardrail violation has occurred\. It also gives information about other types of events\. \(Learn more from [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html) about what they publish when this topic is configured\.\) 
++ [Data Events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html?icmpid=docs_cloudtrail_console#logging-data-events) from the `aws-controltower-BaselineCloudTrail` trail are set to publish to the `aws-controltower-AllConfigNotifications` SNS topic as well\.
++ To receive detailed compliance notifications, we recommend that you subscribe to the `aws-controltower-AllConfigNotification` SNS topic\. This topic aggregates compliance notifications from all child accounts\.
++ To receive drift notifications and other notifications as well as compliance notifications, but fewer notifications overall, we recommend that you subscribe to the `aws-controltower-AggregateSecurityNotifications` SNS topic\.
+
+For more information about SNS topics and compliance, see [Prevention and notification](compliance.md#prevention-and-notification)\.

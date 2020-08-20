@@ -1,4 +1,4 @@
-# Overview of the Decommissioning Process<a name="decommissioning-process-overview"></a>
+# Overview of the decommissioning process<a name="decommissioning-process-overview"></a>
 
 When you request decommissioning of your landing zone, AWS Control Tower does the following actions\.
 + Disables each detective guardrail enabled in the landing zone\. AWS Control Tower deletes the AWS CloudFormation resources supporting the guardrail\.

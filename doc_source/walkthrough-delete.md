@@ -2,37 +2,25 @@
 
 When your landing zone was set up, AWS Control Tower provisioned resources and services in your landing zone on your behalf\. For example, an AWS Organizations organization with multiple accounts and organizational units \(OUs\) were provisioned\. Additionally, guardrails were deployed in your accounts using AWS CloudFormation stacks, stack sets, and AWS Organizations policies\.
 
-If you no longer intend to use AWS Control Tower for your enterprise, or if you require a major redeployment of your organizational resources, you may want to clean up the resources created when you initially set up your landing zone\.
-
-## Automated Decommissioning of Your AWS Control Tower Landing Zone<a name="automated-decommissioning"></a>
-
-The process of cleaning up all of the resources allocated by AWS Control Tower is referred to as *decommissioning* a landing zone\. To decommission your landing zone with a process that is mostly automated, contact [AWS Support](https://aws.amazon.com/premiumsupport/), to get assistance with additional steps you need to follow\. For a complete list of actions performed during decommissioning, see [Overview of the Decommissioning Process](decommissioning-process-overview.md)\.
-
-Your data and your existing AWS Organizations are not changed by the decommissioning process, in the following ways\.
-+ AWS Control Tower does not remove your data, it only removes parts of the landing zone that it created\.
-+ After the decommissioning process is complete, a few resource artifacts remain, such as S3 buckets and Amazon CloudWatch Logs log groups\.
-
-You must clean up the remaining resources in your accounts manually before you set up another landing zone, and to avoid the possibility of unexpected charges\. For more information, see [Resources Not Removed During Decommissioning](resources-not-removed.md)\.
+This document provides instructions for how to delete AWS Control Tower resources individually, as part of regular maintenance and administrative tasks\. The procedures given in this chapter are intended only for removing individual resources, or a few resources, when needed\. 
 
 **Warning**  
- We strongly recommend that you perform this decommissioning process *only if* you intend to stop using your landing zone\. This process cannot be undone\.
+If you intend to decommission your landing zone, contact AWS Support first, before manually deleting resources\. Manually deleting resources will not allow you to set up a new landing zone\. It is not the same as decommissioning\. Complete decommissioning requires assistance from AWS Support\.
+
+ If you delete all of your landing zone resources manually, it is not the same as decommissioning the landing zone, and you may incur unexpected charges\.
 
 ## Manual Cleanup of AWS Control Tower Resources<a name="manual-decommissioning"></a>
 
 The following procedures guide you through manual methods of cleaning up AWS Control Tower resources\. These procedures can be followed any time you need to delete resources from you landing zone\. Two types of tasks may require cleanup of resources:
 + To delete resources as you manage your landing zone in ordinary situations\.
-+ To clean up resources that remain after automated decommissioning by AWS Support\.
-
-**Note**  
-If you delete all of your landing zone resources manually, it is not the same as decommissioning the landing zone\. Complete decommissioining requires assistance from AWS Support\.
++ To clean up resources that remain after automated decommissioning, in cooperation with AWS Support\.
 
 Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user with administrative permissions for the master account that contains your landing zone\.
 
 **Warning**  
-These are destructive actions that can introduce governance drift into your AWS Control Tower setup\. They cannot be undone\. 
+These are destructive actions that can introduce governance drift into your AWS Control Tower setup\. They cannot be undone\.
 
 **Topics**
-+ [Automated Decommissioning of Your AWS Control Tower Landing Zone](#automated-decommissioning)
 + [Manual Cleanup of AWS Control Tower Resources](#manual-decommissioning)
 + [Delete SCPs](#controltower-walkthrough-delete-scps)
 + [Delete StackSets and Stacks](#controltower-walkthrough-delete-stacksets)
@@ -209,7 +197,7 @@ These procedures walk you through how to clean up the roles and policies that we
 
 1. Open the AWS Single Sign\-On console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
 
-1. Change your AWS Region to US East \(N\. Virginia\)\.
+1. Change your AWS Region to your home Region, which is the Region where you initially set up AWS Control Tower\.
 
 1. From the left navigation menu, choose **AWS accounts**\.
 

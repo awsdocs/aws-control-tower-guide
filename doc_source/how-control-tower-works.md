@@ -106,7 +106,7 @@ Detective guardrails detect specific events when they occur and log the action i
 
 ### Related Topics<a name="how-guardrails-related"></a>
 + [Guardrails in AWS Control Tower](guardrails.md)
-+ [Detecting and Resolving Drift in AWS Control Tower](drift.md)
++ [Detect and resolve drift in AWS Control Tower](drift.md)
 
 ## How AWS Regions Work With AWS Control Tower<a name="region-how"></a>
 

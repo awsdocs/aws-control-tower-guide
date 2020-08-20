@@ -2,6 +2,33 @@
 
 Mandatory guardrails are enabled by default when you set up your landing zone and can't be disabled\. Following, you'll find a reference for each of the mandatory guardrails available in AWS Control Tower\.
 
+**Topics**
++ [Enable Encryption at Rest for Log Archive](#log-archive-encryption-enabled)
++ [Enable Access Logging for Log Archive](#log-archive-access-enabled)
++ [Disallow Changes to CloudWatch Logs Log Groups](#log-group-deletion-policy)
++ [Disallow Deletion of AWS Config Aggregation Authorization](#config-aggregation-authorization-policy)
++ [Disallow Deletion of Log Archive](#disallow-audit-bucket-deletion)
++ [Disallow Policy Changes to Log Archive](#log-archive-policy-changes)
++ [Disallow Public Read Access to Log Archive](#log-archive-public-read)
++ [Disallow Public Write Access to Log Archive](#log-archive-public-write)
++ [Set a Retention Policy for Log Archive](#log-archive-retention-policy)
++ [Disallow Configuration Changes to CloudTrail](#cloudtrail-configuration-changes)
++ [Integrate CloudTrail Events with CloudWatch Logs](#cloudtrail-integrate-events-logs)
++ [Enable CloudTrail in All Available Regions](#cloudtrail-enable-region)
++ [Enable Integrity Validation for CloudTrail Log File](#cloudtrail-enable-validation)
++ [Disallow Changes to CloudWatch Set Up by AWS Control Tower](#cloudwatch-disallow-changes)
++ [Disallow Changes to AWS Config Aggregation Set Up by AWS Control Tower](#cloudwatch-disallow-config-changes)
++ [Disallow Configuration Changes to AWS Config](#config-disallow-changes)
++ [Enable AWS Config in All Available Regions](#config-enable-regions)
++ [Disallow Changes to AWS Config Rules Set Up by AWS Control Tower](#config-rule-disallow-changes)
++ [Disallow Changes to IAM Roles Set Up by AWS Control Tower](#iam-disallow-changes)
++ [Disallow Changes to Lambda Functions Set Up by AWS Control Tower](#lambda-disallow-changes)
++ [Disallow Changes to Amazon SNS Set Up by AWS Control Tower](#sns-disallow-changes)
++ [Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower](#sns-subscriptions-disallow-changes)
+
+**Note**  
+The four mandatory guardrails with `"Sid": "GRCLOUDTRAILENABLED"` are identical by design\. The sample code is correct\.
+
 ## Enable Encryption at Rest for Log Archive<a name="log-archive-encryption-enabled"></a>
 
 This guardrail enables encryption at rest for the Amazon S3 buckets  in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Core** OU\.
@@ -507,7 +534,7 @@ The artifact for this guardrail is the following SCP\.
 }
 ```
 
-## Disallow Changes to AWS Config Rules Set Up by AWS Control Tower<a name="config-disallow-changes"></a>
+## Disallow Changes to AWS Config Rules Set Up by AWS Control Tower<a name="config-rule-disallow-changes"></a>
 
 This guardrail disallows changes to AWS Config Rules that were implemented by AWS Control Tower when the landing zone was set up\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 

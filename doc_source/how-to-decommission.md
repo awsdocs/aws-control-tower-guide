@@ -1,4 +1,4 @@
-# How to Decommission a Landing Zone<a name="how-to-decommission"></a>
+# How to decommission a landing zone<a name="how-to-decommission"></a>
 
 After you've contacted [AWS Support](https://aws.amazon.com/premiumsupport/) and received confirmation that they've enabled your account for decommissioning, you'll be able to see a section on your **Settings** page that allows you to follow the procedure given here\. This procedure will not work until AWS Support has enabled your account for decommissioning\.
 

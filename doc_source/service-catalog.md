@@ -2,4 +2,4 @@
 
 AWS Service Catalog enables IT administrators to create, manage, and distribute portfolios of approved products to end users, who can then access the products they need in a personalized portal\. Typical products include servers, databases, websites, or applications that are deployed using AWS resources\. You can control which users have access to specific products to enforce compliance with organizational business standards, manage product lifecycles, and help users find and launch products with confidence\. For more information, see *[AWS Service Catalog Administrator Guide](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/)*\.
 
-In AWS Control Tower, your central cloud administrators and your end users can provision accounts in your landing zone using Account Factory, a product in AWS Service Catalog\. For more information, see [Account Factory](account-factory.md)\.
+In AWS Control Tower, your central cloud administrators and your end users can provision accounts in your landing zone using Account Factory, a product in AWS Service Catalog\. For more information, see [Provision and manage accounts with Account Factory](account-factory.md)\.

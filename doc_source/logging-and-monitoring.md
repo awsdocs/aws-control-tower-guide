@@ -1,4 +1,4 @@
-# Logging and Monitoring in AWS Control Tower<a name="logging-and-monitoring"></a>
+# Logging and monitoring in AWS Control Tower<a name="logging-and-monitoring"></a>
 
 Monitoring allows you to plan for and respond to potential incidents\. Therefore, monitoring is an important part of the well\-architected nature of AWS Control Tower\. The results of monitoring activities are stored in log files; therefore, logging and monitoring are closely related concepts\.
 
@@ -31,3 +31,4 @@ The following sections describe monitoring and logging in AWS Control Tower with
 **Topics**
 + [Monitoring ](monitoring-overview.md)
 +  [Logging AWS Control Tower Actions with AWS CloudTrail](logging-using-cloudtrail.md)
++ [Lifecycle Events in AWS Control Tower](lifecycle-events.md)
