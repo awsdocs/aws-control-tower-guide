@@ -1,6 +1,6 @@
 # Enable AWS Control Tower on existing organizations and accounts<a name="existing-orgs"></a>
 
-If you have existing AWS Organizations and AWS accounts, you can apply AWS Control Tower guardrails to them\. You can enroll accounts individually, but most customers prefer to enroll groups of accounts by registering the entire organizational unit \(OU\) that contains the accounts\.
+If you have existing AWS Organizations and AWS accounts, you can apply AWS Control Tower guardrails to them\.  
 
 **Terminology**
 + When you bring an existing organization into AWS Control Tower, it's called *registering* the organization, or *extending governance* to the organization\.

@@ -77,6 +77,9 @@ These prerequisites are required before you can enroll an account in AWS Control
 
 To check other prerequisites for enrollment, see [Getting Started with AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html)\.
 
+**Note**  
+When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
+
 ## <a name="enrollment-steps"></a>
 
 After the **AdministratorAccess** permission is in place in your existing account, follow these steps to enroll the account:
