@@ -1,6 +1,6 @@
 # Enroll an existing AWS account<a name="enroll-account"></a>
 
-You can extend AWS Control Tower governance to an individual, existing AWS account when you *enroll* it into an organizational unit \(OU\) that's already governed by AWS Control Tower\. Eligible accounts exist in *unregistered OUs that are part of the same AWS Organizations organization* as the AWS Control Tower OU\. 
+You can extend AWS Control Tower governance to an individual, existing AWS account when you *enroll* it into an organizational unit \(OU\) that's already governed by AWS Control Tower\. Eligible accounts exist in *unregistered OUs that are part of the same AWS Organizations organization* as the AWS Control Tower OU\.
 
 **Set Up Trusted Access First**
 
@@ -35,7 +35,7 @@ AWS Control Tower handles VPCs differently when you provision a new account in A
 + When you enroll an existing account, AWS Control Tower does not remove any existing VPC or AWS default VPC associated with the account\.
 
 **Recommended: You can set up a two\-step approach to account enrollment**
-+ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see [AWS Control Tower Detective Guardrails as an AWS Config Conformance Pack](http://aws.amazon.com/blogs/mt/aws-control-tower-detective-guardrails-as-an-aws-config-conformance-pack)\. 
++ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see [AWS Control Tower Detective Guardrails as an AWS Config Conformance Pack](http://aws.amazon.com/blogs/mt/aws-control-tower-detective-guardrails-as-an-aws-config-conformance-pack)\.
 + Next, you may wish to enroll the account\. If the compliance results are satisfactory, the migration path is easier because you can enroll the account without unexpected consequences\.
 + After you've done your evaluation, if you decide to set up an AWS Control Tower landing zone, you may need to remove the AWS Config delivery channel and configuration recorder that were created for your evaluation\. Then you'll be able to set up AWS Control Tower successfully\.
 
@@ -48,7 +48,7 @@ These prerequisites are required before you can enroll an account in AWS Control
 
 1. The account must not have an AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI before you can enroll an account\. Otherwise, enrollment will fail\.
 
-1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower master account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower master account, in an OU that already is registered with AWS Control Tower\. 
+1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower master account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower master account, in an OU that already is registered with AWS Control Tower\.
 
 1. Before you can enroll an existing account in AWS Control Tower, the account must have the following roles, permissions, and trust relationships in place\. Otherwise, enrollment will fail\.
 
@@ -56,23 +56,22 @@ These prerequisites are required before you can enroll an account in AWS Control
 
    Role Permission: `AdministratorAccess` \(AWS managed policy\)
 
-   Role Trust Relationship:
+   Role Trust Relationship: (Replace the string *`Master Account ID`* with the actual master account ID of your master account\.)
 
    ```
-           
-           {
-           "Version": "2012-10-17",
-           "Statement": [
-            {
-           "Effect": "Allow",
-           "Principal": {
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
            "AWS": "arn:aws:iam::Master Account ID:root"
-                },
-               "Action": "sts:AssumeRole",
-               "Condition": {}
-             }
-             ]
-            }
+         },
+         "Action": "sts:AssumeRole",
+         "Condition": {}
+       }
+     ]
+   }
    ```
 
 To check other prerequisites for enrollment, see [Getting Started with AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html)\.
@@ -201,7 +200,9 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. Choose **Create role**\.
 
-1. When asked to select which service the role is for, select **EC2** and choose **Next:Permissions**\. You will change this to “AWS Control Tower” later\.
+1. When asked to select which type of trusted entity the role is for, select **Another AWS account** and enter the master account ID\.
+
+1. Choose **Next:Permissions**\.
 
 1. When asked to attach policies, choose **AdministratorAccess**\.
 
@@ -214,28 +215,6 @@ For example, if you created this account from AWS Organizations and you use a cr
 1. Enter a brief description in the **Description** box, such as *Allows full account access for enrollment\.*
 
 1. Choose **Create role**\.
-
-1. Navigate to the role you just created\. Choose **Roles** on the left\. Select `AWSControlTowerExecution`\.
-
-1. Under **Trust relationships**, choose **Edit trust relationship**\.
-
-1. Copy the code example shown here and paste it into the Policy Document\. Replace the string *`Master Account ID`* with the actual master account ID of your master account\. Here is the policy to paste:
-
-   ```
-     {
-           "Version": "2012-10-17",
-           "Statement": [
-            {
-           "Effect": "Allow",
-           "Principal": {
-           "AWS": "arn:aws:iam::Master Account ID:root"
-                },
-               "Action": "sts:AssumeRole",
-               "Condition": {}
-             }
-             ]
-            }
-   ```
 
 **Step 3: Enroll the account by moving it into a registered OU, and verify enrollment\.**
 
