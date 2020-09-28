@@ -10,7 +10,7 @@ For example, the status of your guardrails is monitored constantly\. You can see
 
 **Logging**
 
-Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\. All actions are logged, including actions from the AWS Control Tower master accounts and from your organization's member accounts\. Master account actions and events are viewable on the **Activities** page in the console\. Member account actions and events are viewable in log archive files\.
+Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\. All actions are logged, including actions from the AWS Control Tower master account and from your organization's member accounts\. Master account actions and events are viewable on the **Activities** page in the console\. Member account actions and events are viewable in log archive files\.
 
 **The **Activities** Page**
 

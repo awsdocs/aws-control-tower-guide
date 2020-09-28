@@ -30,7 +30,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 In AWS Control Tower, three shared accounts in your landing zone are not provisioned in Account Factory: the master account, the log archive account, and the audit account\.
 
-### What Is the Master Account?<a name="what-is-master"></a>
+### What is the master account?<a name="what-is-master"></a>
 
 This is the account that you created specifically for your landing zone\. This account is used for billing for everything in your landing zone\. It's also used for Account Factory provisioning of accounts, as well as to manage OUs and guardrails\.
 
@@ -55,7 +55,7 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Single Sign\-On | Directory groups | AWSAccountFactory AWSAuditAccountAdmins AWSControlTowerAdmins AWSLogArchiveAdmins AWSLogArchiveViewers AWSSecurityAuditors AWSSecurityAuditPowerUsers AWSServiceCatalogAdmins  | 
 | AWS Single Sign\-On | Permission Sets | AWSAdministratorAccess AWSPowerUserAccess AWSServiceCatalogAdminFullAccess AWSServiceCatalogEndUserAccess AWSReadOnlyAccess AWSOrganizationsFullAccess  | 
 
-### What Is the Log Archive Account?<a name="what-is-log-archive"></a>
+### What is the log archive account?<a name="what-is-log-archive"></a>
 
 This account works as a repository for logs of API activities and resource configurations from all accounts in the landing zone\.
 
@@ -76,7 +76,7 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Lambda | Functions | aws\-controltower\-NotificationForwarder | 
 | Amazon Simple Storage Service | Buckets | aws\-controltower\-logs\-\* aws\-controltower\-s3\-access\-logs\-\* | 
 
-### What Is the Audit Account?<a name="what-is-audit"></a>
+### What is the audit account?<a name="what-is-audit"></a>
 
 The audit account is a restricted account that's designed to give your security and compliance teams read and write access to all accounts in your landing zone\. From the audit account, you have programmatic access to review accounts, by means of a role that is granted to Lambda functions only\. The audit account does not allow you to log in to other accounts manually\. For more information about Lambda functions and roles, see [Configure a Lambda function to assume a role from another AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role)\.  
 

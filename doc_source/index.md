@@ -72,6 +72,7 @@ Amazon's trademarks and trade dress may not be used in
       + [How to decommission a landing zone](how-to-decommission.md)
       + [Setup after decommissioning a landing zone](known-issues-decommissioning.md)
 + [Troubleshooting](troubleshooting.md)
++ [Related information](related-information.md)
 + [AWS Control Tower release notes](release-notes.md)
    + [January 2020 - Present](January-June-2020.md)
    + [January - December 2019](January-December-2019.md)

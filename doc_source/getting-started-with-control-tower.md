@@ -20,10 +20,12 @@ Before AWS Control Tower sets up the landing zone, it automatically runs a serie
 **Note**  
 By default, all accounts are subscribed to these services\.
 + If AWS Single Sign\-On \(AWS SSO\) is already set up, the AWS Control Tower home region must be the same as the AWS SSO region\.
-+ The AWS account cannot have trusted access enabled in the organization master account for either AWS Config or AWS CloudTrail\. We recommend that you do not turn AWS Config off to set up AWS Control Tower and then turn it back on\. If you do so, you'll incur additional charges\. 
 
-**Note**  
-When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
+**Considerations for AWS Config and AWS CloudTrail customers**
++ The AWS account cannot have trusted access enabled in the organization master account for either AWS Config or AWS CloudTrail\.
++ We recommend that you do not turn AWS Config off to set up AWS Control Tower and then turn it back on\. If you do so, you'll incur additional charges\. 
++ If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
++ When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
 
 ## Step One: Create Your Shared Account Email Addresses<a name="step-one"></a>
 
@@ -32,6 +34,8 @@ If you're setting up your landing zone in a new AWS account, for information on 
 To set up your landing zone, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. These email addresses should each be a collaborative inbox, a shared email account for the different users in your enterprise that will do specific work related to AWS Control Tower\. The email addresses are:
 + **Audit account** – This account is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
 + **Log archive account** – This account is for your team of users that need access to all the logging information for all of your managed accounts within managed OUs in your landing zone\.
+
+These accounts are created in the **Core** OU when you create your landing zone\. As a best practice, we recommend that when you need to perform some action in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
 
 ## Step Two: Set Up Your Landing Zone<a name="step-two"></a>
 

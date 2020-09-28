@@ -55,8 +55,4 @@ For information about how to change account settings for VPCs, see the [ Account
 
 For information about how to configure AWS Control Tower without a VPC, see [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)\.
 
-## Notes on VPC and CIDR<a name="bad-peering-options"></a>
-
-Some network administrators may realize that it is possible to peer two subnets in two different VPCs \(that is, in two different accounts\) without changing the CIDR settings for accounts\. Because the nine subnets in a VPC do not overlap, peering technically is possible from *\[VPC1, subnet 1\]* to *\[VPC2, subnet 2\]*, for example\. However, this approach depends on an implementation detail of how subnet ranges are allocated within a VPC\. We don't recommend this method of peering, because it could fail at any time\.
-
 When working with VPCs, AWS Control Tower makes no distinction at the Region level\. Every subnet is allocated from the exact CIDR range that you specify\. The VPC subnets can exist in any Region\.

@@ -1,10 +1,11 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** July 22, 2020
++ **Latest documentation update:** September 18, 2020
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Related information page is now available for AWS Control Tower](#doc-history) | The related information page makes it easier to find common tasks that may be helpful after setting up your AWS Control Tower landing zone\. | September 18, 2020 | 
 | [AWS Control Tower console shows more detail about OUs and accounts\.](#doc-history) | Within the AWS Control Tower console, you can view more detail about your AWS accounts and organizational units \(OUs\)\. The ‘Accounts’ page now lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can now search, sort, and filter across all tables\. | July 22, 2020 | 
 | [AWS Control Tower allows existing organizations to set up a landing zone](#doc-history) | You can now launch a landing zone for AWS Control Tower in an existing organization, to bring the organization into governance\. The **Quick account provisioning** capability in AWS Control Tower was renamed to **Enroll account** and it now permits enrollment of existing AWS accounts as well as creation of new accounts\. | April 16, 2020 | 
 | [AWS Control Tower is now available in Asia Pacific](#doc-history) | AWS Control Tower is now available to be deployed in the Asia Pacific \(Sydney\) AWS Region\. This release requires manual updates to vended accounts, update only if you plan to run workloads in Asia Pacific \(Sydney\)\.  | March 3, 2020 | 

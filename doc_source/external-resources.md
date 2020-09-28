@@ -8,11 +8,12 @@ Renaming, deleting, and moving resources outside of the AWS Control Tower consol
 + Renaming a registered organizational unit \(OU\)
 + Renaming an enrolled account
 + Deleting the Core OU *\(A special case, not to be done lightly\.\)*
++ Removing a shared account from the Core OU *\(Not recommended, requires help from AWS Support\.\)*
 
 ****Changes that are updated automatically by AWS Control Tower****
 + Changing the email address of an enrolled account
 + Deleting a registered OU *\(Except the Core OU, which requires an update\.\)*
-+ Deleting an enrolled account
++ Deleting an enrolled account *\(Except a shared account in the Core OU\.\)*
 
 **Note**  
 AWS Service Catalog handles changes differently than AWS Control Tower\. AWS Service Catalog may create a change in governance posture when it reconciles your changes\. For more information about updating a provisioned product, see [Updating Provisioned Products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-update.html) in the AWS Service Catalog documentation\.
@@ -61,6 +62,24 @@ This type of drift is a special case\. You won't be able to view the **Settings*
 
  For general information about drift, see "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
+## Removing an account from the Core OU<a name="removed-core-account"></a>
+
+It is not recommended to remove any of the shared accounts in the **Core** OU\. If you have removed a shared account accidentally, contact AWS Support\.
+
+**The results of core account removal:**
++ The account is no longer protected by AWS Control Tower mandatory SCPs\.
+
+  **Result:** The resources created by AWS Control Tower in the account may be modified or deleted\.
++ The account is no longer under the AWS Organizations master account\.
+
+  **Result:** The administrator of the AWS Organizations master account no longer has visibility into the account's spending\.
++ The account is no longer monitored by AWS Config\.
+
+  **Result:** No way exists for the administrator of the AWS Organizations master account to detect resource changes\.
++ The account is no longer in the organization\.
+
+  **Result:** AWS Control Tower updates and repair will fail\.
+
 ## Changes that Are Updated Automatically<a name="updated-automatically"></a>
 
 Changes that you make to your account email addresses are updated by AWS Control Tower automatically, but Account Factory does not update them automatically\.
@@ -78,11 +97,11 @@ You can delete OUs and accounts in AWS Control Tower and you don't need to take 
 
 **Deleting a registered OU \(except the Core OU\)**
 
-Within AWS Organizations, you can remove empty organizational units \(OUs\) by using the API or the console\. From the AWS Control Tower console, you can choose **Deregister OU** to remove non\-core, governed OUs that are empty\. OUs that contain accounts cannot be deleted\.
+Within AWS Organizations, you can remove empty organizational units \(OUs\) by using the API or the console\. OUs that contain accounts cannot be deleted\.
 
 AWS Control Tower receives a notification from AWS Organizations when an OU is deleted\. It updates the OU list in the Account Factory, so that the list of registered OUs remains consistent\.
 
-If you see a deleted OU displayed in the AWS Control Tower console, repair your landing zone to remove outdated entries\. You also can choose **Deregister OU** in the AWS Control Tower console to clean up stale entries\.
+If you see a deleted OU displayed in the AWS Control Tower console, repair your landing zone to remove outdated entries\.
 
 **Note**  
 In AWS Service Catalog, the Account Factory is updated to remove the deleted OU from the list of available OUs into which you can provision an account\.

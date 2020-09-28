@@ -27,6 +27,14 @@ You can view lifecycle events from the **Activities** page in your AWS Control T
 
  For more information about how to integrate AWS Control Tower lifecycle events into your workflows, see this blog post, [Using lifecycle events to track AWS Control Tower actions and trigger automated workflows](http://aws.amazon.com/blogs/mt/using-lifecycle-events-to-track-aws-control-tower-actions-and-trigger-automated-workflows/)\.
 
+**Expected behavior of CreateManagedAccount and UpdateManagedAccount lifecycle events**
+
+ When you create an account or enroll an account in AWS Control Tower, those two actions call the same internal API\. If there's an error during the process, it usually occurs after the account has been created but is not fully provisioned\. When you retry to create the account after the error, or when you try to update the provisioned product, AWS Control Tower sees that the account already exists\.
+
+Because the account exists, AWS Control Tower records the `UpdateManagedAccount` lifecycle event instead of the `CreateManagedAccount` lifecycle event at the end of the retry request\. You may have expected to see another `UpdateManagedAccount` event because of the error\. However, the `UpdateManagedAccount` lifecycle event is the expected and desired behavior\.
+
+ If you plan to create or enroll accounts into AWS Control Tower using automated methods, program the Lambda function to look for **UpdateManagedAccount** lifecycle events as well as **CreateManagedAccount** lifecycle events\. 
+
 **Lifecycle event names**
 
 Each lifecycle event is named so that it corresponds to the originating AWS Control Tower action, which also is recorded by AWS CloudTrail\. Thus, for example, a lifecycle event originated by the AWS Control Tower `CreateManagedAccount` CloudTrail event is named `CreateManagedAccount`\.
