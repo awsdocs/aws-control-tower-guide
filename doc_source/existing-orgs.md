@@ -17,7 +17,7 @@ Here's what to expect when you set up your AWS Control Tower landing zone in an 
 + AWS Control Tower uses the master account from your existing AWS Organizations organization as its master account\. No new master account is needed\.
 +  AWS Control Tower sets up two new accounts in a registered OU: an audit account and a logging account\.
 + Your organization's service limits must allow for the creation of these two additional accounts\.
-+ Once you've launched your landing zone in the registered OU, AWS Control Tower guardrails apply automatically to accounts in that OU\.
++ Once you've launched your landing zone, AWS Control Tower guardrails will apply automatically to your newly enrolled accounts in the registered OU\.
 + You can **Enroll** additional existing AWS accounts into an OU that's governed by AWS Control Tower, so that guardrails apply to those accounts\.
 + You cannot use the AWS Control Tower landing zone that you've set up in your existing organization to extend governance to any other OU\.
 
