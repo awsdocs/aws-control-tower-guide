@@ -25,7 +25,7 @@ The following procedure walks you through the steps of a full update for AWS Con
 
 **To update your landing zone manually**
 
-1. Open a web browser, and navigate to the AWS Control Tower console at [https://us\-west\-2\.console\.aws\.amazon\.com/controltower/home/update](https://console.aws.amazon.com/controltower/home/update)\.
+1. Open a web browser, and navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower/home/update](https://console.aws.amazon.com/controltower/home/update)\.
 
 1. Review the information in the wizard and choose **Update**\. This updates the backend of the landing zone as well as your shared accounts\. This process can take a little more than an hour\.
 
