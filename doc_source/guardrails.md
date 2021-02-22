@@ -16,6 +16,8 @@ Guardrails are categorized according to their *behavior* and their *guidance*\.
 
 The *behavior* of each guardrail is either preventive or detective\. Guardrail *guidance* refers to the recommended practice for how to apply each guardrail to your OUs\. The guidance of a guardrail is independent of whether its behavior is preventive or detective\.
 
+
+
 **Guardrail behavior**
 + **Prevention** – A preventive guardrail ensures that your accounts maintain compliance, because it disallows actions that lead to policy violations\. The status of a preventive guardrail is either **enforced** or ** not enabled**\. Preventive guardrails are supported in all AWS Regions\.
 + **Detection** – A detective guardrail detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. The status of a detective guardrail is either **clear**, **in violation**, or **not enabled**\. Detective guardrails apply only in those AWS Regions supported by AWS Control Tower\.
@@ -47,7 +49,7 @@ When working with guardrails and OUs, consider the following properties:
 + *Unenrolled* accounts are displayed in the AWS Control Tower console, but guardrails do not apply to them\.
 
 **Exceptions to guardrails**
-+ The root user and any IAM administrators in the master account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the master account from entering into an unusable state\. All actions taken within the master account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
++ The root user and any IAM administrators in the management account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
 
 ## Optional Guardrails<a name="optional-guardrails"></a>
 

@@ -7,7 +7,7 @@ The video shows you how to provision accounts in an automated, batch fashion, by
 **Note**  
 You also can use this approach for automating account updates, by calling the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one\.
 
-Here is a sample template you can use to help configure your automation administration role in the master account\.
+Here is a sample template you can use to help configure your automation administration role in the management account\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -48,7 +48,7 @@ Description: "Create automation execution role for creating Sample Additional Ro
 Parameters:
   AdminAccountId:
     Type: "String"
-    Description: "Account ID for the administrator account (typically master, security or shared services)."
+    Description: "Account ID for the administrator account (typically management, security or shared services)."
   AdminRoleName:
     Type: "String"
     Description: "Role name for automation administrator access."

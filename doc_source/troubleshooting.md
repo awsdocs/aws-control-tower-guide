@@ -8,12 +8,12 @@ Common causes of landing zone launch failure:
 + Lack of response to a confirmation email message\.
 + AWS CloudFormation StackSet failure\.
 
-**Confirmation email messages**: If your master account is less than an hour old, you may encounter issues when the additional accounts are created\.
+**Confirmation email messages**: If your management account is less than an hour old, you may encounter issues when the additional accounts are created\.
 
 **Action to take**  
 If you encounter this issue, check your email\. You might have been sent confirmation email that is awaiting response\. Alternatively, we recommend that you wait an hour, and then try again\. If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\. 
 
-**Failed StackSets**: Another possible cause of landing zone launch failure is AWS CloudFormation StackSet failure\. AWS Security Token Service \(STS\) regions must be enabled in the master account for all AWS Regions in which AWS Control Tower is supported, so that the provisioning can be successful; otherwise, stack sets will fail to launch\. 
+**Failed StackSets**: Another possible cause of landing zone launch failure is AWS CloudFormation StackSet failure\. AWS Security Token Service \(STS\) regions must be enabled in the management account for all AWS Regions in which AWS Control Tower is supported, so that the provisioning can be successful; otherwise, stack sets will fail to launch\. 
 
 **Action to take**  
 Be sure to enable all of your required AWS Security Token Service [ \(STS\) endpoint regions](https://console.aws.amazon.com/iam/home#/account_settings) before you launch AWS Control Tower\.
@@ -22,8 +22,13 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US East \(N\. Virginia\)
 + US East \(Ohio\)
 + US West \(Oregon\)
-+ Europe \(Ireland\)
++ Canada \(Central\) Region
 + Asia Pacific \(Sydney\)
++ Asia Pacific \(Singapore\) Region
++ Europe \(Frankfurt\) Region
++ Europe \(Ireland\)
++ Europe \(London\) Region
++ Europe \(Stockholm\) Region
 
 ## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
@@ -55,7 +60,7 @@ If the reason for the first enrollment failure was that you forgot to create the
 
 In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the Account Factory provisioned product through the AWS Service Catalog console\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
-## Unable to Update an Account Factory Account<a name="w141aac54c11"></a>
+## Unable to Update an Account Factory Account<a name="w169aac38c11"></a>
 
 When an account is in an inconsistent state, it cannot be updated successfully from Account Factory or AWS Service Catalog\.
 
@@ -192,7 +197,7 @@ To update multiple individual accounts, you can use the APIs from AWS Service Ca
 **Warning**  
 This practice is not recommended\. It does not meet one of the prerequisites for account enrollment\. If you have tried to do this unsupported action and you find yourself receiving multiple error messages, here is some information that might be helpful\.
 
-To move an account that you’ve provisioned through Account Factory into another landing zone that’s managed by AWS Control Tower, under another master account, you must remove all of the IAM roles and the stacks associated with that account from the original OU\. Remove these resources from every region in which the account is deployed\.
+To move an account that you’ve provisioned through Account Factory into another landing zone that’s managed by AWS Control Tower, under another management account, you must remove all of the IAM roles and the stacks associated with that account from the original OU\. Remove these resources from every region in which the account is deployed\.
 
 **Note**  
 The best way to remove the resources is to deprovision the account in its original OU before you try to move it\.

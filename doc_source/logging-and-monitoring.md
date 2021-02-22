@@ -10,13 +10,13 @@ For example, the status of your guardrails is monitored constantly\. You can see
 
 **Logging**
 
-Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\. All actions are logged, including actions from the AWS Control Tower master account and from your organization's member accounts\. Master account actions and events are viewable on the **Activities** page in the console\. Member account actions and events are viewable in log archive files\.
+Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\. All actions are logged, including actions from the AWS Control Tower management account and from your organization's member accounts\. Management account actions and events are viewable on the **Activities** page in the console\. Member account actions and events are viewable in log archive files\.
 
 **The **Activities** Page**
 
-The **Activities** page provides an overview of AWS Control Tower master account actions\. To navigate to the AWS Control Tower **Activities** page, select **Activities** from the left navigation\.
+The **Activities** page provides an overview of AWS Control Tower management account actions\. To navigate to the AWS Control Tower **Activities** page, select **Activities** from the left navigation\.
 
-The **Activities** page shows all AWS Control Tower actions initiated from the master account\. It includes actions that are logged automatically when you navigate through the AWS Control Tower console\. Here are the fields that the **Activities** page shows you: 
+The **Activities** page shows all AWS Control Tower actions initiated from the management account\. It includes actions that are logged automatically when you navigate through the AWS Control Tower console\. Here are the fields that the **Activities** page shows you: 
 + Date and time: The timestamp for the activity\.
 + User: The person or account that initiated the activity\.
 + Action: The activity that occurred\.

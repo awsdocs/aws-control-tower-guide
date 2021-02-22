@@ -31,7 +31,7 @@ Extend your security posture, integrate with external or existing identity provi
 
 Deploy and manage resources and workloads\.
 + [Getting Started Library integration](http://aws.amazon.com/about-aws/whats-new/2020/04/aws-service-catalog-adds-three-new-getting-started-portfolios/) – This blog post describes Getting Started portfolios you can use\. 
-+ [Creating a digital catalog of AWS Marketplace](http://aws.amazon.com/blogs/awsmarketplace/creating-a-curated-digital-catalog-of-aws-marketplace-products-in-a-secured-multi-account-environment) – This blog post describes how to centrally manage your private AWS Marketplace digital catalog from your primary account in AWS Control Tower\.
++ [Creating a digital catalog of AWS Marketplace](http://aws.amazon.com/blogs/awsmarketplace/creating-a-curated-digital-catalog-of-aws-marketplace-products-in-a-secured-multi-account-environment) – This blog post describes how to manage your private AWS Marketplace digital catalog centrally, from your primary account in AWS Control Tower\.
 
 ## Working with existing organizations and accounts<a name="working-existing-organizations"></a>
 
@@ -39,6 +39,7 @@ Work with existing AWS organizations and accounts\.
 + [Enroll an account](https://docs.aws.amazon.com/controltower/latest/userguide/enroll-account) – This user guide topic describes how to enroll an existing AWS account in AWS Control Tower\. 
 + [Bring an account under AWS Control Tower](http://aws.amazon.com/blogs/field-notes/enroll-existing-aws-accounts-into-aws-control-tower) – This blog post describes how to deploy AWS Control Tower into your existing AWS organizations\.
 + [Deploy AWS Config conformance packs on your own](http://aws.amazon.com/blogs/mt/aws-control-tower-detective-guardrails-as-an-aws-config-conformance-pack) – This blog post describes how to deploy AWS Config conformance packs to assist with deploying detective guardrails in AWS Control Tower\. 
++ [How to Detect and Mitigate Guardrail Violation with AWS Control Tower](http://aws.amazon.com/blogs/mt/how-to-detect-and-mitigate-guardrail-violation-with-aws-control-tower/) – This blog post describes how to add guardrails and how to subscribe to SNS notifications so that you can be notified by email of guardrail compliance violations\.
 
 ## Automation and integration<a name="automation-and-integration"></a>
 

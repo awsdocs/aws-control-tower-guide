@@ -2,11 +2,11 @@
 
 AWS Control Tower sets up accounts, organizational units, and other resources on your behalf, but you are the owner of these resources\. You can change these resources within AWS Control Tower or outside it\. The most common place to change resources outside of AWS Control Tower is the AWS Organizations console\. This topic describes how to reconcile changes to AWS Control Tower resources when you make the changes outside of AWS Control Tower\.
 
-Renaming, deleting, and moving resources outside of the AWS Control Tower console can cause the console to become out of sync and display outdated information\. Some changes can be reconciled automatically\. Other changes require a repair to your landing zone to update the information that's displayed in the AWS Control Tower console\.
+Renaming, deleting, and moving resources outside of the AWS Control Tower console causes the console to become out of sync\. Many changes can be reconciled automatically\. Certain changes require a repair to your landing zone to update the information that's displayed in the AWS Control Tower console\.
 
-****Tasks that require landing zone repair to reconcile your changes****
-+ Renaming a registered organizational unit \(OU\)
-+ Renaming an enrolled account
+In general, changes that you make outside the AWS Control Tower console to AWS Control Tower resources create a state of *repairable drift* in your landing zone\. For more information about these changes, see [Repairable Changes to Resources](drift.md#repairable-changes-to-resources)\.
+
+****Tasks that require landing zone repair****
 + Deleting the Core OU *\(A special case, not to be done lightly\.\)*
 + Removing a shared account from the Core OU *\(Not recommended, requires help from AWS Support\.\)*
 
@@ -14,11 +14,11 @@ Renaming, deleting, and moving resources outside of the AWS Control Tower consol
 + Changing the email address of an enrolled account
 + Deleting a registered OU *\(Except the Core OU, which requires an update\.\)*
 + Deleting an enrolled account *\(Except a shared account in the Core OU\.\)*
++ Renaming a registered organizational unit \(OU\)
++ Renaming an enrolled account
 
 **Note**  
 AWS Service Catalog handles changes differently than AWS Control Tower\. AWS Service Catalog may create a change in governance posture when it reconciles your changes\. For more information about updating a provisioned product, see [Updating Provisioned Products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-update.html) in the AWS Service Catalog documentation\.
-
-In general, changes that you make outside the AWS Control Tower console to AWS Control Tower resources create a state of *repairable drift* in your landing zone\. For more information about these changes, see [Repairable Changes to Resources](drift.md#repairable-changes-to-resources)\.
 
 ## Referring to Resources Outside of AWS Control Tower<a name="ungoverned-resources"></a>
 
@@ -34,17 +34,17 @@ Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. 
 
 ## Changing AWS Control Tower Resource Names<a name="changing-names"></a>
 
-You can change the names of your organizational units \(OUs\) and accounts outside of the AWS Control Tower console, but you must also repair your landing zone so that you can see the updates that you've made\.
+You can change the names of your organizational units \(OUs\) and accounts outside of the AWS Control Tower console, and the console updates automatically to reflect those changes\.
 
 **Renaming an OU**
 
-In AWS Organizations, you can change the name of an OU by using either the API or the console\. When you change an OU name outside of AWS Control Tower, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Core and non\-Core \(workload\) OU names\. You can repair this type of drift from the **Settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
+In AWS Organizations, you can change the name of an OU by using either the API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Core and non\-Core \(workload\) OU names\. You can repair this type of drift from the **Settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 AWS Control Tower displays the names of OUs in the console and in Account Factory, and you can see when your landing zone repair has succeeded\.
 
 **Renaming an enrolled account**
 
-Each AWS account has a display name that can be changed in the AWS Billing and Cost Management console\. When you change an account name, you also must repair your AWS Control Tower landing zone to ensure data consistency between services for Core and non\-Core \(workload\) account names\.
+Each AWS account has a display name that can be changed in the AWS Billing and Cost Management console\. When you rename an account that's enrolled in AWS Control Tower, the name change is automatically reflected in AWS Control Tower\. 
 
 **Note**  
 The provisioned product name in AWS Control Tower is set to the AWS account name when the account is provisioned\. If you change this value, you also must update the AWS Service Catalog provisioned product\. This change in AWS Service Catalog may cause a change in governance posture for the account\. 
@@ -64,21 +64,64 @@ This type of drift is a special case\. You won't be able to view the **Settings*
 
 ## Removing an account from the Core OU<a name="removed-core-account"></a>
 
-It is not recommended to remove any of the shared accounts in the **Core** OU\. If you have removed a shared account accidentally, contact AWS Support\.
+We do not recommend that you remove any of the shared accounts from your organization or move them out of the **Core** OU\. If you have removed a shared account accidentally, you can follow the remediation steps below to restore the account\. To start the remediation process from within the AWS Control Tower console, follow the semi\-manual remediation steps\. Ensure the user or role you use to access the AWS Control Tower console has permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation steps which use both the AWS Control Tower console and the AWS Organizations console\.
 
-**The results of core account removal:**
-+ The account is no longer protected by AWS Control Tower mandatory SCPs\.
+You can also start the remediation process from the AWS Organizations console\. This is a slightly longer, fully manual procedure\. When following the manual remediation steps, you'll switch between the AWS Organizations console and the AWS Control Tower console\. When working in AWS Organizations, you'll need a user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. When working in the AWS Control Tower console, you'll need a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permission to run all AWS Control Tower actions \(controltower:\*\)\.
+
+If the remediation steps don't restore the account, contact AWS Support\.
+
+**The results of removing a shared account through AWS Organizations:**
++ The account is no longer protected by AWS Control Tower mandatory service control policies \(SCPs\)\.
 
   **Result:** The resources created by AWS Control Tower in the account may be modified or deleted\.
-+ The account is no longer under the AWS Organizations master account\.
++ The account is no longer under the AWS Organizations management account\.
 
-  **Result:** The administrator of the AWS Organizations master account no longer has visibility into the account's spending\.
-+ The account is no longer monitored by AWS Config\.
+  **Result:** The administrator of the AWS Organizations management account no longer has visibility into the account's spending\.
++ The account is no longer guaranteed to be monitored by AWS Config\.
 
-  **Result:** No way exists for the administrator of the AWS Organizations master account to detect resource changes\.
+  **Result:** The administrator of the AWS Organizations management account may not be able to detect resource changes\.
 + The account is no longer in the organization\.
 
   **Result:** AWS Control Tower updates and repair will fail\.
+
+**To restore a shared account using the AWS Control Tower console \(semi\-manual procedure\)**
+
+1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\. You must sign in as an AWS Identity and Access Management \(IAM\) user or role with permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation procedure described later in this topic\.
+
+1. On the **Landing zone drift detected** page, choose **Re\-Invite** to remediate core account removal by re\-inviting the core account into the organization\. An automatically\-generated email is sent to the email address for the account\.
+
+1. Accept the invitation to bring the core account back into the organization\. Do one of the following:
+   + Sign in to the shared account that was removed, then go to [https://console\.aws\.amazon\.com/organizations/home\#/invites](https://console.aws.amazon.com/organizations/home#/invites)
+   + If you have access to the email message sent when you re\-invited the account, sign in to the removed account, then click the link in the message to navigate directly to the account invitation\. 
+   + If the shared account that was removed is not in another organization, sign into the account, open the AWS Organizations console and navigate to **Invitations**\.
+
+1. Sign in to the management account again, or reload the AWS Control Tower console if it's already open\. Navigate to **Landing zone settings** and choose **Repair** to repair the landing zone\.
+
+1. Wait for the repair process to complete\.
+
+If remediation is successful, the shared account appears in a normal state and compliance\. 
+
+If the remediation steps don't restore the account, contact AWS Support\.
+
+**To restore a shared account using the AWS Control Tower and AWS Organizations consoles \(Manual remediation\)**
+
+1. Sign in to the AWS Organizations console at [https://console.aws.amazon.com/organizations/](https://console.aws.amazon.com/organizations/)\. You must sign in as an IAM user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. 
+
+1. Invite the shared account back to the organization\. For information on the requirements, prerequisites, and procedure for inviting an account to AWS Organizations, see [Inviting an AWS account to your organization ](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html) in the *AWS Organizations User Guide*\.
+
+1. Sign in to the shared account that was removed, then go to [https://console\.aws\.amazon\.com/organizations/home\#/invites](https://console.aws.amazon.com/organizations/home#/invites) to accept the invitation\.
+
+1. Sign in to the management account again\. 
+
+1. Sign in to the AWS Control Tower console as an IAM user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
+
+1. Navigate to **Landing zone settings** and choose **Repair** to repair the landing zone\.
+
+1. Wait for the repair process to complete\.
+
+If remediation is successful, the shared account appears in a normal state and compliance\.
+
+If the remediation steps don't restore the account, contact AWS Support\.
 
 ## Changes that Are Updated Automatically<a name="updated-automatically"></a>
 

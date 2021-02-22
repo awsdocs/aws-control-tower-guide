@@ -48,21 +48,21 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSServiceCatalogEndUserAccess | This group is only used in this account to provision new accounts using Account Factory\. | 
+| Management account | AWSServiceCatalogEndUserAccess | This group is only used in this account to provision new accounts using Account Factory\. | 
 
 
 **AWSServiceCatalogAdmins**  
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSServiceCatalogAdminFullAccess | This group is only used in this account to make administrative changes to Account Factory\. Users in this group can't provision new accounts unless they're also in the AWSAccountFactory group\. | 
+| Management account | AWSServiceCatalogAdminFullAccess | This group is only used in this account to make administrative changes to Account Factory\. Users in this group can't provision new accounts unless they're also in the AWSAccountFactory group\. | 
 
 
 **AWSControlTowerAdmins**  
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSAdministratorAccess | Users of this group in this account are the only ones that have access to the AWS Control Tower console\. | 
+| Management account | AWSAdministratorAccess | Users of this group in this account are the only ones that have access to the AWS Control Tower console\. | 
 | Log archive account | AWSAdministratorAccess | Users have administrator access in this account\. | 
 | Audit account | AWSAdministratorAccess | Users have administrator access in this account\. | 
 | Member accounts | AWSOrganizationsFullAccess | Users have full access to Organizations in this account\. | 
@@ -72,7 +72,7 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSPowerUserAccess | Users can perform application development tasks and can create and configure resources and services that support AWS aware application development\. | 
+| Management account | AWSPowerUserAccess | Users can perform application development tasks and can create and configure resources and services that support AWS aware application development\. | 
 | Log archive account | AWSPowerUserAccess | Users can perform application development tasks and can create and configure resources and services that support AWS aware application development\. | 
 | Audit account | AWSPowerUserAccess | Users can perform application development tasks and can create and configure resources and services that support AWS aware application development\. | 
 | Member accounts | AWSPowerUserAccess | Users can perform application development tasks and can create and configure resources and services that support AWS aware application development\. | 
@@ -82,7 +82,7 @@ AWS Control Tower offers preconfigured groups to organize users that perform spe
 
 | Account | Permission sets | Description | 
 | --- | --- | --- | 
-| Master account | AWSReadOnlyAccess | Users have read\-only access to all AWS services and resources in this account\. | 
+| Management account | AWSReadOnlyAccess | Users have read\-only access to all AWS services and resources in this account\. | 
 | Log archive account | AWSReadOnlyAccess | Users have read\-only access to all AWS services and resources in this account\. | 
 | Audit account | AWSReadOnlyAccess | Users have read\-only access to all AWS services and resources in this account\. | 
 | Member accounts | AWSReadOnlyAccess | Users have read\-only access to all AWS services and resources in this account\. | 

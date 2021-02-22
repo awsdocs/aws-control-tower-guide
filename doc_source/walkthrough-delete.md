@@ -15,7 +15,7 @@ The following procedures guide you through manual methods of cleaning up AWS Con
 + To delete resources as you manage your landing zone in ordinary situations\.
 + To clean up resources that remain after automated decommissioning, in cooperation with AWS Support\.
 
-Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user with administrative permissions for the master account that contains your landing zone\.
+Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user with administrative permissions for the management account that contains your landing zone\.
 
 **Warning**  
 These are destructive actions that can introduce governance drift into your AWS Control Tower setup\. They cannot be undone\.
@@ -135,11 +135,11 @@ The following procedures guide you through how to sign in to the log archive acc
 
 The following procedure guides you through how to sign in as an AWS SSO user in the **AWSServiceCatalogAdmins** group and then clean up your Account Factory accounts\.
 
-**To sign in to your master account with the right permissions**
+**To sign in to your management account with the right permissions**
 
 1. Go to your user portal URL at *directory\-id*\.awsapps\.com/start
 
-1. From **AWS Account**, find the **Master** account\.
+1. From **AWS Account**, find the **Management** account\.
 
 1. From **AWSServiceCatalogAdminFullAccess**, choose **Management console** to sign in to the AWS Management Console as this role\.
 
@@ -201,7 +201,7 @@ These procedures walk you through how to clean up the roles and policies that we
 
 1. From the left navigation menu, choose **AWS accounts**\.
 
-1. Choose your master account link\.
+1. Choose your management account link\.
 
 1. Choose the dropdown for **Permission sets**, select **AWSServiceCatalogEndUserAccess**, and then choose **Remove**\.
 

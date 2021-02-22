@@ -2,9 +2,9 @@
 
 This getting started procedure is for AWS Control Tower central cloud administrators\. Use this procedure when you're ready to set up your landing zone\. From start to finish, it should take about an hour\. This procedure has a prerequisite and two steps\.
 
-## Prerequisite: Automated Pre\-Launch Checks for Your Master Account<a name="getting-started-prereqs"></a>
+## Prerequisite: Automated Pre\-Launch Checks for Your Management Account<a name="getting-started-prereqs"></a>
 
-Before AWS Control Tower sets up the landing zone, it automatically runs a series of pre\-launch checks in your account\. There's no action required on your part for these checks, which ensure that your master account is ready for the changes that establish your landing zone\. Here are the checks that AWS Control Tower runs before setting up a landing zone:
+Before AWS Control Tower sets up the landing zone, it automatically runs a series of pre\-launch checks in your account\. There's no action required on your part for these checks, which ensure that your management account is ready for the changes that establish your landing zone\. Here are the checks that AWS Control Tower runs before setting up a landing zone:
 + The existing service limits for the AWS account must be sufficient for AWS Control Tower to launch\. For more information, see [Limitations and quotas in AWS Control Tower](limits.md)\.
 + The AWS account must be subscribed to the following AWS services:
   + Amazon Simple Storage Service \(Amazon S3\)
@@ -22,7 +22,7 @@ By default, all accounts are subscribed to these services\.
 + If AWS Single Sign\-On \(AWS SSO\) is already set up, the AWS Control Tower home region must be the same as the AWS SSO region\.
 
 **Considerations for AWS Config and AWS CloudTrail customers**
-+ The AWS account cannot have trusted access enabled in the organization master account for either AWS Config or AWS CloudTrail\.
++ The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\.
 + We recommend that you do not turn AWS Config off to set up AWS Control Tower and then turn it back on\. If you do so, you'll incur additional charges\. 
 + If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
@@ -53,7 +53,7 @@ AWS Control Tower has no APIs or programmatic access\. To set up your landing zo
 
 1. Review the **Service permissions**, and when you're ready, choose **I understand the permissions AWS Control Tower will use to administer AWS resources and enforce rules on my behalf**\.
 
-1. Choose **Launch your AWS Control Tower**\.
+1. Choose **Setup landing zone**\.
 
 This starts the process of setting up your landing zone, which can take about an hour to complete\. During setup, your core accounts are created, your root and Core OUs are created, and AWS resources are created, modified, or deleted\.
 

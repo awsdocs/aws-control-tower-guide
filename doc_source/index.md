@@ -1,7 +1,7 @@
 # AWS Control Tower User Guide
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -24,11 +24,12 @@ Amazon's trademarks and trade dress may not be used in
 + [Limitations and quotas in AWS Control Tower](limits.md)
 + [Best practices for AWS Control Tower administrators](best-practices.md)
    + [AWS Control Tower and VPCs](vpc-concepts.md)
+   + [Configuration update management in AWS Control Tower](configuration-updates.md)
 + [Provision and manage accounts with Account Factory](account-factory.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
    + [Manage resources outside of AWS Control Tower](external-resources.md)
-   + [Configuration update management in AWS Control Tower](configuration-updates.md)
 + [Enable AWS Control Tower on existing organizations and accounts](existing-orgs.md)
+   + [Register an existing organizational unit with AWS Control Tower](importing-existing.md)
    + [Enroll an existing AWS account](enroll-account.md)
 + [Guardrails in AWS Control Tower](guardrails.md)
    + [Guardrail Reference](guardrails-reference.md)
@@ -74,7 +75,8 @@ Amazon's trademarks and trade dress may not be used in
 + [Troubleshooting](troubleshooting.md)
 + [Related information](related-information.md)
 + [AWS Control Tower release notes](release-notes.md)
-   + [January 2020 - Present](January-June-2020.md)
+   + [January 2021 - Present](2021-all.md)
+   + [January - December 2020](January-June-2020.md)
    + [January - December 2019](January-December-2019.md)
 + [Document history](doc-history.md)
 + [AWS glossary](glossary.md)

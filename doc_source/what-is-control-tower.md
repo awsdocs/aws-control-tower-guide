@@ -24,8 +24,12 @@ You can incorporate AWS Control Tower with other AWS services into a solution th
 + *Automated account configuration:* AWS Control Tower automates account deployment and enrollment by means of an Account Factory \(or “vending machine”\), which is built as an abstraction on top of provisioned products in AWS Service Catalog\. The Account Factory can create and enroll AWS accounts, and it automates the process of applying guardrails and policies to those accounts\.
 + *Centralized governance:* By employing the capabilities of AWS Organizations, AWS Control Tower sets up a framework that ensures consistent compliance and governance across your multi\-account environment\. The AWS Organizations service provides essential capabilities for managing a multi\-account environment, including central governance and management of accounts, account creation from APIs, and service control policies \(SCPs\)\. 
 
+  
+
   With AWS Control Tower orchestration, you can follow a set of prescribed rules and definitions that extend the capabilities of AWS Organizations\. For example, you can use guardrails to ensure that security logs and necessary cross\-account access permissions are created, and not altered\.
 + *Extensibility:* You can build or extend your own AWS Control Tower environment by working directly in AWS Organizations\. You can see your changes reflected in AWS Control Tower after you register your existing organizations, enroll your existing accounts into AWS Control Tower, and then update your AWS Control Tower landing zone to reflect your changes\. If your workloads require further advanced capabilities, you can leverage other AWS partner solutions along with AWS Control Tower\. 
+
+  
 
 ## Pricing<a name="pricing"></a>
 

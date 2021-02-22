@@ -14,4 +14,4 @@ You can add additional OUs in your landing zone through the AWS Control Tower co
 
 ## Considerations<a name="ou-considerations"></a>
 
-OUs created through AWS Control Tower can have guardrails applied to them\. OUs created outside of AWS Control Tower cannot, and they are not displayed in AWS Control Tower\.
+OUs created through AWS Control Tower can have guardrails applied to them\. OUs created outside of AWS Control Tower cannot, by default\. You can, however, register such OUs\. Once you have registered an OU, you can apply guardrails to it and its accounts\. For information on registering an OU, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\.

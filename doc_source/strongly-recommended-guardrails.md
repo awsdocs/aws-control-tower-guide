@@ -230,7 +230,7 @@ Resources:
 
 ## Enable MFA for the Root User<a name="enable-root-mfa"></a>
 
-This guardrail detects whether multi\-factor authentication \(MFA\) is enabled for the root user of the master account\. MFA reduces vulnerability risks from weak authentication by adding an extra authentication code on top of a user name and password\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This guardrail detects whether multi\-factor authentication \(MFA\) is enabled for the root user of the management account\. MFA reduces vulnerability risks from weak authentication by adding an extra authentication code on top of a user name and password\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
 
 The artifact for this guardrail is the following AWS Config rule\.
 

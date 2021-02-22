@@ -18,7 +18,7 @@ Special consideration: If you currently are using the AWS Landing Zone solution 
 
 By setting up an AWS Control Tower landing zone in an existing organization, you can start working immediately, in parallel with your existing AWS Organizations environment\. Your other OUs created within AWS Organizations are unchanged, because they are not managed by AWS Control Tower\. You can continue to use those OUs and accounts exactly as they are\.
 
- AWS Control Tower consolidates by using the master account from your existing organization as its master account\. No new master account is needed\.
+ AWS Control Tower consolidates by using the management account from your existing organization as its management account\. No new management account is needed\. You can launch your AWS Control Tower landing zone from your existing management account\.
 
 **Note**  
 To set up AWS Control Tower on an existing organization, your service limits must allow for the creation of at least two additional accounts\.
@@ -33,7 +33,7 @@ When you set up your landing zone, the accounts added by AWS Control Tower becom
 
 Enabling AWS Control Tower on an existing AWS Organizations organization provides several major enhancements to the organization\.
 + It allows for unified billing across your organization’s groups, because accounts added by AWS Control Tower will become part of your existing organization\.
-+ It gives you the ability to administer all accounts from one master account in your OU\.
++ It gives you the ability to administer all accounts from one management account in your OU\.
 + It simplifies how you apply and enforce guardrails that cover security and compliance for existing and new accounts\.
 
 **Important**  

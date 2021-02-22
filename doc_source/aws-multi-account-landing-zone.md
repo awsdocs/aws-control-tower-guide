@@ -72,7 +72,7 @@ The names given in the examples follow the suggested AWS naming conventions for 
 ![\[FIRST ILLUSTRATION GOES HERE\]](http://docs.aws.amazon.com/controltower/latest/userguide/images/first-figure.png)
 
 To create a well\-architected AWS environment, the previous diagram show that you’ll need two *foundational* OUs in your AWS Control Tower landing zone:
-+ **Core OU** – Contains three shared accounts: the master \(primary\) account, the log archive account, and the security audit account \(also referred to as the audit account\)\.
++ **Core OU** – Contains three shared accounts: the management \(primary\) account, the log archive account, and the security audit account \(also referred to as the audit account\)\.
 **Note**  
 AWS Control Tower sets up the Core OU for you\.
 + **Infrastructure OU** – Contains your shared services and networking accounts\.

@@ -48,7 +48,7 @@ These prerequisites are required before you can enroll an account in AWS Control
 
 1. The account must not have an AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI before you can enroll an account\. Otherwise, enrollment will fail\.
 
-1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower master account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower master account, in an OU that already is registered with AWS Control Tower\. 
+1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower management account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower management account, in an OU that already is registered with AWS Control Tower\. 
 
 1. Before you can enroll an existing account in AWS Control Tower, the account must have the following roles, permissions, and trust relationships in place\. Otherwise, enrollment will fail\.
 
@@ -66,7 +66,7 @@ These prerequisites are required before you can enroll an account in AWS Control
             {
            "Effect": "Allow",
            "Principal": {
-           "AWS": "arn:aws:iam::Master Account ID:root"
+           "AWS": "arn:aws:iam::Management Account ID:root"
                 },
                "Action": "sts:AssumeRole",
                "Condition": {}
@@ -97,7 +97,7 @@ After the **AdministratorAccess** permission is in place in your existing accoun
 + You may be signed in to an account that needs to be added to the Account Factory Portfolio in AWS Service Catalog\. The account must be added before you'll have access to Account Factory so you can create or enroll an account in AWS Control Tower\. If the appropriate user or role is not added to the Account Factory Portfolio, you’ll receive an error when you attempt to add an account\.
 + You may be signed in as root\.
 + The account you're trying to enroll may have AWS Config settings that are residual\. In particular, the account must not have a configuration recorder or delivery channel, so these must be deleted through the AWS CLI before you can enroll an account\.
-+ If the account belongs to another OU with a master account, including another AWS Control Tower OU, you must terminate the account in its current OU before it can join another OU\. Existing resources must be removed in the original OU\. Otherwise, enrollment will fail\.
++ If the account belongs to another OU with a management account, including another AWS Control Tower OU, you must terminate the account in its current OU before it can join another OU\. Existing resources must be removed in the original OU\. Otherwise, enrollment will fail\.
 
 For more information about how AWS Control Tower works with roles when you're creating new accounts or enrolling existing accounts, see [How AWS Control Tower Works With Roles to Create and Manage Accounts ](how-control-tower-works.md#roles-how)\.
 
@@ -137,8 +137,8 @@ Here are some example AWS Config CLI commands you can use to determine the statu
 **Note**  
 You can send the invitation for the new organization before the account drops out of the old organization\. The invitation will be waiting when the account drops out of its existing organization\.
 
-**Moving from a different organization and master account**
-+ **Moving from a different master account**: This practice is not recommended\. It may be easier to create a new account\. If the account you wish to enroll was previously created or enrolled in another organization with a different AWS Control Tower landing zone and master account, you must deprovision the account \(and all of its resources\) in its existing OU before you move it to the new OU\. Otherwise, enrollment will fail, and it may be very time consuming to repair the error\. See [Failure to move an Account Factory account directly from one AWS Control Tower landing zone to another AWS Control Tower landing zone](troubleshooting.md#failure-to-move)\.
+**Moving from a different organization and management account**
++ **Moving from a different management account**: This practice is not recommended\. It may be easier to create a new account\. If the account you wish to enroll was previously created or enrolled in another organization with a different AWS Control Tower landing zone and management account, you must deprovision the account \(and all of its resources\) in its existing OU before you move it to the new OU\. Otherwise, enrollment will fail, and it may be very time consuming to repair the error\. See [Failure to move an Account Factory account directly from one AWS Control Tower landing zone to another AWS Control Tower landing zone](troubleshooting.md#failure-to-move)\.
 + **Moving from a registered OU to another registered OU**: This action causes you to receive a notification similar to this one:
 
   `AWS Control Tower detects that your enrolled account has been moved to a new organizational unit.`
@@ -169,11 +169,11 @@ Before enrolling an account with AWS Control Tower, you must give AWS Control To
 
 **For each account:**
 
-**Step 1: Sign in with administrator access to the master account of the organization that currently contains the account you wish to enroll\.**
+**Step 1: Sign in with administrator access to the management account of the organization that currently contains the account you wish to enroll\.**
 
 For example, if you created this account from AWS Organizations and you use a cross\-account IAM role to sign in, then you may follow these steps:
 
-1. Sign into your organization’s master account\.
+1. Sign into your organization’s management account\.
 
 1. Go to **AWS Organizations**\.
 
@@ -191,7 +191,7 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. When you’re finished, stay in the child account for the next part of the procedure\.
 
-1. Make note of the master account ID, because you will need to enter it in the next step\.
+1. Make note of the management account ID, because you will need to enter it in the next step\.
 
 **Step 2: Give AWS Control Tower permission to manage the account\.**
 
@@ -219,7 +219,7 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. Under **Trust relationships**, choose **Edit trust relationship**\.
 
-1. Copy the code example shown here and paste it into the Policy Document\. Replace the string *`Master Account ID`* with the actual master account ID of your master account\. Here is the policy to paste:
+1. Copy the code example shown here and paste it into the Policy Document\. Replace the string *`Management Account ID`* with the actual management account ID of your management account\. Here is the policy to paste:
 
    ```
      {
@@ -228,7 +228,7 @@ For example, if you created this account from AWS Organizations and you use a cr
             {
            "Effect": "Allow",
            "Principal": {
-           "AWS": "arn:aws:iam::Master Account ID:root"
+           "AWS": "arn:aws:iam::Management Account ID:root"
                 },
                "Action": "sts:AssumeRole",
                "Condition": {}

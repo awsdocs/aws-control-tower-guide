@@ -2,7 +2,7 @@
 
 Amazon Simple Notification Service \(Amazon SNS\) is a web service that enables applications, end\-users, and devices to send and receive notifications instantly from the cloud\. For more information, see *[Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)*\.
 
-AWS Control Tower uses Amazon SNS to send programmatic alerts to the email addresses of your master account and your audit account\. These alerts help you prevent drift within your landing zone\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\. 
+AWS Control Tower uses Amazon SNS to send programmatic alerts to the email addresses of your management account and your audit account\. These alerts help you prevent drift within your landing zone\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\. 
 
 We also use Amazon Simple Notification Service to send compliance notifications from AWS Config\.
 

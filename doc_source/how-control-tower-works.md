@@ -13,14 +13,14 @@ The structure of a landing zone in AWS Control Tower is as follows:
 
 ## What Happens When You Set Up a Landing Zone<a name="how-it-works-setup"></a>
 
-When you set up a landing zone, AWS Control Tower performs the following actions in your master account on your behalf:
+When you set up a landing zone, AWS Control Tower performs the following actions in your management account on your behalf:
 + Creates three Organizations organizational units \(OUs\): Root, Core, and Custom\.
 + Creates two shared accounts: the log archive account and audit account\.
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
 + Applies 20 preventive guardrails to enforce policies\.
 + Applies six detective guardrails to detect configuration violations\.
-+ Preventive guardrails are not applied to the master account\.
-+ Except for the master account, guardrails are applied to the organization as a whole\.
++ Preventive guardrails are not applied to the management account\.
++ Except for the management account, guardrails are applied to the organization as a whole\.
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)
@@ -28,16 +28,16 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
-In AWS Control Tower, three shared accounts in your landing zone are not provisioned in Account Factory: the master account, the log archive account, and the audit account\.
+In AWS Control Tower, three shared accounts in your landing zone are not provisioned in Account Factory: the management account, the log archive account, and the audit account\.
 
-### What is the master account?<a name="what-is-master"></a>
+### What is the management account?<a name="what-is-master"></a>
 
 This is the account that you created specifically for your landing zone\. This account is used for billing for everything in your landing zone\. It's also used for Account Factory provisioning of accounts, as well as to manage OUs and guardrails\.
 
 **Note**  
-It is not recommended to run any type of production workloads from an AWS Control Tower master account\. Create a separate AWS Control Tower account to run your workloads\. 
+It is not recommended to run any type of production workloads from an AWS Control Tower management account\. Create a separate AWS Control Tower account to run your workloads\. 
 
-When you set up your landing zone, the following AWS resources are created within your master account\.
+When you set up your landing zone, the following AWS resources are created within your management account\.
 
 
 | AWS service | Resource type | Resource name | 
@@ -114,12 +114,17 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US East \(N\. Virginia\)
 + US East \(Ohio\)
 + US West \(Oregon\)
-+ Europe \(Ireland\)
++ Canada \(Central\) Region
 + Asia Pacific \(Sydney\)
++ Asia Pacific \(Singapore\) Region
++ Europe \(Frankfurt\) Region
++ Europe \(Ireland\)
++ Europe \(London\) Region
++ Europe \(Stockholm\) Region
 
 When you create a landing zone, the region that you're using for access to the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
 
-Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in regions where AWS Control Tower is supported\. For more information about the behavior of guardrails when you activate AWS Control Tower in a new region, see [Deploying AWS Control Tower to a New AWS Region](configuration-updates.md#deploying-to-new-region)\.
+Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in regions where AWS Control Tower is supported\. For more information about the behavior of guardrails when you activate AWS Control Tower in a new region, see [Deploying AWS Control Tower to a new AWS Region](configuration-updates.md#deploying-to-new-region)\.
 
 ## How AWS Control Tower Works With Roles to Create and Manage Accounts<a name="roles-how"></a>
 
@@ -139,6 +144,86 @@ The `AWSControlTowerExecution` role allows AWS Control Tower to manage your indi
 After you’ve completed setting up accounts, `AWSControlTowerExecution` ensures that your selected AWS Control Tower guardrails apply automatically to every individual account in your organization, as well as to every new account you create in AWS Control Tower\. Therefore, you can provide compliance and security reports with ease, based on the auditing and logging features embodied by AWS Control Tower guardrails\. Your security and compliance teams can verify that all requirements are met, and that no organizational drift has occurred\. For more information about drift, see [the AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/drift.html)\. 
 
 To summarize, the `AWSControlTowerExecution` role and its associated policy gives you flexible control of security and compliance across your entire organization\. Therefore, breaches of security are less likely to occur\.
+
+## How AWS Control Tower aggregates unmanaged OUs and accounts<a name="config-role-for-organizations"></a>
+
+The AWS Control Tower management account creates an organization\-level aggregator, which assists in detecting external AWS Config rules, so that AWS Control Tower does not need to gain access to unmanaged accounts\. The AWS Control Tower console shows you how many externally created AWS Config rules you have for a given account, and links you to the AWS Config console, where you can view details about those external rules\. 
+
+To create the aggregator, AWS Control Tower adds a role with the permissions required to describe an organization and list the accounts under it\. The `AWSControlTowerConfigAggregatorRoleForOrganizations` role requires the `AWSConfigRoleForOrganizations` managed policy and a trust relationship with `config.amazonaws.com`\.
+
+Here is the artifact for the role:
+
+```
+    
+  {
+    "Version": "2012-10-17",
+      "Statement": [
+       {
+        "Effect": "Allow",
+        "Action": [
+          "organizations:ListAccounts",
+          "organizations:DescribeOrganization",
+          "organizations:ListAWSServiceAccessForOrganization"
+         ],
+       "Resource": "*"
+      }
+    ]
+  }
+```
+
+Here is the `AWSControlTowerConfigAggregatorRoleForOrganizations` trust relationship:
+
+```
+ 
+  {
+    "Version": "2012-10-17",
+      "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+        "Service": "config.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  }
+}
+```
+
+To deploy this functionality in the management account, the following permissions are added in the managed policy `AWSControlTowerServiceRolePolicy`, which is used by the `AWSControlTowerAdmin` role when it creates the AWS Config aggregator:
+
+```
+   
+{
+  "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "config:PutConfigurationAggregator",
+          "config:DeleteConfigurationAggregator",
+          "iam:PassRole"
+          ],
+        "Resource": [
+          "arn:aws:iam:::role/service-role/AWSControlTowerConfigAggregatorRoleForOrganizations",
+          "arn:aws:config:::config-aggregator/"
+          ]
+        },
+      {
+        "Effect": "Allow",
+        "Action": "organizations:EnableAWSServiceAccess",
+        "Resource": "*"
+      }
+    ]
+}
+```
+
+New resources created: `AWSControlTowerConfigAggregatorRoleForOrganizations` and `aws-controltower-ConfigAggregatorForOrganizations`
+
+When you are ready, you can enroll accounts individually, or enroll them as a group by registering an OU\. When you've enrolled an account, if you create a rule in AWS Config, AWS Control Tower detects the new rule and updates the account's list of enabled guardrails in the AWS Control Tower console to show that you have an external rule\. The aggregator provides the number of external rules and provides a link to the AWS Config console where you can view the details of each external rule for your account\. Use the information in the AWS Config console and the AWS Control Tower console to determine whether you have the appropriate guardrails enabled for the account\.
+
+**Note**  
+To link directly from the AWS Control Tower console to your aggregated list of AWS Config rules, configure your AWS Config console with the Config Recorder and Delivery Channel in the home region of your management account\.
 
 ## How AWS Control Tower Works With StackSets<a name="stacksets-how"></a>
 

@@ -1,12 +1,12 @@
 # Best practices for AWS Control Tower administrators<a name="best-practices"></a>
 
-This topic is intended primarily for master account administrators\.
+This topic is intended primarily for management account administrators\.
 
-Master account administrators are responsible for explaining some tasks that AWS Control Tower guardrails prevent their member account administrators from doing\. This topic describes some best practices and procedures for transferring this knowledge, and it gives other tips for setting up and maintaining your AWS Control Tower environment efficiently\.
+Management account administrators are responsible for explaining some tasks that AWS Control Tower guardrails prevent their member account administrators from doing\. This topic describes some best practices and procedures for transferring this knowledge, and it gives other tips for setting up and maintaining your AWS Control Tower environment efficiently\.
 
 ## Explaining Access to Users<a name="explaining-users"></a>
 
-The AWS Control Tower console is available only to users with the master account administrator permissions\. Only these users can perform administrative work within your landing zone\. In accordance with best practices, this means that the majority of your users and member account administrators will never see the AWS Control Tower console\. As a member of the master account administrator group, it's your responsibility to explain the following information to the users and administrators of your member accounts, as appropriate\.
+The AWS Control Tower console is available only to users with the management account administrator permissions\. Only these users can perform administrative work within your landing zone\. In accordance with best practices, this means that the majority of your users and member account administrators will never see the AWS Control Tower console\. As a member of the management account administrator group, it's your responsibility to explain the following information to the users and administrators of your member accounts, as appropriate\.
 + Explain which AWS resources that users and administrators have access to within the landing zone\.
 + List the preventive guardrails that apply to each Organizational Unit \(OU\) so that the other administrators can plan and execute their AWS workloads accordingly\.
 
@@ -21,7 +21,7 @@ AWS offers tools to identify the scope of a user's AWS resource access\. After y
 + **IAM policy simulator** – With the IAM policy simulator, you can test and troubleshoot IAM\-based and resource\-based policies\. For more information, see [Testing IAM Policies with the IAM Policy Simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html)\.
 + **AWS CloudTrail logs** – You can review AWS CloudTrail logs to see actions taken by a user, role, or AWS service\. For more information about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)\.
 
-  Actions taken by CloudTrail landing zone administrators are logged in the landing zone master account\. Actions taken by member account administrators and users are logged in the shared log archive account\.
+  Actions taken by CloudTrail landing zone administrators are logged in the landing zone management account\. Actions taken by member account administrators and users are logged in the shared log archive account\.
 
   You can view a summary table of AWS Control Tower events in the [**Activities** page\.](https://console.aws.amazon.com/)
 
@@ -53,10 +53,10 @@ For detailed information about the guardrails and their functions, see [Guardrai
 + Set up your landing zone and deploy your Account Factory accounts from within your home region\.
 + If you’re investing in several AWS Regions, be sure that your cloud resources are in the region where you’ll do most of your cloud administrative work and run your workloads\.
 + The audit and other buckets are created in the same AWS Region from which you launch AWS Control Tower\. We recommend that you do not move these buckets\.
-+ When launching, AWS STS endpoints must be activated in the master account, for all regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
++ When launching, AWS STS endpoints must be activated in the management account, for all regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
 
 ## Administrative Tips for Landing Zone Maintenance<a name="tips-for-admin-maint"></a>
-+ You can make your own log buckets in the log archive account\. Just be sure to leave the buckets created by AWS Control Tower\. Note that your Amazon S3 access logs must be in the same AWS Region as the source buckets\. 
++ You can make your own log buckets in the log archive account, but it is not recommended\. Be sure to leave the buckets created by AWS Control Tower\. Note that your Amazon S3 access logs must be in the same AWS Region as the source buckets\. For buckets you create, you do not have access to use `s3:PutEncryptionConfiguration`, `s3:PutBucketLogging`, or `s3:PutBucketPolicy` on those buckets because of restrictions created by mandatory guardrails\.
 + By keeping your workloads and logs in the same AWS Region, you reduce the cost that would be associated with moving and retrieving log information across regions\.
 + The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the AWS Service Catalog portfolio, or to create a custom VPC that runs in only the required regions\.
 + The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In regions where AWS Control Tower is supported, AWS Control Tower deletes the default AWS VPC when it creates the AWS Control Tower VPC\.
@@ -76,7 +76,7 @@ Certain administrative tasks require that you must sign in as a root user\. You 
 
 1. Open the AWS sign\-in page\.
 
-   If you don't have the email address of the AWS account to which you require access, you can get it from AWS Control Tower\. Open the console for the master account, choose **Accounts**, and look for the email address\.
+   If you don't have the email address of the AWS account to which you require access, you can get it from AWS Control Tower\. Open the console for the management account, choose **Accounts**, and look for the email address\.
 
 1. Enter the email address of the AWS account to which you require access, and then choose **Next**\.
 
@@ -88,7 +88,7 @@ Certain administrative tasks require that you must sign in as a root user\. You 
 
 ## Recommendations for Setting Up Groups, Roles, and Policies<a name="roles-recommendations"></a>
 
-As you set up your landing zone, it's a good idea to decide ahead of time which users will require access to certain accounts and why\. For example, a security account should be accessible only to the security team, the master account should be accessible only to the cloud administrators' team, and so forth\.
+As you set up your landing zone, it's a good idea to decide ahead of time which users will require access to certain accounts and why\. For example, a security account should be accessible only to the security team, the management account should be accessible only to the cloud administrators' team, and so forth\.
 
 **Recommended Restrictions**
 
@@ -101,7 +101,7 @@ When you're setting up the shared audit account in your landing zone, we recomme
 We recommend the following practices as you create and modify resources in AWS Control Tower\. This guidance might change as the service is updated\.
 
 **General Guidance**
-+ Do not modify or delete resources created by AWS Control Tower in the master account or in the shared accounts\. Modification of these resources can require an update to your landing zone\.
++ Do not modify or delete resources created by AWS Control Tower in the management account or in the shared accounts\. Modification of these resources can require an update to your landing zone\.
 + Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the core organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
 + For more information about the resources created by AWS Control Tower, see [What Are the Shared Accounts?](how-control-tower-works.md#what-shared)
 + Do not disallow usage of any AWS Regions through either SCPs or AWS STS\. Doing so will break AWS Control Tower\.

@@ -8,11 +8,11 @@ For customers without existing AWS Organizations organizations, AWS Control Towe
 + Organizational Units \(OUs\) you created from the AWS Control Tower console are not removed\.
 + The core and custom OUs are not removed\.
 + The organization is not deleted from AWS Organizations\.
-+ No accounts in AWS Organizations \(core, provisioned, or master\) are moved or removed\.
++ No accounts in AWS Organizations \(core, provisioned, or management\) are moved or removed\.
 
 **AWS Single Sign\-On \(SSO\)**
 
-For customers without an existing AWS SSO directory, AWS Control Tower sets up AWS SSO and configures an initial directory\. When you decommission your landing zone, AWS Control Tower makes no changes to AWS SSO\. If needed, you can delete the AWS SSO information stored in your master account manually\. In particular, these areas are unchanged by decommissioning:
+For customers without an existing AWS SSO directory, AWS Control Tower sets up AWS SSO and configures an initial directory\. When you decommission your landing zone, AWS Control Tower makes no changes to AWS SSO\. If needed, you can delete the AWS SSO information stored in your management account manually\. In particular, these areas are unchanged by decommissioning:
 + Users created with Account Factory are not removed\.
 + Groups created by AWS Control Tower setup are not removed\.
 + Permission sets created by AWS Control Tower are not removed\.
@@ -42,5 +42,5 @@ AWS Control Tower customers can use account factory to create new AWS accounts\.
 
 **CloudWatch Logs Log Group**
 
-A CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, is created as part of the blueprint named `AWSControlTowerBP-BASELINE-CLOUDTRAIL-MASTER`\. This log group is not removed\. Instead, the blueprint is deleted and the resources are retained\.
+A CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, is created as part of the blueprint named `AWSControlTowerBP-BASELINE-CLOUDTRAIL-MANAGEMENT`\. This log group is not removed\. Instead, the blueprint is deleted and the resources are retained\.
 + This log group must be deleted manually before you set up another landing zone\.

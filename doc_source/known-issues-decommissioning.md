@@ -1,7 +1,7 @@
 # Setup after decommissioning a landing zone<a name="known-issues-decommissioning"></a>
 
 After you decommission your landing zone, you cannot successfully execute setup again until manual cleanup is complete\. Also, without manual cleanup of these remaining resources, you may incur unexpected billing charges\. You must attend to these issues:
-+ The AWS Control Tower master account is part of the AWS Control Tower **Root OU**\. Be sure that these IAM roles and IAM policies are removed from the master account: 
++ The AWS Control Tower management account is part of the AWS Control Tower **Root OU**\. Be sure that these IAM roles and IAM policies are removed from the management account: 
   + Roles: 
 
     `- AWSControlTowerAdmin`
@@ -24,7 +24,7 @@ After you decommission your landing zone, you cannot successfully execute setup 
   + `aws-controltower-s3-access-logs-{accountId}-{region}` \(used for the logging access bucket\)\.
 
    You must either rename or remove these buckets, or use a different account for the logging account\.
-+ Setup fails if the master account has the existing log group, `aws-controltower/CloudTrailLogs`, in CloudWatch Logs\. You must either rename or remove the log group\. 
++ Setup fails if the management account has the existing log group, `aws-controltower/CloudTrailLogs`, in CloudWatch Logs\. You must either rename or remove the log group\. 
 
 **Note**  
 You cannot set up a new landing zone in an organization with top\-level OUs named either **Core** or **Custom**\. You must rename or remove these OUs to set up a landing zone again\.

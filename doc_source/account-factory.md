@@ -3,7 +3,7 @@
 This chapter includes an overview and procedures for provisioning new accounts in your AWS Control Tower landing zone\. AWS Control Tower provides three methods for creating member accounts:
 + through the Account Factory console that is part of AWS Service Catalog\.
 + through the **Enroll account** feature within AWS Control Tower\. 
-+ from your AWS Control Tower landing zone's master account, using Lambda code and appropriate IAM roles\.
++ from your AWS Control Tower landing zone's management account, using Lambda code and appropriate IAM roles\.
 
 The standard way to provision accounts is through Account Factory, a console\-based product that's part of the AWS Service Catalog\. If your landing zone is not in a state of drift, you can use **Enroll account**\. Also, some customers may prefer to configure new accounts programmatically using IAM roles and Lambda functions\.
 
@@ -11,18 +11,18 @@ With the appropriate user group permissions, provisioners can specify standardiz
 
 ## Permissions for Configuring and Provisioning Accounts<a name="configure-provision-new-account"></a>
 
-The AWS Control Tower account factory enables cloud administrators and AWS Single Sign\-On end users to provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group or the master group\. 
+The AWS Control Tower account factory enables cloud administrators and AWS Single Sign\-On end users to provision accounts in your landing zone\. By default, AWS SSO users that provision accounts must be in the **AWSAccountFactory** group or the management group\. 
 
 **Note**  
-Exercise caution when working from the master account, as you would when using any account that has generous permissions across your organization\.
+Exercise caution when working from the management account, as you would when using any account that has generous permissions across your organization\.
 
-The AWS Control Tower master account has a trust relationship with the **AWSControlTowerExecution** role, which enables account setup from the master account, including some automated account setup\. For more information about the **AWSControlTowerExecution** role, see [How AWS Control Tower Works With Roles to Create and Manage Accounts ](how-control-tower-works.md#roles-how)\.
+The AWS Control Tower management account has a trust relationship with the **AWSControlTowerExecution** role, which enables account setup from the management account, including some automated account setup\. For more information about the **AWSControlTowerExecution** role, see [How AWS Control Tower Works With Roles to Create and Manage Accounts ](how-control-tower-works.md#roles-how)\.
 
 To enroll an existing AWS account into AWS Control Tower, that account must have the **AWSControlTowerExecution** role enabled\. For more information about how to enroll an existing account, see [Enroll an existing AWS account](enroll-account.md)\.
 
 ## Automated Account Provisioning With IAM Roles<a name="automated-provisioning"></a>
 
-To configure Account Factory accounts in a more automated way, you can create Lambda functions in the AWS Control Tower master account, which [assumes the **AWSControlTowerExecution** role ](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/) in the member account\. Then, using the role, the master account performs the desired configuration steps in each member account\.
+To configure Account Factory accounts in a more automated way, you can create Lambda functions in the AWS Control Tower management account, which [assumes the **AWSControlTowerExecution** role ](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/) in the member account\. Then, using the role, the management account performs the desired configuration steps in each member account\.
 
  If you're provisioning accounts using Lambda functions, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
 
@@ -105,7 +105,7 @@ The following procedure describes how to provision accounts as an AWS SSO end us
 
 1. From **Your applications**, choose **AWS Account**\.
 
-1. From the list of accounts, choose the account ID for your master account\. This ID may also have a label, for example, **\(Master\)**\. 
+1. From the list of accounts, choose the account ID for your management account\. This ID may also have a label, for example, **\(Management\)**\. 
 
 1. From **AWSServiceCatalogEndUserAccess**, choose **Management console**\. This opens the AWS Management Console for this user in this account\.
 
@@ -145,7 +145,7 @@ The following procedure guides you through how to update your Account Factory ac
 
 1. Sign in to the AWS Management Console and open the AWS Single Sign\-On console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
 
-   Alternatively, you can sign in to your AWS Control Tower master account\.
+   Alternatively, you can sign in to your AWS Control Tower management account\.
 **Note**  
 You must be signed in as a user with the permissions to provision new products in AWS Service Catalog; for example, an AWS SSO user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\.
 
@@ -188,7 +188,7 @@ You can view the Amazon VPC configuration options available to your end users wh
 
 **To configure Amazon VPC settings in Account Factory**
 
-1. As a central cloud administrator, sign into the AWS Control Tower console with administrator permissions in the master account\.
+1. As a central cloud administrator, sign into the AWS Control Tower console with administrator permissions in the management account\.
 
 1. From the left side of the dashboard, select **Account Factory** to navigate to the Account Factory network configuration page\. There you can see the default network settings displayed\. To edit, select **Edit** and view the editable version of your Account Factory network configuration settings\. 
 

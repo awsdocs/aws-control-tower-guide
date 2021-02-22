@@ -65,7 +65,7 @@ This lifecycle event records whether AWS Control Tower successfully created and 
     "id": "999cccaa-eaaa-0000-1111-123456789012",         
     "detail-type": "AWS Service Event via CloudTrail",
     "source": "aws.controltower",
-    "account": "XXXXXXXXXXXX",                                   // Master account ID. 
+    "account": "XXXXXXXXXXXX",                                   // Management account ID. 
     "time": "2018-08-30T21:42:18Z",                              // Format: yyyy-MM-dd'T'hh:mm:ssZ 
     "region": "us-east-1",                                       // AWS Control Tower home region.
     "resources": [ ],
@@ -114,7 +114,7 @@ This lifecycle event records whether AWS Control Tower successfully updated the 
     "id": "999cccaa-eaaa-0000-1111-123456789012",                
     "detail-type": "AWS Service Event via CloudTrail",
     "source": "aws.controltower",
-    "account": "XXXXXXXXXXXX",                                   // AWS Control Tower organization master account.
+    "account": "XXXXXXXXXXXX",                                   // AWS Control Tower organization management account.
     "time": "2018-08-30T21:42:18Z",                              // Format: yyyy-MM-dd'T'hh:mm:ssZ 
     "region": "us-east-1",                                       // AWS Control Tower home region.
     "resources": [],
@@ -262,7 +262,7 @@ This lifecycle event records whether AWS Control Tower successfully disabled a g
 
 ## `SetupLandingZone`<a name="setup-landing-zone"></a>
 
-This lifecycle event records whether AWS Control Tower successfully set up a landing zone\. This event corresponds to the AWS Control Tower `SetupLandingZone` CloudTrail event\. The lifecycle event log includes the `rootOrganizationalId`, which is ID of the organization that AWS Control Tower creates from the master account\. The log entry also includes the `organizationalUnitName` and `organizationalUnitId` for each of of the OUs, and the `accountName` and `accountId` for each account, that are created when AWS Control Tower sets up the landing zone\.
+This lifecycle event records whether AWS Control Tower successfully set up a landing zone\. This event corresponds to the AWS Control Tower `SetupLandingZone` CloudTrail event\. The lifecycle event log includes the `rootOrganizationalId`, which is ID of the organization that AWS Control Tower creates from the management account\. The log entry also includes the `organizationalUnitName` and `organizationalUnitId` for each of of the OUs, and the `accountName` and `accountId` for each account, that are created when AWS Control Tower sets up the landing zone\.
 
 ```
 {
@@ -270,14 +270,14 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
     "id": "999cccaa-eaaa-0000-1111-123456789012",                // Request ID.
     "detail-type": "AWS Service Event via CloudTrail",
     "source": "aws.controltower",
-    "account": "XXXXXXXXXXXX",                                   // Master account ID.
+    "account": "XXXXXXXXXXXX",                                   // Management account ID.
     "time": "2018-08-30T21:42:18Z",                              // Event time from CloudTrail.
-    "region": "us-east-1",                                       // Master account CloudTrail region.
+    "region": "us-east-1",                                       // Management account CloudTrail region.
     "resources": [ ],
     "detail": {
         "eventVersion": "1.05",
         "userIdentity": {
-            "accountId": "XXXXXXXXXXXX",                         // Master-account ID.
+            "accountId": "XXXXXXXXXXXX",                         // Management-account ID.
             "invokedBy": "AWS Internal"
         },
         "eventTime": "2018-08-30T21:42:18Z",                     // Timestamp when call was made. Format: yyyy-MM-dd'T'hh:mm:ssZ.
@@ -334,14 +334,14 @@ This lifecycle event records whether AWS Control Tower successfully updated your
     "id": "999cccaa-eaaa-0000-1111-123456789012",                // Request ID.
     "detail-type": "AWS Service Event via CloudTrail",
     "source": "aws.controltower",
-    "account": "XXXXXXXXXXXX",                                   // Master account ID.
+    "account": "XXXXXXXXXXXX",                                   // Management account ID.
     "time": "2018-08-30T21:42:18Z",                              // Event time from CloudTrail.
-    "region": "us-east-1",                                       // Master account CloudTrail region.
+    "region": "us-east-1",                                       // Management account CloudTrail region.
     "resources": [ ],
     "detail": {
         "eventVersion": "1.05",
         "userIdentity": {
-            "accountId": "XXXXXXXXXXXX",                         // Master account ID.
+            "accountId": "XXXXXXXXXXXX",                         // Management account ID.
             "invokedBy": "AWS Internal"
         },
         "eventTime": "2018-08-30T21:42:18Z",                     // Timestamp when call was made. Format: yyyy-MM-dd'T'hh:mm:ssZ.

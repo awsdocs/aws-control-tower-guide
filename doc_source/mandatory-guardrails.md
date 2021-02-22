@@ -572,7 +572,66 @@ The artifact for this guardrail is the following SCP\.
 
 This guardrail disallows changes to the IAM roles that were created by AWS Control Tower when the landing zone was set up\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+### Guardrail update<a name="guardrail-update-hotfix"></a>
+
+An updated version has been released for the mandatory guardrail `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\.
+
+This change to the guardrail is required because accounts in OUs that are being enrolled into AWS Control Tower must have the `AWSControlTowerExecution` role enabled\. The previous version of the guardrail prevents this role from being created\.
+
+AWS Control Tower updated the existing guardrail to add an exception so that AWS CloudFormation StackSets can create the `AWSControlTowerExecution` role\. As a second measure, this new guardrail protects the StackSets role to prevent principals in the child account from gaining access\.
+
+The new guardrail version performs the following actions, in addition to all actions provided in the previous version:
++ Allows the `stacksets-exec-*` role \(owned by AWS CloudFormation\) to perform actions on IAM roles that were created by AWS Control Tower\.
++ Prevents changes to any IAM role in child accounts, where the IAM role name matches the pattern `stacksets-exec-*`\.
+
+**The update to the guardrail version affects your OUs and accounts as follows:**
++ If you extend governance to an OU, that incoming OU receives the updated version of the guardrail as part of the registration process\. You do not need to update your landing zone to get the latest version for this OU\. AWS Control Tower applies the latest version automatically to OUs that register\.
++ If you update or repair your landing zone at any time after this release, your guardrail will be updated to this version for future provisioning\.
++ OUs created in or registered with AWS Control Tower before this release date, and which are part of a landing zone that has not been repaired or updated after the release date, will continue to operate with the old version of the guardrail, which blocks the creation of the `AWSControlTowerExecution` role\.
++ One consequence of this guardrail update is that your OUs can be functioning with different versions of the guardrail\. Update your landing zone to apply the updated version of the guardrail to your OUs uniformly\.
+
+The artifact of the updated guardrail is the following SCP\.
+
+```
+       
+{
+  "Version": "2012-10-17",
+  "Statement": [
+     {
+        "Sid": "GRIAMROLEPOLICY",
+        "Effect": "Deny",
+        "Action": [
+          "iam:AttachRolePolicy",
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:DeleteRolePermissionsBoundary",
+          "iam:DeleteRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PutRolePermissionsBoundary",
+          "iam:PutRolePolicy",
+          "iam:UpdateAssumeRolePolicy",
+          "iam:UpdateRole",
+          "iam:UpdateRoleDescription"
+        ],
+        "Resource": [
+          "arn:aws:iam::*:role/aws-controltower-*",
+          "arn:aws:iam::*:role/*AWSControlTower*",
+          "arn:aws:iam::*:role/stacksets-exec-*"    #this line is new
+        ],
+        "Condition": {
+          "ArnNotLike": {
+            "aws:PrincipalArn": [
+                "arn:aws:iam::*:role/AWSControlTowerExecution",
+                "arn:aws:iam::*:role/stacksets-exec-*"    #this line is new
+         ]
+       }
+      }
+    }
+  ]
+}
+```
+
+The former artifact for this guardrail is the following SCP\.
 
 ```
 {

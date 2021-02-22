@@ -8,18 +8,18 @@ It is the responsibility of the members of your central cloud administrators' te
 ## About Updates<a name="about-updates"></a>
 
 Updates are required to correct governance drift, or to move to a new version of AWS Control Tower\. To perform a complete update of AWS Control Tower, you must update your landing zone first and then update the enrolled accounts individually\. You may need to perform three types of updates at different times\.
-+ **A landing zone update:** Most often this type of update is performed by choosing **Update** on the **Settings** page\. You may need to perform a landing zone update to repair certain types of drift, and you can choose **Repair** when necessary\.
++ **A landing zone update:** Most often this type of update is performed by choosing **Update** on the **Landing zone settings** page\. You may need to perform a landing zone update to repair certain types of drift, and you can choose **Repair** when necessary\.
 + **An update of one or more individual accounts:** You must update accounts if the associated information changes, or if certain types of drift have occurred\. Accounts may be updated by following the manual process, or with an automated approach\. Both are described in later sections of this page\.
 + **A full update:** A full update includes an update of your landing zone, followed by an update of all the enrolled accounts in your registered OU\. Full updates are required with a new release of AWS Control Tower such as 2\.3, 2\.4, and so forth\.
 
 ## Update Your Landing Zone<a name="update-controltower"></a>
 
-The easiest way to update your AWS Control Tower landing zone is through the **Settings** page\. Navigate to the **Settings** page by choosing **Settings** in the left navigation\.
+The easiest way to update your AWS Control Tower landing zone is through the **Landing zone settings** page, which you can access by choosing **Landing zone settings** in the left navigation\.
 
-The **Settings** page shows you the current version of your landing zone, and it lists any updated versions that may be available\. You can choose the **Update** button if you need to update your version\. If the **Update** button appears greyed\-out, you do not need to update\.
+The **Landing zone settings** page shows you the current version of your landing zone, and it lists any updated versions that may be available\. You can choose the **Update** button if you need to update your version\. If the **Update** button appears greyed\-out, you do not need to update\.
 
 **Note**  
-Alternatively, you can update your landing zone manually\. The update takes approximately the same amount of time, whether you use the **Update ** button or the manual process\. To perform a manual update of your landing zone only, see steps 1 and 2 that follow\.
+Alternatively, you can update your landing zone manually\. The update takes approximately the same amount of time, whether you use the **Update** button or the manual process\. To perform a manual update of your landing zone only, see steps 1 and 2 that follow\.
 
 The following procedure walks you through the steps of a full update for AWS Control Tower manually\. To update an individual account, start at Step 3\.
 
@@ -60,26 +60,50 @@ The following procedure walks you through the steps of a full update for AWS Con
 
 When you create your AWS Control Tower landing zone, the landing zone and all the OUs, accounts, and resources are compliant with all of the governance rules enforced by your guardrails, whether mandatory or elective\. As you and your organization members use the landing zone, changes in compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\. Regardless, changes can complicate your compliance story\.
 
-Resolving drift helps to ensure your organization's compliance with governance regulations\. Drift resolution is a regular operations task for your master account administrators\.
+Resolving drift helps to ensure your organization's compliance with governance regulations\. Drift resolution is a regular operations task for your management account administrators\.
 
 Drift detection is automatic in AWS Control Tower\. It helps you identify resources that need changes or configuration updates that must be made to resolve the drift\.
 
 To repair most types of drift, choose **Repair** on the **Settings** page\. The **Repair** button becomes selectable when drift has occurred\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
-## Deploying AWS Control Tower to a New AWS Region<a name="deploying-to-new-region"></a>
+## Deploying AWS Control Tower to a new AWS Region<a name="deploying-to-new-region"></a>
 
 This section describes the behavior you can expect when you deploy your AWS Control Tower landing zone into a new AWS Region\. Generally, this type of deployment is performed through the **Update** function of the AWS Control Tower console\.
 
 **Note**  
-We recommend that you avoid expanding your AWS Control Tower landing zone into AWS Regions in which you do not require your workloads to run\.
+We recommend that you avoid expanding your AWS Control Tower landing zone into AWS Regions in which you do not require your workloads to run\. Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
 
-During deployment into a new AWS Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone to operate actively in the new Region\. Individual accounts within your organizational units \(OUs\) that are managed by AWS Control Tower are not updated as part of this landing zone update process\. Therefore, you must apply updates to your accounts individually\. 
+During deployment into a new AWS Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone to operate actively in the new Region\. Individual accounts within your organizational units \(OUs\) that are managed by AWS Control Tower are not updated as part of this landing zone update process\. Therefore, you must update your accounts by re\-registering your OUs\. 
 
-Certain significant behavioral changes in AWS Control Tower detective guardrails are expected as a result of a deployment to a new AWS Region:
+When deploying AWS Control Tower to a new Region, be aware of the following recommendations and limitations:
++ Select Regions you plan to host AWS resources or workloads in\. Add at least 3 Regions for a well\-architected landing zone\.
++ Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
++ You cannot opt out of any Region you govern into\. 
+
+When you deploy into a new Region, AWS Control Tower detective guardrails adhere to the following rules:
 + *What exists stays the same\.* Guardrail behavior, detective as well as preventive, is unchanged for existing accounts, in existing OUs, in existing Regions\.
 + *You can’t apply new detective guardrails to existing OUs containing accounts that are not updated\.* When you’ve deployed your AWS Control Tower landing zone into the new Region \(by updating it\), you must update existing accounts in your existing OUs before you can enable new detective guardrails on those OUs and accounts\.
 + *Your existing detective guardrails begin working in the new Region as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to deploy into the new Region and then update an account, the detective guardrails that already are enabled on the OU will begin working on that account in the new Region\. 
-+ *Update only to Regions in which you need to run\.* It can be time\-consuming to deploy landing zones into new Regions if your OUs manage a lot of member accounts\. We recommend that you avoid expanding your AWS Control Tower deployment into AWS Regions in which you do not require your workloads to run\.
+
+**Deploy to a new Region**
+
+1. Sign in to the AWS Control Tower console at [https://console.aws.amazon.com/https://console.aws.amazon.com/controltower](https://console.aws.amazon.com/https://console.aws.amazon.com/controltower)
+
+1. In the left\-pane navigation menu, choose **Landing zone settings**\.
+
+1. On the **Landing zone settings** page, select the **Regions** tab\.
+
+1. In the **Regions** table, choose **Update Regions**\. You are directed to the update landing zone workflow since governing into new Regions requires you to update to the latest version\.
+
+1. Under **Additional AWS Regions for governance**, search for the Region you want to govern into\. The **State** column indicates which Regions you currently govern into and which ones you don't\.
+
+1. Select the checkbox for any additional Regions you want to govern into\.
+**Note**  
+When you add governance to a Region, you cannot remove it after the landing zone setup completes\. If you opt not to govern into a Region, you can still deploy resources in that Region, but those resources will remain outside of AWS Control Tower governance\. 
+
+1. Complete the rest of the workflow, then choose **Update landing zone**\.
+
+1. When the landing zone setup completes, Re\-register the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
 
 **Updating accounts using automation**
 
@@ -90,4 +114,4 @@ You must wait for each account update to succeed before beginning the next accou
 **Note**  
 The [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video) is designed for automated account provisioning, but the steps also apply to account updating\. Use the `UpdateProvisionedProduct` API instead of the `ProvisionProduct` API\.
 
-A further step of automation is to check for **Succeed** status of the AWS Control Tower `UpdateLandingZone` lifecycle event\. Use it as a trigger to begin updating individual accounts as described in the video\. A lifecycle event marks the completion of a sequence of activites, so the occurrence of this event means that a landing zone update is complete\. The landing zone update must be complete before account updates begin\. For more information about working with lifecycle events, see [ Lifecycle Events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html)\.
+A further step of automation is to check for **Succeed** status of the AWS Control Tower `UpdateLandingZone` lifecycle event\. Use it as a trigger to begin updating individual accounts as described in the video\. A lifecycle event marks the completion of a sequence of activities, so the occurrence of this event means that a landing zone update is complete\. The landing zone update must be complete before account updates begin\. For more information about working with lifecycle events, see [ Lifecycle Events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html)\.
