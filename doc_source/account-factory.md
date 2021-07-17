@@ -16,7 +16,7 @@ The AWS Control Tower account factory enables cloud administrators and AWS Singl
 **Note**  
 Exercise caution when working from the management account, as you would when using any account that has generous permissions across your organization\.
 
-The AWS Control Tower management account has a trust relationship with the **AWSControlTowerExecution** role, which enables account setup from the management account, including some automated account setup\. For more information about the **AWSControlTowerExecution** role, see [How AWS Control Tower Works With Roles to Create and Manage Accounts ](how-control-tower-works.md#roles-how)\.
+The AWS Control Tower management account has a trust relationship with the **AWSControlTowerExecution** role, which enables account setup from the management account, including some automated account setup\. For more information about the **AWSControlTowerExecution** role, see [How AWS Control Tower works with roles to create and manage accounts ](roles-how.md)\.
 
 To enroll an existing AWS account into AWS Control Tower, that account must have the **AWSControlTowerExecution** role enabled\. For more information about how to enroll an existing account, see [Enroll an existing AWS account](enroll-account.md)\.
 
@@ -257,6 +257,6 @@ When an account is provisioned with Account Factory, the following AWS resources
 Accounts created through the Account Factory in AWS Control Tower inherit the guardrails of the parent OU, and the associated resources are created\.
 
 **Note**  
-Accounts created outside of AWS Control Tower won't inherit guardrails from the parent OU in AWS Control Tower\. However, these unenrolled accounts *are* displayed in AWS Control Tower\.
+Accounts created outside of AWS Control Tower won't inherit guardrails in AWS Control Tower until you enroll them\. However, these unenrolled accounts *are* displayed in AWS Control Tower\. Accounts inherit guardrails from an OU upon enrollment in that OU\.
 
 When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages certain additional AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.

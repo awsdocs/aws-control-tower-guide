@@ -20,7 +20,7 @@ Since January 1, 2020, AWS Control Tower has released the following updates:
 
 AWS Control Tower now includes an organization\-level aggregator, which assists in detecting external AWS Config rules\. This provides you with visibility in the AWS Control Tower console to see the existence of externally created AWS Config rules in addition to those AWS Config rules created by AWS Control Tower\. The aggregator allows AWS Control Tower to detect external rules and provide a link to the AWS Config console without the need for AWS Control Tower to gain access to unmanaged accounts\.
 
-With this feature, you now have a consolidated view of detective guardrails applied to your accounts so you can track compliance and determine if you need additional guardrails for your account\. For information, see [How AWS Control Tower aggregates unmanaged OUs and accounts](how-control-tower-works.md#config-role-for-organizations)\.
+With this feature, you now have a consolidated view of detective guardrails applied to your accounts so you can track compliance and determine if you need additional guardrails for your account\. For information, see [How AWS Control Tower aggregates unmanaged OUs and accounts](roles-how.md#config-role-for-organizations)\.
 
 ## AWS Control Tower now available in additional Regions<a name="region-expansion-11-19-20"></a>
 
@@ -39,7 +39,7 @@ The addition of these 5 AWS Regions is the only change introduced for version 2\
 
 AWS Control Tower is also available in US East \(N\. Virginia\) Region, US East \(Ohio\) Region, US West \(Oregon\) Region, Europe \(Ireland\) Region, and Asia Pacific \(Sydney\) Region\. With this launch AWS Control Tower is now available in 10 AWS Regions\.
 
-This landing zone update includes all Regions listed and cannot be undone\. After updating your landing zone to version 2\.5, you must manually update all enrolled accounts for AWS Control Tower to govern in the 10 supported AWS Regions\. For information, see [Deploying AWS Control Tower to a new AWS Region](configuration-updates.md#deploying-to-new-region)\.
+This landing zone update includes all Regions listed and cannot be undone\. After updating your landing zone to version 2\.5, you must manually update all enrolled accounts for AWS Control Tower to govern in the 10 supported AWS Regions\. For information, see [Configure your AWS Control Tower Regions](configuration-updates.md#deploying-to-new-region)\.
 
 ## Guardrail update<a name="guardrail-update"></a>
 
@@ -104,7 +104,7 @@ If you have not used AWS Control Tower previously, you can launch it today in an
 **Note**  
 Updating your landing zone does not automatically update your accounts\. If you have more than a few accounts, the required updates can be time\-consuming\. For that reason, we recommend that you avoid expanding your AWS Control Tower landing zone into Regions in which you do not require your workloads to run\.
 
- For information about the expected behavior of detective guardrails as a result of a deployment to a new Region, see [Deploying AWS Control Tower to a new AWS Region](configuration-updates.md#deploying-to-new-region)\.
+ For information about the expected behavior of detective guardrails as a result of a deployment to a new Region, see [Configure your AWS Control Tower Regions](configuration-updates.md#deploying-to-new-region)\.
 
 ## Single\-step account provisioning in AWS Control Tower<a name="Single-step-provisioning"></a>
 

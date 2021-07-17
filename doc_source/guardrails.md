@@ -8,7 +8,7 @@ A guardrail applies to an entire organizational unit \(OU\), and every AWS accou
 
 **The purpose of guardrails**
 
-Guardrails enable you to express your policy intentions\. For example, if you enable the detective **Disallow public read access to S3 buckets** guardrail on an OU, you can determine whether a user has attempted public read access to any S3 buckets for any accounts under that OU\.
+Guardrails enable you to express your policy intentions\. For example, if you enable the detective guardrail **Detect Whether Public Read Access to Amazon S3 Buckets is Allowed** on an OU, you can determine whether a user would be permitted to have read access to any S3 buckets for any accounts under that OU\.
 
 ## Guardrail Behavior and Guidance<a name="guardrail-behavior"></a>
 
@@ -63,7 +63,7 @@ In the guardrail details page of the console, you can find the following details
 + **Name** – The name of the guardrail\.
 + **Description** – A description of the guardrail\.
 + **Guidance** – The guidance is either mandatory, strongly recommended, or elective\.
-+ **Category** – The guardrail category can be Audit Logs, Monitoring, Data Security, Network, IAM, or Control Tower Setup\.
++ **Category** – The guardrail category can be **Audit** **Logs**, **Monitoring**, **Data Security**, **Network**, **IAM**, or **AWS Control Tower Setup**\.
 + **Behavior** – A guardrail's behavior is set to either preventive or detective\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.
 
@@ -74,7 +74,7 @@ On the guardrail details page, you can also see guardrail artifacts\. The guardr
 Most guardrails are enabled automatically according to an OU's configuration, and some guardrails can be enabled manually on your OUs\. The following procedure describes the steps for enabling guardrails on an OU\.
 
 **Important**  
-When you enable guardrails with strongly recommended guidance, AWS Control Tower managed AWS resources are created in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.
+When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.
 
 **To enable guardrails in an OU**
 
@@ -82,7 +82,7 @@ When you enable guardrails with strongly recommended guidance, AWS Control Tower
 
 1. From the left navigation, choose **Guardrails**\.
 
-1. Choose a guardrail that you want to enable; for example, **Guardrail: Enable encryption for EBS volumes attached to EC2 instances**\. This choice opens the guardrail's details page\.
+1. Choose a guardrail that you want to enable; for example, **Guardrail: Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances**\. This choice opens the guardrail's details page\.
 
 1. From **Organizational units enabled**, choose **Enable guardrail on OU**\.
 

@@ -10,9 +10,9 @@ When you request decommissioning of your landing zone, AWS Control Tower does th
   + Revokes the AWS Control Tower permissions to the account by removing the IAM role that AWS Control Tower created \(unless additional policies have been added to it\) and recreates the standard `OrganizationsFullAccessRole` IAM role\.
   + Removes records of the account from AWS Service Catalog\.
   + Removes the account factory product and portfolio from AWS Service Catalog\.
-+ Deletes the blueprints for the core \(logging and audit\) accounts\. 
-+ Revokes the AWS Control Tower permissions from the core accounts by removing the IAM role that AWS Control Tower created \(unless additional policies have been added to it\) and recreates the `OrganizationsFullAccessRole` IAM role\.
-+ Deletes records related to the core accounts\.
++ Deletes the blueprints for the shared \(Audit and Log Archive\) accounts\. 
++ Revokes the AWS Control Tower permissions from the shared accounts by removing the IAM role that AWS Control Tower created \(unless additional policies have been added to it\) and recreates the `OrganizationsFullAccessRole` IAM role\.
++ Deletes records related to the shared accounts\.
 + Deletes records related to customer\-created OUs\.
 + Deletes internal records that identify the home Region\.
 

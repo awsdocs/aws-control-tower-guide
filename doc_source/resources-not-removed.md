@@ -4,11 +4,11 @@ Decommissioning a landing zone does not fully reverse the AWS Control Tower setu
 
 **AWS Organizations**
 
-For customers without existing AWS Organizations organizations, AWS Control Tower sets up an organization with two organizational units \(OUs\), named **Core** and **Custom**\. When you decommission your landing zone, the hierarchy of the organization is preserved, as follows:
+For customers without existing AWS Organizations organizations, AWS Control Tower sets up an organization with two organizational units \(OUs\), named **Security** and **Sandbox**\. When you decommission your landing zone, the hierarchy of the organization is preserved, as follows:
 + Organizational Units \(OUs\) you created from the AWS Control Tower console are not removed\.
-+ The core and custom OUs are not removed\.
++ The Security and Sandbox OUs are not removed\.
 + The organization is not deleted from AWS Organizations\.
-+ No accounts in AWS Organizations \(core, provisioned, or management\) are moved or removed\.
++ No accounts in AWS Organizations \(shared, provisioned, or management\) are moved or removed\.
 
 **AWS Single Sign\-On \(SSO\)**
 
@@ -25,10 +25,10 @@ During setup, AWS Control Tower creates buckets in the logging account for loggi
 + Logging and logging access S3 buckets in the logging account are not removed\.
 + Contents of the logging and logging access buckets are not removed\.
 
-**Core Accounts**
+**Shared Accounts**
 
-Two core accounts \(logging and archive\) are created during AWS Control Tower setup\. When you decommission your landing zone:
-+ Core accounts that were created during AWS Control Tower setup are not closed\.
+Two shared accounts \(Audit and Log Archive\) are created in the Security OU during AWS Control Tower setup\. When you decommission your landing zone:
++ Shared accounts that were created during AWS Control Tower setup are not closed\.
 + The `OrganizationAccountAccessRole` IAM role is recreated to align with standard AWS Organizations configuration\.
 + The `AWSControlTowerExecution` role is removed\.
 
@@ -36,6 +36,7 @@ Two core accounts \(logging and archive\) are created during AWS Control Tower s
 
 AWS Control Tower customers can use account factory to create new AWS accounts\. When you decommission your landing zone:
 + Provisioned accounts you created with Account Factory are not closed\.
++ Provisioned products in AWS Service Catalog are not removed\. If you clean those up by terminating them, their accounts are moved into the **Root OU**\.
 + The VPC that AWS Control Tower created is not removed, and the associated AWS CloudFormation stack set \(`BP_ACCOUNT_FACTORY_VPC`\) is not removed\.  
 + The `OrganizationAccountAccessRole` IAM role is recreated to align with standard AWS Organizations configuration\.
 + The `AWSControlTowerExecution` role is removed\.

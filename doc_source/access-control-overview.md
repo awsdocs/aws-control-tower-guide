@@ -32,7 +32,10 @@ A *permissions policy* describes who has access to what\. The following section 
 **Note**  
 This section discusses using IAM in the context of AWS Control Tower\. It doesn't provide detailed information about the IAM service\. For complete IAM documentation, see [What Is IAM?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) in the *IAM User Guide*\. For information about IAM policy syntax and descriptions, see [AWS IAM Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
-Policies attached to an IAM identity are referred to as *identity\-based* policies \(IAM polices\)\. Policies attached to a resource are referred to as *resource\-based* policies\. AWS Control Tower supports only identity\-based policies \(IAM policies\)\. 
+Policies attached to an IAM identity are referred to as *identity\-based* policies \(IAM polices\)\. Policies attached to a resource are referred to as *resource\-based* policies\.
+
+**Note**  
+ AWS Control Tower supports only identity\-based policies \(IAM policies\)\. 
 
 **Topics**
 + [Identity\-Based Policies \(IAM Policies\)](#access-control-manage-access-intro-iam-policies)
@@ -71,7 +74,7 @@ For more information about using identity\-based policies with AWS Control Tower
 
 ### Resource\-Based Policies<a name="access-control-manage-access-intro-resource-policies"></a>
 
-Other services, such as Amazon S3, also support resource\-based permissions policies\. For example, you can attach a policy to an S3 bucket to manage access permissions to that bucket\.
+Other services, such as Amazon S3, also support resource\-based permissions policies\. For example, you can attach a policy to an S3 bucket to manage access permissions to that bucket\.AWS Control Tower does not support resource\-based policies\.
 
 ## Specifying Policy Elements: Actions, Effects, and Principals<a name="access-control-specify-controltower-actions"></a>
 
@@ -79,7 +82,7 @@ Currently, AWS Control Tower doesn't have an API\. You can set up and manage you
 
 The following are the most basic policy elements:
 + **Resource** – In a policy, you use an Amazon Resource Name \(ARN\) to identify the resource to which the policy applies\. For more information, see [AWS Control Tower Resources and Operations](#access-control-resources)\.
-+ **Action** – You use action keywords to identify resource operations that you want to allow or deny\.
++ **Action** – You use action keywords to identify resource operations that you want to allow or deny\. For information about types of actions available to be performed, see [Actions defined by AWS Control Tower](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awscontroltower.html#awscontroltower-actions-as-permissions)\.
 + **Effect** – You specify the effect when the user requests the specific action—this can be either allow or deny\. If you don't explicitly grant access to \(allow\) a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even if a different policy grants access\.
 + **Principal** – In identity\-based policies \(IAM policies\), the user that the policy is attached to is the implicit principal\. For resource\-based policies, you specify the user, account, service, or other entity that you want to receive permissions \(applies to resource\-based policies only\)\. AWS Control Tower doesn't support resource\-based policies\.
 

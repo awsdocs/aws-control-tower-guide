@@ -1,13 +1,13 @@
 # Walkthrough: Cleaning up AWS Control Tower Managed Resources<a name="walkthrough-delete"></a>
 
-When your landing zone was set up, AWS Control Tower provisioned resources and services in your landing zone on your behalf\. For example, an AWS Organizations organization with multiple accounts and organizational units \(OUs\) were provisioned\. Additionally, guardrails were deployed in your accounts using AWS CloudFormation stacks, stack sets, and AWS Organizations policies\.
+When you set up your landing zone, AWS Control Tower provisioned resources and services in your landing zone on your behalf\. For example, an AWS Organizations organization, containing multiple accounts and organizational units, \(OUs\) was provisioned\. Additionally, guardrails were deployed in your accounts using AWS CloudFormation stacks, stack sets, and AWS Organizations policies\.
 
 This document provides instructions for how to delete AWS Control Tower resources individually, as part of regular maintenance and administrative tasks\. The procedures given in this chapter are intended only for removing individual resources, or a few resources, when needed\. 
 
 **Warning**  
-If you intend to decommission your landing zone, contact AWS Support first, before manually deleting resources\. Manually deleting resources will not allow you to set up a new landing zone\. It is not the same as decommissioning\. Complete decommissioning requires assistance from AWS Support\.
+Manually deleting resources will not allow you to set up a new landing zone\. It is not the same as decommissioning\.
 
- If you delete all of your landing zone resources manually, it is not the same as decommissioning the landing zone, and you may incur unexpected charges\.
+Even if you delete all of your landing zone resources manually, it is not the same as decommissioning the landing zone, and you may incur unexpected charges\.
 
 ## Manual Cleanup of AWS Control Tower Resources<a name="manual-decommissioning"></a>
 
@@ -59,11 +59,9 @@ AWS Control Tower uses StackSets and stacks to deploy AWS Config Rules related t
 
    1. At the bottom of the page, in the **Stacks** table, make a record of the AWS account IDs for all the accounts in the table\. Copy the list of all accounts\.
 
-   1. Choose **Manage StackSet** to open the management wizard\.
+   1. From **Actions**, choose **Delete stacks from StackSet**\.
 
-   1. From **Select action**, choose **Delete stacks**, and choose **Next**\.
-
-   1. On **Set deployment options**, from **Specify accounts**, choose **Delete stacks from account**\.
+   1. On **Set deployment options**, from **Deployment locations**, choose **Deploy stacks in accounts**\.
 
    1. In the text field, enter the AWS account IDs you made a record of in step 3\.b, separated by commas\. For example: *123456789012*, *098765431098*, and so on\.
 

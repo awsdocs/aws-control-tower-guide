@@ -296,8 +296,8 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
                 "rootOrganizationalId" : "r-1234"
                 "organizationalUnits" : [                         // Use a list.
                   {
-                    "organizationalUnitName": "Core",             // Core OU name.
-                    "organizationalUnitId": "ou-adpf-302pk332"    // Core OU ID.
+                    "organizationalUnitName": "Security",             // Security OU name.
+                    "organizationalUnitId": "ou-adpf-302pk332"    // Security OU ID.
                   },
                   {
                     "organizationalUnitName": "Custom",           // Custom OU name.
@@ -362,8 +362,8 @@ This lifecycle event records whether AWS Control Tower successfully updated your
                 "rootOrganizationalId" : "r-1234"
                 "organizationalUnits" : [                         // Use a list.
                   {
-                    "organizationalUnitName": "Core",             // Core OU name.
-                    "organizationalUnitId": "ou-adpf-302pk332"    // Core OU ID.
+                    "organizationalUnitName": "Security",             // Security OU name.
+                    "organizationalUnitId": "ou-adpf-302pk332"    // Security OU ID.
                   },
                   {
                     "organizationalUnitName": "Custom",            // Custom OU name.
@@ -473,8 +473,8 @@ This lifecycle event records whether AWS Control Tower successfully disabled its
                 "message": "AWS Control Tower successfully deregistered an organizational unit, and enabled mandatory guardrails on the new organizational unit."
                 "organizationalUnit" :                        
                   {
-                    "organizationalUnitName": "Test",                   // Core OU name.
-                    "organizationalUnitId": "ou-adpf-302pk332"          // Core OU ID.
+                    "organizationalUnitName": "Test",                   // Foundational OU name.
+                    "organizationalUnitId": "ou-adpf-302pk332"          // Foundational OU ID.
                   }
                 "requestedTimestamp": "2018-08-30T21:42:18Z", 
                 "completedTimestamp": "2018-08-30T21:42:18Z"  

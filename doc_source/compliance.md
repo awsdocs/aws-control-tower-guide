@@ -81,10 +81,10 @@ Some guardrails prevent modification of compliance reporting mechanisms\.
 + [Disallow Changes to AWS Config Rules Set Up by AWS Control Tower](mandatory-guardrails.md#config-rule-disallow-changes) 
 
   \(Mandatory, preventive guardrail\)
-+ [Disallow Deletion of AWS Config Aggregation Authorization](mandatory-guardrails.md#config-aggregation-authorization-policy)
++ [Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower](mandatory-guardrails.md#config-aggregation-authorization-policy)
 
   \(Mandatory, preventive guardrail\)
-+ [Disallow Changes to AWS Config Aggregation Set Up by AWS Control Tower](mandatory-guardrails.md#cloudwatch-disallow-config-changes)
++ [Disallow Changes to Tags Created by AWS Control Tower for AWS Config Resources](mandatory-guardrails.md#cloudwatch-disallow-config-changes)
 
   \(Mandatory, preventive guardrail\)
 + [Disallow Configuration Changes to AWS Config](mandatory-guardrails.md#config-disallow-changes) 

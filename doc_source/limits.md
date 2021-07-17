@@ -7,9 +7,11 @@ This chapter covers the AWS service limitations and quotas that you should keep 
 This section describes known limitations and unsupported use cases in AWS Control Tower\.
 + Nested OUs are not displayed in the AWS Control Tower console\.
 + Creation of nested OUs from the AWS Control Tower console is not supported\.
-+ Email addresses of shared accounts in the Core OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
++ Email addresses of shared accounts in the Security OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
 + A limit of 5 SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
 + Existing OUs with over 300 accounts cannot be registered or re\-registered in AWS Control Tower\.
+
+For information about how to increase certain AWS Control Tower service quotas with an automated request method, view this video: [Automate Service Limit Increases](https://www.youtube.com/watch?v=3WUShZ4lZGE)\. When provisioning new accounts in this environment, you can use lifecycle events to trigger automated requests for service limit increases in specified AWS Regions\. The video also shows how to automate enrollment of new accounts into Enterprise support for your organization\.
 
 ## Quotas for Integrated Services<a name="integrated-services-limits"></a>
 

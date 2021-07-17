@@ -6,8 +6,8 @@ In AWS Control Tower, Organizations helps centrally manage billing; control acce
 
 AWS Control Tower uses the following OUs:
 + **Root** – The parent container for all accounts and all other OUs in your landing zone\.
-+ **Core** – This OU contains the log archive account, the audit account, and the resources they own\.
-+ **Custom OU** – This OU is created when you set up your landing zone\. It and other child OUs in your landing zone contain your member accounts\. These are the accounts that your end users access to perform work on AWS resources\.
++ **Security** – This OU contains the log archive account, the audit account, and the resources they own\.
++ **Sandbox** – This OU is created when you set up your landing zone\. It and other child OUs in your landing zone contain your member accounts\. These are the accounts that your end users access to perform work on AWS resources\.
 
 **Note**  
 You can add additional OUs in your landing zone through the AWS Control Tower console on the **Organizational units** page\.

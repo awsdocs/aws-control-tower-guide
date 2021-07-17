@@ -14,8 +14,8 @@ From January 1 through December 31, 2019, AWS Control Tower released the followi
 \(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.\)
 
 AWS Control Tower version 2\.2 provides three new preventive guardrails that prevent drift in accounts:
-+ [Disallow Changes to CloudWatch Logs Log Groups](mandatory-guardrails.md#log-group-deletion-policy) 
-+ [Disallow Deletion of AWS Config Aggregation Authorization](mandatory-guardrails.md#config-aggregation-authorization-policy) 
++ [Disallow Changes to Amazon CloudWatch Logs Log Groups set up by AWS Control Tower](mandatory-guardrails.md#log-group-deletion-policy) 
++ [Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower](mandatory-guardrails.md#config-aggregation-authorization-policy) 
 + [Disallow Deletion of Log Archive](mandatory-guardrails.md#disallow-audit-bucket-deletion) 
 
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. When you create your AWS Control Tower landing zone, the landing zone and all the organizational units \(OUs\), accounts, and resources are compliant with the governance rules enforced by your chosen guardrails\. As you and your organization members use the landing zone, changes \(accidental or intentional\) in this compliance status may occur\. Drift detection helps you identify resources that need changes or configuration updates to resolve the drift\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\. 
@@ -28,7 +28,7 @@ A guardrail is a high\-level rule that provides ongoing governance for your over
 
 AWS Control Tower now includes the following four new elective  guardrails:
 + [Disallow Delete Actions on Amazon S3 Buckets Without MFA](elective-guardrails.md#disallow-s3-delete-mfa) 
-+ [Disallow Cross\-Region Replication for Amazon S3 Buckets](elective-guardrails.md#disallow-s3-ccr) 
++ [Disallow Changes to Replication Configuration for Amazon S3 Buckets](elective-guardrails.md#disallow-s3-ccr) 
 + [Disallow Actions as a Root User](strongly-recommended-guardrails.md#disallow-root-auser-actions)
 + [Disallow Creation of Access Keys for the Root User](strongly-recommended-guardrails.md#disallow-root-access-keys)
 
@@ -41,14 +41,14 @@ A guardrail is a high\-level rule that provides ongoing governance for your over
 \(No update required for AWS Control Tower landing zone\)
 
 AWS Control Tower now includes the following eight new detective guardrails:
-+ [Disallow Amazon S3 Buckets That Are Not Versioning Enabled](elective-guardrails.md#disallow-s3-no-versioning) 
-+ [Disallow Console Access to IAM Users Without MFA](elective-guardrails.md#disallow-console-access-mfa) 
-+ [Disallow Access to IAM Users Without MFA](elective-guardrails.md#disallow-access-mfa) 
-+ [Disallow Amazon EC2Instance Types That Are Not Amazon EBS\-Optimized](strongly-recommended-guardrails.md#disallow-not-ebs-optimized)
-+ [Disallow Amazon EBS Volumes That Are Unattached to An Amazon EC2 Instance](strongly-recommended-guardrails.md#disallow-unattached-ebs) 
-+ [Disallow Public Access to Amazon RDS Database Instances](strongly-recommended-guardrails.md#disallow-rds-public-access) 
-+ [Disallow Public Access to Amazon RDS Database Snapshots](strongly-recommended-guardrails.md#disallow-rds-snapshot-public-access)
-+ [Disallow Amazon RDS Database Instances That Are Not Storage Encrypted](strongly-recommended-guardrails.md#disallow-rds-storage-unencrypted)
++ [Detect Whether Versioning for Amazon S3 Buckets is Enabled](elective-guardrails.md#disallow-s3-no-versioning) 
++ [Detect Whether MFA is Enabled for AWS IAM Users of the AWS Console](elective-guardrails.md#disallow-console-access-mfa) 
++ [Detect Whether MFA is Enabled for AWS IAM Users](elective-guardrails.md#disallow-access-mfa) 
++ [Detect Whether Amazon EBS Optimization is Enabled for Amazon EC2 Instances](strongly-recommended-guardrails.md#disallow-not-ebs-optimized)
++ [Detect Whether Amazon EBS Volumes are Attached to Amazon EC2 Instances](strongly-recommended-guardrails.md#disallow-unattached-ebs) 
++ [Detect Whether Public Access to Amazon RDS Database Instances is Enabled](strongly-recommended-guardrails.md#disallow-rds-public-access) 
++ [Detect Whether Public Access to Amazon RDS Database Snapshots is Enabled](strongly-recommended-guardrails.md#disallow-rds-snapshot-public-access)
++ [Detect Whether Storage Encryption is Enabled for Amazon RDS Database Instances](strongly-recommended-guardrails.md#disallow-rds-storage-unencrypted)
 
 A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. A detective guardrail detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. For more information, see [Guardrails in AWS Control Tower](guardrails.md)\.
 

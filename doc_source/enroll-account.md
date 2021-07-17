@@ -17,6 +17,7 @@ During the enrollment process, AWS Control Tower performs these actions:
   + `AWSControlTowerBP-BASELINE-CONFIG`
   + `AWSControlTowerBP-BASELINE-ROLES`
   + `AWSControlTowerBP-BASELINE-SERVICE-ROLES`
+  + `AWSControlTowerBP-VPC-ACCOUNT-FACTORY-V1`
 
   It is a good idea to review the templates of these stack sets and make sure that they don’t conflict with your existing policies\.
 + Identifies the account through AWS Single Sign\-On or AWS Organizations\.
@@ -35,7 +36,7 @@ AWS Control Tower handles VPCs differently when you provision a new account in A
 + When you enroll an existing account, AWS Control Tower does not remove any existing VPC or AWS default VPC associated with the account\.
 
 **Recommended: You can set up a two\-step approach to account enrollment**
-+ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see [AWS Control Tower Detective Guardrails as an AWS Config Conformance Pack](http://aws.amazon.com/blogs/mt/aws-control-tower-detective-guardrails-as-an-aws-config-conformance-pack)\. 
++ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see **[ Extend AWS Control Tower governance using AWS Config conformance packs](http://aws.amazon.com/blogs/mt/extend-aws-control-tower-governance-using-aws-config-conformance-packs/)**\. 
 + Next, you may wish to enroll the account\. If the compliance results are satisfactory, the migration path is easier because you can enroll the account without unexpected consequences\.
 + After you've done your evaluation, if you decide to set up an AWS Control Tower landing zone, you may need to remove the AWS Config delivery channel and configuration recorder that were created for your evaluation\. Then you'll be able to set up AWS Control Tower successfully\.
 
@@ -99,7 +100,7 @@ After the **AdministratorAccess** permission is in place in your existing accoun
 + The account you're trying to enroll may have AWS Config settings that are residual\. In particular, the account must not have a configuration recorder or delivery channel, so these must be deleted through the AWS CLI before you can enroll an account\.
 + If the account belongs to another OU with a management account, including another AWS Control Tower OU, you must terminate the account in its current OU before it can join another OU\. Existing resources must be removed in the original OU\. Otherwise, enrollment will fail\.
 
-For more information about how AWS Control Tower works with roles when you're creating new accounts or enrolling existing accounts, see [How AWS Control Tower Works With Roles to Create and Manage Accounts ](how-control-tower-works.md#roles-how)\.
+For more information about how AWS Control Tower works with roles when you're creating new accounts or enrolling existing accounts, see [How AWS Control Tower works with roles to create and manage accounts ](roles-how.md)\.
 
 ## What if the account does not meet the prerequisites?<a name="fulfill-prerequisites"></a>
 
@@ -137,17 +138,9 @@ Here are some example AWS Config CLI commands you can use to determine the statu
 **Note**  
 You can send the invitation for the new organization before the account drops out of the old organization\. The invitation will be waiting when the account drops out of its existing organization\.
 
-**Moving from a different organization and management account**
-+ **Moving from a different management account**: This practice is not recommended\. It may be easier to create a new account\. If the account you wish to enroll was previously created or enrolled in another organization with a different AWS Control Tower landing zone and management account, you must deprovision the account \(and all of its resources\) in its existing OU before you move it to the new OU\. Otherwise, enrollment will fail, and it may be very time consuming to repair the error\. See [Failure to move an Account Factory account directly from one AWS Control Tower landing zone to another AWS Control Tower landing zone](troubleshooting.md#failure-to-move)\.
-+ **Moving from a registered OU to another registered OU**: This action causes you to receive a notification similar to this one:
-
-  `AWS Control Tower detects that your enrolled account has been moved to a new organizational unit.`
-
-  This action places the account into an inconsistent state, and it cannot be updated\. Instead of using AWS Service Catalog to move the account, terminate the account in the previous OU\. It is not an option to create an account in one registered OU and then move it to another registered OU\. Because of resources that remain in the original OU, you may incur unintended charges\.
-
 ### <a name="steps-to-deprovision-resources"></a>
 
-**Steps for deprovisioning an account from an OU so it can be enrolled, keeping its stack**
+**Optional steps for deprovisioning an account so it can be enrolled, keeping its stack**
 
 1. Optionally, to keep the applied CFN, delete the stack instance from the stack sets, making sure to choose **Retain stacks** for the instance\.
 
@@ -161,7 +154,7 @@ You can send the invitation for the new organization before the account drops ou
 
 ## Manually add the required IAM role to an existing AWS account and enroll it<a name="enroll-manually"></a>
 
-If you’ve already set up your AWS Control Tower landing zone, you can begin enrolling your organization’s accounts into an OU that is registered with AWS Control Tower\. If you haven't set up your landing zone, follow the steps as described in the AWS Control Tower User Guide at [Getting Started, Step 2](https://docs.aws.amazon.com/             controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\. After the landing zone is ready, complete the following steps to bring existing accounts into governance by AWS Control Tower, manually\.
+If you’ve already set up your AWS Control Tower landing zone, you can begin enrolling your organization’s accounts into an OU that is registered with AWS Control Tower\. If you haven't set up your landing zone, follow the steps as described in the AWS Control Tower User Guide at [Getting Started, Step 2](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\. After the landing zone is ready, complete the following steps to bring existing accounts into governance by AWS Control Tower, manually\.
 
 **Be sure to review the prerequisites noted previously in this chapter\.**
 
@@ -263,4 +256,4 @@ To continue this process, sign into each account in your organization that you w
 
 ## Automated Enrollment of AWS Organizations Accounts<a name="automated-account-enrollment"></a>
 
-You can use the enrollment method described in a blog post called **[ Enroll existing AWS accounts into AWS Control Tower](http://aws.amazon.com/blogs/field-notes/enroll-existing-aws-accounts-into-aws-control-tower/)** to enroll your AWS Organizations accounts into AWS Control Tower with a programmatic process\.
+You can use the enrollment method described in a blog post called [Enroll existing AWS accounts into AWS Control Tower](http://aws.amazon.com/blogs/architecture/field-notes-enroll-existing-aws-accounts-into-aws-control-tower) to enroll your AWS Organizations accounts into AWS Control Tower with a programmatic process\.

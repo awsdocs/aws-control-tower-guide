@@ -5,6 +5,19 @@ It is the responsibility of the members of your central cloud administrators' te
 **Note**  
  The AWS Control Tower console indicates when your landing zone needs to be updated\. If you don't see an option to update, your landing zone is already up to date\.
 
+The following table contains a list of AWS Control Tower landing zone update releases, with links to descriptions of each release\.
+
+
+| **Version** | Release date | Description | 
+| --- | --- | --- | 
+| 2\.7 | 4\-8\-2021 | [Landing zone version 2\.7](https://docs.aws.amazon.com/controltower/latest/userguide/2021-all.html#version-2.7) | 
+| 2\.6 | 12\-29\-2020 | [Landing zone version 2\.6](https://docs.aws.amazon.com/controltower/latest/userguide/January-June-2020.html#config-aggregator-12-2020) | 
+| 2\.5 | 11\-18\-2020 | [Landing zone version 2\.5](https://docs.aws.amazon.com/controltower/latest/userguide/January-June-2020.html#region-expansion-11-19-20)  | 
+| 2\.4 | None | None | 
+| 2\.3 | 3\-5\-2020 | [Landing zone version 2\.3](https://docs.aws.amazon.com/controltower/latest/userguide/January-June-2020.html#Available_in_Sydney) | 
+| 2\.2 | 11\-13\-19 | [Landing zone version 2\.2](https://docs.aws.amazon.com/controltower/latest/userguide/January-December-2019.html#Version-2-2)  | 
+| 2\.1 | 6\-24\-19 | [Landing zone version 2\.1](https://docs.aws.amazon.com/controltower/latest/userguide/January-December-2019.html#Version-2-1) | 
+
 ## About Updates<a name="about-updates"></a>
 
 Updates are required to correct governance drift, or to move to a new version of AWS Control Tower\. To perform a complete update of AWS Control Tower, you must update your landing zone first and then update the enrolled accounts individually\. You may need to perform three types of updates at different times\.
@@ -25,7 +38,7 @@ The following procedure walks you through the steps of a full update for AWS Con
 
 **To update your landing zone manually**
 
-1. Open a web browser, and navigate to the AWS Control Tower console at [https://us\-west\-2\.console\.aws\.amazon\.com/controltower/home/update](https://console.aws.amazon.com/controltower/home/update)\.
+1. Open a web browser, and navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower/home/update](https://console.aws.amazon.com/controltower/home/update)\.
 
 1. Review the information in the wizard and choose **Update**\. This updates the backend of the landing zone as well as your shared accounts\. This process can take a little more than an hour\.
 
@@ -62,52 +75,55 @@ When you create your AWS Control Tower landing zone, the landing zone and all th
 
 Resolving drift helps to ensure your organization's compliance with governance regulations\. Drift resolution is a regular operations task for your management account administrators\.
 
-Drift detection is automatic in AWS Control Tower\. It helps you identify resources that need changes or configuration updates that must be made to resolve the drift\.
+Drift detection is automatic in AWS Control Tower\. Automated scans of your SCPs help you identify resources that need changes or configuration updates that must be made to resolve the drift\.
 
-To repair most types of drift, choose **Repair** on the **Settings** page\. The **Repair** button becomes selectable when drift has occurred\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
+To repair most types of drift, choose **Repair** on the **Landing zone settings** page\. For more information, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
-## Deploying AWS Control Tower to a new AWS Region<a name="deploying-to-new-region"></a>
+## Configure your AWS Control Tower Regions<a name="deploying-to-new-region"></a>
 
-This section describes the behavior you can expect when you deploy your AWS Control Tower landing zone into a new AWS Region\. Generally, this type of deployment is performed through the **Update** function of the AWS Control Tower console\.
+This section describes the behavior you can expect when you extend your AWS Control Tower landing zone into a new AWS Region, or remove a Region from your landing zone configuration\. Generally, this action is performed through the **Update** function of the AWS Control Tower console\.
 
 **Note**  
 We recommend that you avoid expanding your AWS Control Tower landing zone into AWS Regions in which you do not require your workloads to run\. Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
 
-During deployment into a new AWS Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone to operate actively in the new Region\. Individual accounts within your organizational units \(OUs\) that are managed by AWS Control Tower are not updated as part of this landing zone update process\. Therefore, you must update your accounts by re\-registering your OUs\. 
+During configuration of a new AWS Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone —
++ to operate actively in all newly\-selected Regions, and
++ to cease governing resources in deselected Regions\.
 
-When deploying AWS Control Tower to a new Region, be aware of the following recommendations and limitations:
-+ Select Regions you plan to host AWS resources or workloads in\. Add at least 3 Regions for a well\-architected landing zone\.
+Individual accounts within your organizational units \(OUs\) that are managed by AWS Control Tower are not updated as part of this landing zone update process\. Therefore, you must update your accounts by re\-registering your OUs\. 
+
+When configuring your AWS Control Tower Regions, be aware of the following recommendations and limitations:
++ Select Regions in which you plan to host AWS resources or workloads\.
 + Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
-+ You cannot opt out of any Region you govern into\. 
 
-When you deploy into a new Region, AWS Control Tower detective guardrails adhere to the following rules:
+When you configure your landing zone for new Regions, AWS Control Tower detective guardrails adhere to the following rules:
 + *What exists stays the same\.* Guardrail behavior, detective as well as preventive, is unchanged for existing accounts, in existing OUs, in existing Regions\.
-+ *You can’t apply new detective guardrails to existing OUs containing accounts that are not updated\.* When you’ve deployed your AWS Control Tower landing zone into the new Region \(by updating it\), you must update existing accounts in your existing OUs before you can enable new detective guardrails on those OUs and accounts\.
-+ *Your existing detective guardrails begin working in the new Region as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to deploy into the new Region and then update an account, the detective guardrails that already are enabled on the OU will begin working on that account in the new Region\. 
++ *You can’t apply new detective guardrails to existing OUs containing accounts that are not updated\.* When you’ve configured your AWS Control Tower landing zone into a new Region \(by updating your landing zone\), you must update existing accounts in your existing OUs before you can enable new detective guardrails on those OUs and accounts\.
++ *Your existing detective guardrails begin working in the newly configured Regions as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to configure new Regions and then update an account, the detective guardrails that already are enabled on the OU will begin working on that account in the newly configured Regions\. 
 
-**Deploy to a new Region**
+**Configure AWS Control Tower Regions**
 
-1. Sign in to the AWS Control Tower console at [https://console.aws.amazon.com/https://console.aws.amazon.com/controltower](https://console.aws.amazon.com/https://console.aws.amazon.com/controltower)
+1. Sign in to the AWS Control Tower console at [https://console.aws.amazon.com/controltower](https://console.aws.amazon.com/controltower)
 
 1. In the left\-pane navigation menu, choose **Landing zone settings**\.
 
 1. On the **Landing zone settings** page, select the **Regions** tab\.
 
-1. In the **Regions** table, choose **Update Regions**\. You are directed to the update landing zone workflow since governing into new Regions requires you to update to the latest version\.
+1. In the **Regions** table, choose **Update Regions**\. You are directed to the update landing zone workflow, because governing new Regions, or removing Regions from governance, requires you to update to the latest landing zone version\.
 
-1. Under **Additional AWS Regions for governance**, search for the Region you want to govern into\. The **State** column indicates which Regions you currently govern into and which ones you don't\.
+1. Under **Additional AWS Regions for governance**, search for the Regions you want to govern \(or stop governing\)\. The **State** column indicates which Regions you currently govern, and which ones you don't\.
 
-1. Select the checkbox for any additional Regions you want to govern into\.
+1. Select the checkbox for each additional Region to govern\. Deselect the checkbox for each Region from which you are removing governance\.
 **Note**  
-When you add governance to a Region, you cannot remove it after the landing zone setup completes\. If you opt not to govern into a Region, you can still deploy resources in that Region, but those resources will remain outside of AWS Control Tower governance\. 
+If you opt not to govern a Region, you can still deploy resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
 
 1. Complete the rest of the workflow, then choose **Update landing zone**\.
 
-1. When the landing zone setup completes, Re\-register the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
+1. When the landing zone setup completes, **Re\-register** the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
 
 **Updating accounts using automation**
 
-One method of updating individual accounts after deployment to a new Region is by using the API framework of AWS Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach is available in a [blog post](http://aws.amazon.com/blogs/field-notes/enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
+One method of updating individual accounts after configuring new Regions is by using the API framework of AWS Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach, when adding Regions for governance, is available in a blog post, [Enabling guardrails in new AWS Regions](http://aws.amazon.com/blogs/architecture/field-notes-enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
 
 You must wait for each account update to succeed before beginning the next account update\. Therefore, the process may take a long time if you have a lot of accounts, but it is not complicated\. For more information about this approach, see the [Walkthrough: Automated Account Provisioning in AWS Control Tower](automated-provisioning-walkthrough.md)\. 
 

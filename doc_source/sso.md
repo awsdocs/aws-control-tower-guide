@@ -10,6 +10,8 @@ In AWS Control Tower, AWS Single Sign\-On allows central cloud administrators an
 
 For a brief tutorial about how to set up your SSO users and permissions in AWS Control Tower, you can view this video \(6:23\)\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
 
+**About setting up AWS Control Tower with AWS SSO **
+
 When you initially set up AWS Control Tower, only the root user and any IAM users with the correct permissions can add AWS SSO users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new SSO users from the Account Factory wizard\. For more information, see [Provision and manage accounts with Account Factory](account-factory.md)\.
 
 Your landing zone is set up with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
@@ -36,7 +38,7 @@ AWS Control Tower sets up your AWS SSO directory in your home region\. If you se
 Here are some good things to know when working with AWS SSO user accounts in AWS Control Tower\.
 + If your AWS SSO user account is disabled, you'll get an error message when trying to provision new accounts in Account Factory\. You can re\-enable your SSO user in the AWS SSO console\.
 + If you specify a new SSO user email address when you update the provisioned product associated with an account that was vended by Account Factory, AWS Control Tower creates a new SSO user account\. The previously created user account is not removed\. If you prefer to remove the previous SSO user email address from AWS SSO, see [Disabling a User](https://docs.aws.amazon.com/singlesignon/latest/userguide/disableuser.html)\.
-+ AWS SSO has been [integrated with Azure Active Directory](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/), and you can connect your existing Azure Active Directory to AWS Control Tower\. Learn more in this [blog post](http://aws.amazon.com/blogs/mt/extend-a-self-managed-active-directory-to-aws-control-tower/)\.
++ AWS SSO has been [integrated with Azure Active Directory](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/), and you can connect your existing Azure Active Directory to AWS Control Tower\.
 + For more information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to the [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
 
 ## AWS SSO Groups for AWS Control Tower<a name="sso-groups"></a>

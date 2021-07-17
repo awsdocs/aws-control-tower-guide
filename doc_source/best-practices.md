@@ -49,16 +49,16 @@ This procedure assumes you've already created at least one child OU within your 
 For detailed information about the guardrails and their functions, see [Guardrails in AWS Control Tower](guardrails.md)\.
 
 ## Administrative Tips for Landing Zone Setup<a name="tips-for-admin-setup"></a>
-+ The AWS Region where you do the most work should be your home region\.
-+ Set up your landing zone and deploy your Account Factory accounts from within your home region\.
-+ If you’re investing in several AWS Regions, be sure that your cloud resources are in the region where you’ll do most of your cloud administrative work and run your workloads\.
++ The AWS Region where you do the most work should be your home Region\.
++ Set up your landing zone and deploy your Account Factory accounts from within your home Region\.
++ If you’re investing in several AWS Regions, be sure that your cloud resources are in the Region where you’ll do most of your cloud administrative work and run your workloads\.
 + The audit and other buckets are created in the same AWS Region from which you launch AWS Control Tower\. We recommend that you do not move these buckets\.
-+ When launching, AWS STS endpoints must be activated in the management account, for all regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
++ When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
 
 ## Administrative Tips for Landing Zone Maintenance<a name="tips-for-admin-maint"></a>
 + You can make your own log buckets in the log archive account, but it is not recommended\. Be sure to leave the buckets created by AWS Control Tower\. Note that your Amazon S3 access logs must be in the same AWS Region as the source buckets\. For buckets you create, you do not have access to use `s3:PutEncryptionConfiguration`, `s3:PutBucketLogging`, or `s3:PutBucketPolicy` on those buckets because of restrictions created by mandatory guardrails\.
 + By keeping your workloads and logs in the same AWS Region, you reduce the cost that would be associated with moving and retrieving log information across regions\.
-+ The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the AWS Service Catalog portfolio, or to create a custom VPC that runs in only the required regions\.
++ The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the AWS Service Catalog portfolio, or to create a custom VPC that runs in only the required Regions\.
 + The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In regions where AWS Control Tower is supported, AWS Control Tower deletes the default AWS VPC when it creates the AWS Control Tower VPC\.
 +  If you delete your default VPC in your home AWS Region, it's best to delete it in all other AWS Regions\. 
 
@@ -102,9 +102,9 @@ We recommend the following practices as you create and modify resources in AWS C
 
 **General Guidance**
 + Do not modify or delete resources created by AWS Control Tower in the management account or in the shared accounts\. Modification of these resources can require an update to your landing zone\.
-+ Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the core organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
++ Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the Security organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
 + For more information about the resources created by AWS Control Tower, see [What Are the Shared Accounts?](how-control-tower-works.md#what-shared)
-+ Do not disallow usage of any AWS Regions through either SCPs or AWS STS\. Doing so will break AWS Control Tower\.
++ Do not disallow usage of any AWS Regions through either SCPs or AWS Security Token Service \(STS\)\. Doing so will break AWS Control Tower\.
 + In general, AWS Control Tower performs a single action at a time, which must be completed before another action can begin\. For example, if you attempt to provision an account while the process of enabling a guardrail is already in operation, account provisioning will fail\. 
 
 **AWS Organizations Guidance**
@@ -116,8 +116,12 @@ We recommend the following practices as you create and modify resources in AWS C
 + If you use AWS Organizations to rename an account or OU that was created by AWS Control Tower, you must repair your landing zone so that the new name is displayed by AWS Control Tower\.
 + If you use AWS Organizations to delete an OU that was created by AWS Control Tower, you also must delete the OU in AWS Control Tower\. It cannot be used to contain accounts\. You will not be able to provision a new account to this OU using Account Factory\.
 
+**About the Root**  
+The Root is not an OU\. It is a container for the management account, and for all OUs and accounts in your organization\. Conceptually, the Root contains all of the OUs\. It cannot be deleted\. You cannot govern enrolled accounts at the Root level within AWS Control Tower\. Instead, govern enrolled accounts within your OUs\. For a helpful diagram, see [the AWS Organizations documentation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html)\. 
+
 **AWS Single Sign\-On Guidance**
-+ For more information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
++ For information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
++ [Considerations for AWS Single Sign\-On \(AWS SSO\) customers](getting-started-with-control-tower.md#sso-considerations)
 + See [Managing Users and Access Through AWS Single Sign\-On](sso.md) for more information about working with AWS Control Tower and AWS SSO\.
 
 **Account Factory Guidance**

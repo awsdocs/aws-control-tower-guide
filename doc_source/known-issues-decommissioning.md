@@ -26,5 +26,11 @@ After you decommission your landing zone, you cannot successfully execute setup 
    You must either rename or remove these buckets, or use a different account for the logging account\.
 + Setup fails if the management account has the existing log group, `aws-controltower/CloudTrailLogs`, in CloudWatch Logs\. You must either rename or remove the log group\. 
 
+If you intend to set up a new landing zone in a new AWS Region, follow this additional step\. Enter the following command through the CLI: 
+
+```
+aws organizations disable-aws-service-access --service-principal controltower.amazonaws.com
+```
+
 **Note**  
-You cannot set up a new landing zone in an organization with top\-level OUs named either **Core** or **Custom**\. You must rename or remove these OUs to set up a landing zone again\.
+You cannot set up a new landing zone in an organization with top\-level OUs named either **Security** or **Sandbox**\. You must rename or remove these OUs to set up a landing zone again\.

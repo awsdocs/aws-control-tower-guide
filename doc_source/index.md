@@ -1,7 +1,7 @@
 # AWS Control Tower User Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -18,13 +18,16 @@ Amazon's trademarks and trade dress may not be used in
    + [How AWS Control Tower Works](how-control-tower-works.md)
    + [What is Compliance?](compliance.md)
    + [Plan your AWS Control Tower landing zone](planning-your-deployment.md)
-   + [AWS multi-account strategy for your AWS Control Tower landing zone](aws-multi-account-landing-zone.md)
++ [Terminology](terminology.md)
++ [Pricing](pricing.md)
 + [Setting up](setting-up.md)
 + [Getting started with AWS Control Tower](getting-started-with-control-tower.md)
 + [Limitations and quotas in AWS Control Tower](limits.md)
 + [Best practices for AWS Control Tower administrators](best-practices.md)
    + [AWS Control Tower and VPCs](vpc-concepts.md)
    + [Configuration update management in AWS Control Tower](configuration-updates.md)
+   + [AWS multi-account strategy for your AWS Control Tower landing zone](aws-multi-account-landing-zone.md)
++ [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)
 + [Provision and manage accounts with Account Factory](account-factory.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
    + [Manage resources outside of AWS Control Tower](external-resources.md)

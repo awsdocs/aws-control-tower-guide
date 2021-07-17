@@ -1,8 +1,8 @@
 # How to decommission a landing zone<a name="how-to-decommission"></a>
 
-After you've contacted [AWS Support](https://aws.amazon.com/premiumsupport/) and received confirmation that they've enabled your account for decommissioning, you'll be able to see a section on your **Settings** page that allows you to follow the procedure given here\. This procedure will not work until AWS Support has enabled your account for decommissioning\.
+To decommission your AWS Control Tower landing zone, follow the procedure given here\.
 
-1. Navigate to the **Settings** page in the AWS Control Tower console\.
+1. Navigate to the **Landing Zone Settings** page in the AWS Control Tower console\.
 
 1. Choose **Decommission your landing zone** within the **Decommission your landing zone** section\.
 
@@ -17,3 +17,9 @@ After you've contacted [AWS Support](https://aws.amazon.com/premiumsupport/) and
 *These actions may have significant consequences for your billing and compliance activities\. For example, failure to delete these resources can result in unexpected charges\.*
 
     For more information about how to delete resources manually, see [Manual Cleanup of AWS Control Tower Resources](walkthrough-delete.md#manual-decommissioning)\.
+
+1. If you intend to set up a new landing zone in a new AWS Region, follow this additional step\. Enter the following command through the CLI: 
+
+   ```
+   aws organizations disable-aws-service-access --service-principal controltower.amazonaws.com
+   ```

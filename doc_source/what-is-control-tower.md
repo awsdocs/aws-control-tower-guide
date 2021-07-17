@@ -4,7 +4,7 @@ AWS Control Tower creates an abstraction or *orchestration* layer that combines 
 
 If you are hosting more than a handful of accounts, it’s beneficial to have an orchestration layer that facilitates account deployment and account governance\. With AWS Control Tower, end users on your distributed teams can provision new AWS accounts quickly\. Meanwhile your central cloud administrators know that all accounts are aligned with centrally established, company\-wide compliance policies\.
 
-For more information about the working with AWS Control Tower and the best practices outlined in the AWS multi\-account strategy, see [Create your landing zone as a well\-architected AWS environment](aws-multi-account-landing-zone.md#multi-account-guidance)\.
+For more information about the working with AWS Control Tower and the best practices outlined in the AWS multi\-account strategy, see [AWS multi\-account strategy: Best practices guidance](aws-multi-account-landing-zone.md#multi-account-guidance)\.
 
 ## Features<a name="features"></a>
 
@@ -30,12 +30,6 @@ You can incorporate AWS Control Tower with other AWS services into a solution th
 + *Extensibility:* You can build or extend your own AWS Control Tower environment by working directly in AWS Organizations\. You can see your changes reflected in AWS Control Tower after you register your existing organizations, enroll your existing accounts into AWS Control Tower, and then update your AWS Control Tower landing zone to reflect your changes\. If your workloads require further advanced capabilities, you can leverage other AWS partner solutions along with AWS Control Tower\. 
 
   
-
-## Pricing<a name="pricing"></a>
-
-No additional charge exists for using AWS Control Tower\. You only pay for the AWS services enabled by AWS Control Tower, and the services you use in your landing zone\. For example, you pay for AWS Service Catalog for provisioning accounts with Account Factory, and AWS CloudTrail for events tracked in your landing zone\. For information about the pricing and fees associated with AWS Control Tower, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing)\.
-
-If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 
 ## Are You a First\-Time User of AWS Control Tower?<a name="first-time-user"></a>
 

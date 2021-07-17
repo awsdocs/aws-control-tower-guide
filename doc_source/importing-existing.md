@@ -12,7 +12,7 @@ If you don't already have an AWS Control Tower landing zone, start by setting up
 **What happens to my accounts when I register my OU?**
 
 AWS Control Tower requires permission to establish trusted access between AWS CloudFormation and AWS Organizations on your behalf, so that AWS CloudFormation can deploy your stack to the accounts in your organization automatically\.
-+ The `StackSetExecution` role is added to all accounts with status **Not enrolled**\.
++ The `AWSControlTowerExecution` role is added to all accounts with status **Not enrolled**\.
 + Mandatory guardrails are enabled by default to your OU and all its accounts when you register your OU\.
 
 **Partial enrollment of accounts after an OU is registered**
@@ -23,7 +23,9 @@ For example, if you see **4 of 5**, it means that your OU has 5 accounts in tota
 
 **IAM user prerequisites for registering an OU**
 
-Your AWS Identity and Access Management \(IAM\) user must be included on the Account Factory portfolio when you perform the **Register OU** operation, even if you already have `Admin` permissions\. Otherwise, the creation of the provisioned products will fail during registration\.
+Your AWS Identity and Access Management \(IAM\) identity \(user or role\) must be included on the appropriate Account Factory portfolio when you perform the **Register OU** operation, even if you already have `Admin` permissions\. Otherwise, the creation of the provisioned products will fail during registration\. Failure occurs because AWS Control Tower relies upon the credentials of the IAM identity when registering an OU\.
+
+The relevant portfolio is one created by AWS Control Tower, called **AWS Control Tower Account Factory Portfolio**\. Navigate to it by choosing **Service Catalog > Account Factory > AWS Control Tower Account Factory Portfolio**\. Then select the tab called **Groups, roles, and users** to view your IAM identity\. For more information on how to grant access, see [the documentation for AWS Service Catalog\.](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html)
 
 ## Register an existing OU<a name="how-to-register-existing-ou"></a>
 
@@ -71,7 +73,7 @@ When you perform a landing zone update, you must update your enrolled accounts t
 
 Effects of re\-registering an OU:
 + The **State** field indicates whether the account currently is enrolled with AWS Control Tower \(**Enrolled**\), whether the account has never been enrolled \(**Not enrolled**\), or whether enrollment failed previously \(**Enrollment failed**\)\.
-+ When you re\-register the OU, the `StackSetExecution` role is added to all accounts with status **Not enrolled** or **Enrollment failed**\.
++ When you re\-register the OU, the `AWSControlTowerExecution` role is added to all accounts with status **Not enrolled** or **Enrollment failed**\.
 + AWS Control Tower creates a single sign\-on \(SSO\) login for those new enrolled accounts\.
 + **Enrolled** accounts are re\-enrolled into AWS Control Tower\.
 + Drift on any preventive guardrails applied to the OU is fixed\.
@@ -128,7 +130,7 @@ In general, when you register or re\-register an OU, all accounts within that OU
   The email address you specified for the account does not conform to the naming standards\. Here is the regular expression \(regex\) that specifies which characters are allowed: `[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+[.]+[A-Za-z]+`
 + **Config recorder or delivery channel enabled**
 
-  The account may have an existing AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI in all AWS Regions before you can enroll an account\.
+  The account may have an existing AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI in all AWS Regions where the AWS Control Tower management account has governed resources, before you can enroll an account\.
 + **STS disabled**
 
   AWS Security Token Service \(AWS STS\) may be disabled in the account\. AWS STS endpoints must be activated in the accounts for all Regions supported by AWS Control Tower\.

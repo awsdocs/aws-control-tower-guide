@@ -52,13 +52,20 @@ From the AWS Control Tower dashboard, you can view and edit your network configu
 
 1.  In the **Edit account factory network configuration** page, go to the **VPC Configuration options for new accounts** section\.
 
-   1. Turn off the **Internet\-accessible subnet** toggle switch\.
+   You can follow **Option 1** or **Option 2**, or both, to ensure that AWS Control Tower does not create a VPC when provisioning an account\.
 
-   1. Set the **Maximum number of private subnets** value to 0\.
+   1. 
 
-   1. Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
+**Option 1 – Removing subnets**
+      + Turn off the **Internet\-accessible subnet** toggle switch\.
+      + Set the **Maximum number of private subnets** value to 0\.
+      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
-   1. Clear every checkbox in the **Regions for VPC creation** column\.
+   1. 
+
+**Option 2 – Removing AWS Regions**
+      + Clear every checkbox in the **Regions for VPC creation** column\.
+      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
 1. Choose **Save**\.
 

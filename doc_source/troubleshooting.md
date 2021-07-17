@@ -29,6 +29,9 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + Europe \(Ireland\)
 + Europe \(London\) Region
 + Europe \(Stockholm\) Region
++ Asia Pacific \(Mumbai\) Region 
++ Asia Pacific \(Seoul\) Region  
++ Asia Pacific \(Tokyo\) Region  
 
 ## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
@@ -60,7 +63,7 @@ If the reason for the first enrollment failure was that you forgot to create the
 
 In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the Account Factory provisioned product through the AWS Service Catalog console\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
-## Unable to Update an Account Factory Account<a name="w169aac38c11"></a>
+## Unable to Update an Account Factory Account<a name="w221aac44c11"></a>
 
 When an account is in an inconsistent state, it cannot be updated successfully from Account Factory or AWS Service Catalog\.
 
@@ -180,8 +183,6 @@ If you've recently expanded your AWS Control Tower deployment into a new AWS Reg
 
 For example, if you’ve recently updated your AWS Control Tower landing zone for release 2\.3, which enables the Asia Pacific \(Sydney\) region, deploying the 2\.3 release updates the landing zone, but it does not update each individual account\.
 
-If you have not updated your landing zone for AWS Control Tower release 2\.3, and if you do not require your workloads to run in the Asia Pacific \(Sydney\) region, consider remaining at release 2\.2\. As long as release 2\.2 is in effect, the behavior of deploying detective guardrails to accounts is unchanged\.
-
 If you try to enable a detective guardrail before updating your accounts, you may see an error message similar to this one:
 
 `AWS Control Tower can't enable the selected guardrail on this OU. AWS Control Tower cannot apply the guardrail on the OU ou-xxx-xxxxxxxx, because child accounts have dependencies that are missing. Update all child accounts under the OU, then try again.`
@@ -192,19 +193,34 @@ To update multiple individual accounts, you can use the APIs from AWS Service Ca
 
  If you have further difficulties with enabling detective guardrails on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
+## Rate exceeded error returned by the AWS Organizations API<a name="rate-exceeded-error"></a>
+
+**Possible cause**
+
+Your workload was running while AWS Control Tower was running a daily scan to check whether your SCPs have drifted\.
+
+** Steps to follow**
+
+If you encounter an API throttling or `rate exceeded` error, try these steps:
++ Run your workloads at a different time\. \(Refer to the AWS Control Tower SCP invariance scan schedule by Region to find out when AWS Control Tower runs its audit scans\.\)
++ If you are calling the APIs directly through HTTP: Use the AWS SDK, which automatically retries failed actions
++ Request a limit increase through [Service Quotas](/general/latest/gr/aws_service_limits.html) and AWS Support
+
+An example of troubleshooting instructions for API throttling in Elastic Beanstalk can be found here: `https://aws.amazon.com/premiumsupport/knowledge-center/elastic-beanstalk-api-throttling-errors/`
+
 ## Failure to move an Account Factory account directly from one AWS Control Tower landing zone to another AWS Control Tower landing zone<a name="failure-to-move"></a>
 
 **Warning**  
-This practice is not recommended\. It does not meet one of the prerequisites for account enrollment\. If you have tried to do this unsupported action and you find yourself receiving multiple error messages, here is some information that might be helpful\.
+This practice does not meet the prerequisite for eligible account enrollment, because eligible accounts must be part of the same overall AWS Organization, and each organization may have only one landing zone\. If you have tried to do this action and you find yourself receiving multiple error messages, here is some information that might be helpful\.
 
-To move an account that you’ve provisioned through Account Factory into another landing zone that’s managed by AWS Control Tower, under another management account, you must remove all of the IAM roles and the stacks associated with that account from the original OU\. Remove these resources from every region in which the account is deployed\.
+To move an account that you’ve provisioned through Account Factory into another landing zone that’s managed by AWS Control Tower, under another management account, you must remove all of the IAM roles and the stacks associated with that account from the original OU\. Remove these resources from every Region in which the account is deployed\.
 
 **Note**  
 The best way to remove the resources is to deprovision the account in its original OU before you try to move it\.
 
-If you don’t remove the resources, enrollment into the new OU will fail, somewhat spectacularly\. You may encounter one or more error messages, and you will keep receiving similar error messages until the remaining roles and stacks are removed from every region in which the account was deployed\.
+If you don’t remove the resources, enrollment into the new OU will fail, somewhat spectacularly\. You may encounter one or more error messages, and you will keep receiving similar error messages until the remaining roles and stacks are removed from every Region in which the account was deployed\.
 
-Each time you receive an error message, you must remove the account from the new OU, delete the old resource that is the subject of the error message, and then attempt to move the account back into the new OU\. This process of removing\-and\-deleting must be repeated for every remaining resource, for every region in which the account was deployed, possibly 10 or 20 times\. These repeated errors occur because the account was provisioned into an OU with an SCP that prevents IAM role deletion\. You can make the recovery process shorter by deleting all the account's resources before you retry\.
+Each time you receive an error message, you must remove the account from the new OU, delete the old resource that is the subject of the error message, and then attempt to move the account back into the new OU\. This process of removing\-and\-deleting must be repeated for every remaining resource, for every Region in which the account was deployed, possibly 10 or 20 times\. These repeated errors occur because the account was provisioned into an OU with an SCP that prevents IAM role deletion\. You can make the recovery process shorter by deleting all the account's resources before you retry\.
 
 The examples below represent the types of failure messages you may receive if undeleted roles and stacks remain\. You would most likely see one of these messages at a time, for each time you attempt to enroll the account, as long as old resources remain\. 
 
