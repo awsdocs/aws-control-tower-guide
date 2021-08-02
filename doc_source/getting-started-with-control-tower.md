@@ -36,6 +36,9 @@ By default, all accounts are subscribed to these services\.
 + If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
 
+**Note**  
+When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
+
 ## Requirements for your shared account email addresses<a name="step-one"></a>
 
 If you're setting up your landing zone in a new AWS account, for information on creating your account and your IAM administrator, see [Setting up](setting-up.md)\.
@@ -83,7 +86,7 @@ AWS Control Tower has no APIs or programmatic access\. To configure and launch y
 
 Be sure you've correctly designated the AWS Region that you select for your home Region\. After you've deployed AWS Control Tower, you can't change the home Region\.
 
-In this section of the setup process, you can add any additional AWS Regions that you require\. You can add more Regions at a later time, if needed\. After you add a Region into governance by AWS Control Tower, you cannot remove it from governance\.
+In this section of the setup process, you can add any additional AWS Regions that you require\. You can add more Regions at a later time, if needed, and you can remove Regions from governance\. 
 
 **To select additional AWS Regions to govern**
 + The panel shows you the current Region selections\. Open the dropdown menu to see a list of additional Regions available for governance\. Check the box next to each Region to bring into governance by AWS Control Tower\. Your home Region selection is not editable\.
@@ -94,7 +97,7 @@ If you accept the default names of these OUs, there's no action you need to take
 + **Foundational OU** – AWS Control Tower relies upon a **Foundational OU** that is initially named the **Security OU**\. You can change the name of this OU during initial setup and afterward, from the OU details page\. This **Security OU** contains your two shared accounts, which by default are called the **log archive** account and the **audit** account\.
 + **Additional OU** – AWS Control Tower can set up one or more **Additional OUs** for you\. We recommend that you provision at least one **Additional OU** in your landing zone, besides the **Security OU**\. If this Additional OU is intended for development projects, we recommend that you name it the **Sandbox OU**, as given in the [Guidelines to set up a well\-architected environment](aws-multi-account-landing-zone.md#guidelines-for-multi-account-setup)\. If you already have an existing OU in AWS Organizations, you may see the option to skip setting up an Additional OU in AWS Control Tower\. 
 
-### Step 3\. Configure your shared accounts<a name="configure-shared-accounts"></a>
+### Step 3\. Configure your shared accounts and encryption<a name="configure-shared-accounts"></a>
 
 In this section of the setup process, the panel shows the default selections for the names of your shared AWS Control Tower accounts\. These accounts are an essential part of your landing zone\. **Do not move or delete these shared accounts**, although you can choose customized names for them during setup\.
 
@@ -115,6 +118,58 @@ You must provide unique email addresses for your log archive and audit accounts,
 1. Select a name for the account initially called the **audit** account\. Many customers choose to call it the **Security** account\.
 
 1. Provide a unique email address for this account\.
+
+#### Optionally configure KMS keys<a name="configure-kms-keys"></a>
+
+If you wish to encrypt and decrypt your resources with a KMS encryption key, select the checkbox\. If you have existing keys, you'll be able to select them from identifiers displayed in a dropdown menu\. You can generate a new key by choosing **Create a key**\. You can add or change a KMS key any time you update your landing zone\.
+
+When you select **Set up landing zone**, AWS Control Tower performs a pre\-check to validate your KMS key\. The key must meet these requirements:
++ Enabled
++ Symmetric
++ Not a multi\-region key
++ Has correct permissions added to the policy
+
+You may see an error banner if the key does not meet these requirements\. In that case, choose another key or generate a key\. Be sure to edit the key's permissions policy, as described in the next section\.
+
+##### To make the key's policy update<a name="kms-key-policy-update"></a>
+
+To use a KMS key with AWS Control Tower, you must make a specific policy update to the key\. At minimum, the KMS key must have permissions that allow AWS CloudTrail and AWS Config to use the chosen KMS key\.
+
+**Make the required policy update**
+
+1. Navigate to the AWS KMS console at [https://console.aws.amazon.com/kms](https://console.aws.amazon.com/kms)
+
+1. Select **Customer managed keys** on the left
+
+1. In the table, select the key you wish to edit, or select **Create a key** from the upper right
+
+1. Under the section called **Key policy**, make sure you can see the policy and edit it\. You may need to select **Switch to policy view** on the right\.
+
+You can copy and paste the following example policy statement\. Alternatively, for an existing key, you can ensure that your KMS key has these minimum permissions by adding them to your own existing policy\. You can add these lines as a group in a single JSON statement, or if you prefer, you can incorporate them line by line into your policy's other statements\.
+
+```
+{
+            "Sid": "Allow CloudTrail and AWS Config to encrypt/decrypt logs",
+              "Effect": "Allow",
+              "Principal": {
+              "Service": [
+                "cloudtrail.amazonaws.com",
+                "config.amazonaws.com"
+            ]
+            },
+              "Action": [
+                "kms:GenerateDataKey",
+                "kms:Decrypt"
+            ],
+              "Resource": "*"
+            }
+```
+
+The AWS Key Management Service \(KMS\) allows you to create multi\-region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
+
+For more information about AWS KMS, see [ the AWS KMS Developer Guide\.](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+
+Note that customer data in AWS Control Tower is encrypted at rest, by default, using SSE\-S3\.
 
 ### Step 4\. Review and set up the landing zone<a name="review-and-set-up"></a>
 
@@ -142,5 +197,6 @@ To learn more about how you can use AWS Control Tower, see the following topics:
 + Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for Configuring and Provisioning Accounts](account-factory.md#configure-provision-new-account)\.
 + To assure [Compliance Validation for AWS Control Tower](compliance-program-info.md), your central cloud administrators can review log archives in the Log Archive account, and designated third\-party auditors can review audit information in the Audit \(shared\) account, which is a member of the Security OU\. 
 + To learn more about the capabilities of AWS Control Tower, see [Related information](https://docs.aws.amazon.com/controltower/latest/userguide/related-information.html)\.
++ Try visiting a [curated list of YouTube videos](https://www.youtube.com/playlist?list=PLhr1KZpdzukdS9skEXbY0z67F-wrcpbjm) that explain more about how to use AWS Control Tower functionality\. 
 + From time to time, you may need to update your landing zone to get the latest backend updates, the latest guardrails, and to keep your landing zone up\-to\-date\. For more information, see [Configuration update management in AWS Control Tower](configuration-updates.md)\.
 + If you encounter issues while using AWS Control Tower, see [Troubleshooting](troubleshooting.md)\.

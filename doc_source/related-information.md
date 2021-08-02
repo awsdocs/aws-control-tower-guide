@@ -5,6 +5,7 @@ This topic lists common use cases and best practices for AWS Control Tower capab
 ## Tutorials and labs<a name="tutorials-and-labs"></a>
 + [AWS Control Tower lab](https://controltower.aws-management.tools/immersionday) – These labs provide a high\-level overview of common tasks related to AWS Control Tower\.
 + On the AWS Control Tower dashboard, choose **Get personalized guidance** if you have a use case in mind but you're not sure where to start\.
++ Try visiting a [curated list of YouTube videos](https://www.youtube.com/playlist?list=PLhr1KZpdzukdS9skEXbY0z67F-wrcpbjm) that explain more about how to use AWS Control Tower functionality\. 
 
 ## Networking<a name="networking"></a>
 

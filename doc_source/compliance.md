@@ -1,10 +1,12 @@
-# What is Compliance?<a name="compliance"></a>
+# Guardrails and compliance<a name="compliance"></a>
 
-With AWS Control Tower, compliance means that cloud administrators know the accounts in their organization are compliant with established policies, while builders can provision new AWS accounts quickly in a few clicks\.
+Within AWS Control Tower, compliance means that cloud administrators know when the accounts in their organization are compliant with established policies, while builders can provision new AWS accounts quickly in a few clicks\. AWS Control Tower guardrails embody the rules of compliance\.
+
+When we talk about compliance in AWS Control Tower, we do not intend the same meaning as compliance with governmental regulations, such as data privacy or health information standards\. However, AWS Control Tower helps your organization to comply with many governmental regulations\.
 
 **Examples of compliance rules \(guardrails\) in AWS Control Tower:**
-+ Disallow public read access to S3 buckets
-+  Disallow internet connection through RDP
++ Detect whether public write access to Amazon S3 buckets is allowed
++ Detect whether unrestricted incoming TCP traffic is allowed
 
 **Examples of governmental compliance regulations:**
 + The U\.S\. Health Insurance Portability and Accountability Act of 1996 \(HIPAA\)
@@ -14,13 +16,19 @@ For more information about how AWS Control Tower helps you maintain compliance w
 
  **How can administrators review compliance?** 
 
-For ongoing governance, administrators can enable pre\-configured guardrails—clearly defined rules for security, operations, and compliance—that prevent deployment of resources that don’t conform to policies, and they can continuously monitor deployed resources for nonconformance\.
+For ongoing governance, administrators can enable pre\-configured guardrails—clearly defined rules for security, operations, and compliance\. These guardrails can:
++ prevent deployment of resources that don’t conform to policies \(by means of preventive guardrails, implemented with SCPs\)
++ continuously monitor deployed resources for nonconformance \(by means of detective guardrails, implemented with AWS Config Rules\)
 
-Compliance status of resources associated with OUs and accounts are shown on the **Organizational unit details** page and **Account details** page, respectively, in the AWS Control Tower console\.
+If an account has any non\-compliant resources, that account may be shown with **Non\-compliant** status on the **OU** or **Account** page in the AWS Control Tower console\. Details about the specific resources that have caused the non\-compliant status are shown on the **Account details** page\. If an account shows **Compliant** status, that means it has no resources that are non\-compliant; therefore, no resource details are shown on the **Account details** page, only an empty table\.
 
-You can subscribe to SNS topics that send notifications when resource compliance status changes\. See [Prevention and notification](#prevention-and-notification), later in this chapter\.
+You can subscribe to SNS topics that send notifications when resource compliance status changes\. See [Drift prevention and notification](prevention-and-notification.md), later in this chapter\.
 
 For more information on how AWS Control Tower collects information about resources, see the [AWS Config Aggregator Documentation](https://docs.aws.amazon.com/config/latest/developerguide/aggregate-data.html)\.
+
+**Drift is related to compliance status for OU and account resources**
+
+Drift is reported as **Unknown** in the **Compliance** status field of the AWS Control Tower console\. The **Unknown** state indicates that AWS Control Tower cannot determine the compliance status of the resource, because drift is present\. Drift is not necessarily a detective guardrail compliance violation\. For more information about drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 ## AWS Control Tower guardrail compliance status<a name="compliance-statuses"></a>
 
@@ -70,42 +78,3 @@ This section lists the possible categories of compliance and non\-compliance in 
   + An account across multiple guardrails
   + A OU across multiple accounts
   + Basically anything with a compliance status
-
-## Prevention and notification<a name="prevention-and-notification"></a>
-
-You can enable certain guardrails and subscribe to certain SNS notifications that help you maintain compliance in AWS Control Tower\.
-
-**Drift prevention** 
-
-Some guardrails prevent modification of compliance reporting mechanisms\.
-+ [Disallow Changes to AWS Config Rules Set Up by AWS Control Tower](mandatory-guardrails.md#config-rule-disallow-changes) 
-
-  \(Mandatory, preventive guardrail\)
-+ [Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower](mandatory-guardrails.md#config-aggregation-authorization-policy)
-
-  \(Mandatory, preventive guardrail\)
-+ [Disallow Changes to Tags Created by AWS Control Tower for AWS Config Resources](mandatory-guardrails.md#cloudwatch-disallow-config-changes)
-
-  \(Mandatory, preventive guardrail\)
-+ [Disallow Configuration Changes to AWS Config](mandatory-guardrails.md#config-disallow-changes) 
-
-  \(Mandatory, preventive guardrail\)
-
- **Receive guardrail compliance notifications** 
-
-Subscribe to topic `arn:aws:sns:AWSRegion:AuditAccount:aws-controltower-AggregateSecurityNotifications` to receive compliance change notifications in email sent to your audit account\.
-
-Subscribe to the topic for each AWS Region in which you run AWS Control Tower\. When subscribing, substitute your actual AWS Control Tower Region and audit account information into the topic name shown\.
-
-**Additional SNS topics and notifications you can receive**
-+ `aws-controltower-SecurityNotifications`: One of these topics exists for each supported AWS Region\. It receives compliance, noncompliance, and change notifications from AWS Config in that Region\. It forwards all incoming notifications to `aws-controltower-AggregateSecurityNotifications`
-+ `aws-controltower-AggregateSecurityNotifications`: This topic exists in each supported AWS Region\. It receives noncompliance notifications from the region\-specific `aws-controltower-SecurityNotifications` topics\. Additionally, in the home Region, it also receives drift notifications\.
-+ `aws-controltower-AllConfigNotifications`: It receives notifications from AWS Config regarding compliance, noncompliance, and change\.
-
-**Other considerations about SNS topics:**
-+ All of these topics exist and receive notifications in the audit account\.
-+  By default, only the audit account email address is subscribed to these notifications\.
-+ SNS topics in AWS Control Tower are extremely noisy, by design\. For example, AWS Config sends a notification every time AWS Config discovers a new resource\.
-+ Administrators who wish to filter out specific types of notifications from an SNS topic can create a Lambda function and subscribe it to the SNS topic\.
-+ AWS Config notifications contain a JSON object\.
-+ AWS Control Tower drift notifications appear in plain text\.

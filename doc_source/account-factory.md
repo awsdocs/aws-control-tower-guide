@@ -20,60 +20,6 @@ The AWS Control Tower management account has a trust relationship with the **AWS
 
 To enroll an existing AWS account into AWS Control Tower, that account must have the **AWSControlTowerExecution** role enabled\. For more information about how to enroll an existing account, see [Enroll an existing AWS account](enroll-account.md)\.
 
-## Automated Account Provisioning With IAM Roles<a name="automated-provisioning"></a>
-
-To configure Account Factory accounts in a more automated way, you can create Lambda functions in the AWS Control Tower management account, which [assumes the **AWSControlTowerExecution** role ](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/) in the member account\. Then, using the role, the management account performs the desired configuration steps in each member account\.
-
- If you're provisioning accounts using Lambda functions, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AWSControlTowerAccountFactoryAccess",
-            "Effect": "Allow",
-            "Action": [
-                "sso:GetProfile",
-                "sso:CreateProfile",
-                "sso:UpdateProfile",
-                "sso:AssociateProfile",
-                "sso:CreateApplicationInstance",
-                "sso:GetSSOStatus",
-                "sso:GetTrust",
-                "sso:CreateTrust",
-                "sso:UpdateTrust",
-                "sso:GetPeregrineStatus",
-                "sso:GetApplicationInstance",
-                "sso:ListDirectoryAssociations",
-                "sso:ListPermissionSets",
-                "sso:GetPermissionSet",
-                "sso:ProvisionApplicationInstanceForAWSAccount",
-                "sso:ProvisionApplicationProfileForAWSAccountInstance",
-                "sso:ProvisionSAMLProvider",
-                "sso:ListProfileAssociations",
-                "sso-directory:ListMembersInGroup",
-                "sso-directory:AddMemberToGroup",
-                "sso-directory:SearchGroups",
-                "sso-directory:SearchGroupsWithGroupName",
-                "sso-directory:SearchUsers",
-                "sso-directory:CreateUser",
-                "sso-directory:DescribeGroups",
-                "sso-directory:DescribeDirectory",
-                "sso-directory:GetUserPoolInfo",
-                "controltower:CreateManagedAccount",
-                "controltower:DescribeManagedAccount",
-                "controltower:DeregisterManagedAccount",
-                "s3:GetObject",
-                "organizations:describeOrganization",
-                "sso:DescribeRegisteredRegions"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
 ## Create or Enroll An Individual Account<a name="quick-account-provisioning"></a>
 
 The **Enroll account** feature is available in AWS Control Tower for provisioning new accounts in your landing zone and for enrolling existing AWS accounts so that they are governed by AWS Control Tower\.
@@ -139,17 +85,13 @@ With Account Factory you also can change the organizational unit \(OU\) for an a
 
 ## Updating and Moving Account Factory Accounts with AWS Service Catalog<a name="updating-account-factory-accounts"></a>
 
-The following procedure guides you through how to update your Account Factory account or move it to a new OU, through AWS Service Catalog, by updating the provisioned product\. You can update accounts with the **Enroll account** function in AWS Control Tower\. We recommend using the **Enroll account** capability whenever possible\.
+The following procedure guides you through how to update your Account Factory account or move it to a new OU, through AWS Service Catalog, by updating the provisioned product\.
 
 **To update an Account Factory account or change its OU**
 
-1. Sign in to the AWS Management Console and open the AWS Single Sign\-On console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
-
-   Alternatively, you can sign in to your AWS Control Tower management account\.
+1. Sign in to the AWS Management Console and open the AWS Service Catalog console at **https://console\.aws\.amazon\.com/servicecatalog/**
 **Note**  
 You must be signed in as a user with the permissions to provision new products in AWS Service Catalog; for example, an AWS SSO user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\.
-
-1. On the Account Factory page in AWS Control Tower, choose **Enroll account** to open the AWS Service Catalog console and the Account Factory product\.
 
 1. From the navigation pane, choose **Provisioned products list**\. 
 
@@ -230,6 +172,8 @@ The word *terminate* is specific to AWS Service Catalog\. When you terminate an 
 
 **Note**  
 An unmanaged \(terminated\) account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](#updating-account-factory-accounts)\.
+
+You can view an AWS [YouTube video](https://www.youtube.com/playlist?list=PLhr1KZpdzukdS9skEXbY0z67F-wrcpbjm) that explains how to remove and close down an account in AWS Control Tower\.
 
 ## Closing an Account Created in Account Factory<a name="delete-account"></a>
 

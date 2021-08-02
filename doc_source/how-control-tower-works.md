@@ -14,11 +14,11 @@ The structure of a landing zone in AWS Control Tower is as follows:
 ## What happens when you set up a landing zone<a name="how-it-works-setup"></a>
 
 When you set up a landing zone, AWS Control Tower performs the following actions in your management account on your behalf:
-+ Creates three Organizations organizational units \(OUs\): Root, Security, and Sandbox \(optional\)\.
++ Creates two AWS Organizations organizational units \(OUs\): Security, and Sandbox \(optional\), contained within the organizational root structure\.
 + Creates two shared accounts in the Security OU: the Log Archive account and the Audit account\.
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
-+ Applies 20 preventive guardrails to enforce policies\.
-+ Applies six detective guardrails to detect configuration violations\.
++ Applies 20 mandatory, preventive guardrails to enforce policies\.
++ Applies two mandatory, detective guardrails to detect configuration violations\.
 + Preventive guardrails are not applied to the management account\.
 + Except for the management account, guardrails are applied to the organization as a whole\.
 
@@ -98,40 +98,25 @@ When you set up your landing zone, the following AWS resources are created withi
 
 ## How Guardrails Work<a name="how-guardrails-work"></a>
 
-A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each guardrail enforces a single rule, and it's expressed in plain language\. Compliance needs evolve, and you can change the elective or strongly recommended guardrails that are in force, at any time, from the AWS Control Tower console\. Mandatory guardrails are always applied, and they can't be changed\.
+A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each guardrail enforces a single rule, and it's expressed in plain language\. You can change the elective or strongly recommended guardrails that are in force, at any time, from the AWS Control Tower console\. Mandatory guardrails are always applied, and they can't be changed\.
 
 Preventive guardrails prevent actions from occurring\. For example, the elective guardrail called **Disallow Changes to Bucket Policy for Amazon S3 Buckets** \(Previously called **Disallow Policy Changes to Log Archive**\) prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
 Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended guardrail called **Enable encryption for EBS volumes attached to EC2 instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
+*For those who are familiar with AWS:* In AWS Control Tower preventive guardrails are implemented with Service Control Policies \(SCPs\)\. Detective guardrails are implemented with AWS Config rules\.
+
 ### Related Topics<a name="how-guardrails-related"></a>
 + [Guardrails in AWS Control Tower](guardrails.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
 
-## How AWS Regions Work With AWS Control Tower<a name="region-how"></a>
-
-Currently, AWS Control Tower is supported in the following AWS Regions:
-+ US East \(N\. Virginia\)
-+ US East \(Ohio\)
-+ US West \(Oregon\)
-+ Canada \(Central\) Region
-+ Asia Pacific \(Sydney\)
-+ Asia Pacific \(Singapore\) Region
-+ Europe \(Frankfurt\) Region
-+ Europe \(Ireland\)
-+ Europe \(London\) Region
-+ Europe \(Stockholm\) Region
-+ Asia Pacific \(Mumbai\) Region 
-+ Asia Pacific \(Seoul\) Region 
-+ Asia Pacific \(Tokyo\) Region 
-
-When you create a landing zone, the Region that you're using for access to the AWS Management Console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
-
-Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in Regions where AWS Control Tower is supported\. For more information about the behavior of guardrails when you activate AWS Control Tower in a new Region, see [Configure your AWS Control Tower Regions](configuration-updates.md#deploying-to-new-region)\.
-
 ## How AWS Control Tower Works With StackSets<a name="stacksets-how"></a>
 
-AWS Control Tower uses CloudFormation StackSets to set up resources in your accounts\. Each stack set has StackInstances that correspond to multiple accounts, and to multiple AWS Regions per account\. Control Tower applies updates to certain accounts and AWS Regions selectively, based on certain CloudFormation parameters\. When updates are applied to some stack instances, other stack instances may be left in **Outdated** status\. This behavior is expected and normal\.
+
+
+AWS Control Tower uses AWS CloudFormation StackSets to set up resources in your accounts\. Each stack set has StackInstances that correspond to accounts, and to AWS Regions per account\. AWS Control Tower deploys one stack set instance per account and Region\.
+
+AWS Control Tower applies updates to certain accounts and AWS Regions selectively, based on CloudFormation parameters\. When updates are applied to some stack instances, other stack instances may be left in **Outdated** status\. This behavior is expected and normal\.
 
 When a stack instance goes into **Outdated** status, it usually means that the stack corresponding to that stack instance is not aligned with the latest template in the stack set\. The stack remains in the older template, so it might not include the latest resources or parameters\. The stack is still completely usable\.
 

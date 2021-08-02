@@ -30,7 +30,7 @@ AWS Control Tower sets up a well\-architected environment\. It relies upon AWS a
 AWS Control Tower offers a landing zone that is set up automatically\. It enforces guardrails to ensure compliance with your corporate guidelines, across multiple accounts in your environment\.
 
 **Definition of a landing zone**  
-*The landing zone is a cloud environment that offers a recommended starting point, including default accounts, account structure, network and security layouts, and so forth\. From a landing zone, you can deploy workloads that utilize all of your solutions and applications\.*
+*The landing zone is a cloud environment that offers a recommended starting point, including default accounts, account structure, network and security layouts, and so forth\. From a landing zone, you can deploy workloads that utilize your solutions and applications\.*
 
 ## Guidelines to set up a well\-architected environment<a name="guidelines-for-multi-account-setup"></a>
 
@@ -48,7 +48,7 @@ One account isn’t enough to set up a well\-architected environment\. By using 
 + **Data Isolation** – Isolating data stores to an account helps limit the number of people who have access to data and can manage the data store\. This isolation helps prevent unauthorized exposure of highly private data\. For example, data isolation helps support compliance with the General Data Protection Regulation \(GDPR\)\.
 + **Business process** – Business units or products often have completely different purposes and processes\. Individual accounts can be established to serve business\-specific needs\.
 + **Billing** – An account is the only way to separate items at a billing level, including things like transfer charges and so forth\. The multi\-account strategy helps create separate billable items across business units, functional teams, or individual users\.
-+ **Quota allocation** – AWS quotas are set up on a per account basis\. Separating workloads into different accounts gives each account \(such as a project\) a well\-defined, individual quota\.
++ **Quota allocation** – AWS quotas are set up on a per\-account basis\. Separating workloads into different accounts gives each account \(such as a project\) a well\-defined, individual quota\.
 
 **Use multiple organizational units**
 
@@ -60,16 +60,18 @@ Our recommendation is that, at a minimum, you create a pre\-production \(or Stag
 
 **Use a well\-planned structure for OUs in your landing zone**
 
-If you’ve decided to apply the multi\-account strategy to your AWS Control Tower deployment, AWS Control Tower sets up some of these OUs for you automatically\. As your workloads and requirements expand over time, you can extend this landing zone configuration to suit your needs\.
+AWS Control Tower sets up some OUs for you automatically\. As your workloads and requirements expand over time, you can extend the original landing zone configuration to suit your needs\.
 
 **Note**  
 The names given in the examples follow the suggested AWS naming conventions for setting up a multi\-account AWS environment\. You can rename your OUs after you've set up your landing zone, by selecting **Edit** on the OU detail page\.
+
+**Recommendations**
 
 After AWS Control Tower sets up the first, required OU for you — the Security OU — we recommend creating some additional OUs in your landing zone\.
 
 We recommend that you allow AWS Control Tower to create at least one additional OU, called the Sandbox OU\. This OU is for your software development environments\. AWS Control Tower can set up the Sandbox OU for you during landing zone creation, if you select it\. 
 
-Two recommended other OUs you can set up on your own: the Infrastructure OU, to contain your shared services and networking accounts, and an OU to contain your production workloads, called the Workloads OU\.
+Two recommended other OUs you can set up on your own: the Infrastructure OU, to contain your shared services and networking accounts, and an OU to contain your production workloads, called the Workloads OU\. You can add additional OUs in your landing zone through the AWS Control Tower console on the **Organizational units** page\.
 
 **Recommended OUs besides the ones set up automatically**
 + **Infrastructure OU** – Contains your shared services and networking accounts\.
@@ -84,18 +86,18 @@ AWS Control Tower does not set up the Workloads OU for you\.
 
 ## Example of AWS Control Tower with a complete multi\-account OU structure<a name="guidelines-for-full-multi-account"></a>
 
-AWS Control Tower supports a flat OU hierarchy, which means that nested OUs are not available\. However, you can still build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\. The following diagram shows an example set of OUs for a more expanded AWS Control Tower environment that follows AWS multi\-account guidance\.
+AWS Control Tower supports a flat OU hierarchy, which means that nested OUs are not available\. However, you can still build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
++ For more information about how AWS Control Tower aligns with the AWS guidance, see the AWS white paper, [Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html)\.
++ To view a diagram that shows an example set of OUs in a more expanded AWS Control Tower environment with AWS multi\-account guidance, see [ Example: Workloads in a Flat OU Structure](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html#example-workloads-flat-structure)\.
 
-![\[SECOND ILLUSTRATION GOES HERE\]](http://docs.aws.amazon.com/controltower/latest/userguide/images/second-figure.png)
-
-The diagram shows that more Foundational OUs and more Additional OUs have been created than were created in the starter structure\. These OUs serve the additional needs of a large deployment\.
+The diagram on the linked page shows that more Foundational OUs and more Additional OUs have been created\. These OUs serve the additional needs of a larger deployment\.
 
 In the Foundational OUs column, two OUs have been added to the basic structure:
 + **Security\_Prod OU** – Provides a read\-only area for security policies, as well as a break\-glass security audit area\.
-+ **Infrastructure OU** – The Infrastructure OU has been separated into two OUs, Infrastructure\_SDLC \(for pre\-production infrastructure\) and Infrastructure\_Prod \(for production infrastructure\)\.
++ **Infrastructure OU** – You may wish to separate the Infrastructure OU, recommended previously, into two OUs, Infrastructure\_Test \(for pre\-production infrastructure\) and Infrastructure\_Prod \(for production infrastructure\)\.
 
-In the Additional OUs column, these OUs have been added to the basic structure: 
-+ **Workloads OU** – The Workloads OU has been separated into two OUs, Workloads\_SDLC \(for pre\-production workloads\) and Workloads\_Prod \(for production workloads\)\.
+In the Additional OUs area, several more OUs have been added to the basic structure\. These following are the next recommended OUs to create as your environment grows: 
++ **Workloads OU** – The Workloads OU, recommended previously but optional, has been separated into two OUs, Workloads\_Test \(for pre\-production workloads\) and Workloads\_Prod \(for production workloads\)\.
 + **PolicyStaging OU** – Allows system administrators to test their changes to guardrails and policies before fully applying them\.
 + **Suspended OU** – Offers a location for accounts that may have been disabled temporarily\.
 

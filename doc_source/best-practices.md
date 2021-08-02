@@ -52,7 +52,7 @@ For detailed information about the guardrails and their functions, see [Guardrai
 + The AWS Region where you do the most work should be your home Region\.
 + Set up your landing zone and deploy your Account Factory accounts from within your home Region\.
 + If you’re investing in several AWS Regions, be sure that your cloud resources are in the Region where you’ll do most of your cloud administrative work and run your workloads\.
-+ The audit and other buckets are created in the same AWS Region from which you launch AWS Control Tower\. We recommend that you do not move these buckets\.
++ The audit and other Amazon S3 buckets are created in the same AWS Region from which you launch AWS Control Tower\. We recommend that you do not move these buckets\.
 + When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
 
 ## Administrative Tips for Landing Zone Maintenance<a name="tips-for-admin-maint"></a>
@@ -86,6 +86,9 @@ Certain administrative tasks require that you must sign in as a root user\. You 
 
 1. Open the AWS sign\-in page, then sign in with your reset password\.
 
+**About the Root**  
+The Root is not an OU\. It is a container for the management account, and for all OUs and accounts in your organization\. Conceptually, the Root contains all of the OUs\. It cannot be deleted\. You cannot govern enrolled accounts at the Root level within AWS Control Tower\. Instead, govern enrolled accounts within your OUs\. For a helpful diagram, see [the AWS Organizations documentation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html)\. 
+
 ## Recommendations for Setting Up Groups, Roles, and Policies<a name="roles-recommendations"></a>
 
 As you set up your landing zone, it's a good idea to decide ahead of time which users will require access to certain accounts and why\. For example, a security account should be accessible only to the security team, the management account should be accessible only to the cloud administrators' team, and so forth\.
@@ -101,38 +104,44 @@ When you're setting up the shared audit account in your landing zone, we recomme
 We recommend the following practices as you create and modify resources in AWS Control Tower\. This guidance might change as the service is updated\.
 
 **General Guidance**
-+ Do not modify or delete resources created by AWS Control Tower in the management account or in the shared accounts\. Modification of these resources can require an update to your landing zone\.
++ Do not modify or delete resources created by AWS Control Tower in the management account or in the shared accounts\. Modification of these resources can require you to update your landing zone or re\-register an OU\.
 + Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the Security organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
 + For more information about the resources created by AWS Control Tower, see [What Are the Shared Accounts?](how-control-tower-works.md#what-shared)
 + Do not disallow usage of any AWS Regions through either SCPs or AWS Security Token Service \(STS\)\. Doing so will break AWS Control Tower\.
++ The AWS Organizations **FullAWSAccess** SCP must be applied and should not be merged with other SCPs\. Change to this SCP is not reported as drift; however, some changes may affect AWS Control Tower functionality in unpredictable ways, if access to certain resources is denied\. For example, if the SCP is detached, or modified, an account may lose access to an AWS Config recorder or create a gap in CloudTrail logging\.
 + In general, AWS Control Tower performs a single action at a time, which must be completed before another action can begin\. For example, if you attempt to provision an account while the process of enabling a guardrail is already in operation, account provisioning will fail\. 
++ We recommend that you keep each registered OU to a maximum of 300 accounts, so that you can update those accounts with the **Re\-register OU** capability whenever account updates are required, such as when you configure new Regions for governance\.
++  Keep an active AWS Config recorder\. If you delete your Config recorder, detective guardrails cannot detect and report drift\. Non\-compliant resources may be reported as **Compliant** due to insufficient information\. 
 
-**AWS Organizations Guidance**
-+ Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to re\-enable affected guardrails in AWS Control Tower\. Instead, you can create new SCPs and attach those to the OUs rather than editing the SCPs that AWS Control Tower has created\.
+### AWS Organizations Guidance<a name="orgs-guidance"></a>
++ Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to repair your landing zone or re\-register your OU in AWS Control Tower\. Instead, you can create new SCPs and attach those to the OUs rather than editing the SCPs that AWS Control Tower has created\.
 + Moving individual accounts into AWS Control Tower, from outside of a registered OU, causes drift that must be repaired\. See [Types of Governance Drift](drift.md#governance-drift)\.
 + If you use AWS Organizations to create, invite, or move accounts within an organization registered with AWS Control Tower, those accounts are not enrolled by AWS Control Tower and those changes are not recorded\. If you need access to these accounts through SSO, see [Member Account Access](http://aws.amazon.com/premiumsupport/knowledge-center/organizations-member-account-access/)\.
 + If you use AWS Organizations to move an OU into an organization created by AWS Control Tower, the external OU is not registered by AWS Control Tower\.
-+ Nested OUs are not accessible in AWS Control Tower, because AWS Control Tower displays only the top\-level OUs\.
-+ If you use AWS Organizations to rename an account or OU that was created by AWS Control Tower, you must repair your landing zone so that the new name is displayed by AWS Control Tower\.
-+ If you use AWS Organizations to delete an OU that was created by AWS Control Tower, you also must delete the OU in AWS Control Tower\. It cannot be used to contain accounts\. You will not be able to provision a new account to this OU using Account Factory\.
++ Nested OUs are not accessible in AWS Control Tower, because AWS Control Tower displays only the top\-level OUs\. AWS Control Tower supports a flat OU structure\.
 
-**About the Root**  
-The Root is not an OU\. It is a container for the management account, and for all OUs and accounts in your organization\. Conceptually, the Root contains all of the OUs\. It cannot be deleted\. You cannot govern enrolled accounts at the Root level within AWS Control Tower\. Instead, govern enrolled accounts within your OUs\. For a helpful diagram, see [the AWS Organizations documentation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html)\. 
-
-**AWS Single Sign\-On Guidance**
-+ For information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
-+ [Considerations for AWS Single Sign\-On \(AWS SSO\) customers](getting-started-with-control-tower.md#sso-considerations)
+### AWS Single Sign\-On Guidance<a name="sso-guidance"></a>
++ For specific information about how AWS Control Tower works with SSO based on your identity source, see **Considerations for AWS Single Sign\-On \(SSO\) customers** in the [Prerequisites](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#getting-started-prereqs) section of the *Getting Started* page of this User Guide\.
++ For additional information about how the behavior of AWS Control Tower interacts with AWS SSO and different identity sources, refer to [Considerations for Changing Your Identity Source](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-considerations.html) in the AWS SSO documentation\.
 + See [Managing Users and Access Through AWS Single Sign\-On](sso.md) for more information about working with AWS Control Tower and AWS SSO\.
 
-**Account Factory Guidance**
+### Account Factory Guidance<a name="af-guidance"></a>
 + When you use Account Factory to provision new accounts in AWS Service Catalog, do not define `TagOptions`, enable notifications, or create a provisioned product plan\. Doing so can result in a failure to provision a new account\.
 + If you are authenticated as an IAM user when you provision accounts in Account Factory or when you use the **Enroll account** feature, be sure the IAM user is added to the AWS Service Catalog portfolio so that it has the correct permissions\. Otherwise, you may receive an error message from AWS Service Catalog that is difficult to understand\. Common causes for this type of error are given in the Troubleshooting guide\. In particular, refer to the section entitled [No Launch Paths Found Error](troubleshooting.md#no-launch-paths-found)\.
 + Remember that only one account can be provisioned at a time\.
 
-**Guidance on Subscribing to SNS Topics**
+### Guidance on Subscribing to SNS Topics<a name="sns-guidance"></a>
 + The `aws-controltower-AllConfigNotifications` SNS topic receives all events published by AWS Config, including compliance notifications and AWS CloudWatch event notifications\. For example, this topic informs you if a guardrail violation has occurred\. It also gives information about other types of events\. \(Learn more from [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html) about what they publish when this topic is configured\.\) 
 + [Data Events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html?icmpid=docs_cloudtrail_console#logging-data-events) from the `aws-controltower-BaselineCloudTrail` trail are set to publish to the `aws-controltower-AllConfigNotifications` SNS topic as well\.
 + To receive detailed compliance notifications, we recommend that you subscribe to the `aws-controltower-AllConfigNotification` SNS topic\. This topic aggregates compliance notifications from all child accounts\.
 + To receive drift notifications and other notifications as well as compliance notifications, but fewer notifications overall, we recommend that you subscribe to the `aws-controltower-AggregateSecurityNotifications` SNS topic\.
 
-For more information about SNS topics and compliance, see [Prevention and notification](compliance.md#prevention-and-notification)\.
+For more information about SNS topics and compliance, see [Drift prevention and notification](prevention-and-notification.md)\.
+
+## Guidance for KMS keys<a name="kms-guidance"></a>
+
+AWS Control Tower works with AWS Key Management Service \(KMS\)\. Optionally, if you wish to encrypt and decrypt your AWS Control Tower resources with an encryption key that you manage, you can generate and configure AWS KMS keys\. You can add or change a KMS key any time you update your landing zone\. As a best practice, we recommend using your own KMS keys and changing them from time to time\.
+
+The AWS Key Management Service \(KMS\) allows you to create multi\-region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
+
+You must make a specific update to the permissions policy of your KMS key to make it work with AWS Control Tower\. For details, refer to the section called [To make the key's policy update](getting-started-with-control-tower.md#kms-key-policy-update)\.

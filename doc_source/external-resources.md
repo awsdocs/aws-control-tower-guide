@@ -9,13 +9,15 @@ In general, changes that you make outside the AWS Control Tower console to AWS C
 ****Tasks that require landing zone repair****
 + Deleting the Security OU *\(A special case, not to be done lightly\.\)*
 + Removing a shared account from the Security OU *\(Not recommended, requires help from AWS Support\.\)*
++ Updating, attaching, or detaching an SCP associated with the Security OU\.
 
 ****Changes that are updated automatically by AWS Control Tower****
 + Changing the email address of an enrolled account
++ Renaming an enrolled account
++ Creating a new top\-level organizational unit \(OU\)
++ Renaming a registered OU
 + Deleting a registered OU *\(Except the Security OU, which requires an update\.\)*
 + Deleting an enrolled account *\(Except a shared account in the Security OU\.\)*
-+ Renaming a registered organizational unit \(OU\)
-+ Renaming an enrolled account
 
 **Note**  
 AWS Service Catalog handles changes differently than AWS Control Tower\. AWS Service Catalog may create a change in governance posture when it reconciles your changes\. For more information about updating a provisioned product, see [Updating Provisioned Products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-update.html) in the AWS Service Catalog documentation\.
@@ -38,9 +40,9 @@ You can change the names of your organizational units \(OUs\) and accounts outsi
 
 **Renaming an OU**
 
-In AWS Organizations, you can change the name of an OU by using either the API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
+In AWS Organizations, you can change the name of an OU by using either the AWS Organizations API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
-AWS Control Tower displays the names of OUs in the console and in Account Factory, and you can see when your landing zone repair has succeeded\.
+AWS Control Tower displays the names of OUs in the AWS Control Tower dashboard and displays Additional OUs in Account Factory\. You can see when your landing zone repair has succeeded\.
 
 **Renaming an enrolled account**
 
@@ -68,18 +70,10 @@ You can also start the remediation process from the AWS Organizations console\. 
 If the remediation steps don't restore the account, contact AWS Support\.
 
 **The results of removing a shared account through AWS Organizations:**
-+ The account is no longer protected by AWS Control Tower mandatory service control policies \(SCPs\)\.
-
-  **Result:** The resources created by AWS Control Tower in the account may be modified or deleted\.
-+ The account is no longer under the AWS Organizations management account\.
-
-  **Result:** The administrator of the AWS Organizations management account no longer has visibility into the account's spending\.
-+ The account is no longer guaranteed to be monitored by AWS Config\.
-
-  **Result:** The administrator of the AWS Organizations management account may not be able to detect resource changes\.
-+ The account is no longer in the organization\.
-
-  **Result:** AWS Control Tower updates and repair will fail\.
++ The account is no longer protected by AWS Control Tower mandatory guardrail service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
++ The account is no longer under the AWS Organizations management account\. **Result:** *The administrator of the AWS Organizations management account no longer has visibility into the account's spending\.*
++ The account is no longer guaranteed to be monitored by AWS Config\. **Result:** *The administrator of the AWS Organizations management account may not be able to detect resource changes\.*
++ The account is no longer in the organization\. **Result:** *AWS Control Tower updates and repair will fail\.*
 
 **To restore a shared account using the AWS Control Tower console \(semi\-manual procedure\)**
 
@@ -148,9 +142,9 @@ In AWS Service Catalog, the Account Factory is updated to remove the deleted OU 
 
 **Deleting an enrolled account from an OU**
 
-When you remove an enrolled account, AWS Control Tower receives a notification and makes updates, so that the information remains consistent\.
+When you delete an enrolled account, AWS Control Tower receives a notification and makes updates, so that the information remains consistent\.
 
 If you see a deleted account displayed in the AWS Control Tower console, repair your landing zone to remove the outdated entry\.
 
 **Note**  
-In AWS Service Catalog, the Account Factory provisioned product that represents the governed account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.
+In AWS Service Catalog, the Account Factory provisioned product that represents the governed account is not updated to delete the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.

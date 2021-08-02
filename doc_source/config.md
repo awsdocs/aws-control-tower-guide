@@ -4,4 +4,4 @@ AWS Config provides a detailed view of the resources associated with your AWS ac
 
 AWS Config resources provisioned by AWS Control Tower are tagged automatically with `aws-control-tower` and a value of `managed-by-control-tower`\.
 
-AWS Control Tower uses AWS Config Rules with some guardrails\. For more information, see [Guardrails in AWS Control Tower](guardrails.md)\. 
+AWS Control Tower uses AWS Config Rules with detective guardrails\. For more information, see [Guardrails in AWS Control Tower](guardrails.md)\. 

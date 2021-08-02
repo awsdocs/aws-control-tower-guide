@@ -1,11 +1,15 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** July 30, 2021
++ **Latest documentation update:** July 29, 2021
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [Guardail names changed, functionality unchanged](#doc-history) | Certain guardrail names and descriptions were updated to better reflect the policy intentions of the guardrail, with no change in functionality\. | July 30, 2021 | 
+| [Two new regions available](#doc-history) | AWS Control Tower is now available in two new AWS Regions, Europe \(Paris\) Region and South America \(São Paulo\) Region\. | July 29, 2021 | 
+| [Region deselection](#doc-history) | You can deselect AWS Regions that you no longer wish to govern through AWS Control Tower\. | July 29, 2021 | 
+| [KMS keys available](#doc-history) | You can optionally create or choose KMS keys that you manage, to encrypt your data and resources\. | July 28, 2021 | 
+| [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that customers can use their own KMS encryption keys for AWS CloudTrail logs\. | July 28, 2021 | 
+| [Guardail names changed, functionality unchanged](#doc-history) | Certain guardrail names and descriptions were updated to better reflect the policy intentions of the guardrail, with no change in functionality\. | July 26, 2021 | 
 | [Automated scans of managed SCPs](#doc-history) | AWS Control Tower performs daily automated scans of managed SCPs to check for drift\. | May 11, 2021 | 
 | [Customized names for OUs and accounts](#doc-history) | AWS Control Tower allows you to provide customized names during the landing zone setup process, for essential OUs and accounts, without creating drift\. | April 16, 2021 | 
 | [Decommissioning a landing zone is self\-service](#doc-history) |  AWS Control Tower now allows you to decommission a landing zone without contacting AWS Support\. Decommissioning is a semi\-automated process that cannot be undone\. It is not the same as deleting all AWS Control Tower resources manually\. | April 9, 2021 | 

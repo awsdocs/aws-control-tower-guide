@@ -8,7 +8,8 @@ Certain aspects of your AWS Control Tower landing zone are configurable\. Follow
 
 **Select individual AWS Regions**
 + You can customize your landing zone by selecting specific AWS Regions for governance\. Follow the steps in the AWS Control Tower console\.
-+ You can select and unselect AWS Regions for governance when you update your landing zone\.
++ You can select AWS Regions for governance when you update your landing zone\.
++ After you select a Region for governance, you cannot unselect it\.
 
 **Customize by adding optional guardrails**
 + Strongly recommended and elective guardrails are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. Optional guardrails are not enabled by default\. 

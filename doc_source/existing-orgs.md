@@ -32,7 +32,7 @@ To check other prerequisites for registration and enrollment, see [Getting Start
 Here's more detail about how AWS Control Tower guardrails **do not** apply to your OUs in AWS organizations that don't have AWS Control Tower landing zones set up:
 + New accounts created outside of AWS Control Tower Account Factory are not bound by the registered OU's guardrails\.
 + New accounts created in OUs that are not registered with AWS Control Tower are not bound by guardrails, unless you specifically **Enroll** those accounts into AWS Control Tower\. See [Enroll an existing AWS account](enroll-account.md) for more information about enrolling accounts\.
-+ Additional existing organizations, existing accounts, and any new OUs or any\\ accounts that you create outside of AWS Control Tower, are not bound by AWS Control Tower guardrails, unless you separately register the OU or enroll the account\.
++ Additional existing organizations, existing accounts, and any new OUs or any accounts that you create outside of AWS Control Tower, are not bound by AWS Control Tower guardrails, unless you separately register the OU or enroll the account\.
 
 For more information about how to apply AWS Control Tower to existing OUs and accounts, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\.
 

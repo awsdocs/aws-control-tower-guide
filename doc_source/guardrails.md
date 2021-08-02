@@ -19,8 +19,8 @@ The *behavior* of each guardrail is either preventive or detective\. Guardrail *
 
 
 **Guardrail behavior**
-+ **Prevention** – A preventive guardrail ensures that your accounts maintain compliance, because it disallows actions that lead to policy violations\. The status of a preventive guardrail is either **enforced** or ** not enabled**\. Preventive guardrails are supported in all AWS Regions\.
-+ **Detection** – A detective guardrail detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. The status of a detective guardrail is either **clear**, **in violation**, or **not enabled**\. Detective guardrails apply only in those AWS Regions supported by AWS Control Tower\.
++ **Preventive** – A preventive guardrail ensures that your accounts maintain compliance, because it disallows actions that lead to policy violations\. The status of a preventive guardrail is either **enforced** or ** not enabled**\. Preventive guardrails are supported in all AWS Regions\.
++ **Detective** – A detective guardrail detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. The status of a detective guardrail is either **clear**, **in violation**, or **not enabled**\. Detective guardrails apply only in those AWS Regions supported by AWS Control Tower\.
 
 **Implementation of guardrail behavior**
 + The preventive guardrails are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\.
@@ -39,14 +39,17 @@ AWS Control Tower provides three categories of guidance: *mandatory*, *strongly 
 ## Considerations for Guardrails and OUs<a name="guardrail-considerations"></a>
 
 When working with guardrails and OUs, consider the following properties:
-+ When you enable guardrails on an organizational unit, those guardrails apply to all child accounts under the OU\.
-+ After you create your landing zone, all resources in your landing zone, for example, S3 buckets, are subject to guardrails\.
-+ OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and other guardrails applied at the discretion of administrators\.
-+ OUs created outside of an AWS Control Tower landing zone don't have guardrails applied to them automatically\.
-+ Accounts created through Account Factory inherit their parent OU's guardrails\.
-+  Accounts created outside of a landing zone do not inherit guardrails\.
-+ *Unregistered* OUs are displayed in the AWS Control Tower console, but guardrails do not apply to them\.
-+ *Unenrolled* accounts are displayed in the AWS Control Tower console, but guardrails do not apply to them\.
+
+**Guardrails, landing zones, and OUs**
++ After you create your landing zone, all resources in your landing zone, for example, Amazon S3 buckets, are subject to guardrails\.
++ OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and optional guardrails applied at the discretion of administrators\.
++ OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs* are displayed in the AWS Control Tower console, but AWS Control Tower guardrails do not apply to them, unless they become registered OUs\.
++ When you enable guardrails on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive guardrails apply to all member accounts under the OU, enrolled and unenrolled\. Detective guardrails apply to enrolled acconts only\.
+
+**Guardrails and accounts**
++ Accounts created through the AWS Control Tower Account Factory inherit their parent OU's guardrails\.
++ Accounts created outside of an AWS Control Tower landing zone do not inherit AWS Control Tower guardrails\. These are * unenrolled* accounts\.
++ *Unenrolled* accounts are displayed in the AWS Control Tower console\. Guardrails do not apply to an unenrolled account unless it becomes a member account of a registered AWS Control Tower OU\. In that case, preventive guardrails for the OU will apply to the unenrolled account\. Detective guardrails will not apply\.
 
 **Exceptions to guardrails**
 + The root user and any IAM administrators in the management account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
@@ -63,9 +66,8 @@ In the guardrail details page of the console, you can find the following details
 + **Name** – The name of the guardrail\.
 + **Description** – A description of the guardrail\.
 + **Guidance** – The guidance is either mandatory, strongly recommended, or elective\.
-+ **Category** – The guardrail category can be **Audit** **Logs**, **Monitoring**, **Data Security**, **Network**, **IAM**, or **AWS Control Tower Setup**\.
 + **Behavior** – A guardrail's behavior is set to either preventive or detective\.
-+ **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\.
++ **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\. For more information, see [AWS Control Tower guardrail compliance status](compliance.md#compliance-statuses)\.
 
 On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy \(SCP\) to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
 

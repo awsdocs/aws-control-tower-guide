@@ -9,7 +9,7 @@ AWS Control Tower creates a customer's account by calling the `CreateAccount` AP
 AWS Control Tower takes over the `AWSControlTowerExecution` role for all accounts created by Account Factory\. Using this role, AWS Control Tower *baselines* the account and applies mandatory \(and any other enabled\) guardrails, which results in creation of other roles\. These roles in turn are used by other services, such as AWS Config\.
 
 **Note**  
-To baseline an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\. AWS Control Tower baselines are contained in the roles that you apply to every enrolled account\. 
+To *baseline* an account is to set up its blueprints and guardrails\. The baselining process also sets up the centralized logging and security audit roles on the account, as part of deploying the blueprints\. AWS Control Tower baselines are contained in the roles that you apply to every enrolled account\. 
 
 ## <a name="awscontroltowerexecution"></a>
 
@@ -24,13 +24,13 @@ After you’ve completed setting up accounts, `AWSControlTowerExecution` ensures
 
 To summarize, the `AWSControlTowerExecution` role and its associated policy gives you flexible control of security and compliance across your entire organization\. Therefore, breaches of security are less likely to occur\.
 
-## How AWS Control Tower aggregates unmanaged OUs and accounts<a name="config-role-for-organizations"></a>
+## How AWS Control Tower aggregates AWS Config rules in unmanaged OUs and accounts<a name="config-role-for-organizations"></a>
 
 The AWS Control Tower management account creates an organization\-level aggregator, which assists in detecting external AWS Config rules, so that AWS Control Tower does not need to gain access to unmanaged accounts\. The AWS Control Tower console shows you how many externally created AWS Config rules you have for a given account, and links you to the AWS Config console, where you can view details about those external rules\. 
 
 To create the aggregator, AWS Control Tower adds a role with the permissions required to describe an organization and list the accounts under it\. The `AWSControlTowerConfigAggregatorRoleForOrganizations` role requires the `AWSConfigRoleForOrganizations` managed policy and a trust relationship with `config.amazonaws.com`\.
 
-Here is the artifact for the role:
+Here is the IAM policy \(JSON artifact\) attached to the role:
 
 ```
     
@@ -106,7 +106,7 @@ To link directly from the AWS Control Tower console to your aggregated list of A
 
 ## Programmatic roles and trust relationships for the AWS Control Tower audit account<a name="stacksets-and-roles"></a>
 
-You can log into the audit account to review other accounts programmatically\. The audit account does not allow you to log in to other accounts manually\.
+You can sign into the audit account and assume a role to review other accounts programmatically\. The audit account does not allow you to log in to other accounts manually\.
 
 The audit account gives you programmatic access to other accounts, by means of some roles that are granted to AWS Lambda functions only\. For security purposes, these roles have *trust relationships* with other roles, which means that the conditions under which the roles can be utilized are strictly defined\.
 
@@ -248,5 +248,59 @@ The following artifact shows the trust relationship for `aws-controltower-AuditA
       "Action": "sts:AssumeRole"
     }
   ]
+}
+```
+
+## Automated Account Provisioning With IAM Roles<a name="automated-provisioning"></a>
+
+To configure Account Factory accounts in a more automated way, you can create Lambda functions in the AWS Control Tower management account, which [assumes the **AWSControlTowerExecution** role ](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-assume-iam-role/) in the member account\. Then, using the role, the management account performs the desired configuration steps in each member account\.
+
+ If you're provisioning accounts using Lambda functions, the identity that will perform this work must have the following IAM permissions policy, in addition to `AWSServiceCatalogEndUserFullAccess`\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AWSControlTowerAccountFactoryAccess",
+            "Effect": "Allow",
+            "Action": [
+                "sso:GetProfile",
+                "sso:CreateProfile",
+                "sso:UpdateProfile",
+                "sso:AssociateProfile",
+                "sso:CreateApplicationInstance",
+                "sso:GetSSOStatus",
+                "sso:GetTrust",
+                "sso:CreateTrust",
+                "sso:UpdateTrust",
+                "sso:GetPeregrineStatus",
+                "sso:GetApplicationInstance",
+                "sso:ListDirectoryAssociations",
+                "sso:ListPermissionSets",
+                "sso:GetPermissionSet",
+                "sso:ProvisionApplicationInstanceForAWSAccount",
+                "sso:ProvisionApplicationProfileForAWSAccountInstance",
+                "sso:ProvisionSAMLProvider",
+                "sso:ListProfileAssociations",
+                "sso-directory:ListMembersInGroup",
+                "sso-directory:AddMemberToGroup",
+                "sso-directory:SearchGroups",
+                "sso-directory:SearchGroupsWithGroupName",
+                "sso-directory:SearchUsers",
+                "sso-directory:CreateUser",
+                "sso-directory:DescribeGroups",
+                "sso-directory:DescribeDirectory",
+                "sso-directory:GetUserPoolInfo",
+                "controltower:CreateManagedAccount",
+                "controltower:DescribeManagedAccount",
+                "controltower:DeregisterManagedAccount",
+                "s3:GetObject",
+                "organizations:describeOrganization",
+                "sso:DescribeRegisteredRegions"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 ```
