@@ -106,7 +106,7 @@ AWS Control Tower does not look for drift regarding other services that work wit
 
 ## Moved Member Account<a name="drift-account-moved"></a>
 
-This type of drift can occur when a member account, the audit account, or the log archive account is moved from one registered AWS Control Tower OU to another AWS Control Tower OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift can occur when an AWS Control Tower member account, the audit account, or the log archive account is moved from a registered AWS Control Tower OU to any other OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
@@ -127,6 +127,9 @@ When this type of drift occurs, you can resolve it as follows:
 + **Account Factory Provisioned Account** – You can resolve the drift by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
 + **Shared account** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
+**Deprecated field name**  
+The field name `MasterAccountID` has been changed to `ManagementAccountID` to comply with AWS guidelines\. The old name is **deprecated**\. Beginning in 2022, scripts that contain the deprecated field name will no longer work\.
+
 ## Removed Member Account<a name="drift-account-removed"></a>
 
 This type of drift can occur when a member account is removed from a registered AWS Control Tower organizational unit\. The following example shows the Amazon SNS notification when this type of drift is detected\.
@@ -143,10 +146,9 @@ This type of drift can occur when a member account is removed from a registered 
 ```
 
 ### Resolution<a name="drift-account-removed-resolution"></a>
-
-When this type of drift occurs, AWS Control Tower receives a notification and makes an automatic update\. If the deleted account continues to be displayed, you can resolve the drift by repairing your landing zone\. You also can resolve the drift by updating the account in Account Factory, and adding the account to another registered OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
-
-For more information about resolving drift for accounts and OUs, see [Manage resources outside of AWS Control Tower](external-resources.md)\.
++ When this type of drift occurs in a member account, you can resolve the drift by updating the account in Account Factory\. For example, you can add the account to another registered OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
++ If a shared account is removed from a Foundational OU, you must resolve the drift by repairing your landing zone\. Until this drift is resolved, you will not be able to use the AWS Control Tower console\.
++ For more information about resolving drift for accounts and OUs, see [Manage resources outside of AWS Control Tower](external-resources.md)\. 
 
 **Note**  
 In AWS Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.

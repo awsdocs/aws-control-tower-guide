@@ -40,7 +40,7 @@ You can change the names of your organizational units \(OUs\) and accounts outsi
 
 **Renaming an OU**
 
-In AWS Organizations, you can change the name of an OU by using either the AWS Organizations API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
+In AWS Organizations, you can change the name of an OU by using either the AWS Organizations API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Landing zone settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 AWS Control Tower displays the names of OUs in the AWS Control Tower dashboard and displays Additional OUs in Account Factory\. You can see when your landing zone repair has succeeded\.
 
@@ -50,24 +50,27 @@ Each AWS account has a display name that can be changed in the AWS Billing and C
 
 ## Deleting the Security OU<a name="delete-security-ou"></a>
 
-Before you can delete the **Security** OU, you must make sure it contains no accounts\. Specifically, you must remove the Log Archive and Audit accounts from the OU\. We recommend that you move these accounts to another OU\. When you run the **Repair** function, AWS Control Tower creates a new Security OU, and it moves these accounts back into the new Security OU\. AWS Control Tower marks these accounts as drifted\.
+This type of drift is a special case\. If you delete the **Security** OU, you will see an error message page, prompting you to repair your landing zone\. You must repair your landing zone before you can take any other actions in AWS Control Tower\.
++ You will not be able to perform any actions in the AWS Control Tower console and you will not be able to create any new accounts in AWS Service Catalog until the repair is done\.
++ You won't be able to view the **Landing zone settings** page to see the **Repair** button there\.
+
+In this situation, the landing zone repair process creates a new Security OU and moves the two shared accounts into the new Security OU\. AWS Control Tower marks the Log Archive and Audit accounts as drifted\. The same process repairs the drift in these accounts\.
+
+**If you determine that you must delete the **Security** OU, here's what you need to know:**
+
+Before you can delete the **Security** OU, you must make sure it contains no accounts\. Specifically, you must remove the Log Archive and Audit accounts from the OU\. We recommend that you move these accounts to another OU\.
 
 **Note**  
 The action of deleting your Security OU is not to be performed without due consideration\. The action could create compliance concerns if logging is suspended temporarily, and because some guardrails might not be enforced\.
-
-If you delete the **Security** OU, you will see an error message prompting you to repair your landing zone\. You must repair your landing zone before you can take any other actions in AWS Control Tower\. You will not be able to perform any actions in the AWS Control Tower console and you will not be able to create any new accounts in AWS Service Catalog until the repair is done\.
-
-This type of drift is a special case\. You won't be able to view the **Settings** page to see the **Repair** button there\. In this situation, the landing zone repair process creates a new Security OU and moves the two shared accounts into the new Security OU\. The same process repairs the drift in the log archive and audit accounts\.
 
  For general information about drift, see "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 ## Removing an account from the Security OU<a name="removed-shared-account"></a>
 
-We do not recommend that you remove any of the shared accounts from your organization or move them out of the **Security** OU\. If you have removed a shared account accidentally, you can follow the remediation steps below to restore the account\. To start the remediation process from within the AWS Control Tower console, follow the semi\-manual remediation steps\. Ensure the user or role you use to access the AWS Control Tower console has permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation steps which use both the AWS Control Tower console and the AWS Organizations console\.
-
-You can also start the remediation process from the AWS Organizations console\. This is a slightly longer, fully manual procedure\. When following the manual remediation steps, you'll switch between the AWS Organizations console and the AWS Control Tower console\. When working in AWS Organizations, you'll need a user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. When working in the AWS Control Tower console, you'll need a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permission to run all AWS Control Tower actions \(controltower:\*\)\.
-
-If the remediation steps don't restore the account, contact AWS Support\.
+We do not recommend that you remove any of the shared accounts from your organization or move them out of the **Security** OU\. If you have removed a shared account accidentally, you can follow the remediation steps in this section to restore the account\.
++ To start the remediation process from within the AWS Control Tower console, follow the semi\-manual remediation steps\. Ensure the user or role you use to access the AWS Control Tower console has permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, follow the manual remediation steps, which use both the AWS Control Tower console and the AWS Organizations console\.
++ You can also start the remediation process from the AWS Organizations console\. This is a slightly longer, fully manual procedure\. When following the manual remediation steps, you'll switch between the AWS Organizations console and the AWS Control Tower console\. When working in AWS Organizations, you'll need a user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. When working in the AWS Control Tower console, you'll need a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permission to run all AWS Control Tower actions \(controltower:\*\)\.
++ If the remediation steps don't restore the account, contact AWS Support\.
 
 **The results of removing a shared account through AWS Organizations:**
 + The account is no longer protected by AWS Control Tower mandatory guardrail service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
@@ -83,10 +86,10 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 1. Accept the invitation to bring the shared account back into the organization\. Do one of the following:
    + Sign in to the shared account that was removed, then go to [https://console\.aws\.amazon\.com/organizations/home\#/invites](https://console.aws.amazon.com/organizations/home#/invites)
-   + If you have access to the email message sent when you re\-invited the account, sign in to the removed account, then click the link in the message to navigate directly to the account invitation\. 
+   + If you have access to the email message sent when you re\-invited the account, sign in to the removed account, then click the link in the message to navigate directly to the account invitation\.
    + If the shared account that was removed is not in another organization, sign into the account, open the AWS Organizations console and navigate to **Invitations**\.
 
-1. Sign in to the management account again, or reload the AWS Control Tower console if it's already open\. Navigate to **Landing zone settings** and choose **Repair** to repair the landing zone\.
+1. Sign in to the management account again, or reload the AWS Control Tower console if it's already open\. You'll see the **Landing zone drift** page\. Choose **Repair** to repair the landing zone\. 
 
 1. Wait for the repair process to complete\.
 
@@ -106,7 +109,7 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 1. Sign in to the AWS Control Tower console as an IAM user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
 
-1. Navigate to **Landing zone settings** and choose **Repair** to repair the landing zone\.
+1. You'll see the **Landing zone drift** page with an option to repair the landing zone\. Choose **Repair** to repair the landing zone\.
 
 1. Wait for the repair process to complete\.
 
@@ -125,7 +128,7 @@ AWS Control Tower retrieves and displays email addresses as required by the cons
 **Note**  
 In AWS Service Catalog, the Account Factory displays the parameters that were specified in the console when you created a provisioned product\. However, the original account email address is not updated automatically when the account email address changes\. That’s because the account is conceptually contained within the provisioned product; it is not the same as the provisioned product\. To update this value, you must update the provisioned product, which may cause a change in governance posture\.
 
-### Deleting Resources<a name="deleting-resources"></a>
+### Deleting AWS Control Tower resources outside AWS Control Tower<a name="deleting-resources"></a>
 
 You can delete OUs and accounts in AWS Control Tower and you don't need to take any further action to see the updates\. Account Factory is updated automatically when you delete an OU, but not when you delete an account\.
 

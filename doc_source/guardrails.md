@@ -44,15 +44,25 @@ When working with guardrails and OUs, consider the following properties:
 + After you create your landing zone, all resources in your landing zone, for example, Amazon S3 buckets, are subject to guardrails\.
 + OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and optional guardrails applied at the discretion of administrators\.
 + OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs* are displayed in the AWS Control Tower console, but AWS Control Tower guardrails do not apply to them, unless they become registered OUs\.
-+ When you enable guardrails on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive guardrails apply to all member accounts under the OU, enrolled and unenrolled\. Detective guardrails apply to enrolled acconts only\.
++ When you enable guardrails on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive guardrails apply to all member accounts under the OU, enrolled and unenrolled\. Detective guardrails apply to enrolled accounts only\.
+
+## Exception to guardrails for the management account<a name="exception-to-guardrails"></a>
+
+The root user and any IAM administrators in the management account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
+
+## Considerations for guardrails and accounts<a name="guardrails-and-accounts"></a>
+
+When working with guardrails and accounts, consider the following properties:
 
 **Guardrails and accounts**
-+ Accounts created through the AWS Control Tower Account Factory inherit their parent OU's guardrails\.
-+ Accounts created outside of an AWS Control Tower landing zone do not inherit AWS Control Tower guardrails\. These are * unenrolled* accounts\.
-+ *Unenrolled* accounts are displayed in the AWS Control Tower console\. Guardrails do not apply to an unenrolled account unless it becomes a member account of a registered AWS Control Tower OU\. In that case, preventive guardrails for the OU will apply to the unenrolled account\. Detective guardrails will not apply\.
++ Accounts created through the Account Factory in AWS Control Tower inherit the guardrails of the parent OU, and the associated resources are created\.
++ Accounts created outside of an AWS Control Tower landing zone do not inherit AWS Control Tower guardrails\. These are called * unenrolled* accounts\.
++ Accounts created outside of AWS Control Tower won't inherit guardrails in AWS Control Tower until you enroll them\. However, these unenrolled accounts *are* displayed in AWS Control Tower\.
 
-**Exceptions to guardrails**
-+ The root user and any IAM administrators in the management account can perform work that guardrails would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
+  Accounts inherit guardrails from an OU upon enrollment in that OU\.
++ An OU can contain enrolled or unenrolled *member accounts*\.
++ Guardrails do not apply to an unenrolled account unless it becomes a member account of a registered AWS Control Tower OU\. In that case, preventive guardrails for the OU will apply to the unenrolled account\. Detective guardrails will not apply\.
++ When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages certain additional AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.
 
 ## Optional Guardrails<a name="optional-guardrails"></a>
 

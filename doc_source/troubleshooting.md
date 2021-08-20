@@ -65,7 +65,7 @@ If the reason for the first enrollment failure was that you forgot to create the
 
 In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the Account Factory provisioned product through the AWS Service Catalog console\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
-## Unable to Update an Account Factory Account<a name="w250aac46c11"></a>
+## Unable to Update an Account Factory Account<a name="w286aac48c11"></a>
 
 When an account is in an inconsistent state, it cannot be updated successfully from Account Factory or AWS Service Catalog\.
 
@@ -189,7 +189,9 @@ If you try to enable a detective guardrail before updating your accounts, you ma
 
 **Action to take: Update accounts\.**
 
-To update multiple individual accounts, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
+To update your accounts from the AWS Control Tower console, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
+
+To update multiple individual accounts programmatically, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
 
  If you have further difficulties with enabling detective guardrails on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 

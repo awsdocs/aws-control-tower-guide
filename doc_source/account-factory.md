@@ -179,6 +179,9 @@ You can view an AWS [YouTube video](https://www.youtube.com/playlist?list=PLhr1K
 
 Accounts created in Account Factory are AWS accounts\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*\.
 
+**Note**  
+ Closing an AWS account is not the same as unmanaging an account from AWS Control Tower—these are separate actions\. You must unmanage the account before you close it\.
+
 ## Resource Considerations for Account Factory<a name="account-factory-considerations"></a>
 
 When an account is provisioned with Account Factory, the following AWS resources are created within the account\.
@@ -195,12 +198,3 @@ When an account is provisioned with Account Factory, the following AWS resources
 | Amazon Simple Notification Service | Topics | aws\-controltower\-SecurityNotifications | 
 | AWS Lambda | Applications | StackSet\-AWSControlTowerBP\-BASELINE\-CLOUDWATCH\-\* | 
 | AWS Lambda | Functions | aws\-controltower\-NotificationForwarder | 
-
-## Guardrails and Account Resources<a name="guardrails-and-resources"></a>
-
-Accounts created through the Account Factory in AWS Control Tower inherit the guardrails of the parent OU, and the associated resources are created\.
-
-**Note**  
-Accounts created outside of AWS Control Tower won't inherit guardrails in AWS Control Tower until you enroll them\. However, these unenrolled accounts *are* displayed in AWS Control Tower\. Accounts inherit guardrails from an OU upon enrollment in that OU\.
-
-When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages certain additional AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.

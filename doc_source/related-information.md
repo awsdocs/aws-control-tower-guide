@@ -56,6 +56,15 @@ Automate account creation and integrate lifecycle events with AWS Control Tower\
 Use other AWS services with AWS Control Tower to assist in workload migration\.
 + [CloudEndure migration](http://aws.amazon.com/blogs/mt/how-to-take-advantage-of-aws-control-tower-and-cloudendure-to-migrate-workloads-to-aws/) – This blog post describes how to combine CloudEndure and other AWS services with AWS Control Tower to assist in workload migration\.
 
+## Related AWS services<a name="related-aws-services"></a>
+
+AWS Control Tower acts as an orchestration layer for AWS Organizations\. Therefore, by means of the AWS Organizations console and APIs, you have access to over 20 other AWS services that work with AWS Control Tower\. These additional services are not accessible directly through the AWS Control Tower console\.
++ For a full list of services available to AWS Control Tower by means of AWS Organizations, see [AWS services that you can use with AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html)\.
++ To enable multi\-account capabilities for these related AWS services, you must enable trusted access\. For more information, see [Using AWS Organizations with other AWS services](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)\.
+**Note**  
+Remember that AWS SSO, AWS Config, and AWS CloudTrail are set up for you in AWS Control Tower and fully integrated\. You do not need to modify your trusted access or delegated administration settings for these services\.
++ Some AWS services available through AWS Organizations can use delegated administration, including AWS Systems Manager and AWS Firewall Manager\. For more information, see [Configuring a Delegated Administrator](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-setup-delegated-administrator.html), and [Enabling a delegated administrator account for Firewall Manager](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-fms.html#integrate-enable-da-fms)\. 
+
 ## AWS Marketplace solutions<a name="aws-marketplace-solutions"></a>
 
 Discover solutions from AWS Marketplace\. 

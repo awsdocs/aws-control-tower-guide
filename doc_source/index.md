@@ -26,6 +26,8 @@ Amazon's trademarks and trade dress may not be used in
    + [AWS Control Tower and VPCs](vpc-concepts.md)
    + [Configuration update management in AWS Control Tower](configuration-updates.md)
    + [AWS multi-account strategy for your AWS Control Tower landing zone](aws-multi-account-landing-zone.md)
+   + [Using AWS CloudShell to work with AWS Control Tower](using-aws-with-cloudshell.md)
++ [Automating tasks in AWS Control Tower](automating-tasks.md)
 + [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)
 + [How AWS Regions Work With AWS Control Tower](region-how.md)
 + [Provision and manage accounts with Account Factory](account-factory.md)

@@ -86,7 +86,9 @@ AWS Control Tower does not set up the Workloads OU for you\.
 
 ## Example of AWS Control Tower with a complete multi\-account OU structure<a name="guidelines-for-full-multi-account"></a>
 
-AWS Control Tower supports a flat OU hierarchy, which means that nested OUs are not available\. However, you can still build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
+AWS Control Tower supports a nested OU hierarchy, which means that you can create a hierarchichal OU structure that meets your organization's requirements\. You can build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
+
+You also can build a simpler, flat OU structure that performs well and aligns with the AWS multi\-account guidance\. Just because you can build a hierarchical OU structure, it does not mean that you must do so\.
 + For more information about how AWS Control Tower aligns with the AWS guidance, see the AWS white paper, [Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html)\.
 + To view a diagram that shows an example set of OUs in a more expanded AWS Control Tower environment with AWS multi\-account guidance, see [ Example: Workloads in a Flat OU Structure](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html#example-workloads-flat-structure)\.
 

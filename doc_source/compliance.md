@@ -1,8 +1,10 @@
 # Guardrails and compliance<a name="compliance"></a>
 
-Within AWS Control Tower, compliance means that cloud administrators know when the accounts in their organization are compliant with established policies, while builders can provision new AWS accounts quickly in a few clicks\. AWS Control Tower guardrails embody the rules of compliance\.
+Within AWS Control Tower, compliance means that cloud administrators know when the accounts in their organization are compliant with established policies, while builders can provision new AWS accounts quickly in a few clicks\. AWS Control Tower guardrails embody the rules of compliance, so you can identify compliant and non\-compliant resources\. This page describes guardrail compliance status in detail\.
 
 When we talk about compliance in AWS Control Tower, we do not intend the same meaning as compliance with governmental regulations, such as data privacy or health information standards\. However, AWS Control Tower helps your organization to comply with many governmental regulations\.
+
+For more information about how AWS Control Tower helps you maintain compliance with governmental regulations and industry standards, see [Compliance Validation](https://docs.aws.amazon.com/controltower/latest/userguide/compliance-program-info.html)\.
 
 **Examples of compliance rules \(guardrails\) in AWS Control Tower:**
 + Detect whether public write access to Amazon S3 buckets is allowed
@@ -11,8 +13,6 @@ When we talk about compliance in AWS Control Tower, we do not intend the same me
 **Examples of governmental compliance regulations:**
 + The U\.S\. Health Insurance Portability and Accountability Act of 1996 \(HIPAA\)
 + The European Union’s General Data Protection Regulation of 2016 \(GDPR\)
-
-For more information about how AWS Control Tower helps you maintain compliance with governmental regulations and industry standards, see [Compliance Validation](https://docs.aws.amazon.com/controltower/latest/userguide/compliance-program-info.html)\.
 
  **How can administrators review compliance?** 
 

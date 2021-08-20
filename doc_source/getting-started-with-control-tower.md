@@ -31,7 +31,7 @@ By default, all accounts are subscribed to these services\.
    For more information about working with AWS SSO and AWS Control Tower see [Things to Know About SSO Accounts and AWS Control Tower](sso.md#sso-good-to-know)
 
 ### Considerations for AWS Config and AWS CloudTrail customers<a name="config-and-cloudtrail-considerations"></a>
-+ The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\.
++ The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\. For information about how to disable trusted access, see [the AWS Organizations documentation on how to enable or disable trusted access](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_how-to-enable-disable-trusted-access)\.
 + If you have an existing AWS Config Recorder, delivery channel or aggregation setup, you must remove these configurations so that AWS Control Tower can configure AWS Config on your behalf during landing zone launch\. If you used AWS CloudFormation to create these AWS Config resources, ensure that you also use CloudFormation to remove the resources\.
 + If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
@@ -64,7 +64,6 @@ The process of setting up your AWS Control Tower landing zone has multiple steps
 
 **Configuration choices that cannot be undone**
 + You cannot change your home Region after you've set up your landing zone\.
-+ After you select any Region for governance by AWS Control Tower, you cannot unselect the Region to remove it from governance\.
 + If you're provisioning Account Factory accounts with VPCs, VPC CIDRs can't be changed after they are created\.
 
 ## Configure and launch your landing zone<a name="step-two"></a>
@@ -128,6 +127,7 @@ When you select **Set up landing zone**, AWS Control Tower performs a pre\-check
 + Symmetric
 + Not a multi\-region key
 + Has correct permissions added to the policy
++ Key is in the management account
 
 You may see an error banner if the key does not meet these requirements\. In that case, choose another key or generate a key\. Be sure to edit the key's permissions policy, as described in the next section\.
 

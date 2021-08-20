@@ -5,25 +5,6 @@ This topic provides examples of identity\-based policies that demonstrate how an
 **Important**  
 We recommend that you first review the introductory topics that explain the basic concepts and options available for you to manage access to your AWS Control Tower resources\. For more information, see [Overview of Managing Access Permissions to Your AWS Control Tower Resources](access-control-overview.md)\. 
 
-The following shows an example of a permissions policy\.
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "*",
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-The policy has one statement that grants permissions for all AWS actions on all resources in the account\. This is the permissions policy for administrator access in an AWS account\. This is the necessary level of permissions for an IAM entity that will set up a landing zone\.
-
-The policy doesn't specify the `Principal` element, because in an identity\-based policy you don't specify the principal who gets the permission\. When you attach policy to a user, the user is the implicit principal\. When you attach a permissions policy to an IAM role, the principal identified in the role's trust policy gets the permissions\. 
-
 ## Permissions Required to Use the AWS Control Tower Console<a name="additional-console-required-permissions"></a>
 
 AWS Control Tower creates three roles automatically when you set up a landing zone\. All three roles are required to allow console access\. AWS Control Tower splits permissions into three roles as a best practice to restrict access to the minimal sets of actions and resources\.
