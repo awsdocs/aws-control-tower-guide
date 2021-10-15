@@ -149,20 +149,20 @@ You can copy and paste the following example policy statement\. Alternatively, f
 
 ```
 {
-            "Sid": "Allow CloudTrail and AWS Config to encrypt/decrypt logs",
-              "Effect": "Allow",
-              "Principal": {
-              "Service": [
-                "cloudtrail.amazonaws.com",
-                "config.amazonaws.com"
-            ]
-            },
-              "Action": [
-                "kms:GenerateDataKey",
-                "kms:Decrypt"
-            ],
-              "Resource": "*"
-            }
+    "Sid": "Allow CloudTrail and AWS Config to encrypt/decrypt logs",
+    "Effect": "Allow",
+    "Principal": {
+        "Service": [
+            "cloudtrail.amazonaws.com",
+            "config.amazonaws.com"
+        ]
+    },
+    "Action": [
+        "kms:GenerateDataKey",
+        "kms:Decrypt"
+    ],
+    "Resource": "*"
+}
 ```
 
 The AWS Key Management Service \(KMS\) allows you to create multi\-region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
