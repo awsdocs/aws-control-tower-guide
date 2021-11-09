@@ -253,7 +253,6 @@ This lifecycle event records whether AWS Control Tower successfully disabled a g
                   "message": "AWS Control Tower successfully disabled a guardrail on an organizational unit.",
                   "requestTimestamp": "2019-11-12T09:01:07+0000",
                   "completedTimestamp": "2019-11-12T09:01:54+0000"
-                }
             }
         }
     }
@@ -293,7 +292,7 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
             "setupLandingZoneStatus": {
                 "state": "SUCCEEDED",                             // Status of entire lifecycle operation.
                 "message": "AWS Control Tower successfully set up a new landing zone.",                
-                "rootOrganizationalId" : "r-1234"
+                "rootOrganizationalId" : "r-1234",
                 "organizationalUnits" : [                         // Use a list.
                   {
                     "organizationalUnitName": "Security",             // Security OU name.
@@ -359,7 +358,7 @@ This lifecycle event records whether AWS Control Tower successfully updated your
                 "state": "SUCCEEDED",                            // Status of entire operation.
                 "message": "AWS Control Tower successfully updated a landing zone.",                
 
-                "rootOrganizationalId" : "r-1234"
+                "rootOrganizationalId" : "r-1234",
                 "organizationalUnits" : [                         // Use a list.
                   {
                     "organizationalUnitName": "Security",             // Security OU name.
@@ -422,13 +421,13 @@ This lifecycle event records whether AWS Control Tower successfully enabled its 
             "registerOrganizationalUnitStatus": {
                 "state": "SUCCEEDED",                        
 
-                "message": "AWS Control Tower successfully registered an organizational unit."
+                "message": "AWS Control Tower successfully registered an organizational unit.",
 
                 "organizationalUnit" :                        
                   {
                     "organizationalUnitName": "Test",            
                     "organizationalUnitId": "ou-adpf-302pk332"    
-                  }
+                  },
                 "requestedTimestamp": "2018-08-30T21:42:18Z",
                 "completedTimestamp": "2018-08-30T21:42:18Z" 
             }
@@ -470,15 +469,14 @@ This lifecycle event records whether AWS Control Tower successfully disabled its
         "serviceEventDetails": {
             "deregisterOrganizationalUnitStatus": {                 
                 "state": "SUCCEEDED",               
-                "message": "AWS Control Tower successfully deregistered an organizational unit, and enabled mandatory guardrails on the new organizational unit."
+                "message": "AWS Control Tower successfully deregistered an organizational unit, and enabled mandatory guardrails on the new organizational unit.",
                 "organizationalUnit" :                        
                   {
                     "organizationalUnitName": "Test",                   // Foundational OU name.
                     "organizationalUnitId": "ou-adpf-302pk332"          // Foundational OU ID.
-                  }
+                  },
                 "requestedTimestamp": "2018-08-30T21:42:18Z", 
                 "completedTimestamp": "2018-08-30T21:42:18Z"  
-            }
             }
         }
     }
