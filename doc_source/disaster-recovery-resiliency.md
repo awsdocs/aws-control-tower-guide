@@ -15,6 +15,11 @@ AWS Control Tower is available in these AWS Regions:
 + Europe \(Ireland\)
 + Europe \(London\) Region
 + Europe \(Stockholm\) Region
++ Asia Pacific \(Mumbai\) Region 
++ Asia Pacific \(Seoul\) Region  
++ Asia Pacific \(Tokyo\) Region  
++ Europe \(Paris\) Region 
++ South America \(São Paulo\) Region 
 
 Your *home region* is defined as the AWS Region in which your landing zone was set up\.
 

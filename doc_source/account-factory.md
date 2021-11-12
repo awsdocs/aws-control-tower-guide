@@ -134,7 +134,7 @@ You can view the Amazon VPC configuration options available to your end users wh
 
 1. From the left side of the dashboard, select **Account Factory** to navigate to the Account Factory network configuration page\. There you can see the default network settings displayed\. To edit, select **Edit** and view the editable version of your Account Factory network configuration settings\. 
 
-1. You can modify the each field of the default settings as needed\. Choose the VPC configuration options you'd like to establish for all new Account Factory accounts that your end users may create, and enter your settings into the fields\. 
+1. You can modify each field of the default settings as needed\. Choose the VPC configuration options you'd like to establish for all new Account Factory accounts that your end users may create, and enter your settings into the fields\. 
 + Choose **disabled** or **enabled** to create a public subnet in Amazon VPC\. By default, the internet\-accessible subnet is disallowed\.
 **Note**  
 If you set the account factory VPC configuration so that public subnets are **enabled** when provisioning a new account, account factory configures Amazon VPC to create a [NAT Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)\. You will be billed for your usage by Amazon VPC\. See [VPC Pricing](http://aws.amazon.com/vpc/pricing/) for more information\. 
@@ -164,14 +164,12 @@ If you created an account in Account Factory that you no longer want to be manag
 **Important**  
 The word *terminate* is specific to AWS Service Catalog\. When you terminate an Account Factory account in AWS Service Catalog, the account is not closed\. This action removes the account from its OU and your landing zone\.
 
-1. The **Deregistering Managed Account** message displays\.
+1.  When the account has been unmanaged, its status changes to **Not Enrolled**\.
 
-1. To update the displayed account status, refresh the page\. When the account has been unmanaged, its status changes to **terminated**\.
-
-1. If you no longer need the terminated account, close it\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*
+1. If you no longer need the account, close it\. For information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing and Cost Management User Guide*
 
 **Note**  
-An unmanaged \(terminated\) account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](#updating-account-factory-accounts)\.
+An unmanaged account is not closed or deleted\. When the account has been unmanaged, the AWS SSO user that you selected when you created the account in Account Factory still has administrative access to the account\. If you do not want this user to have administrative access, you must change this setting in AWS SSO by updating the account in Account Factory and changing the AWS SSO user email address for the account\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](#updating-account-factory-accounts)\.
 
 You can view an AWS [YouTube video](https://www.youtube.com/playlist?list=PLhr1KZpdzukdS9skEXbY0z67F-wrcpbjm) that explains how to remove and close down an account in AWS Control Tower\.
 

@@ -50,6 +50,7 @@ Automate account creation and integrate lifecycle events with AWS Control Tower\
 + [Lifecycle events](http://aws.amazon.com/blogs/mt/using-lifecycle-events-to-track-aws-control-tower-actions-and-trigger-automated-workflows) – This blog post describes how to use lifecycle events with AWS Control Tower\.
 + [Automate account creation](http://aws.amazon.com/blogs/mt/how-to-automate-the-creation-of-multiple-accounts-in-aws-control-tower/) – This blog post describes how to set up automated account creation in AWS Control Tower\. 
 + [Amazon VPC flow log automation](http://aws.amazon.com/blogs/mt/vpc-flow-log-with-aws-control-tower-lifecycle) – This blog post describes how to automate and centralize Amazon VPC Flow Logs in a multi\-account environment\.
++ [Automated account management](http://aws.amazon.com/blogs/mt/using-aws-control-tower-and-aws-service-catalog-to-automate-control-tower-lifecycle-events/) – This blog post describes how to automate account management tasks after your AWS Control Tower environment is set up\.
 
 ## Migrating workloads<a name="migrating"></a>
 
@@ -63,7 +64,7 @@ AWS Control Tower acts as an orchestration layer for AWS Organizations\. Therefo
 + To enable multi\-account capabilities for these related AWS services, you must enable trusted access\. For more information, see [Using AWS Organizations with other AWS services](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)\.
 **Note**  
 Remember that AWS SSO, AWS Config, and AWS CloudTrail are set up for you in AWS Control Tower and fully integrated\. You do not need to modify your trusted access or delegated administration settings for these services\.
-+ Some AWS services available through AWS Organizations can use delegated administration, including AWS Systems Manager and AWS Firewall Manager\. For more information, see [Configuring a Delegated Administrator](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-setup-delegated-administrator.html), and [Enabling a delegated administrator account for Firewall Manager](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-fms.html#integrate-enable-da-fms)\. 
++ Some AWS services available through AWS Organizations can use delegated administration, including AWS Systems Manager and AWS Firewall Manager\. For more information, see [Configuring a Delegated Administrator](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-setup-delegated-administrator.html), and [Enabling a delegated administrator account for Firewall Manager](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-fms.html#integrate-enable-da-fms)\. Also see this video, [Set up security groups with AWS Firewall Manager](https://docs.aws.amazon.com/controltower/latest/userguide/firewall-setup-walkthrough.html)\. 
 
 ## AWS Marketplace solutions<a name="aws-marketplace-solutions"></a>
 

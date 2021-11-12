@@ -24,7 +24,7 @@ The *behavior* of each guardrail is either preventive or detective\. Guardrail *
 
 **Implementation of guardrail behavior**
 + The preventive guardrails are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\.
-+ The detective guardrails are implemented using AWS Config rules and AWS Lambda functions\.
++ The detective guardrails are implemented using AWS Config rules\.
 + Certain mandatory guardrails are implemented by means of a single SCP that performs multiple actions, rather than as unique SCPs\. Therefore, the same SCP is shown in the guardrail reference, under each mandatory guardrail to which that SCP applies\.
 
 **Guardrail guidance**
@@ -70,7 +70,9 @@ Strongly recommended and elective guardrails are optional, which means that you 
 + [Strongly Recommended Guardrails](strongly-recommended-guardrails.md)
 + [Elective Guardrails](elective-guardrails.md)
 
-## Viewing Guardrail Details<a name="guardrail-details"></a>
+## View Guardrail Details<a name="guardrail-details"></a>
+
+To view details about an individual guardrail, select the name of the guardrail from the table on the **Guardrails** page\.
 
 In the guardrail details page of the console, you can find the following details for each guardrail:
 + **Name** – The name of the guardrail\.
@@ -79,27 +81,6 @@ In the guardrail details page of the console, you can find the following details
 + **Behavior** – A guardrail's behavior is set to either preventive or detective\.
 + **Compliance Status** – A guardrail's compliance status can be clear, compliant, enforced, unknown, or in violation\. For more information, see [AWS Control Tower guardrail compliance status](compliance.md#compliance-statuses)\.
 
-On the guardrail details page, you can also see guardrail artifacts\. The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy \(SCP\) to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
+The guardrail is implemented by one or more artifacts\. These artifacts can include a baseline AWS CloudFormation template, a service control policy \(SCP\) to prevent account\-level configuration changes or activity that may create configuration drift, and AWS Config Rules to detect account\-level policy violations\.
 
-## Enabling Guardrails<a name="enable-guardrails"></a>
-
-Most guardrails are enabled automatically according to an OU's configuration, and some guardrails can be enabled manually on your OUs\. The following procedure describes the steps for enabling guardrails on an OU\.
-
-**Important**  
-When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.
-
-**To enable guardrails in an OU**
-
-1. Using a web browser, navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\.
-
-1. From the left navigation, choose **Guardrails**\.
-
-1. Choose a guardrail that you want to enable; for example, **Guardrail: Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances**\. This choice opens the guardrail's details page\.
-
-1. From **Organizational units enabled**, choose **Enable guardrail on OU**\.
-
-1. A new page is displayed that lists the names of your OUs\. Identify the OU on which you want to enable this guardrail\.
-
-1. Choose **Enable guardrail on OU**\.
-
-1. Your guardrail is now enabled\. It may take several minutes for the change to complete\. When it does, you'll see that this guardrail is enabled on the OU you selected\. You can enable only one guardrail at a time\.
+To view a guardrail's artifact, select **Service control policy \(SCP\)** or **AWS Config rule** on the **Guardrail details** page\.

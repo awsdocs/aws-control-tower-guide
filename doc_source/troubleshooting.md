@@ -35,6 +35,20 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + Europe \(Paris\) Region 
 + South America \(São Paulo\) Region 
 
+## Landing zone not up to date error<a name="landing-zone-not-up-to-date"></a>
+
+If you have not updated your landing zone recently, you may receive an error when you try to regain access to AWS Control Tower\. You may see an error message similar to this one:
+
+`Unable to access Control Tower`
+
+**Your account has been inactive for too long\. Due to inactivity, you must update your landing zone for access to AWS Control Tower\.**
+
+However, your landing zone update may fail\.
+
+**Steps to take**
+
+Sign in to the management account of your organization, and sign in as root user\. Your IAM user must have AWS Control Tower administrator permissions and be part of the **AWSControlTowerAdmins** group\. Then try the update again\.
+
 ## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
  If you encounter this issue, check for these common causes\.
@@ -65,7 +79,9 @@ If the reason for the first enrollment failure was that you forgot to create the
 
 In this case, you must take two recovery steps before you can proceed with enrolling your existing account\. First, you must terminate the Account Factory provisioned product through the AWS Service Catalog console\. Next, you must use the AWS Organizations console to manually move the account out of the OU and back to the root\. After that is done, create the `AWSControlTowerExecution` role in the account, and then fill in the **Enroll account** form again\. 
 
-## Unable to Update an Account Factory Account<a name="w286aac48c11"></a>
+Another possible cause of enrollment failure is that the account has existing AWS Config resources\. In that case, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html) for instructions on how you can modify your existing resources\.
+
+## Unable to Update an Account Factory Account<a name="unable-to-update-account"></a>
 
 When an account is in an inconsistent state, it cannot be updated successfully from Account Factory or AWS Service Catalog\.
 

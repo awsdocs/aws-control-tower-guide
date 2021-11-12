@@ -32,7 +32,7 @@ These are destructive actions that can introduce governance drift into your AWS 
 + [Delete StackSets and Stacks](#controltower-walkthrough-delete-stacksets)
 + [Delete Amazon S3 Buckets in the Log Archive Account](#controltower-walkthrough-delete-s3-buckets)
 + [Clean Up Account Factory](#controltower-walkthrough-cleanup-account-factory)
-+ [Clean Up Roles and Polices](#controltower-walkthrough-cleanup-identity)
++ [Clean Up Roles and Policies](#controltower-walkthrough-cleanup-identity)
 + [AWS Control Tower Clean Up Help](#control-tower-cleanup-help)
 
 ## Delete SCPs<a name="controltower-walkthrough-delete-scps"></a>
@@ -193,7 +193,7 @@ The following procedure guides you through how to sign in as an AWS SSO user in 
 
 1. In the dialog box that opens, review the information to make sure it's accurate, and then choose **CONTINUE**\.
 
-## Clean Up Roles and Polices<a name="controltower-walkthrough-cleanup-identity"></a>
+## Clean Up Roles and Policies<a name="controltower-walkthrough-cleanup-identity"></a>
 
 These procedures walk you through how to clean up the roles and policies that were created when your landing zone was set up\.
 

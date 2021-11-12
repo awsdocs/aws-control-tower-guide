@@ -32,7 +32,7 @@ By default, all accounts are subscribed to these services\.
 
 ### Considerations for AWS Config and AWS CloudTrail customers<a name="config-and-cloudtrail-considerations"></a>
 + The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\. For information about how to disable trusted access, see [the AWS Organizations documentation on how to enable or disable trusted access](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_how-to-enable-disable-trusted-access)\.
-+ If you have an existing AWS Config Recorder, delivery channel or aggregation setup, you must remove these configurations so that AWS Control Tower can configure AWS Config on your behalf during landing zone launch\. If you used AWS CloudFormation to create these AWS Config resources, ensure that you also use CloudFormation to remove the resources\.
++ If you have an existing AWS Config Recorder, delivery channel or aggregation setup, you must modify or remove these configurations so that AWS Control Tower can configure AWS Config on your behalf during landing zone launch\. If you used AWS CloudFormation to create these AWS Config resources, ensure that you also use CloudFormation to remove the resources\. For more information, see [Enroll accounts that have existing AWS Config resources](existing-config-resources.md)\.
 + If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
 
@@ -118,14 +118,14 @@ You must provide unique email addresses for your log archive and audit accounts,
 
 1. Provide a unique email address for this account\.
 
-#### Optionally configure KMS keys<a name="configure-kms-keys"></a>
+#### Optionally configure AWS KMS keys<a name="configure-kms-keys"></a>
 
-If you wish to encrypt and decrypt your resources with a KMS encryption key, select the checkbox\. If you have existing keys, you'll be able to select them from identifiers displayed in a dropdown menu\. You can generate a new key by choosing **Create a key**\. You can add or change a KMS key any time you update your landing zone\.
+If you wish to encrypt and decrypt your resources with an AWS KMS encryption key, select the checkbox\. If you have existing keys, you'll be able to select them from identifiers displayed in a dropdown menu\. You can generate a new key by choosing **Create a key**\. You can add or change a KMS key any time you update your landing zone\.
 
 When you select **Set up landing zone**, AWS Control Tower performs a pre\-check to validate your KMS key\. The key must meet these requirements:
 + Enabled
 + Symmetric
-+ Not a multi\-region key
++ Not a multi\-Region key
 + Has correct permissions added to the policy
 + Key is in the management account
 
@@ -165,7 +165,7 @@ You can copy and paste the following example policy statement\. Alternatively, f
             }
 ```
 
-The AWS Key Management Service \(KMS\) allows you to create multi\-region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
+The AWS Key Management Service \(KMS\) allows you to create multi\-Region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-Region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-Region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
 
 For more information about AWS KMS, see [ the AWS KMS Developer Guide\.](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
 

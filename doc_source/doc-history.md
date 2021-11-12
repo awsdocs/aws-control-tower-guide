@@ -1,10 +1,11 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** July 29, 2021
++ **Latest documentation update:** November 5 29, 2021
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Detective guardrail concurrency](#doc-history) | AWS Control Tower detective guardrails now support concurrent enable and disable operations\. | November 5, 2021 | 
 | [Two new regions available](#doc-history) | AWS Control Tower is now available in two new AWS Regions, Europe \(Paris\) Region and South America \(São Paulo\) Region\. | July 29, 2021 | 
 | [Region deselection](#doc-history) | You can deselect AWS Regions that you no longer wish to govern through AWS Control Tower\. | July 29, 2021 | 
 | [KMS keys available](#doc-history) | You can optionally create or choose KMS keys that you manage, to encrypt your data and resources\. | July 28, 2021 | 

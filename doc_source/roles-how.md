@@ -99,7 +99,7 @@ To deploy this functionality in the management account, the following permission
 
 New resources created: `AWSControlTowerConfigAggregatorRoleForOrganizations` and `aws-controltower-ConfigAggregatorForOrganizations`
 
-When you are ready, you can enroll accounts individually, or enroll them as a group by registering an OU\. When you've enrolled an account, if you create a rule in AWS Config, AWS Control Tower detects the new rule and updates the account's list of enabled guardrails in the AWS Control Tower console to show that you have an external rule\. The aggregator provides the number of external rules and provides a link to the AWS Config console where you can view the details of each external rule for your account\. Use the information in the AWS Config console and the AWS Control Tower console to determine whether you have the appropriate guardrails enabled for the account\.
+When you are ready, you can enroll accounts individually, or enroll them as a group by registering an OU\. When you've enrolled an account, if you create a rule in AWS Config, AWS Control Tower detects the new rule\.  The aggregator shows the number of external rules and provides a link to the AWS Config console where you can view the details of each external rule for your account\. Use the information in the AWS Config console and the AWS Control Tower console to determine whether you have the appropriate guardrails enabled for the account\.
 
 **Note**  
 To link directly from the AWS Control Tower console to your aggregated list of AWS Config rules, configure your AWS Config console with the Config Recorder and Delivery Channel in the home Region of your management account\.

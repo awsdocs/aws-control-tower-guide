@@ -31,7 +31,7 @@ You can view lifecycle events from the **Activities** page in your AWS Control T
 
  When you create an account or enroll an account in AWS Control Tower, those two actions call the same internal API\. If there's an error during the process, it usually occurs after the account has been created but is not fully provisioned\. When you retry to create the account after the error, or when you try to update the provisioned product, AWS Control Tower sees that the account already exists\.
 
-Because the account exists, AWS Control Tower records the `UpdateManagedAccount` lifecycle event instead of the `CreateManagedAccount` lifecycle event at the end of the retry request\. You may have expected to see another `UpdateManagedAccount` event because of the error\. However, the `UpdateManagedAccount` lifecycle event is the expected and desired behavior\.
+Because the account exists, AWS Control Tower records the `UpdateManagedAccount` lifecycle event instead of the `CreateManagedAccount` lifecycle event at the end of the retry request\. You may have expected to see another `CreateManagedAccount` event because of the error\. However, the `UpdateManagedAccount` lifecycle event is the expected and desired behavior\.
 
  If you plan to create or enroll accounts into AWS Control Tower using automated methods, program the Lambda function to look for **UpdateManagedAccount** lifecycle events as well as **CreateManagedAccount** lifecycle events\. 
 
@@ -257,7 +257,6 @@ This lifecycle event records whether AWS Control Tower successfully disabled a g
             }
         }
     }
-}
 ```
 
 ## `SetupLandingZone`<a name="setup-landing-zone"></a>
@@ -293,7 +292,7 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
             "setupLandingZoneStatus": {
                 "state": "SUCCEEDED",                             // Status of entire lifecycle operation.
                 "message": "AWS Control Tower successfully set up a new landing zone.",                
-                "rootOrganizationalId" : "r-1234"
+                "rootOrganizationalId" : "r-1234",
                 "organizationalUnits" : [                         // Use a list.
                   {
                     "organizationalUnitName": "Security",             // Security OU name.
@@ -359,7 +358,7 @@ This lifecycle event records whether AWS Control Tower successfully updated your
                 "state": "SUCCEEDED",                            // Status of entire operation.
                 "message": "AWS Control Tower successfully updated a landing zone.",                
 
-                "rootOrganizationalId" : "r-1234"
+                "rootOrganizationalId" : "r-1234",
                 "organizationalUnits" : [                         // Use a list.
                   {
                     "organizationalUnitName": "Security",             // Security OU name.
@@ -422,7 +421,7 @@ This lifecycle event records whether AWS Control Tower successfully enabled its 
             "registerOrganizationalUnitStatus": {
                 "state": "SUCCEEDED",                        
 
-                "message": "AWS Control Tower successfully registered an organizational unit."
+                "message": "AWS Control Tower successfully registered an organizational unit.",
 
                 "organizationalUnit" :                        
                   {
@@ -470,17 +469,16 @@ This lifecycle event records whether AWS Control Tower successfully disabled its
         "serviceEventDetails": {
             "deregisterOrganizationalUnitStatus": {                 
                 "state": "SUCCEEDED",               
-                "message": "AWS Control Tower successfully deregistered an organizational unit, and enabled mandatory guardrails on the new organizational unit."
+                "message": "AWS Control Tower successfully deregistered an organizational unit, and enabled mandatory guardrails on the new organizational unit.",
                 "organizationalUnit" :                        
                   {
                     "organizationalUnitName": "Test",                   // Foundational OU name.
                     "organizationalUnitId": "ou-adpf-302pk332"          // Foundational OU ID.
-                  }
+                  },
                 "requestedTimestamp": "2018-08-30T21:42:18Z", 
                 "completedTimestamp": "2018-08-30T21:42:18Z"  
             }
             }
         }
     }
-}
 ```

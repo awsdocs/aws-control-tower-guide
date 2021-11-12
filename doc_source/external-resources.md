@@ -22,7 +22,7 @@ In general, changes that you make outside the AWS Control Tower console to AWS C
 **Note**  
 AWS Service Catalog handles changes differently than AWS Control Tower\. AWS Service Catalog may create a change in governance posture when it reconciles your changes\. For more information about updating a provisioned product, see [Updating Provisioned Products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-update.html) in the AWS Service Catalog documentation\.
 
-## Referring to Resources Outside of AWS Control Tower<a name="ungoverned-resources"></a>
+## Referring to resources outside of AWS Control Tower<a name="ungoverned-resources"></a>
 
 When you create new OUs and accounts outside of AWS Control Tower, they are not governed by AWS Control Tower, even though they may be displayed\.
 
@@ -34,7 +34,7 @@ Organizational Units \(OUs\) created outside of AWS Control Tower are referred t
 
 Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Accounts that belong to an organization that’s registered with AWS Control Tower are displayed in the **Accounts list** page\. Accounts that do not belong to a registered organization can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the Account Factory page in AWS Control Tower and choose **Enroll account**\.
 
-## Changing AWS Control Tower Resource Names<a name="changing-names"></a>
+## Externally changing AWS Control Tower resource names<a name="changing-names"></a>
 
 You can change the names of your organizational units \(OUs\) and accounts outside of the AWS Control Tower console, and the console updates automatically to reflect those changes\.
 
@@ -68,8 +68,8 @@ The action of deleting your Security OU is not to be performed without due consi
 ## Removing an account from the Security OU<a name="removed-shared-account"></a>
 
 We do not recommend that you remove any of the shared accounts from your organization or move them out of the **Security** OU\. If you have removed a shared account accidentally, you can follow the remediation steps in this section to restore the account\.
-+ To start the remediation process from within the AWS Control Tower console, follow the semi\-manual remediation steps\. Ensure the user or role you use to access the AWS Control Tower console has permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, follow the manual remediation steps, which use both the AWS Control Tower console and the AWS Organizations console\.
-+ You can also start the remediation process from the AWS Organizations console\. This is a slightly longer, fully manual procedure\. When following the manual remediation steps, you'll switch between the AWS Organizations console and the AWS Control Tower console\. When working in AWS Organizations, you'll need a user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. When working in the AWS Control Tower console, you'll need a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permission to run all AWS Control Tower actions \(controltower:\*\)\.
++ **From within the AWS Control Tower console: **To start the remediation process, follow the semi\-manual remediation steps\. Ensure the user or role you use to access the AWS Control Tower console has permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, follow the manual remediation steps, which use both the AWS Control Tower console and the AWS Organizations console\.
++ **Starting from the AWS Organizations console:** This remediation process is a slightly longer, fully manual procedure\. When following the manual remediation steps, you'll switch between the AWS Organizations console and the AWS Control Tower console\. When working in AWS Organizations, you'll need a user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. When working in the AWS Control Tower console, you'll need a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permission to run all AWS Control Tower actions \(controltower:\*\)\.
 + If the remediation steps don't restore the account, contact AWS Support\.
 
 **The results of removing a shared account through AWS Organizations:**
@@ -117,7 +117,7 @@ If remediation is successful, the shared account appears in a normal state and c
 
 If the remediation steps don't restore the account, contact AWS Support\.
 
-## Changes that Are Updated Automatically<a name="updated-automatically"></a>
+## External changes that are updated automatically<a name="updated-automatically"></a>
 
 Changes that you make to your account email addresses are updated by AWS Control Tower automatically, but Account Factory does not update them automatically\.
 

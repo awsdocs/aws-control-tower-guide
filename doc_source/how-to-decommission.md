@@ -2,6 +2,9 @@
 
 To decommission your AWS Control Tower landing zone, follow the procedure given here\.
 
+**Note**  
+We recommend that you unmanage your enrolled accounts prior to decommissioning\.
+
 1. Navigate to the **Landing Zone Settings** page in the AWS Control Tower console\.
 
 1. Choose **Decommission your landing zone** within the **Decommission your landing zone** section\.

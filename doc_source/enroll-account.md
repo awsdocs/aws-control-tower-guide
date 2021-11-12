@@ -47,7 +47,7 @@ The conformance pack also works in situations where the accounts are located in 
 
 These prerequisites are required before you can enroll an account in AWS Control Tower:
 
-1. The account must not have an AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI before you can enroll an account\. Otherwise, enrollment will fail\.
+1. We recommend that the account should not have an AWS Config configuration recorder or delivery channel\. These may be deleted through the AWS CLI before you can enroll an account\. Otherwise, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html)for instructions on how you can modify your existing resources\.
 
 1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower management account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower management account, in an OU that already is registered with AWS Control Tower\. 
 

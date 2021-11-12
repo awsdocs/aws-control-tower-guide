@@ -1,6 +1,6 @@
 # Using AWS CloudShell to work with AWS Control Tower<a name="using-aws-with-cloudshell"></a>
 
-AWS CloudShell is a browser\-based, pre\-authenticated shell that you can launch directly from the AWS Management Console\. There's no need to download or install command line tools\. You can run AWS CLI commands for AWS Control Tower and other AWS services from your preferred shell \(Bash, PowerShell or Z shell\)\. 
+AWS CloudShell is an AWS service that facilitates working in the AWS CLI — it's a browser\-based, pre\-authenticated shell that you can launch directly from the AWS Management Console\. There's no need to download or install command line tools\. You can run AWS CLI commands for AWS Control Tower and other AWS services from your preferred shell \(Bash, PowerShell or Z shell\)\. 
 
 When you [launch AWS CloudShell from the AWS Management Console](https://docs.aws.amazon.com/cloudshell/latest/userguide/working-with-cloudshell.html#launch-options), the AWS credentials you used to sign in to the console are available in a new shell session\. You can skip entering your configuring credentials when you interact with AWS Control Tower and other AWS services, and you'll be using AWS CLI version 2, which is pre\-installed on the shell's compute environment\.You're pre\-authenticated with AWS CloudShell\.
 
@@ -59,7 +59,7 @@ Do not delete the AWS Control Tower resources for AWS Config\. Loss of these res
    +  [Managing the Configuration Recorder \(AWS CLI\)](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html#managing-recorder_cli)
    +   [Managing the Delivery Channel](https://docs.aws.amazon.com/config/latest/developerguide/manage-delivery-channel.html)
 
-1. This example shows AWS CLI commands you'd enter from AWS CloudShell to enable or disable trusted access for AWS Organizations\. For AWS Control Tower you do not need to exable or disable trusted access for AWS Organizations, it is just an example\. However, you may need to enable or disable trusted access for other AWS services if you're automating or customizing actions in AWS Control Tower\.
+1. This example shows AWS CLI commands you'd enter from AWS CloudShell to enable or disable trusted access for AWS Organizations\. For AWS Control Tower you do not need to enable or disable trusted access for AWS Organizations, it is just an example\. However, you may need to enable or disable trusted access for other AWS services if you're automating or customizing actions in AWS Control Tower\.
 
 **Enable or disable trusted service access**
    + `aws organizations enable-aws-service-access`

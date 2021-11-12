@@ -6,7 +6,7 @@ When you create your landing zone, the landing zone and all the organizational u
 
 Drift detection assists you in identifying resources that need changes or configuration updates to resolve the drift\. 
 
-**Detecting Drift**
+## Detecting drift<a name="detecting-drift"></a>
 
 AWS Control Tower detects drift automatically\. To detect drift, the `AWSControlTowerAdmin` role requires persistent access to your management account so AWS Control Tower can make read\-only API calls to AWS Organizations\. These API calls show up as AWS CloudTrail events\.
 
@@ -14,7 +14,27 @@ Drift is surfaced in the Amazon Simple Notification Service \(Amazon SNS\) notif
 
 Member account administrators can \(and as a best practice, they should\) subscribe to the SNS drift notifications for specific accounts\. For example, the `aws-controltower-AggregateSecurityNotifications` SNS topic provides drift notifications\. The AWS Control Tower console indicates to management account administrators when drift has occurred\. For more information about SNS topics for drift detection and notification, see [Drift prevention and notification](prevention-and-notification.md)\.
 
-**Resolving Drift**
+**Drift notification de\-duplication**
+
+If the same type of drift occurs on the same set of resources multiple times, AWS Control Tower sends an SNS notification only for the initial instance of drift\. If AWS Control Tower detects that this instance of drift has been remediated, it sends another notification only if drift re\-occurs for those identical resources\.
+
+**Examples: Account drift and SCP drift are handled in the following manner**
++ If you modify the same managed SCP multiple times, you receive a notification for the first time you modify it\.
++ If you modify a managed SCP, then remediate drift, then modify it again, you'll receive two notifications\.
+
+**Types of account drift**
++ Account moved between OUs
++ Account removed from organization
+
+**Types of policy drift**
++ SCP updated
++ SCP attached to OU
++ SCP detached from OU
++ SCP attached to account
+
+For more information, see [Types of Governance Drift](#governance-drift)\.
+
+## Resolving drift<a name="resolving-drift"></a>
 
 Although detection is automatic, the steps to resolve drift must be done through the console\.
 + Many types of drift can be resolved through the **Landing zone settings** page\. You can choose the **Repair** button in the **Versions** section to repair these types of drift\.
@@ -106,7 +126,7 @@ AWS Control Tower does not look for drift regarding other services that work wit
 
 ## Moved Member Account<a name="drift-account-moved"></a>
 
-This type of drift can occur when an AWS Control Tower member account, the audit account, or the log archive account is moved from a registered AWS Control Tower OU to any other OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift occurs on the account rather than the OU\. This type of drift can occur when an AWS Control Tower member account, the audit account, or the log archive account is moved from a registered AWS Control Tower OU to any other OU\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
@@ -114,7 +134,7 @@ This type of drift can occur when an AWS Control Tower member account, the audit
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
   "DriftType" : "AccountMovedBetweenOrganizationalUnits",
-  "RemediationStep" : "Update Account Factory Provisioned Product",
+  "RemediationStep" : "Re-register this organizational unit (OU), or if the OU has more than 300 accounts, you must update the provisioned product in Account Factory.",
   "AccountId" : "012345678909",
   "SourceId" : "012345678909",
   "DestinationId" : "ou-3210-1EXAMPLE"
@@ -123,12 +143,39 @@ This type of drift can occur when an AWS Control Tower member account, the audit
 
 ### Resolutions<a name="drift-account-moved-resolution"></a>
 
-When this type of drift occurs, you can resolve it as follows:
-+ **Account Factory Provisioned Account** – You can resolve the drift by updating the account in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
-+ **Shared account** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs for an Account Factory provisioned account in an OU with up to 300 accounts, you can resolve it by:
++ Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
++ Updating the provisioned product in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
++ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+**Note**  
+If you have several individual accounts to update, also see this method for making updates with a script: [Provisioning and updating accounts using script automation](configuration-updates.md#update-accounts-by-script)\.
++ When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+  + **If an Account Factory provisioned account is moved** – In an OU with fewer than 300 accounts, you can resolve the account drift by updating the provisioned product in Account Factory, by re\-registering the OU, or by updating your landing zone\. 
+
+    In an OU with more than 300 accounts, you *must* resolve the drift by making an update to the provisioned product for each moved account, because re\-register OU will not perform the update\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
+  + **If a shared account is moved** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 **Deprecated field name**  
 The field name `MasterAccountID` has been changed to `ManagementAccountID` to comply with AWS guidelines\. The old name is **deprecated**\. Beginning in 2022, scripts that contain the deprecated field name will no longer work\.
+
+## Added Member Account<a name="drift-account-added"></a>
+
+Adding an account is not technically drift\. However, AWS Control Tower alerts you when an AWS Control Tower account is added to your AWS Control Tower organization\. For example, an account may be added to your AWS Control Tower organization as part of the drift remediation process if a shared account, such as the audit account or log archive account, has been removed and must be replaced\. The following example shows an Amazon SNS notification you may receive when this type of event is detected\.
+
+```
+{
+  "Message" : "AWS Control Tower has detected that the account 'account-email@amazon.com (012345678909)' has been added to organization o-123EXAMPLE. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/add-account'",
+  "ManagementAccountId" : "012345678912",
+  "OrganizationId" : "o-123EXAMPLE",
+  "DriftType" : "AccountAddedToOrganization",
+  "RemediationStep" : "Update Account Factory Provisioned Product",
+  "AccountId" : "012345678909"
+}
+```
+
+### Resolution<a name="drift-account-added-resolution"></a>
+
+No resolution is required, because adding a member account to an OU or enrolling an Account Factory account does not cause drift\. If a shared account has been removed and re\-added, it is a special case, and you may need to update that shared account or the Security OU\. For information about updating Account Factory accounts, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 

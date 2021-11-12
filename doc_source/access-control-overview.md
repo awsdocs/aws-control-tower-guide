@@ -55,6 +55,9 @@ You can attach policies to IAM identities\. For example, you can do the followin
 
   For more information about using IAM to delegate permissions, see [Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html) in the *IAM User Guide*\.
 
+**Note**  
+When setting up an AWS Control Tower landing zone, you'll need a user or role with the **AdministratorAccess** managed policy\. \(arn:aws:iam::aws:policy/AdministratorAccess\)
+
 For more information about using identity\-based policies with AWS Control Tower, see [Using Identity\-Based Policies \(IAM Policies\) for AWS Control Tower](access-control-managing-permissions.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\. 
 
 ### Resource\-Based Policies<a name="access-control-manage-access-intro-resource-policies"></a>
