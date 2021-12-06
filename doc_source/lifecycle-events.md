@@ -52,6 +52,7 @@ In these examples, some account names and organization names are obscured\. An `
 + [`UpdateLandingZone`](#update-landing-zone): The log records whether AWS Control Tower successfully completed every action to update your existing landing zone\.
 + [`RegisterOrganizationalUnit`](#register-organizational-unit): The log records whether AWS Control Tower successfully completed every action to enable its governance features on an OU\. 
 + [`DeregisterOrganizationalUnit`](#deregister-organizational-unit): The log records whether AWS Control Tower successfully completed every action to disable its governance features on an OU\.
++ [`PrecheckOrganizationalUnit`](#precheck-organizational-unit): The log records whether AWS Control Tower detected any resource that would would prevent the **Extend governance** operation from completing successfully\.
 
 The following sections provide a list of AWS Control Tower lifecycle events, with examples of the details logged for each type of lifecycle event\.
 
@@ -210,7 +211,6 @@ This lifecycle event records whether AWS Control Tower successfully enabled a gu
 This lifecycle event records whether AWS Control Tower successfully disabled a guardrail on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `DisableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the guardrail, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the guardrail is disabled\. 
 
 ```
-            
 {
     "version": "0",
     "id": "999cccaa-eaaa-0000-1111-123456789012",     
@@ -327,7 +327,6 @@ This lifecycle event records whether AWS Control Tower successfully set up a lan
 This lifecycle event records whether AWS Control Tower successfully updated your existing landing zone\. This event corresponds to the AWS Control Tower `UpdateLandingZone` CloudTrail event\. The lifecycle event log includes the `rootOrganizationalId`, which is ID of the \(updated\) organization governed by AWS Control Tower\. The log entry also includes the `organizationalUnitName` and `organizationalUnitId` for each of of the OUs, and the `accountName` and `accountId` for each account, that was created previously, when AWS Control Tower originally set up the landing zone\.
 
 ```
-            
 {
     "version": "0",
     "id": "999cccaa-eaaa-0000-1111-123456789012",                // Request ID.
@@ -441,7 +440,6 @@ This lifecycle event records whether AWS Control Tower successfully enabled its 
 This lifecycle event records whether AWS Control Tower successfully disabled its governance features on an OU\. This event corresponds to the AWS Control Tower `DeregisterOrganizationalUnit` CloudTrail event\. The lifecycle event log includes the `organizationalUnitName` and `organizationalUnitId` of the OU on which AWS Control Tower has disabled its governance features\.
 
 ```
-            
 {
     "version": "0",
     "id": "999cccaa-eaaa-0000-1111-123456789012",    
@@ -481,4 +479,82 @@ This lifecycle event records whether AWS Control Tower successfully disabled its
             }
         }
     }
+```
+
+## `PrecheckOrganizationalUnit`<a name="precheck-organizational-unit"></a>
+
+This lifecycle event records whether AWS Control Tower successfully performed prechecks on an OU\. This event corresponds to the AWS Control Tower `PrecheckOrganizationalUnit` CloudTrail event\. The lifecycle event log contains a field for the `Id`, `Name`, and `failedPrechecks` values, for each resource on which AWS Control Tower has performed prechecks during the OU registration process\.
+
+The event log also contains information about the nested accounts on which the prechecks were performed, including the `accountName`, `accountId`, and `failedPrechecks` fields\.
+
+If the `failedPrechecks` value is empty, it means that all prechecks for that resource passed successfully\.
++ This event is emitted only if there is a precheck failure\.
++ This event is not emitted if you are registering an empty OU\.
+
+Example of event:
+
+```
+{
+  "eventVersion": "1.08",
+  "userIdentity": {
+    "accountId": "XXXXXXXXXXXX",
+    "invokedBy": "AWS Internal"
+  },
+  "eventTime": "2021-09-20T22:45:43Z",
+  "eventSource": "controltower.amazonaws.com",
+  "eventName": "PrecheckOrganizationalUnit",
+  "awsRegion": "us-west-2",
+  "sourceIPAddress": "AWS Internal",
+  "userAgent": "AWS Internal",
+  "eventID": "b41a9d67-0da4-4dc5-a87a-25fa19dc5305",
+  "readOnly": false,
+  "eventType": "AwsServiceEvent",
+  "managementEvent": true,
+  "recipientAccountId": "XXXXXXXXXXXX",
+  "serviceEventDetails": {
+    "precheckOrganizationalUnitStatus": {
+      "organizationalUnit": {
+        "organizationalUnitName": "Ou-123",
+        "organizationalUnitId": "ou-abcd-123456",
+        "failedPrechecks": [
+            "SCP_CONFLICT"
+          ]
+      },
+      "accounts": [
+        {
+          "accountName": "Child Account 1",
+          "accountId": "XXXXXXXXXXXX",
+          "failedPrechecks": [
+            "FAILED_TO_ASSUME_ROLE"
+          ]
+        },
+        {
+          "accountName": "Child Account 2",
+          "accountId": "XXXXXXXXXXXX",
+          "failedPrechecks": [
+            "FAILED_TO_ASSUME_ROLE"
+          ]
+        },
+        {
+          "accountName": "Management Account",
+          "accountId": "XXXXXXXXXXXX",
+          "failedPrechecks": [
+            "MISSING_PERMISSIONS_AF_PRODUCT"
+          ]
+        },
+        {
+          "accountName": "Child Account 3",
+          "accountId": "XXXXXXXXXXXX",
+          "failedPrechecks": []
+        },
+        ...
+      ],
+      "state": "FAILED",
+      "message": "AWS Control Tower failed to register an organizational unit due to pre-check failures. Go to the OU details page to download a list of failed pre-checks for the OU and accounts within.",
+      "requestedTimestamp": "2021-09-20T22:44:02+0000",
+      "completedTimestamp": "2021-09-20T22:45:43+0000"
+    }
+  },
+  "eventCategory": "Management"
+}
 ```

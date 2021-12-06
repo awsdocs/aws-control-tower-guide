@@ -38,7 +38,7 @@ For more information, see [Types of Governance Drift](#governance-drift)\.
 
 Although detection is automatic, the steps to resolve drift must be done through the console\.
 + Many types of drift can be resolved through the **Landing zone settings** page\. You can choose the **Repair** button in the **Versions** section to repair these types of drift\.
-+ You also can repair drift by selecting **Re\-register OU** on the **OU** page, to repair Account Factory provisioned account drift or SCP drift\.
++ If your OU has fewer than 300 accounts, you can repair drift by selecting **Re\-register OU** on the **OU** page, to repair drift in Account Factory provisioned accounts, or SCP drift\.
 
 **Note**  
 When you repair your landing zone, the landing zone is upgraded to the latest landing zone version\.
@@ -70,7 +70,7 @@ The daily scans consume the TPS for the following AWS Organizations APIs:
 
 |  |  |  | 
 | --- |--- |--- |
-| `listOrganizationalUnits` | 8 burst, 5 sustained | 1 per OU | 
+| `listOrganizationalUnits` | 8 burst, 5 sustained | 1 per landing zone | 
 | `listPoliciesForTarget` | 8 burst, 5 sustained | 1 per registered OU | 
 | `describePolicy` | 2 TPS | 1 per managed SCP | 
 
@@ -105,7 +105,7 @@ Moving accounts between OUs is considered drift, and it must be repaired\.
 
 ## Drift and New Account Provisioning<a name="drift-and-accounts"></a>
 
-If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
+If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provisioning Account Factory Accounts With AWS Service Catalog](provision-as-end-user.md)\.
 
 In particular, if you've made certain changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.
 
@@ -145,14 +145,14 @@ This type of drift occurs on the account rather than the OU\. This type of drift
 
 When this type of drift occurs for an Account Factory provisioned account in an OU with up to 300 accounts, you can resolve it by:
 + Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
-+ Updating the provisioned product in Account Factory\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
++ Updating the provisioned product in Account Factory\. For more information, see [Updating and moving account factory accounts with AWS Service Catalog](updating-account-factory-accounts.md)\.
 + Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 **Note**  
 If you have several individual accounts to update, also see this method for making updates with a script: [Provisioning and updating accounts using script automation](configuration-updates.md#update-accounts-by-script)\.
 + When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
   + **If an Account Factory provisioned account is moved** – In an OU with fewer than 300 accounts, you can resolve the account drift by updating the provisioned product in Account Factory, by re\-registering the OU, or by updating your landing zone\. 
 
-    In an OU with more than 300 accounts, you *must* resolve the drift by making an update to the provisioned product for each moved account, because re\-register OU will not perform the update\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
+    In an OU with more than 300 accounts, you *must* resolve the drift by making an update to the provisioned product for each moved account, because re\-register OU will not perform the update\. For more information, see [Updating and moving account factory accounts with AWS Service Catalog](updating-account-factory-accounts.md)\.
   + **If a shared account is moved** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
 
 **Deprecated field name**  
@@ -175,7 +175,7 @@ Adding an account is not technically drift\. However, AWS Control Tower alerts y
 
 ### Resolution<a name="drift-account-added-resolution"></a>
 
-No resolution is required, because adding a member account to an OU or enrolling an Account Factory account does not cause drift\. If a shared account has been removed and re\-added, it is a special case, and you may need to update that shared account or the Security OU\. For information about updating Account Factory accounts, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
+No resolution is required, because adding a member account to an OU or enrolling an Account Factory account does not cause drift\. If a shared account has been removed and re\-added, it is a special case, and you may need to update that shared account or the Security OU\. For information about updating Account Factory accounts, see [Updating and moving account factory accounts with AWS Service Catalog](updating-account-factory-accounts.md)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 
@@ -193,7 +193,7 @@ This type of drift can occur when a member account is removed from a registered 
 ```
 
 ### Resolution<a name="drift-account-removed-resolution"></a>
-+ When this type of drift occurs in a member account, you can resolve the drift by updating the account in Account Factory\. For example, you can add the account to another registered OU from the Account Factory update wizard\. For more information, see [Updating and Moving Account Factory Accounts with AWS Service Catalog](account-factory.md#updating-account-factory-accounts)\.
++ When this type of drift occurs in a member account, you can resolve the drift by updating the account in Account Factory\. For example, you can add the account to another registered OU from the Account Factory update wizard\. For more information, see [Updating and moving account factory accounts with AWS Service Catalog](updating-account-factory-accounts.md)\.
 + If a shared account is removed from a Foundational OU, you must resolve the drift by repairing your landing zone\. Until this drift is resolved, you will not be able to use the AWS Control Tower console\.
 + For more information about resolving drift for accounts and OUs, see [Manage resources outside of AWS Control Tower](external-resources.md)\. 
 

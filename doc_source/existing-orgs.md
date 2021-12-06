@@ -1,12 +1,18 @@
-# Enable AWS Control Tower on existing organizations and accounts<a name="existing-orgs"></a>
+# Enable AWS Control Tower on organizations and accounts<a name="existing-orgs"></a>
 
-If you have existing AWS Organizations and AWS accounts, you can apply AWS Control Tower guardrails to them\. Most customers prefer to enroll groups of accounts by registering the entire organizational unit \(OU\) that contains the accounts\. 
+All organizational units \(OUs\) and accounts that you create in AWS Control Tower are governed automatically by AWS Control Tower\. Also, if you have existing OUs and accounts that were created outside of AWS Control Tower, you can bring them into AWS Control Tower governance\. 
+
+For existing AWS Organizations and AWS accounts, most customers prefer to enroll groups of accounts by registering the entire organizational unit \(OU\) that contains the accounts\. You also can enroll accounts individually\.
 
 **Terminology**
 + When you bring an existing organization into AWS Control Tower, it's called *registering* the organization, or *extending governance* to the organization\.
 + When you bring an AWS account into AWS Control Tower, it's called *enrolling* the account\.
 
-On the AWS Control Tower **Organizational units** page, you can view all the OUs in your AWS Organizations, including OUs that are registered with AWS Control Tower and those that are not registered\. The **Accounts** page lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can view and enroll accounts individually within the OUs, if the accounts meet the prerequisites for enrollment\.
+**View your OUs and accounts**
+
+On the AWS Control Tower **Organizational units** page, you can view all the OUs in your AWS Organizations, including OUs that are registered with AWS Control Tower and those that are not registered\.
+
+The **Accounts** page lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can view and enroll accounts individually within the OUs, if the accounts meet the prerequisites for enrollment\.
 
 ## <a name="topics-for-existing-orgs-and-accounts"></a>
 
@@ -14,7 +20,7 @@ On the AWS Control Tower **Organizational units** page, you can view all the OUs
 + [Register an existing organizational unit with AWS Control Tower](importing-existing.md)
 +  [Enroll an existing AWS account](enroll-account.md)
 
-## About extending governance to an organization<a name="about-extending-governance"></a>
+## Extend governance to an existing organization<a name="about-extending-governance"></a>
 
 You can add AWS Control Tower governance to an existing organization by setting up a landing zone \(LZ\) as outlined in the AWS Control Tower User Guide at [Getting Started, Step 2](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\.
 

@@ -14,6 +14,8 @@ AWS Control Tower creates three roles automatically when you set up a landing zo
 + [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy)
 + [AWSControlTowerCloudTrailRole](#AWSControlTowerCloudTrailRole)
 
+We recommend that you restrict access to your role trust policies for these roles\. For more information, see [Optional conditions for your role trust relationships](roles-how.md#conditions-for-role-trust)\.
+
 ## AWSControlTowerAdmin role<a name="AWSControlTowerAdmin"></a>
 
 This role provides AWS Control Tower with access to infrastructure critical to maintaining the landing zone\. The `AWSControlTowerAdmin` role requires an attached managed policy and a role trust policy for the IAM role\. A *role trust policy* is a resource\-based policy, specifying which principals can assume the role\.

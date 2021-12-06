@@ -1,9 +1,9 @@
-# Enable Guardrails<a name="enable-guardrails"></a>
+# Enable guardrails<a name="enable-guardrails"></a>
 
 Most guardrails are enabled automatically according to an OU's configuration, and some guardrails can be enabled manually on your OUs\. The following procedure describes the steps for enabling guardrails on an OU\.
 
 **Important**  
-When you enable guardrails with strongly recommended guidance, AWS Control Tower creates and manages AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.
+When you enable optional guardrails, AWS Control Tower creates and manages AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\.
 
 **To enable guardrails in an OU**
 

@@ -19,7 +19,7 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 
 **About your home Region**
 
-When you create a landing zone, the Region that you're using for access to the AWS Management console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home AWS Region\. Other resources, such as OUs and AWS accounts, are global\.
+When you create a landing zone, the Region that you're using for access to the AWS Management console becomes your home AWS Region for AWS Control Tower\. During the creation process, some resources are provisioned in the home Region\. Other resources, such as OUs and AWS accounts, are global\.
 
  After you've selected a home Region, you cannot change it\.
 
@@ -34,7 +34,7 @@ This section describes the behavior you can expect when you extend your AWS Cont
 **Note**  
 We recommend that you avoid expanding your AWS Control Tower landing zone into AWS Regions in which you do not require your workloads to run\. Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
 
-During configuration of a new AWS Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone  —
+During configuration of a new Region, AWS Control Tower updates the landing zone, which means that it *baselines* your landing zone  —
 + to operate actively in all newly\-selected Regions, and
 + to cease governing resources in deselected Regions\.
 
@@ -65,6 +65,6 @@ If you opt not to govern a Region, you can still deploy resources in that Region
 
 1. Complete the rest of the workflow, then choose **Update landing zone**\.
 
-1. When the landing zone setup completes, **Re\-register** the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
+1. When the landing zone setup completes, **Re\-register** the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](update-existing-accounts.md)\.
 
 An alternative method of provisioning or updating individual accounts after configuring new Regions is by using [the API framework of AWS Service Catalog](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_Reference.html) and [the AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/servicecatalog/index.html) to update the accounts in a batch process\. For more information, see [Provisioning and updating accounts using script automation](configuration-updates.md#update-accounts-by-script)\.

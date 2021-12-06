@@ -1,4 +1,4 @@
-# Strongly Recommended Guardrails<a name="strongly-recommended-guardrails"></a>
+# Strongly recommended guardrails<a name="strongly-recommended-guardrails"></a>
 
 Strongly recommended guardrails are based on best practices for well\-architected multi\-account environments\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the strongly recommended guardrails available in AWS Control Tower\.
 
@@ -77,7 +77,7 @@ The artifact for this guardrail is the following SCP\.
 
 ## Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances<a name="ebs-enable-encryption"></a>
 
-This guardrail detects whether the Amazon EBS volumes attached to an Amazon Amazon EC2 instance are encrypted\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail isn't enabled on any OUs\.
+This guardrail detects whether the Amazon EBS volumes attached to an Amazon EC2 instance are encrypted\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail isn't enabled on any OUs\.
 
 The artifact for this guardrail is the following AWS Config rule\.
 

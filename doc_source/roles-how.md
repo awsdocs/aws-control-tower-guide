@@ -16,13 +16,82 @@ To *baseline* an account is to set up its blueprints and guardrails\. The baseli
 **The AWSControlTowerExecution role, explained**
 
 The `AWSControlTowerExecution` role allows AWS Control Tower to manage your individual accounts and report information about them to your audit and logging accounts\.
-+ `AWSControlTowerExecution` allows auditing by the AWS Control Tower audit account\.
++ `AWSControlTowerExecution` allows you to create and enroll accounts, automatically, wuth scripts and Lambda functions\.
 + `AWSControlTowerExecution` helps you configure your organizations's logging, so that all the logs for every account are sent to the logging account\.
-+ To enroll an individual account in AWS Control Tower you must add the `AWSControlTowerExecution` role to that account\.
++ To enroll an individual account in AWS Control Tower you must add the `AWSControlTowerExecution` role to that account\. For steps on how to add the role, see [Manually add the required IAM role to an existing AWS account and enroll it](enroll-manually.md)\.
 
 After you’ve completed setting up accounts, `AWSControlTowerExecution` ensures that your selected AWS Control Tower guardrails apply automatically to every individual account in your organization, as well as to every new account you create in AWS Control Tower\. Therefore, you can provide compliance and security reports with ease, based on the auditing and logging features embodied by AWS Control Tower guardrails\. Your security and compliance teams can verify that all requirements are met, and that no organizational drift has occurred\. For more information about drift, see [the AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/drift.html)\. 
 
 To summarize, the `AWSControlTowerExecution` role and its associated policy gives you flexible control of security and compliance across your entire organization\. Therefore, breaches of security are less likely to occur\.
+
+## Optional conditions for your role trust relationships<a name="conditions-for-role-trust"></a>
+
+You can impose conditions in your role trust policies, to restrict the accounts and resources that interact with certain roles in AWS Control Tower\. We strongly recommend that you restrict access to the `AWSControlTowerAdmin` role, because it allows wide access permissions\.
+
+To help prevent an attacker from gaining access to your resources, manually edit your AWS Control Tower trust policy to add at least one `aws:SourceArn` or `aws:SourceAccount` conditional to the policy statement\. As a security best practice, we strongly recommend adding the `aws:SourceArn` condition, because it is more specific than `aws:SourceAccount`, limiting access to a specific account and a specific resource\.
+
+If you don't know the full ARN of the resource, or if you are specifying multiple resources, you can use the `aws:SourceArn` condition with wildcards \(\*\) for the unknown portions of the ARN\. For example, `arn:aws:controltower:*:123456789012:*` works if you don't wish to specify a Region\.
+
+The following example demonstrates the use of the `aws:SourceArn` IAM condition with your IAM role trust polices\. Add the condition in your trust relationship for the **AWSControlTowerAdmin** role, because the AWS Control Tower service principal interacts with it\. 
+
+As shown in the example, the source ARN is of the format: `arn:aws:controltower:${HOME_REGION}:${CUSTOMER_AWSACCOUNT_id}:*`
+
+Replace the strings `${HOME_REGION}` and `${CUSTOMER_AWSACCOUNT_id}` with your own home Region and account ID of the calling account\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "controltower.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "arn:aws:controltower:us-west-2:012345678901:*"
+        }
+      }
+    }
+  ]
+}
+```
+
+In the example, the Source ARN designated as `arn:aws:controltower:us-west-2:012345678901:*` is the only ARN allowed to perform the `sts:AssumeRole` action\. In other words, only users who can sign in to the account ID `012345678901`, in the `us-west-2` Region, are allowed to perform actions that require this specific role and trust relationship for the AWS Control Tower service, designated as `controltower.amazonaws.com`\.
+
+The next example shows the `aws:SourceAccount` and `aws:SourceArn` conditions applied to the role trust policy\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "controltower.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceAccount": "012345678901"
+        },
+        "StringLike": {
+          "aws:SourceArn": "arn:aws:controltower:us-west-2:012345678901:*"
+        }
+      }
+    }
+  ]
+}
+```
+
+The example illustrates the `aws:SourceArn` condition statement, with an added `aws:SourceAccount` condition statement\. For more information, see [Prevent cross\-service impersonation](prevent-confused-deputy.md)\.
+
+ For general information about permission policies in AWS Control Tower see [Managing Access to Resources](access-control-overview.md#access-control-manage-access-intro)\.
 
 ## How AWS Control Tower aggregates AWS Config rules in unmanaged OUs and accounts<a name="config-role-for-organizations"></a>
 
@@ -33,8 +102,7 @@ To create the aggregator, AWS Control Tower adds a role with the permissions req
 Here is the IAM policy \(JSON artifact\) attached to the role:
 
 ```
-    
-  {
+{
     "Version": "2012-10-17",
       "Statement": [
        {
@@ -53,8 +121,7 @@ Here is the IAM policy \(JSON artifact\) attached to the role:
 Here is the `AWSControlTowerConfigAggregatorRoleForOrganizations` trust relationship:
 
 ```
- 
-  {
+{
     "Version": "2012-10-17",
       "Statement": [
       {
@@ -72,7 +139,6 @@ Here is the `AWSControlTowerConfigAggregatorRoleForOrganizations` trust relation
 To deploy this functionality in the management account, the following permissions are added in the managed policy `AWSControlTowerServiceRolePolicy`, which is used by the `AWSControlTowerAdmin` role when it creates the AWS Config aggregator:
 
 ```
-   
 {
   "Version": "2012-10-17",
     "Statement": [

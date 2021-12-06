@@ -77,7 +77,7 @@ AWS Control Tower provides an orchestration service that uses other AWS services
 
 For information about setting up a landing zone, see [Plan your AWS Control Tower landing zone](planning-your-deployment.md)\. You can also visit the AWS Control Tower [product webpage](http://aws.amazon.com/controltower/) or visit YouTube to watch this video about [getting started with AWS Control Tower for AWS Organizations](https://www.youtube.com/watch?v=-n65I4M8cas)\. 
 
-In addition to this change, the **Quick account provisioning** capability in AWS Control Tower was renamed to **Enroll account**\. It now permits enrollment of existing AWS accounts as well as creation of new accounts\. For more information, see [Create or Enroll An Individual Account](account-factory.md#quick-account-provisioning)\.
+In addition to this change, the **Quick account provisioning** capability in AWS Control Tower was renamed to **Enroll account**\. It now permits enrollment of existing AWS accounts as well as creation of new accounts\. For more information, see [Create or Enroll An Individual Account](quick-account-provisioning.md)\.
 
 ## Customizations for AWS Control Tower solution<a name="Customizations"></a>
 
@@ -119,7 +119,7 @@ To use the simplified form, navigate to **Account Factory** in the AWS Control T
 Update accounts that you create through quick account provisioning by using AWS Service Catalog and the AWS Control Tower account factory, just like updates to any other account\.
 
 **Note**  
-In April 2020, the **Quick account provisioning** capability was renamed to **Enroll account**\. It now permits enrollment of existing AWS accounts as well as creation of new accounts\. For more information, see [Create or Enroll An Individual Account](account-factory.md#quick-account-provisioning)\.
+In April 2020, the **Quick account provisioning** capability was renamed to **Enroll account**\. It now permits enrollment of existing AWS accounts as well as creation of new accounts\. For more information, see [Create or Enroll An Individual Account](quick-account-provisioning.md)\.
 
 ## AWS Control Tower decommissioning tool<a name="Decommissioning-tool"></a>
 

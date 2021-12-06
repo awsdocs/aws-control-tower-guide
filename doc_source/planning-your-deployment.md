@@ -56,7 +56,7 @@ Launching your AWS Control Tower landing zone in an existing AWS Organizations o
 
 To launch AWS Control Tower in your existing organization, follow the process outlined in [Getting started with AWS Control Tower](getting-started-with-control-tower.md)\.
 
-For more information about how AWS Control Tower interacts with existing AWS Organizations, see [Enable AWS Control Tower on existing organizations and accounts](existing-orgs.md)\.
+For more information about how AWS Control Tower interacts with existing AWS Organizations, see [Enable AWS Control Tower on organizations and accounts](existing-orgs.md)\.
 
 ## Launch AWS Control Tower in a New Organization<a name="fresh-deployment-no-existing-orgs"></a>
 

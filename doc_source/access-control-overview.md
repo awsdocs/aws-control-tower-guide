@@ -55,6 +55,8 @@ You can attach policies to IAM identities\. For example, you can do the followin
 
   For more information about using IAM to delegate permissions, see [Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html) in the *IAM User Guide*\.
 
+For more information about how to help protect against attackers when you grant permissions to other AWS service principals, see [Optional conditions for your role trust relationships](roles-how.md#conditions-for-role-trust)\. By adding certain conditions to your policies, you can help prevent a specific type of attack, known as a *confused deputy* attack, which occurs if an entity coerces a more\-privileged entity to perform an action, such as with cross\-service impersonation\. For general information about policy conditions, also see [Specifying Conditions in a Policy](#specifying-conditions)\.
+
 **Note**  
 When setting up an AWS Control Tower landing zone, you'll need a user or role with the **AdministratorAccess** managed policy\. \(arn:aws:iam::aws:policy/AdministratorAccess\)
 
@@ -62,7 +64,7 @@ For more information about using identity\-based policies with AWS Control Tower
 
 ### Resource\-Based Policies<a name="access-control-manage-access-intro-resource-policies"></a>
 
-Other services, such as Amazon S3, also support resource\-based permissions policies\. For example, you can attach a policy to an S3 bucket to manage access permissions to that bucket\.AWS Control Tower does not support resource\-based policies\.
+Other services, such as Amazon S3, also support resource\-based permissions policies\. For example, you can attach a policy to an S3 bucket to manage access permissions to that bucket\. AWS Control Tower does not support resource\-based policies\.
 
 ## Specifying Policy Elements: Actions, Effects, and Principals<a name="access-control-specify-controltower-actions"></a>
 

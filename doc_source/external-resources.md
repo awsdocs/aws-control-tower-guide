@@ -8,7 +8,7 @@ In general, changes that you make outside the AWS Control Tower console to AWS C
 
 ****Tasks that require landing zone repair****
 + Deleting the Security OU *\(A special case, not to be done lightly\.\)*
-+ Removing a shared account from the Security OU *\(Not recommended, requires help from AWS Support\.\)*
++ Removing a shared account from the Security OU *\(Not recommended\.\)*
 + Updating, attaching, or detaching an SCP associated with the Security OU\.
 
 ****Changes that are updated automatically by AWS Control Tower****

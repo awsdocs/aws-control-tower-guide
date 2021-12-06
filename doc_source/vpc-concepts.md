@@ -13,6 +13,9 @@ Here are some essential facts about AWS Control Tower VPCs:
 + The number of subnets in a VPC is configurable\. For more information about how to change your VPC subnet configuration, see [the Account Factory topic](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory.html)\.
 + Because the IP addresses do not overlap, the nine subnets within your AWS Control Tower VPC can communicate with each other in an unrestricted manner\.
 
+**Important**  
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the guardrail [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-guardrails.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)\.
+
 If the default configuration or capabilities of the AWS Control Tower VPC do not meet your needs, you can use other AWS services to configure your VPC\. For more information about how to work with VPCs and AWS Control Tower see [Building a Scalable and Secure Multi\-VPC AWS Network Infrastructure](https://d1.awsstatic.com/whitepapers/building-a-scalable-and-secure-multi-vpc-aws-network-infrastructure.pdf)\.
 
 **Note**  

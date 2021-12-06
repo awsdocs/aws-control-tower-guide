@@ -1,4 +1,4 @@
-# Mandatory Guardrails<a name="mandatory-guardrails"></a>
+# Mandatory guardrails<a name="mandatory-guardrails"></a>
 
 Mandatory guardrails are enabled by default when you set up your landing zone and can't be disabled\. Following, you'll find a reference for each of the mandatory guardrails available in AWS Control Tower\.
 

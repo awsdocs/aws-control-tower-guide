@@ -6,6 +6,8 @@ Essentially, AWS Control Tower acts as an orchestration layer that works with ot
 
 Most landing zones develop over time\. As the number of organizational units \(OUs\) and accounts in your AWS Control Tower landing zone increases, you can extend your AWS Control Tower deployment in ways that help organize your workloads effectively\. This chapter provides prescriptive guidance on how to plan and set up your AWS Control Tower landing zone, in alignment with the AWS multi\-account strategy, and extend it over time\.
 
+For a general discussion about best practices for organizational units, see [Best Practices for Organizational Units with AWS Organizations](http://aws.amazon.com/blogs/mt/best-practices-for-organizational-units-with-aws-organizations/)\.
+
 ## AWS multi\-account strategy: Best practices guidance<a name="multi-account-guidance"></a>
 
 AWS best practices for a well\-architected environment recommend that you should separate your resources and workloads into multiple AWS accounts\. You can think of AWS accounts as isolated resource containers: they offer workload categorization, as well as blast radius reduction when things go wrong\.
@@ -86,9 +88,12 @@ AWS Control Tower does not set up the Workloads OU for you\.
 
 ## Example of AWS Control Tower with a complete multi\-account OU structure<a name="guidelines-for-full-multi-account"></a>
 
-AWS Control Tower supports a flat OU hierarchy, which means that nested OUs are not available\. However, you can still build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
+AWS Control Tower supports a nested OU hierarchy, which means that you can create a hierarchical OU structure that meets your organization's requirements\. You can build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
+
+You also can build a simpler, flat OU structure that performs well and aligns with the AWS multi\-account guidance\. Just because you can build a hierarchical OU structure, it does not mean that you must do so\.
++ To view a diagram that shows an example set of OUs in an expanded, flat AWS Control Tower environment with AWS multi\-account guidance, see [ Example: Workloads in a Flat OU Structure](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html#example-workloads-flat-structure)\.
++ For more information about how AWS Control Tower works with nested OU structures, see [Nested OUs in AWS Control Tower](nested-ous.md)\.
 + For more information about how AWS Control Tower aligns with the AWS guidance, see the AWS white paper, [Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html)\.
-+ To view a diagram that shows an example set of OUs in a more expanded AWS Control Tower environment with AWS multi\-account guidance, see [ Example: Workloads in a Flat OU Structure](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/appendix-e-establish-multi-account.html#example-workloads-flat-structure)\.
 
 The diagram on the linked page shows that more Foundational OUs and more Additional OUs have been created\. These OUs serve the additional needs of a larger deployment\.
 

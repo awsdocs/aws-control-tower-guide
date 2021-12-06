@@ -58,7 +58,7 @@ Sign in to the management account of your organization, and sign in as root user
 + enabled SNS notifications,
 + enabled provisioned product notifications\.
 
-Try again to provision your account, without specifying any of those options\. For more information, see [Provisioning Account Factory Accounts With AWS Service Catalog](account-factory.md#provision-as-end-user)\.
+Try again to provision your account, without specifying any of those options\. For more information, see [Provisioning Account Factory Accounts With AWS Service Catalog](provision-as-end-user.md)\.
 
 **Other common causes for failure:**
 + If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.
@@ -205,7 +205,7 @@ If you try to enable a detective guardrail before updating your accounts, you ma
 
 **Action to take: Update accounts\.**
 
-To update your accounts from the AWS Control Tower console, see [Update existing OUs and accounts](importing-existing.md#update-existing-accounts)\.
+To update your accounts from the AWS Control Tower console, see [Update existing OUs and accounts](update-existing-accounts.md)\.
 
 To update multiple individual accounts programmatically, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
 

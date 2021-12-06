@@ -1,6 +1,6 @@
-# Elective Guardrails<a name="elective-guardrails"></a>
+# Elective guardrails<a name="elective-guardrails"></a>
 
-Elective guardrails enable you to lock down or track attempts at performing commonly restricted actions in an AWS enterprise environment\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the elective guardrails available in AWS Control Tower\.
+Elective guardrails enable you to lock down or track attempts at performing commonly restricted actions in an AWS enterprise environment\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for the elective guardrails available in AWS Control Tower\. The elective guardrails specifically for data residency are collected into a separate section, [Guardrails that enhance data residency protection](data-residency-guardrails.md)\. 
 
 **Topics**
 + [Disallow Changes to Encryption Configuration for Amazon S3 Buckets \[Previously: Enable Encryption at Rest for Log Archive\]](#log-archive-encryption-enabled)
@@ -12,6 +12,7 @@ Elective guardrails enable you to lock down or track attempts at performing comm
 + [Detect Whether MFA is Enabled for AWS IAM Users](#disallow-access-mfa)
 + [Detect Whether MFA is Enabled for AWS IAM Users of the AWS Console](#disallow-console-access-mfa)
 + [Detect Whether Versioning for Amazon S3 Buckets is Enabled](#disallow-s3-no-versioning)
++ [Guardrails that enhance data residency protection](data-residency-guardrails.md)
 
 ## Disallow Changes to Encryption Configuration for Amazon S3 Buckets \[Previously: Enable Encryption at Rest for Log Archive\]<a name="log-archive-encryption-enabled"></a>
 

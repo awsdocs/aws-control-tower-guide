@@ -22,7 +22,7 @@ User groups manage specialized *roles* that are defined within your shared accou
 
 The permission sets available cover a broad range of distinct user permission requirements, such as read\-only access, AWS Control Tower administrative access, and AWS Service Catalog access\. These permission sets enable your end users to provision their own AWS accounts in your landing zone quickly, and in compliance with your enterprise's guidelines\.
 
-For tips on planning your allocations of users, groups, and permissions, refer to [Recommendations for Setting Up Groups, Roles, and Policies](best-practices.md#roles-recommendations)
+For tips on planning your allocations of users, groups, and permissions, refer to [Recommendations for setting up groups, roles, and policies](roles-recommendations.md)
 
 For more information on how to use this service in the context of AWS Control Tower, see the following topics in the *AWS Single Sign\-On User Guide*\.
 + To add users, see [Add Users](https://docs.aws.amazon.com/singlesignon/latest/userguide/addusers.html)\. 

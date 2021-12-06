@@ -7,6 +7,8 @@ The video shows you how to provision accounts in an automated, batch fashion, by
 **Note**  
 You also can use this approach for automating account updates, by calling the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one\.
 
+**Sample automation administration role**
+
 Here is a sample template you can use to help configure your automation administration role in the management account\.
 
 ```
@@ -38,6 +40,8 @@ Resources:
                 Resource:
                   - "arn:aws:iam::*:role/SampleAutomationExecutionRole"
 ```
+
+**Sample automation execution role**
 
 Here is a sample template you can use to help you set up your automation execution role\. 
 
@@ -82,6 +86,51 @@ Resources:
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/AdministratorAccess"
 ```
+
+## Sample provisioning input for Service Catalog API<a name="sample-sc-api-input"></a>
+
+Here is a sample of the input you can give to the Service Catalog `ProvisionProduct` API if you're using the API to provision AWS Control Tower accounts:
+
+```
+{
+  pathId: "lpv2-7n2o3nudljh4e",
+  productId: "prod-y422ydgjge2rs",
+  provisionedProductName: "Example product 1",
+  provisioningArtifactId: "pa-2mmz36cfpj2p4",
+  provisioningParameters: [
+    {
+      key: "AccountEmail",
+      value: "abc@amazon.com"
+    },
+    {
+      key: "AccountName",
+      value: "ABC"
+    },
+    {
+      key: "ManagedOrganizationalUnit",
+      value: "Custom (ou-xfe5-a8hb8ml8)"
+    },
+    {
+      key: "SSOUserEmail",
+      value: "abc@amazon.com"
+    },
+    {
+      key: "SSOUserFirstName",
+      value: "John"
+    },
+    {
+      key: "SSOUserLastName",
+      value: "Smith"
+    }
+  ],
+  provisionToken: "c3c795a1-9824-4fb2-a4c2-4b1841be4068"
+}
+```
+
+For more information, see the [API reference for Service Catalog](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_ProvisionProduct.html)\.
+
+**Note**  
+Notice that the format of the input string for the value of `ManagedOrganizationalUnit` has changed from `OU_NAME` to `OU_NAME (OU_ID)`\. The video that follows does not mention this change\.
 
 ## Video Walkthrough<a name="automated-provisioning-video"></a>
 

@@ -33,7 +33,7 @@ By default, all accounts are subscribed to these services\.
 ### Considerations for AWS Config and AWS CloudTrail customers<a name="config-and-cloudtrail-considerations"></a>
 + The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\. For information about how to disable trusted access, see [the AWS Organizations documentation on how to enable or disable trusted access](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_how-to-enable-disable-trusted-access)\.
 + If you have an existing AWS Config Recorder, delivery channel or aggregation setup, you must modify or remove these configurations so that AWS Control Tower can configure AWS Config on your behalf during landing zone launch\. If you used AWS CloudFormation to create these AWS Config resources, ensure that you also use CloudFormation to remove the resources\. For more information, see [Enroll accounts that have existing AWS Config resources](existing-config-resources.md)\.
-+ If you are running ephemeral workloads from accounts in AWS Control Tower, you will see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
++ If you are running ephemeral workloads from accounts in AWS Control Tower, you may see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
 
 **Note**  
@@ -68,7 +68,7 @@ The process of setting up your AWS Control Tower landing zone has multiple steps
 
 ## Configure and launch your landing zone<a name="step-two"></a>
 
-Before you launch your AWS Control Tower landing zone, determine the most appropriate home Region\. For more information, see [Administrative Tips for Landing Zone Setup](best-practices.md#tips-for-admin-setup)\.
+Before you launch your AWS Control Tower landing zone, determine the most appropriate home Region\. For more information, see [Administrative tips for landing zone setup](tips-for-admin-setup.md)\.
 
 **Important**  
 Changing your home Region after you have deployed your AWS Control Tower landing zone requires the assistance of AWS Support\. This practice is not recommended\.
@@ -149,20 +149,20 @@ You can copy and paste the following example policy statement\. Alternatively, f
 
 ```
 {
-            "Sid": "Allow CloudTrail and AWS Config to encrypt/decrypt logs",
-              "Effect": "Allow",
-              "Principal": {
-              "Service": [
-                "cloudtrail.amazonaws.com",
-                "config.amazonaws.com"
-            ]
-            },
-              "Action": [
-                "kms:GenerateDataKey",
-                "kms:Decrypt"
-            ],
-              "Resource": "*"
-            }
+  "Sid": "Allow CloudTrail and AWS Config to encrypt/decrypt logs",
+  "Effect": "Allow",
+  "Principal": {
+    "Service": [
+      "cloudtrail.amazonaws.com",
+      "config.amazonaws.com"
+   ]
+  },
+   "Action": [
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
+   ],
+    "Resource": "*"
+}
 ```
 
 The AWS Key Management Service \(KMS\) allows you to create multi\-Region KMS keys and asymmetric keys; however, AWS Control Tower does not support multi\-Region keys or asymmetric keys\. AWS Control Tower performs a pre\-check of your existing keys\. You may see an error message if you select a multi\-Region key or an asymmetric key\. In that case, generate another key for use with AWS Control Tower resources\.
@@ -192,7 +192,7 @@ Now that your landing zone is set up, it's ready for use\.
 
 To learn more about how you can use AWS Control Tower, see the following topics:
 + For recommended administrative practices, see [Best Practices](https://docs.aws.amazon.com/controltower/latest/userguide/best-practices.html)\.
-+ You can set up AWS SSO users and groups with specific roles and permissions\. For recommendations, see [Recommendations for Setting Up Groups, Roles, and Policies](best-practices.md#roles-recommendations)\.
++ You can set up AWS SSO users and groups with specific roles and permissions\. For recommendations, see [Recommendations for setting up groups, roles, and policies](roles-recommendations.md)\.
 + To begin enrolling organizations and accounts from your AWS Organizations deployments, see [Govern existing organizations and accounts](https://docs.aws.amazon.com/controltower/latest/userguide/importing-existing.html)\.
 + Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for Configuring and Provisioning Accounts](account-factory.md#configure-provision-new-account)\.
 + To assure [Compliance Validation for AWS Control Tower](compliance-program-info.md), your central cloud administrators can review log archives in the Log Archive account, and designated third\-party auditors can review audit information in the Audit \(shared\) account, which is a member of the Security OU\. 

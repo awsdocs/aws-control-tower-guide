@@ -24,7 +24,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)
-+ When you enable guardrails with *strongly recommended* guidance, AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the guardrails entering an unknown state\. For more information, see [Guardrail Reference](guardrails-reference.md)\.
++ When you enable optional guardrails \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the guardrails entering an unknown state\. For more information, see [Guardrail reference](guardrails-reference.md)\.
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
@@ -102,7 +102,7 @@ A guardrail is a high\-level rule that provides ongoing governance for your over
 
 Preventive guardrails prevent actions from occurring\. For example, the elective guardrail called **Disallow Changes to Bucket Policy for Amazon S3 Buckets** \(Previously called **Disallow Policy Changes to Log Archive**\) prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
-Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended guardrail called **Enable encryption for EBS volumes attached to EC2 instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
+Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended guardrail called **Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
 *For those who are familiar with AWS:* In AWS Control Tower preventive guardrails are implemented with Service Control Policies \(SCPs\)\. Detective guardrails are implemented with AWS Config rules\.
 

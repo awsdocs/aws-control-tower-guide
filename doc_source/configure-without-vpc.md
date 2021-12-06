@@ -6,6 +6,9 @@ If your workload does not require a VPC, you can do the following:
 + You can delete the AWS Control Tower virtual private cloud \(VPC\)\. This VPC was created when you set up your landing zone\.
 + You can change your Account Factory settings so that new AWS Control Tower accounts are created without an associated VPC\.
 
+**Important**  
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the guardrail [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-guardrails.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\.
+
 ## Delete the AWS Control Tower VPC<a name="delete-master-vpc"></a>
 
 Outside of AWS Control Tower, every AWS customer has a default VPC, which you can view on the Amazon Virtual Private Cloud \(Amazon VPC\) console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\. You’ll recognize the default VPC, because its name always includes the word *\(default\)* at the end of the name\.
@@ -28,7 +31,7 @@ You can delete the AWS Control Tower VPC, but if you later need a VPC in AWS Con
 
 1. To delete the VPC, choose **Actions** and then choose **Delete VPC**\.
 
-An AWS *\(default\)* VPC already exists in every region for the AWS Control Tower management account\. To follow security best practices, if you choose to delete the AWS Control Tower VPC, it's best also to delete the AWS default VPC associated with the management account from all AWS Regions\. Therefore, to secure the management account, remove the default VPC from each Region, as well as removing the VPC created by Control Tower in your AWS Control Tower home region\.
+An AWS *\(default\)* VPC already exists in every Region for the AWS Control Tower management account\. To follow security best practices, if you choose to delete the AWS Control Tower VPC, it's best also to delete the AWS default VPC associated with the management account from all AWS Regions\. Therefore, to secure the management account, remove the default VPC from each Region, as well as removing the VPC created by Control Tower in your AWS Control Tower home region\.
 
 ## Create an Account in AWS Control Tower Without a VPC<a name="create-without-vpc"></a>
 

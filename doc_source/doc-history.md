@@ -1,10 +1,15 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** November 5 29, 2021
++ **Latest documentation update:** November 30, 2021
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Region deny guardrail ](#doc-history) | AWS Control Tower now includes a guardrail that helps you restrict access to AWS Regions, to address compliance and regulatory concerns\. | November 30, 2021 | 
+| [Data residency guardrails ](#doc-history) | AWS Control Tower now support guardrails that help you manage data residency with granular control\. | November 30, 2021 | 
+| [AWS Control Tower Account factory for Terraform](#doc-history) | AWS Control Tower now supports Terraform for automated account provisioning and updating\. | November 29, 2021 | 
+| [New lifecycle event available](#doc-history) | The `PrecheckOrganizationalUnit` event logs whether any resources block the **Extend governance** task from success, including resources in nested OUs\. | November 18, 2021 | 
+| [Nested OUs available](#doc-history) | AWS Control Tower now enables your landing zone to contain nested OU structures\. | November 16, 2021 | 
 | [Detective guardrail concurrency](#doc-history) | AWS Control Tower detective guardrails now support concurrent enable and disable operations\. | November 5, 2021 | 
 | [Two new regions available](#doc-history) | AWS Control Tower is now available in two new AWS Regions, Europe \(Paris\) Region and South America \(São Paulo\) Region\. | July 29, 2021 | 
 | [Region deselection](#doc-history) | You can deselect AWS Regions that you no longer wish to govern through AWS Control Tower\. | July 29, 2021 | 
