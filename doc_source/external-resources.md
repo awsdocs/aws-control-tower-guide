@@ -46,7 +46,7 @@ AWS Control Tower displays the names of OUs in the AWS Control Tower dashboard a
 
 **Renaming an enrolled account**
 
-Each AWS account has a display name that can be changed in the AWS Billing and Cost Management console\. When you rename an account that's enrolled in AWS Control Tower, the name change is automatically reflected in AWS Control Tower\. 
+Each AWS account has a display name that can be changed by the account's root user in the AWS Billing and Cost Management console\. When you rename an account that's enrolled in AWS Control Tower, the name change is automatically reflected in AWS Control Tower\. For more information about changing an account's name, see [Managing an AWS account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/manage-account-payment.html#manage-account-payment-edit-user-name) in the AWS Billing User Guide\.
 
 ## Deleting the Security OU<a name="delete-security-ou"></a>
 
