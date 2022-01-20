@@ -123,7 +123,6 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
         "ec2:CreateInternetGateway",
         "ec2:AttachInternetGateway",
         "ec2:CreateEgressOnlyInternetGateway",
-        "ec2:AttachEgressOnlyInternetGateway",
         "ec2:CreateDefaultVpc",
         "ec2:CreateDefaultSubnet",
         "ec2:CreateCarrierGateway"
