@@ -15,7 +15,7 @@ AFT supports three Terraform distributions\.
 
 These distributions are explained in the sections that follow\. You must provide the Terraform distribution of your choice as an input parameter during the AFT bootstrap process\. See [Deploy AWS Control Tower Account Factory for Terraform \(AFT\)](aft-getting-started.md) for more information on AFT deployment and input parameters\.
 
-When using Terraform Cloud or Terraform Enterprise, ensure that the [API token] you are using for `terraform_token` is a User or Team API Token - an Organization Token is not supported for all [required APIs](https://www.terraform.io/cloud-docs/api-docs/configuration-versions). Avoid checking-in this value to your to VCS by using a [terraform variable](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables)
+When using Terraform Cloud or Terraform Enterprise, ensure that the [API token](https://www.terraform.io/cloud-docs/users-teams-organizations/api-tokens) you are using for `terraform_token` is a User or Team API Token - an Organization Token is not supported for all [required APIs](https://www.terraform.io/cloud-docs/api-docs/configuration-versions). Avoid checking-in this value to your to VCS by using a [terraform variable](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables).
 
 ```
   # Sensitive variable managed in Terraform Cloud:
