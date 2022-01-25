@@ -11,9 +11,16 @@ version_number = "0.15.1"
 AFT supports three Terraform distributions\.
 + Terraform OSS
 + Terraform Cloud
-+  Terraform Enterprise
++ Terraform Enterprise
 
 These distributions are explained in the sections that follow\. You must provide the Terraform distribution of your choice as an input parameter during the AFT bootstrap process\. See [Deploy AWS Control Tower Account Factory for Terraform \(AFT\)](aft-getting-started.md) for more information on AFT deployment and input parameters\.
+
+When using Terraform Cloud or Terraform Enterprise, ensure that the [API token] you are using for `terraform_token` is a User or Team API Token - an Organization Token is not supported for all [required APIs](https://www.terraform.io/cloud-docs/api-docs/configuration-versions). Avoid checking-in this value to your to VCS by using a [terraform variable](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables)
+
+```
+  # Sensitive variable managed in Terraform Cloud:
+  terraform_token = var.terraform_cloud_token
+```
 
 ### Terraform Open Source Software \(Terraform OSS\)<a name="terraform-oss"></a>
 
@@ -48,8 +55,8 @@ When you select Terraform Cloud as your distribution, AFT creates workspaces for
 The resulting Terraform state configuration is managed by Terraform Cloud\.
 
 For selecting Terraform Cloud as your distribution, provide the following input parameters:
-+  `distribution = "tfc"` 
-+ `terraform_token` – This parameter contains the value of your Terraform Cloud token\. AFT marks its value as sensitive and stores it as a secure string in the SSM parameter store, in the AFT management account\. We recommend that you periodically rotate the value of the Terraform token, according to your company's security policies and compliance guidelines\.
++  `distribution = "tfc"`
++ `terraform_token` – This parameter contains the value of your Terraform Cloud token\. AFT marks its value as sensitive and stores it as a secure string in the SSM parameter store, in the AFT management account\. We recommend that you periodically rotate the value of the Terraform token, according to your company's security policies and compliance guidelines\. Terraform token should be a User or Team level API token, Organization tokens are not supported.
 + `terraform_org_name` – This parameter contains the name of your Terraform Cloud organization\.
 
 See [the Terraform documentation](https://www.terraform.io/docs/cloud/index.html) to learn more about how to set up Terraform Cloud\.
@@ -65,8 +72,8 @@ When you select Terraform Enterprise as your distribution, AFT creates workspace
 The resulting Terraform state configuration is managed by your Terraform Enterprise setup\.
 
 To select Terraform Enterprise as your distribution, provide the following input parameters:
-+  `distribution = "tfe"` 
-+ `terraform_token` – This parameter contains the value of your Terraform Enterprise token\. AFT marks its value as sensitive and stores it as a secure string in the SSM parameter store, in the AFT management account\. We recommend that you periodically rotate the value of the Terraform token, according to your company's security policies and compliance guidelines\.
++  `distribution = "tfe"`
++ `terraform_token` – This parameter contains the value of your Terraform Enterprise token\. AFT marks its value as sensitive and stores it as a secure string in the SSM parameter store, in the AFT management account\. We recommend that you periodically rotate the value of the Terraform token, according to your company's security policies and compliance guidelines\. Terraform token should be a User or Team level API token, Organization tokens are not supported.
 + `terraform_org_name` – This parameter contains the name of your Terraform Enterprise organization\.
 + `terraform_api_endpoint` – This parameter contains the URL of your Terraform Enterprise environment\. The value of this parameter must be in the format:
 
