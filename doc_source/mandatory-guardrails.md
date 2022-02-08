@@ -3,7 +3,7 @@
 Mandatory guardrails are enabled by default when you set up your landing zone and can't be disabled\. Following, you'll find a reference for each of the mandatory guardrails available in AWS Control Tower\.
 
 **Topics**
-+ [Disallow Changes to Encryption Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-changes-s3-buckets-created)
++ [Disallow Changes to Encryption Configuration for AWS Control Tower Created S3 Buckets in Log Archive](#disallow-changes-s3-buckets-created)
 + [Disallow Changes to Logging Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-logging-changes-s3-buckets-created)
 + [Disallow Changes to Bucket Policy for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-policy-changes-s3-buckets-created)
 + [Disallow Changes to Lifecycle Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-lifecycle-changes-s3-buckets-created)
@@ -29,7 +29,7 @@ Mandatory guardrails are enabled by default when you set up your landing zone an
 **Note**  
 The four mandatory guardrails with `"Sid": "GRCLOUDTRAILENABLED"` are identical by design\. The sample code is correct\.
 
-## Disallow Changes to Encryption Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive<a name="disallow-changes-s3-buckets-created"></a>
+## Disallow Changes to Encryption Configuration for AWS Control Tower Created S3 Buckets in Log Archive<a name="disallow-changes-s3-buckets-created"></a>
 
 This guardrail prevents changes to encryption for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\. It cannot be enabled on additional OUs\.
 
