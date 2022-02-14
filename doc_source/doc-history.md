@@ -1,10 +1,11 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** November 30, 2021
++ **Latest documentation update:** February 10, 2022
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Updated support for AWS best practices, version 2\.8 available](#doc-history) | AWS Control Tower landing zone version 2\.8 provides additional support to ensure that your workloads and AWS accounts are in alignment with AWS best practices\. | February 10, 2022 | 
 | [Region deny guardrail ](#doc-history) | AWS Control Tower now includes a guardrail that helps you restrict access to AWS Regions, to address compliance and regulatory concerns\. | November 30, 2021 | 
 | [Data residency guardrails ](#doc-history) | AWS Control Tower now support guardrails that help you manage data residency with granular control\. | November 30, 2021 | 
 | [AWS Control Tower Account factory for Terraform](#doc-history) | AWS Control Tower now supports Terraform for automated account provisioning and updating\. | November 29, 2021 | 
@@ -15,7 +16,7 @@ The following table describes important changes to the *AWS Control Tower User G
 | [Region deselection](#doc-history) | You can deselect AWS Regions that you no longer wish to govern through AWS Control Tower\. | July 29, 2021 | 
 | [KMS keys available](#doc-history) | You can optionally create or choose KMS keys that you manage, to encrypt your data and resources\. | July 28, 2021 | 
 | [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that customers can use their own KMS encryption keys for AWS CloudTrail logs\. | July 28, 2021 | 
-| [Guardail names changed, functionality unchanged](#doc-history) | Certain guardrail names and descriptions were updated to better reflect the policy intentions of the guardrail, with no change in functionality\. | July 26, 2021 | 
+| [Guardrail names changed, functionality unchanged](#doc-history) | Certain guardrail names and descriptions were updated to better reflect the policy intentions of the guardrail, with no change in functionality\. | July 26, 2021 | 
 | [Automated scans of managed SCPs](#doc-history) | AWS Control Tower performs daily automated scans of managed SCPs to check for drift\. | May 11, 2021 | 
 | [Customized names for OUs and accounts](#doc-history) | AWS Control Tower allows you to provide customized names during the landing zone setup process, for essential OUs and accounts, without creating drift\. | April 16, 2021 | 
 | [Decommissioning a landing zone is self\-service](#doc-history) |  AWS Control Tower now allows you to decommission a landing zone without contacting AWS Support\. Decommissioning is a semi\-automated process that cannot be undone\. It is not the same as deleting all AWS Control Tower resources manually\. | April 9, 2021 | 
@@ -29,7 +30,7 @@ The following table describes important changes to the *AWS Control Tower User G
 | [Guardrail update](#doc-history) | An updated version has been released for the mandatory guardrail `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\. The updated guardrail allows easier automated enrollment of accounts\. | October 8, 2020 | 
 | [Related information page is now available for AWS Control Tower](#doc-history) | The related information page makes it easier to find common tasks that may be helpful after setting up your AWS Control Tower landing zone\. | September 18, 2020 | 
 | [AWS Control Tower console shows more detail about OUs and accounts\.](#doc-history) | Within the AWS Control Tower console, you can view more detail about your AWS accounts and organizational units \(OUs\)\. The ‘Accounts’ page now lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can now search, sort, and filter across all tables\. | July 22, 2020 | 
-| [AWS Control Tower allows existing organizations to set up a landing zone](#doc-history) | You can now launch a landing zone for AWS Control Tower in an existing organization, to bring the organization into governance\. The **Quick account provisioning** capability in AWS Control Tower was renamed to **Enroll account** and it now permits enrollment of existing AWS accounts as well as creation of new accounts\. | April 16, 2020 | 
+| [AWS Control Tower allows existing organizations to set up a landing zone](#doc-history) | You can now launch a landing zone for AWS Control Tower in an existing organization, to bring the organization into governance\. The **Quick account provisioning** capability in AWS Control Tower was renamed to **Enroll account** and it now permits enrollment of existing AWSAWSaccounts as well as creation of new accounts\. | April 16, 2020 | 
 | [AWS Control Tower is now available in Asia Pacific](#doc-history) | AWS Control Tower is now available to be deployed in the Asia Pacific \(Sydney\) AWS Region\. This release requires manual updates to vended accounts, update only if you plan to run workloads in Asia Pacific \(Sydney\)\.  | March 3, 2020 | 
 | [Decommissioning an AWS Control Tower landing zone is possible](#doc-history) | AWS Support can help you permanently decommission a landing zone through a mostly automated process that preserves your organizations, although some manual cleanup is required\. | February 27, 2020 | 
 | [Quick account provisioning is available in AWS Control Tower](#doc-history) | Quick account provisioning makes it easier to launch new member accounts when your landing zone is up to date, with the **Enroll account** feature\. | February 20, 2020 | 

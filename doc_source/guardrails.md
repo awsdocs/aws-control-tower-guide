@@ -34,7 +34,7 @@ AWS Control Tower provides three categories of guidance: *mandatory*, *strongly 
 + Strongly recommended guardrails are designed to enforce some common best practices for well\-architected, multi\-account environments\.
 + Elective guardrails enable you to track or lock down actions that are commonly restricted in an AWS enterprise environment\.
 
-**Defaults:** When you create a new landing zone, all mandatory guardrails are enabled by default\. Strongly recommended and elective guardrails are not enabled by default\.
+**Defaults:** When you create a new landing zone, AWS Control Tower enables all mandatory guardrails by default and applies them to your top\-level OUs\. When you extend governance to an OU, AWS Control Tower applies mandatory guardrails to the OU by default\. Strongly recommended and elective guardrails are not enabled by default\.
 
 ## Considerations for guardrails and OUs<a name="guardrail-considerations"></a>
 

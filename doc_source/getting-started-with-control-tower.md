@@ -26,15 +26,15 @@ By default, all accounts are subscribed to these services\.
 + Three options apply to your SSO directory, based on the identity source you choose in SSO:
   + **AWS SSO User Store**: If SSO for AWS Control Tower is set up with AWS SSO, AWS Control Tower creates groups in the SSO directory and provisions access to these groups, for the user you select, for member accounts\.
   + **Active Directory**: If SSO for AWS Control Tower is set up with Active Directory, AWS Control Tower does not manage the SSO directory\. It does not assign users or groups to new AWS accounts\.
-  + **External Identity Provider**: If SSO for AWS Control Tower is set up with an external identity provider \(IdP\), AWS Control Tower creates groups in the SSO directory and provisions access to these groups for the user you select for member accounts\. You can specify an existing user from your external IdP in Account Factory during account creation, and AWS Control Tower gives this user access to the newly vended account when it synchronizes users of the same name between SSO and the external IdP\. You can also create groups in your external IdP to match the names of the default groups in AWS Control Tower\. When you assign users to these groups, these users will have access to your enrolled accounts\.
+  + **External Identity Provider**: If AWS SSO for AWS Control Tower is set up with an external identity provider \(IdP\), AWS Control Tower creates groups in the SSO directory and provisions access to these groups for the user you select for member accounts\. You can specify an existing user from your external IdP in Account Factory during account creation, and AWS Control Tower gives this user access to the newly vended account when it synchronizes users of the same name between SSO and the external IdP\. You can also create groups in your external IdP to match the names of the default groups in AWS Control Tower\. When you assign users to these groups, these users will have access to your enrolled accounts\.
 
    For more information about working with AWS SSO and AWS Control Tower see [Things to Know About SSO Accounts and AWS Control Tower](sso.md#sso-good-to-know)
 
 ### Considerations for AWS Config and AWS CloudTrail customers<a name="config-and-cloudtrail-considerations"></a>
 + The AWS account cannot have trusted access enabled in the organization management account for either AWS Config or AWS CloudTrail\. For information about how to disable trusted access, see [the AWS Organizations documentation on how to enable or disable trusted access](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_how-to-enable-disable-trusted-access)\.
-+ If you have an existing AWS Config Recorder, delivery channel or aggregation setup, you must modify or remove these configurations so that AWS Control Tower can configure AWS Config on your behalf during landing zone launch\. If you used AWS CloudFormation to create these AWS Config resources, ensure that you also use CloudFormation to remove the resources\. For more information, see [Enroll accounts that have existing AWS Config resources](existing-config-resources.md)\.
++ If you have an existing AWS Config recorder, delivery channel, or aggregation setup in any existing accounts that you plan to enroll in AWS Control Tower, you must modify or remove these configurations before you start enrolling the accounts, after your landing zone is set up\. This pre\-check doesn't apply to the AWS Control Tower management account during landing zone launch\. For more information, see [Enroll accounts that have existing AWS Config resources](existing-config-resources.md)\.
 + If you are running ephemeral workloads from accounts in AWS Control Tower, you may see an increase in costs associated with AWS Config\. Contact your AWS account representative for more specific information about managing these costs\.
-+ When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
++ When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail in the account, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\. For information about organization\-level trails and AWS Control Tower, see [Pricing](pricing.md)\.
 
 **Note**  
 When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
@@ -47,7 +47,7 @@ To set up your landing zone, AWS Control Tower requires two unique email address
 + **Audit account** – This account is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
 + **Log archive account** – This account is for your team of users that need access to all the logging information for all of your enrolled accounts within registered OUs in your landing zone\.
 
-These accounts are created in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you need to perform some action in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
+These accounts are created in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you perform actions in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
 
 For the sake of clarity, this User Guide always refers to the shared accounts by their default names: **log archive** and **audit**\. As you read this document, remember to substitute the customized names you give to these accounts initially, if you choose to customize them\. You can view your accounts with their customized names on the **Account details** page\.
 
@@ -71,7 +71,7 @@ The process of setting up your AWS Control Tower landing zone has multiple steps
 Before you launch your AWS Control Tower landing zone, determine the most appropriate home Region\. For more information, see [Administrative tips for landing zone setup](tips-for-admin-setup.md)\.
 
 **Important**  
-Changing your home Region after you have deployed your AWS Control Tower landing zone requires the assistance of AWS Support\. This practice is not recommended\.
+Changing your home Region after you have deployed your AWS Control Tower landing zone requires decommissioning as well as the assistance of AWS Support\. This practice is not recommended\.
 
 AWS Control Tower has no APIs or programmatic access\. To configure and launch your landing zone, perform the following series of steps\.
 
@@ -88,7 +88,10 @@ Be sure you've correctly designated the AWS Region that you select for your home
 In this section of the setup process, you can add any additional AWS Regions that you require\. You can add more Regions at a later time, if needed, and you can remove Regions from governance\. 
 
 **To select additional AWS Regions to govern**
-+ The panel shows you the current Region selections\. Open the dropdown menu to see a list of additional Regions available for governance\. Check the box next to each Region to bring into governance by AWS Control Tower\. Your home Region selection is not editable\.
+
+1. The panel shows you the current Region selections\. Open the dropdown menu to see a list of additional Regions available for governance\.
+
+1. Check the box next to each Region to bring into governance by AWS Control Tower\. Your home Region selection is not editable\.
 
 ### Step 2\. Configure your organizational units \(OUs\)<a name="configure-ous"></a>
 

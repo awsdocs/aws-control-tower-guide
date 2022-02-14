@@ -1,4 +1,4 @@
-# Updating and moving account factory accounts with AWS Service Catalog<a name="updating-account-factory-accounts"></a>
+# Update and move account factory accounts with AWS Service Catalog<a name="updating-account-factory-accounts"></a>
 
 The following procedure guides you through how to update your Account Factory account or move it to a new OU, through AWS Service Catalog, by updating the provisioned product\.
 

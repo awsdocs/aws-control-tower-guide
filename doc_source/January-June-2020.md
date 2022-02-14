@@ -5,7 +5,7 @@ Since January 1, 2020, AWS Control Tower has released the following updates:
 + [AWS Control Tower now available in additional Regions](#region-expansion-11-19-20)
 + [Guardrail update](#guardrail-update)
 + [AWS Control Tower console shows more detail about OUs and accounts](#OU-account-detail)
-+ [Use AWS Control Tower to set up new multi\-account AWS environments in AWS Organizations ](#multiaccount-environments) 
++ [Use AWS Control Tower to set up new multi\-account AWS environments in AWS Organizations](#multiaccount-environments) 
 + [Customizations for AWS Control Tower solution](#Customizations)
 + [General availability of AWS Control Tower version 2\.3 ](#Available_in_Sydney)
 + [Single\-step account provisioning in AWS Control Tower ](#Single-step-provisioning)
@@ -89,7 +89,7 @@ AWS Control Tower now includes a new reference implementation that makes it easy
 
 With customizations for AWS Control Tower, you can use AWS CloudFormation templates to deploy new resources to existing and new accounts within your organization\. You can also apply custom service control policies \(SCPs\) to those accounts in addition to the SCPs already provided by AWS Control Tower\. Customizations for AWS Control Tower pipeline integrate with AWS Control Tower lifecycle events and notifications \([Lifecycle Events in AWS Control Tower](lifecycle-events.md)\) to ensure that resource deployments stay in sync with your landing zone\.
 
-The deployment documentation for this AWS Control Tower solution architecture is available through the [ AWS Solutions web page](http://aws.amazon.com/solutions/implementations/customizations-for-aws-control-tower/)\. 
+The deployment documentation for this AWS Control Tower solution architecture is available through the [AWS Solutions web page](http://aws.amazon.com/solutions/implementations/customizations-for-aws-control-tower/)\. 
 
 ## General availability of AWS Control Tower version 2\.3<a name="Available_in_Sydney"></a>
 
@@ -129,7 +129,7 @@ In April 2020, the **Quick account provisioning** capability was renamed to **En
 
 AWS Control Tower now supports an automated decommissioning tool to assist you in cleaning up resources allocated by AWS Control Tower\. If you no longer intend to use AWS Control Tower for your enterprise, or if you require a major redeployment of your organizational resources, you may want to clean up the resources created when you initially set up your landing zone\. 
 
-To decommission your landing zone by using a process that is mostly automated, contact AWS Support to get assistance with the additional steps that are required\. For more information about decommissioning, see [Walkthrough: Decommission a landing zone](decommission-landing-zone.md)\.
+To decommission your landing zone by using a process that is mostly automated, contact AWS Support to get assistance with the additional steps that are required\. For more information about decommissioning, see [Walkthrough: Decommission an AWS Control Tower Landing Zone](decommission-landing-zone.md)\.
 
 ## AWS Control Tower lifecycle event notifications<a name="Lifecycle-event-notifications"></a>
 

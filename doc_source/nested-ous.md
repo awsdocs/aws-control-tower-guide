@@ -2,6 +2,12 @@
 
 This chapter lists the expectations and considerations you'll want to be aware of when working with nested OUs in AWS Control Tower\. In most ways, working with nested OUs is the same as working with a flat OU structure\. The **Register** and **Re\-register** features work with nested OUs, except for the changed behaviors that are noted in this chapter\.
 
+## Video Walkthrough<a name="nested-ou-video"></a>
+
+This video \(4:46\) describes how to manage nested OU deployments in AWS Control Tower\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+
+For guidance regarding best practices for nested OUs and your landing zone, see the blog post [Organizing your AWS Control Tower landing zone with nested OUs](http://aws.amazon.com/blogs/mt/organizing-your-aws-control-tower-landing-zone-with-nested-ous/)\.
+
 ## Expand from flat OU structure to nested OU structure<a name="flat-to-nested"></a>
 
 If you created your AWS Control Tower landing zone with a flat OU structure, you can expand it to a nested OU structure\. 

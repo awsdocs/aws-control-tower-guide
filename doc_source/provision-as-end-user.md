@@ -1,4 +1,4 @@
-# Provisioning Account Factory Accounts With AWS Service Catalog<a name="provision-as-end-user"></a>
+# Provision Account Factory accounts with AWS Service Catalog<a name="provision-as-end-user"></a>
 
 The following procedure describes how to provision accounts as an AWS SSO end user, through AWS Service Catalog\. This procedure also is referred to as *advanced account provisioning*\. We recommend using the **Enroll account** capability whenever possible\.
 

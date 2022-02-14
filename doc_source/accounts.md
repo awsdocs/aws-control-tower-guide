@@ -6,7 +6,7 @@ An AWS account is the container for all your owned resources\. These resources i
 
 When AWS Control Tower creates or enrolls an account, it deploys the minimum necessary resource configuration for the account, including resources in the form of [Account Factory templates](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory-considerations.html) and other resources in your landing zone\. These resources may include IAM roles, AWS CloudTrail trails, [AWS Service Catalog provisioned products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-dashboard.html), and SSO users\. AWS Control Tower also deploys resources, as required by the guardrail configuration, for the OU in which the new account is destined to become a member account\.
 
-AWS Control Tower orchestrates the deployment of these resources on your behalf\. It may require several minutes per resource to complete the deployment, so consider the total time before you create or enroll an account\. For more information about managing resources in your accounts, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)\.
+AWS Control Tower orchestrates the deployment of these resources on your behalf\. It may require several minutes per resource to complete the deployment, so consider the total time before you create or enroll an account\. For more information about managing resources in your accounts, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)\.
 
 ## About the shared accounts<a name="special-accounts"></a>
 
@@ -23,11 +23,15 @@ This AWS account launches AWS Control Tower\. By default, the root user for this
 **Note**  
 As a best practice, we recommend signing in as an AWS SSO user with **Administrator** privileges when performing administrative functions within the AWS Control Tower management console, instead of the signing in as the root or IAM administrator users for this account\.
 
+For more information about the roles and resources available in the management account, see [What is the management account?](how-control-tower-works.md#what-is-mgmt)
+
 ### Log archive account<a name="log-archive-account"></a>
 
 This shared account is created automatically when you create your landing zone\. Note that the email address must not already have an associated AWS account\.
 
 This account contains a central Amazon S3 bucket for storing a copy of all AWS CloudTrail and AWS Config log files for all other accounts in your landing zone\. As a best practice, we recommend restricting log archive account access to teams responsible for compliance and investigations, and their related security or audit tools\. This account can be used for automated security audits, or to host custom AWS Config Rules, such as Lambda functions, to perform remediation actions\.
+
+For more information about the roles and resources available in the log archive account, see [What is the log archive account?](how-control-tower-works.md#what-is-log-archive)
 
 **Note**  
 These logs cannot be changed\. All logs are stored for the purposes of audit and compliance investigations related to account activity\.
@@ -46,6 +50,8 @@ The audit account also receives notifications through the Amazon Simple Notifica
 + **Drift Notifications** – This topic aggregates all the drift warnings discovered across all accounts, users, OUs, and SCPs in your landing zone\. For more information on drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 Audit notifications that are triggered within a managed account also can send alerts to a local Amazon SNS topic\. This functionality allows account administrators to subscribe to audit notifications that are specific to an individual managed account\. As a result, administrators can resolve issues that affect an individual account, while still aggregating all account notifications to your centralized audit account\. For more information, see [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)\.
+
+For more information about the roles and resources available in the audit account, see [What is the audit account?](how-control-tower-works.md#what-is-audit) Also see [Programmatic roles and trust relationships for the AWS Control Tower audit account](roles-how.md#stacksets-and-roles)\.
 
 **Important**  
 The email address you provided for the audit account receives **AWS Notification \- Subscription Confirmation** emails from every AWS Region supported by AWS Control Tower\. To receive compliance emails in your audit account, you must choose the **Confirm subscription** link within each email from each AWS Region supported by AWS Control Tower\. 

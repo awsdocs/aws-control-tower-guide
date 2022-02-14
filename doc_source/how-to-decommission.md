@@ -19,7 +19,7 @@ We recommend that you unmanage your enrolled accounts prior to decommissioning\.
 **Note**  
 *These actions may have significant consequences for your billing and compliance activities\. For example, failure to delete these resources can result in unexpected charges\.*
 
-    For more information about how to delete resources manually, see [Manual Cleanup of AWS Control Tower Resources](walkthrough-delete.md#manual-decommissioning)\.
+    For more information about how to delete resources manually, see [About manual cleanup of AWS Control Tower resources](walkthrough-delete.md#manual-decommissioning)\.
 
 1. If you intend to set up a new landing zone in a new AWS Region, follow this additional step\. Enter the following command through the CLI: 
 

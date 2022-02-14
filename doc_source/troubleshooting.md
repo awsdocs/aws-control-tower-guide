@@ -58,7 +58,7 @@ Sign in to the management account of your organization, and sign in as root user
 + enabled SNS notifications,
 + enabled provisioned product notifications\.
 
-Try again to provision your account, without specifying any of those options\. For more information, see [Provisioning Account Factory Accounts With AWS Service Catalog](provision-as-end-user.md)\.
+Try again to provision your account, without specifying any of those options\. For more information, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\.
 
 **Other common causes for failure:**
 + If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.

@@ -1,4 +1,4 @@
-# Configuring Account Factory with Amazon Virtual Private Cloud Settings<a name="configuring-account-factory-with-VPC-settings"></a>
+# Configure Account Factory with Amazon Virtual Private Cloud settings<a name="configuring-account-factory-with-VPC-settings"></a>
 
 Account Factory enables you to create pre\-approved baselines and configuration options for accounts in your organization\. You can configure and provision new accounts through AWS Service Catalog\.
 

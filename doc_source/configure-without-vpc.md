@@ -1,4 +1,4 @@
-# Walkthrough: Configuring AWS Control Tower Without a VPC<a name="configure-without-vpc"></a>
+# Walkthrough: Configure AWS Control Tower Without a VPC<a name="configure-without-vpc"></a>
 
 This topic walks through how to configure your AWS Control Tower accounts without a VPC\.
 

@@ -23,6 +23,20 @@ To enable this option, set the following feature flag to **True** in your AFT de
 aft_feature_cloudtrail_data_events
 ```
 
+**Prerequisite**
+
+Before you enable this feature option, be sure that trusted access for AWS CloudTrail is enabled in your organization\. 
+
+**To check the status of trusted access for CloudTrail :**
+
+1. Navigate to the AWS Organizations console\.
+
+1. Choose **Services > CloudTrail**\.
+
+1. Then select **Enable trusted access** in the upper right, if needed\.
+
+You may receive a warning message that advises you to use the AWS CloudTrail console, but in this case, disregard the warning\. AFT creates the trail as part of enabling this feature option, after you allow trusted access\. If trusted access is not enabled, you will receive an error message when AFT attempts to create your trail for data events\.
+
 **Note**  
 This setting works at the organization level\. Enabling this setting affects all accounts in AWS Organizations, whether they are managed by AFT or not\. All buckets in the AWS Control Tower Log Archive account at the time of enabling are excluded from Amazon S3 data events\. Refer to [the AWS CloudTrail User Guide](https://docs.aws.amazon.com/                 /awscloudtrail/latest/userguide/cloudtrail-user-guide.html) to learn more about CloudTrail\.
 
@@ -42,7 +56,7 @@ Refer to [Compare AWS Support Plans](http://aws.amazon.com/aws.amazon.com/premiu
 
 ## Delete the AWS default VPC<a name="delete-default-vpc-option"></a>
 
-When this option is enabled, the AFT pipeline deletes the associated AWS default VPCs in all Regions, for the accounts that AFT provisions\.
+When this option is enabled, the AFT pipeline deletes the associated AWS default VPCs in all AWS Regions, for the accounts that AFT provisions\.
 
 New AWS accounts are created with a VPC set up in each AWS Region, by default\. Your enterprise may have standard practices for creating VPCs, which require you to delete the AWS default VPC and avoid enabling it\. AFT provides an automated way to delete the default VPCs for the accounts that AFT provisions\.
 

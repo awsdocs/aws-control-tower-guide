@@ -28,3 +28,7 @@ You can enable several feature options, based on best practices:
 
 **Note**  
 The AFT pipeline is not intended for use in deploying resources, such as Amazon EC2 instances, that your accounts require to run your applications\. It is intended solely for automated provisioning and customizing of AWS Control Tower accounts\.
+
+## Video Walkthrough<a name="terraform-provisioning-video"></a>
+
+This video \(7:33\) describes how to deploy accounts with AWS Control Tower Account Factory for Terraform\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.

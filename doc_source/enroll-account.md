@@ -88,7 +88,7 @@ To fulfill the prerequisites for account enrollment, you can follow these prepar
 
 1. Drop the account from its existing organization\. \(You must provide a separate payment method if you use this approach\.\)
 
-1. Invite the account into the AWS Control Tower organization\.
+1. Invite the account into the AWS Control Tower organization\. You can follow this procedure given in the AWS Organizations documentation, [Inviting an AWS account to join your organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html)\.
 
 1. Accept the invitation\. \(The account shows up in the root of the organization\.\) This step moves the account into the same organization as AWS Control Tower\. It establishes SCPs and consolidated billing\.
 
@@ -126,7 +126,7 @@ You can send the invitation for the new organization before the account drops ou
 
 1. Optionally, set up the account with the necessary billing details, as required for any account that does not belong to an organization, then remove the account from the organization\. You would do this so that the account does not count against the total in your AWS Organizations quota\.
 
-1. Clean up the account, if resources remain, and close it, following account closure steps given in [Unmanaging a Member Account](unmanage-account.md)\.
+1. Clean up the account, if resources remain, and close it, following account closure steps given in [Unmanage a member account](unmanage-account.md)\.
 
 1. If you have a **Suspended** OU with defined guardrails, you can move the account there instead of doing Step 1\.
 

@@ -1,15 +1,17 @@
-# Walkthrough: Automated Account Provisioning in AWS Control Tower<a name="automated-provisioning-walkthrough"></a>
+# Walkthrough: Automate Account Provisioning in AWS Control Tower by AWS Service Catalog APIs<a name="automated-provisioning-walkthrough"></a>
 
 AWS Control Tower is integrated with several other AWS services, such as AWS Service Catalog\. You can use the APIs to create and provision your member accounts in AWS Control Tower\.
 
-The video shows you how to provision accounts in an automated, batch fashion, by calling the AWS Service Catalog APIs\. For provisioning, you'll call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_ProvisionProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_ProvisionProduct.html) API from the AWS command line interface \(CLI\), and you'll specify a JSON file that contains the parameters for each account you'd like to set up\. The video illustrates installing and using the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) development environment to perform this work\.
+The video shows you how to provision accounts in an automated, batch fashion, by calling the AWS Service Catalog APIs\. For provisioning, you'll call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_ProvisionProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_ProvisionProduct.html) API from the AWS command line interface \(CLI\), and you'll specify a JSON file that contains the parameters for each account you'd like to set up\. The video illustrates installing and using the [AWS Cloud9](https://docs.aws.amazon.com/cloud9/latest/user-guide/welcome.html) development environment to perform this work\. The CLI commands would be the same if you use AWS Cloudshell instead of AWS Cloud9\.
 
 **Note**  
-You also can use this approach for automating account updates, by calling the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one\.
+You also can adapt this approach for automating account updates, by calling the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one\.
+
+As a completely different automation method, if you are familiar with Terraform, you can [provision accounts with AWS Control Tower Account Factory for Terraform \(AFT\)](taf-account-provisioning.md)\.
 
 **Sample automation administration role**
 
-Here is a sample template you can use to help configure your automation administration role in the management account\.
+Here is a sample template you can use to help configure your automation administration role in the management account\. You would configure this role in your management account so it can perform the automation with Administrator access in the target accounts\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -43,7 +45,7 @@ Resources:
 
 **Sample automation execution role**
 
-Here is a sample template you can use to help you set up your automation execution role\. 
+Here is a sample template you can use to help you set up your automation execution role\. You would configure this role in the target accounts\.
 
 ```
 AWSTemplateFormatVersion: "2010-09-09"
@@ -86,6 +88,8 @@ Resources:
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/AdministratorAccess"
 ```
+
+After configuring these roles, you call the AWS Service Catalog APIs to perform the automated tasks\. The CLI commands are given in the video\.
 
 ## Sample provisioning input for Service Catalog API<a name="sample-sc-api-input"></a>
 
@@ -134,4 +138,4 @@ Notice that the format of the input string for the value of `ManagedOrganization
 
 ## Video Walkthrough<a name="automated-provisioning-video"></a>
 
-This video \(7:08\) describes how to automate account deployments in AWS Control Tower\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+This video \(6:58\) describes how to automate account deployments in AWS Control Tower\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.

@@ -23,14 +23,14 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 + Except for the management account, guardrails are applied to the organization as a whole\.
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
-+ When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for Creating and Modifying AWS Control Tower Resources](best-practices.md#getting-started-guidance)
++ When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)
 + When you enable optional guardrails \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the guardrails entering an unknown state\. For more information, see [Guardrail reference](guardrails-reference.md)\.
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
 In AWS Control Tower, three shared accounts in your landing zone are provisioned automatically during setup: the management account, the log archive account, and the audit account\.
 
-### What is the management account?<a name="what-is-master"></a>
+### What is the management account?<a name="what-is-mgmt"></a>
 
 This is the account that you created specifically for your landing zone\. This account is used for billing for everything in your landing zone\. It's also used for Account Factory provisioning of accounts, as well as to manage OUs and guardrails\.
 

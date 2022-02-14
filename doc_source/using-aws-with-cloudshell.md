@@ -72,7 +72,7 @@ In the following example, you can use AWS CloudShell to create an Amazon S3 buck
 1. To create a bucket in a specified AWS Region, enter the following command in the CloudShell command line:
 
    ```
-   aws s3api create-bucket - -bucket insert-unique-bucket-name-here - -region us-east-1
+   aws s3api create-bucket --bucket insert-unique-bucket-name-here --region us-east-1
    ```
 
    If the call is successful, the command line displays a response from the service similar to the following output:
@@ -88,7 +88,7 @@ If you don't adhere to the [rules for naming buckets](https://docs.aws.amazon.co
 1. To upload a file and add it as an object to the bucket that was just created, call the PutObject method: 
 
    ```
-   aws s3api put-object - -bucket insert-unique-bucket-name-here - -key add_prog - -body add_prog.py
+   aws s3api put-object --bucket insert-unique-bucket-name-here --key add_prog --body add_prog.py
    ```
 
    If the object is uploaded successfully to the Amazon S3 bucket, the command line displays a response from the service similar to the following output:

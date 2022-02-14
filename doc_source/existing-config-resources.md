@@ -65,11 +65,11 @@ Here are some types of AWS Config resources that your account could have already
            Version: 2012-10-17
            Statement:
              - Effect: Allow
-             Principal:
-               Service:
-                 - config.amazonaws.com
-             Action:
-               - sts:AssumeRole
+               Principal:
+                 Service:
+                   - config.amazonaws.com
+               Action:
+                 - sts:AssumeRole
          Path: /
          ManagedPolicyArns:
            - arn:aws:iam::aws:policy/service-role/AWSConfigRole
@@ -132,7 +132,7 @@ Only one AWS Config delivery channel can exist can exist per Region\. If another
 This modification can be made through the AWS CLI using the following command\. Replace the string `DELIVERY_CHANNEL_NAME` with the existing AWS Config recorder name\.
 
 ```
-aws configservice put-delivery-channel —delivery-channel name=DELIVERY_CHANNEL_NAME, s3BucketName=aws-controltower-logs-LOGGING_ACCOUNT_ID-ap-northeast-2, s3KeyPrefix="ORGANIZATION_ID", configSnapshotDeliveryProperties={deliveryFrequency=TwentyFour_Hours}, snsTopicARN=arn:aws:sns:CURRENT_REGION:AUDIT_ACCOUNT:aws-controltower-AllConfigNotifications --region CURRENT_REGION
+aws configservice put-delivery-channel --delivery-channel name=DELIVERY_CHANNEL_NAME, s3BucketName=aws-controltower-logs-LOGGING_ACCOUNT_ID-ap-northeast-2, s3KeyPrefix="ORGANIZATION_ID", configSnapshotDeliveryProperties={deliveryFrequency=TwentyFour_Hours}, snsTopicARN=arn:aws:sns:CURRENT_REGION:AUDIT_ACCOUNT:aws-controltower-AllConfigNotifications --region CURRENT_REGION
 ```
 
 ## Step 5c\. Modify AWS Config aggregation authorization resources<a name="modify-config-aggregator-auth-step-5c"></a>
@@ -154,7 +154,6 @@ This modification can be made through the AWS CLI using the following command
 1. Copy and update the following template:
 
    ```
-       
    AWSTemplateFormatVersion: 2010-09-09
    Description: Configure AWS Config
    Resources:

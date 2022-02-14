@@ -34,7 +34,7 @@ We recommend that you create a separate OU in your AWS Organization, where you w
 
 AFT requires a separate AWS account to manage and orchestrate its own requests\. From the AWS Control Tower management account that's associated with your AWS Control Tower landing zone, you'll provision this account for AFT\.
 
-To provision the AFT management account, see [Provisioning Account Factory Accounts With AWS Service Catalog](provision-as-end-user.md)\. When specifying an OU, be sure to select the OU you created in Step 2\. When specifying a name, use `AFT-Management`\.
+To provision the AFT management account, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\. When specifying an OU, be sure to select the OU you created in Step 2\. When specifying a name, use `AFT-Management`\.
 
 **Note**  
 It can take up to 30 minutes for the account to be fully provisioned\. Validate that you have access to the AFT management account\.

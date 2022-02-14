@@ -24,7 +24,7 @@ For more information about data protection, see the [AWS Shared Responsibility M
 
 ## Encryption at Rest<a name="data-protection-encryption-rest"></a>
 
-AWS Control Tower uses Amazon S3 buckets and Amazon DynamoDB databases that are encrypted at rest by using Amazon S3\-Managed Keys \(SSE\-S3\) in support of your landing zone\. This encryption is configured by default when you set up your landing zone\. You can also establish encryption at rest for the services you use in your landing zone for the services that support it\. For more information, see the security chapter of that service's online documentation\.
+AWS Control Tower uses Amazon S3 buckets and Amazon DynamoDB databases that are encrypted at rest by using Amazon S3\-Managed Keys \(SSE\-S3\) in support of your landing zone\. This encryption is configured by default when you set up your landing zone\. Optionally, you can configure your landing zone to encrypt resources with KMS encryption keys\. You can also establish encryption at rest for the services you use in your landing zone for the services that support it\. For more information, see the security chapter of that service's online documentation\.
 
 ## Encryption in Transit<a name="data-protection-encryption-in-transit"></a>
 

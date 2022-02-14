@@ -4,7 +4,15 @@ These elective guardrails complement your enterprise's data residency posture\. 
 
 These guardrails take effect at the OU level, and they apply to all member accounts within the OU\.
 
+**Important**  
+Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from these guardrails\. You can identify the services that are exempt by reviewing the **Region deny SCP**, shown in the example code\. Services with "\*" after their identifier are exempt, because all actions are permitted when the "\*" notation is given\. This SCP essentially contains a list of explicitly permitted actions, and all other actions are denied\. You cannot deny access to your home Region\.
+
+## Video: Enable data residency guardrails<a name="video-walkthrough-data-residency"></a>
+
+This video \(5:58\) describes how to enable data residency controls with AWS Control Tower guardrails\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+
 **Topics**
++ [Video: Enable data residency guardrails](#video-walkthrough-data-residency)
 + [Deny access to AWS based on the requested AWS Region](#primary-region-deny-policy)
 + [Disallow internet access for an Amazon VPC instance managed by a customer](#disallow-vpc-internet-access)
 + [Disallow Amazon Virtual Private Network \(VPN\) connections](#prevent-vpn-connection)
@@ -29,6 +37,9 @@ These guardrails take effect at the OU level, and they apply to all member accou
 *This guardrail is commonly referred to as the Region deny guardrail\.*
 
 This guardrail disallows access to unlisted operations in global and regional services outside of the specified Regions\. That includes all Regions where AWS Control Tower is not available, as well as all Regions not selected for governance in the **Landing zone settings** page\. Actions are allowed as usual in Regions with **Governed** status\.
+
+**Note**  
+Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from data residency guardrails\. Those services are specified in the SCP example code that follows\.
 
 This is an elective guardrail with preventive guidance\. It is the primary guardrail associated with the **Region deny** action\. For more information, see [Configure the Region deny guardrail](region-deny.md)\.
 
@@ -67,6 +78,9 @@ The format for this guardrail is based on the following SCP\.
         "networkmanager:*",
         "organizations:*",
         "pricing:*",
+        "route53-recovery-control-config:*",
+        "route53-recovery-readiness:*",
+        "route53-recovery-cluster:*",
         "route53:*",
         "route53domains:*",
         "s3:GetBucketPublicAccessBlock",
@@ -104,7 +118,7 @@ Based on this example SCP format, AWS Control Tower adds your governed Regions i
 This guardrail disallows internet access for an Amazon Virtual Private Cloud \(VPC\) instance managed by a customer, rather than by an AWS service\.
 
 **Important**  
-If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides this guardrail\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configuring AWS Control Tower Without a VPC](configure-without-vpc.md)\.
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides this guardrail\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)\.
 + This guardrail does not apply to VPCs managed by AWS services\.
 + Existing VPCs that have internet access retain their internet access\. It applies to new instances only\. After this guardrail is applied, access cannot be changed\.
 

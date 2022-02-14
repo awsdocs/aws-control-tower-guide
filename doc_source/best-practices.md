@@ -48,24 +48,9 @@ This procedure assumes you've already created at least one child OU within your 
 
 For detailed information about the guardrails and their functions, see [Guardrails in AWS Control Tower](guardrails.md)\.
 
-## Guidance for Creating and Modifying AWS Control Tower Resources<a name="getting-started-guidance"></a>
-
-We recommend the following practices as you create and modify resources in AWS Control Tower\. This guidance might change as the service is updated\.
-
-**General Guidance**
-+ Do not modify or delete resources created by AWS Control Tower in the management account or in the shared accounts\. Modification of these resources can require you to update your landing zone or re\-register an OU\.
-+ Do not modify or delete the AWS Identity and Access Management \(IAM\) roles created within the shared accounts in the Security organizational unit \(OU\)\. Modification of these roles can require an update to your landing zone\.
-+ For more information about the resources created by AWS Control Tower, see [What Are the Shared Accounts?](how-control-tower-works.md#what-shared)
-+ Do not disallow usage of any AWS Regions through either SCPs or AWS Security Token Service \(STS\)\. Doing so will cause AWS Control Tower to enter an undefined state\. If you disallow Regions with AWS STS, your functionality will fail in those Regions, because authentication would be unavailable in those Regions\.
-+ The AWS Organizations **FullAWSAccess** SCP must be applied and should not be merged with other SCPs\. Change to this SCP is not reported as drift; however, some changes may affect AWS Control Tower functionality in unpredictable ways, if access to certain resources is denied\. For example, if the SCP is detached, or modified, an account may lose access to an AWS Config recorder or create a gap in CloudTrail logging\.
-+ In general, AWS Control Tower performs a single action at a time, which must be completed before another action can begin\. For example, if you attempt to provision an account while the process of enabling a guardrail is already in operation, account provisioning will fail\. The only concurrent action allowed in AWS Control Tower is deployment of detective guardrails\. See [Concurrent detective guardrail deployment](enable-guardrails.md#concurrent-detective-guardrails)\.
-+ We recommend that you keep each registered OU to a maximum of 300 accounts, so that you can update those accounts with the **Re\-register OU** capability whenever account updates are required, such as when you configure new Regions for governance\.
-+  Keep an active AWS Config recorder\. If you delete your Config recorder, detective guardrails cannot detect and report drift\. Non\-compliant resources may be reported as **Compliant** due to insufficient information\. 
-+ Do not delete the **AWSControlTowerExecution** role from your member accounts, even in unenrolled accounts\. If you do, you will not be able to enroll these accounts with AWS Control Tower, or register their immediate parent OUs\.
-
 ## AWS Organizations Guidance<a name="orgs-guidance"></a>
 + Do not use AWS Organizations to update service control policies \(SCPs\) attached to an OU that is registered with AWS Control Tower\. Doing so could result in the guardrails entering an unknown state, which will require you to repair your landing zone or re\-register your OU in AWS Control Tower\. Instead, you can create new SCPs and attach those to the OUs rather than editing the SCPs that AWS Control Tower has created\.
-+ Moving individual, already enrolled, accounts into AWS Control Tower, from outside of a registered OU, causes drift that must be repaired\. See [Types of Governance Drift](drift.md#governance-drift)\.
++ Moving individual, already enrolled, accounts into AWS Control Tower, from outside of a registered OU, causes drift that must be repaired\. See [Types of Governance Drift](governance-drift.md)\.
 + If you use AWS Organizations to create, invite, or move accounts within an organization registered with AWS Control Tower, those accounts are not enrolled by AWS Control Tower and those changes are not recorded\. If you need access to these accounts through SSO, see [Member Account Access](http://aws.amazon.com/premiumsupport/knowledge-center/organizations-member-account-access/)\.
 + If you use AWS Organizations to move an OU into an organization created by AWS Control Tower, the external OU is not registered by AWS Control Tower\.
 + AWS Control Tower handles permission filtering differently than AWS Organizations does\. If your accounts are provisioned with AWS Control Tower account factory, end users can see the names and parents of all OUs in the AWS Control Tower console, even if they don't have permission to retrieve those names and parents from AWS Organizations directly\.
@@ -84,7 +69,7 @@ We recommend the following practices as you create and modify resources in AWS C
 ## Guidance on Subscribing to SNS Topics<a name="sns-guidance"></a>
 + The `aws-controltower-AllConfigNotifications` SNS topic receives all events published by AWS Config, including compliance notifications and AWS CloudWatch event notifications\. For example, this topic informs you if a guardrail violation has occurred\. It also gives information about other types of events\. \(Learn more from [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/notifications-for-AWS-Config.html) about what they publish when this topic is configured\.\) 
 + [Data Events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html?icmpid=docs_cloudtrail_console#logging-data-events) from the `aws-controltower-BaselineCloudTrail` trail are set to publish to the `aws-controltower-AllConfigNotifications` SNS topic as well\.
-+ To receive detailed compliance notifications, we recommend that you subscribe to the `aws-controltower-AllConfigNotification` SNS topic\. This topic aggregates compliance notifications from all child accounts\.
++ To receive detailed compliance notifications, we recommend that you subscribe to the `aws-controltower-AllConfigNotifications` SNS topic\. This topic aggregates compliance notifications from all child accounts\.
 + To receive drift notifications and other notifications as well as compliance notifications, but fewer notifications overall, we recommend that you subscribe to the `aws-controltower-AggregateSecurityNotifications` SNS topic\.
 
 For more information about SNS topics and compliance, see [Drift prevention and notification](prevention-and-notification.md)\.

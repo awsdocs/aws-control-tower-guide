@@ -10,6 +10,7 @@ The following table contains a list of AWS Control Tower landing zone update rel
 
 | **Version** | Release date | Description | 
 | --- | --- | --- | 
+| 2\.8 | 2\-10\-2022 | [Landing zone version 2\.8](2021-all.md#version-2.8) | 
 | 2\.7 | 4\-8\-2021 | [Landing zone version 2\.7](https://docs.aws.amazon.com/controltower/latest/userguide/2021-all.html#version-2.7) | 
 | 2\.6 | 12\-29\-2020 | [Landing zone version 2\.6](https://docs.aws.amazon.com/controltower/latest/userguide/January-June-2020.html#config-aggregator-12-2020) | 
 | 2\.5 | 11\-18\-2020 | [Landing zone version 2\.5](https://docs.aws.amazon.com/controltower/latest/userguide/January-June-2020.html#region-expansion-11-19-20)  | 
@@ -80,13 +81,13 @@ Drift often occurs as you and your organization members use the landing zone\.
 
 Drift detection is automatic in AWS Control Tower\. Automated scans of your SCPs help you identify resources that need changes or configuration updates that must be made to resolve the drift\. 
 
-To repair most types of drift, choose **Repair** on the **Landing zone settings** page\. Also, you can repair some types of drift by choosing to ** Re\-register** an OU\. For more information about types of drift and how to resolve them, see [Types of Governance Drift](drift.md#governance-drift) and [Detect and resolve drift in AWS Control Tower](drift.md)\. 
+To repair most types of drift, choose **Repair** on the **Landing zone settings** page\. Also, you can repair some types of drift by choosing to ** Re\-register** an OU\. For more information about types of drift and how to resolve them, see [Types of Governance Drift](governance-drift.md) and [Detect and resolve drift in AWS Control Tower](drift.md)\. 
 
 ## Provisioning and updating accounts using script automation<a name="update-accounts-by-script"></a>
 
 You can provision or update individual accounts by using the [API framework](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_Reference.html) of AWS Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of AWS Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach, when adding Regions for governance, is available in a blog post, [Enabling guardrails in new AWS Regions](http://aws.amazon.com/blogs/architecture/field-notes-enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
 
-You must wait for each account update to succeed before beginning the next account update\. Therefore, the process may take a long time if you have a lot of accounts, but it is not complicated\. For more information about this approach, see the [Walkthrough: Automated Account Provisioning in AWS Control Tower](automated-provisioning-walkthrough.md)\. 
+You must wait for each account update to succeed before beginning the next account update\. Therefore, the process may take a long time if you have a lot of accounts, but it is not complicated\. For more information about this approach, see the [Walkthrough: Automate Account Provisioning in AWS Control Tower by AWS Service Catalog APIs](automated-provisioning-walkthrough.md)\. 
 
 **Note**  
 The [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video) is designed for automated account provisioning, but the steps also apply to account updating\. Use the `UpdateProvisionedProduct` API instead of the `ProvisionProduct` API\.
