@@ -13,7 +13,7 @@ Common causes of landing zone launch failure:
 **Action to take**  
 If you encounter this issue, check your email\. You might have been sent confirmation email that is awaiting response\. Alternatively, we recommend that you wait an hour, and then try again\. If the issue persists, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\. 
 
-**Failed StackSets**: Another possible cause of landing zone launch failure is AWS CloudFormation StackSet failure\. AWS Security Token Service \(STS\) regions must be enabled in the management account for all AWS Regions in which AWS Control Tower is supported, so that the provisioning can be successful; otherwise, stack sets will fail to launch\. 
+**Failed StackSets**: Another possible cause of landing zone launch failure is AWS CloudFormation StackSet failure\. AWS Security Token Service \(STS\) regions must be enabled in the management account for all AWS Regions that AWS Control Tower is governing, so that the provisioning can be successful; otherwise, stack sets will fail to launch\. 
 
 **Action to take**  
 Be sure to enable all of your required AWS Security Token Service [ \(STS\) endpoint regions](https://console.aws.amazon.com/iam/home#/account_settings) before you launch AWS Control Tower\.

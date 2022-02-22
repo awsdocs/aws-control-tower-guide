@@ -24,4 +24,3 @@ When subscribing, substitute your actual AWS Control Tower home Region and audit
 + Administrators who wish to filter out specific types of notifications from an SNS topic can create an AWS Lambda function and subscribe it to the SNS topic\. Alternatively, you can set up an EventBridge rule to filter notifications, as described in this support article, [How can I be notified when an AWS resource is non\-compliant using AWS Config?](http://aws.amazon.com/premiumsupport/knowledge-center/config-resource-non-compliant/)
 + AWS Config notifications contain a JSON object\.
 + AWS Control Tower drift notifications appear in plain text\.
-+ In release 2\.8 and later, AWS Control Tower provides a dead letter queue for SNS in the Audit account\. Any Config event that fails to be processed by the forwarder Lambda \(in each managed account\) is moved to the dead letter queue\.
