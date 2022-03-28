@@ -16,17 +16,15 @@ The following procedure describes how to provision accounts as an AWS SSO end us
 
 1. Search for and choose **Service Catalog** to open the AWS Service Catalog console\.
 
-1. From the navigation pane, choose **Products list**\.
+1. From the navigation pane, choose **Products**\.
 
-1. Select **AWS Control Tower Account Factory**, then choose the **Launch** button\. This selection starts the wizard to provision a new account\.
+1. Select **AWS Control Tower Account Factory**, then choose the **Launch product** button\. This selection starts the wizard to provision a new account\.
 
 1. Fill in the information, and keep the following in mind:
    + The **SSOUserEmail** can be a new email address, or the email address associated with an existing AWS SSO user\. Whichever you choose, this user will have administrative access to the account you're provisioning\.
    + The **AccountEmail** must be an email address that isn't already associated with an AWS account\. If you used a new email address in **SSOUserEmail**, you can use that email address here\.
 
-1. When you're finished, choose **Next** until you get to the **Review** page of the wizard\. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\.
-
-1. Review your account settings, and then choose **Launch**\. Do not create a resource plan, otherwise the account will fail to be provisioned\.
+1. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\. When you're finished, choose **Launch product**\.
 
 1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\.
 **Note**  
