@@ -21,7 +21,7 @@ The AFT architecture has three high\-level principles\.
 
 You will run AFT operations while signed into the AFT management account\. For a full account provisioning workflow, the order of stages, shown in the diagram from left to right, is as follows:
 
-1. Each account is provisioned\. This stage runs in the AFT management account\.
+1. Each account is provisioned\. This stage runs in the Control Tower management account\.
 
 1. If you've set up a state machine, certain customizations are run as a part of provisioning \(referred to as the \(*provisioning framework*\)\. This stage runs in the AFT management account\.
 
