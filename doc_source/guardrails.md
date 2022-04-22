@@ -43,7 +43,7 @@ When working with guardrails and OUs, consider the following properties:
 **Guardrails, landing zones, and OUs**
 + After you create your landing zone, all resources in your landing zone, for example, Amazon S3 buckets, are subject to guardrails\.
 + OUs created through AWS Control Tower have mandatory guardrails applied to them automatically, and optional guardrails applied at the discretion of administrators\.
-+ OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs* are displayed in the AWS Control Tower console, but AWS Control Tower guardrails do not apply to them, unless they become registered OUs\.
++ OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs*\) are displayed in the AWS Control Tower console, but AWS Control Tower guardrails do not apply to them, unless they become registered OUs\.
 + When you enable guardrails on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive guardrails apply to all member accounts under the OU, enrolled and unenrolled\. Detective guardrails apply to enrolled accounts only\.
 
 For more information about how guardrails are applied to nested OUs, in AWS Control Tower, see [Nested OUs and guardrails](nested-ous.md#nested-ous-and-guardrails)\.
@@ -61,7 +61,7 @@ When working with guardrails and accounts, consider the following properties:
 + Accounts created outside of an AWS Control Tower landing zone do not inherit AWS Control Tower guardrails\. These are called * unenrolled* accounts\.
 + Accounts created outside of AWS Control Tower won't inherit guardrails in AWS Control Tower until you enroll them\. However, these unenrolled accounts *are* displayed in AWS Control Tower\.
 
-  Accounts inherit guardrails from an OU upon enrollment in that OU\.
++ Accounts inherit guardrails from an OU upon enrollment in that OU\.
 + An OU can contain enrolled or unenrolled *member accounts*\.
 + Guardrails do not apply to an unenrolled account unless it becomes a member account of a registered AWS Control Tower OU\. In that case, preventive guardrails for the OU will apply to the unenrolled account\. Detective guardrails will not apply\.
 + When you enable optional guardrails, AWS Control Tower creates and manages certain additional AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the guardrails entering an unknown state\. For more information, see [Guardrail reference](guardrails-reference.md)\.
