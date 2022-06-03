@@ -1,6 +1,6 @@
 # Enroll accounts that have existing AWS Config resources<a name="existing-config-resources"></a>
 
-This guide provides a step\-by\-step approach for how to enroll accounts that have existing AWS Config resources\.
+This topic provides a step\-by\-step approach for how to enroll accounts that have existing AWS Config resources\.
 
 **Examples of AWS Config resources**
 
@@ -12,6 +12,8 @@ Here are some types of AWS Config resources that your account could have already
 **Assumptions**
 + Your account is not enrolled with AWS Control Tower already\.
 + Your account has at least one pre\-existing AWS Config resource in at least one of the AWS Control Tower Regions governed by the management account\.
+
+For a blog that describes an automated approach to enrolling accounts with existing AWS Config resources, see [Automate enrollment of accounts with existing AWS Config resources into AWS Control Tower](http://aws.amazon.com/blogs/mt/automate-enrollment-of-accounts-with-existing-aws-config-resources-into-aws-control-tower/)\. You'll be able to submit a single support ticket for all of the accounts you wish to enroll, as described in [Step 1: Contact customer support with a ticket, to add the account to the AWS Control Tower allow list](#existing-config-step-1), which follows\.
 
 **Limitations**
 + The account can be enrolled only by using the AWS Control Tower workflow for extending governance\.
@@ -41,7 +43,7 @@ Here are some types of AWS Config resources that your account could have already
 
 *Enroll accounts that have existing AWS Config resources into AWS Control Tower*
 
-**Include the following details in the body of your email:**
+**Include the following details in the body of your ticket:**
 + Management account number
 + Account numbers of member accounts that have existing AWS Config resources
 + Your selected home Region for AWS Control Tower setup
@@ -93,7 +95,7 @@ For each governed Region \(AWS Control Tower governed\) in the account, identify
 For this step, the following information is needed about your AWS Control Tower setup\.
 + `LOGGING_ACCOUNT` \- the Logging account ID
 + `AUDIT_ACCOUNT` \- the Audit account ID
-+ `IAM_ROLE_ARN` \- the IAM Role ARN created in Step 1
++ `IAM_ROLE_ARN` \- the IAM role ARN created in Step 1
 + `ORGANIZATION_ID` \- the organization ID for the management account
 + `MEMBER_ACCOUNT_NUMBER` \- the member account that is being modified
 + `HOME_REGION` \- the home Region for AWS Control Tower setup\.
@@ -106,7 +108,7 @@ Only one AWS Config recorder can exist per AWS Region\. If another exists, modif
 + **Name:** DON'T CHANGE
 + **RoleARN:**` IAM_ROLE_ARN`
   + **RecordingGroup:**
-  + **AllSupported** true
+  + **AllSupported:** true
   + **IncludeGlobalResourceTypes:** true
   + **ResourceTypes:** Empty
 
@@ -118,14 +120,14 @@ aws configservice put-configuration-recorder —configuration-recorder  name=REC
 
 ## Step 5b\. Modify AWS Config delivery channel resources<a name="modify-config-delivery-channel-step-5"></a>
 
-Only one AWS Config delivery channel can exist can exist per Region\. If another exists, modify the settings as shown\.
+Only one AWS Config delivery channel can exist per Region\. If another exists, modify the settings as shown\.
 + **Name:** DON’T CHANGE
 + **ConfigSnapshotDeliveryProperties:** TwentyFour\_Hours
 + **S3BucketName:** The logging bucket name from the AWS Control Tower logging account
 
   `aws-controltower-logs-LOGGING_ACCOUNT-HOME_REGION`
-+ **S3KeyPrefix:***ORGANIZATION\_ID*
-+ **SnsTopicARN:** The SNS topic ARN from the audit account, with the following format:
++ **S3KeyPrefix: ***ORGANIZATION\_ID*
++ **SnsTopicARN: **The SNS topic ARN from the audit account, with the following format:
 
   `arn:aws:sns:CURRENT_REGION:AUDIT_ACCOUNT:aws-controltower-AllConfigNotifications`
 
@@ -138,16 +140,16 @@ aws configservice put-delivery-channel --delivery-channel name=DELIVERY_CHANNEL_
 ## Step 5c\. Modify AWS Config aggregation authorization resources<a name="modify-config-aggregator-auth-step-5c"></a>
 
 Multiple aggregation authorizations can exist per Region\. AWS Control Tower requires an aggregation authorization that specifies the audit account as the authorized account, and has the home Region for AWS Control Tower as the authorized Region\. If it doesn’t exist, create a new one with the following settings:
-+ **AuthorizedAccountId:**The Audit account ID
++ **AuthorizedAccountId: **The Audit account ID
 + **AuthorizedAwsRegion:** The home Region for the AWS Control Tower setup
 
-This modification can be made through the AWS CLI using the following command
+This modification can be made through the AWS CLI using the following command:
 
  `aws configservice put-aggregation-authorization —authorized-account-id AUDIT_ACCOUNT_ID —authorized-aws-region HOME_REGION —region CURRENT_REGION` 
 
 ## Step 6: Create resources where they don’t exist, in Regions governed by AWS Control Tower<a name="existing-config-step-6"></a>
 
-1. Navigate to the management account’s CloudFormation console\.
+1. Navigate to the management account’s AWS CloudFormation console\.
 
 1. Create a new StackSet with the name **CustomerCreatedConfigResourcesForControlTower**\.
 
@@ -194,7 +196,7 @@ This modification can be made through the AWS CLI using the following command
 
    1. In the **AuthorizedAwsRegion** field, replace the *HOME\_REGION*
 
-1. During deployment on the CloudFormation console, add the member account number\.
+1. During deployment on the AWS CloudFormation console, add the member account number\.
 
 1. Add the AWS Regions that were identified in Step 4\.
 
@@ -203,3 +205,6 @@ This modification can be made through the AWS CLI using the following command
 ## Step 7: Register the OU with AWS Control Tower<a name="existing-config-step-7"></a>
 
 In the AWS Control Tower dashboard, register the OU\.
+
+**Note**  
+The **Enroll account** workflow will not succeed for this task\. You must choose **Register OU** or **Re\-register OU**\.

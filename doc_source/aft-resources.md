@@ -17,7 +17,7 @@ When you set up your landing zone using AWS Control Tower Account Factory for Te
 
 | **AWS service** | **Resource type** | **Resource name** | 
 | --- | --- | --- | 
-| AWS Identity and Access Management | Roles |  AWSAFTAdministratorRole AWSAFTExecutionRole aws\-ct\-aft\-\* | 
+| AWS Identity and Access Management | Roles |  AWSAFTAdministrator AWSAFTExecution AWSAFTService aws\-ct\-aft\-\* | 
 | AWS Identity and Access Management | Policies | aws\-ct\-aft\-\* | 
 | CodeCommit | Repositories | aws\-ct\-aft\-\* | 
 | CodeBuild | Build Projects | aws\-ct\-aft\-\* | 
@@ -42,7 +42,7 @@ When you set up your landing zone using AWS Control Tower Account Factory for Te
 
 | **AWS service** | **Resource type** | **Resource name** | 
 | --- | --- | --- | 
-| AWS Identity and Access Management | Roles | AWSAFTExecutionRole | 
+| AWS Identity and Access Management | Roles | AWSAFTExecution | 
 | AWS Support Center \(Optional\) | Support plans | Enterprise | 
 
 

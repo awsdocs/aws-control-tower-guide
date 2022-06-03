@@ -42,14 +42,19 @@ When launching, AWS Security Token Service \(STS\) endpoints must be activated i
 ## Requirements for your shared account email addresses<a name="step-one"></a>
 
 If you're setting up your landing zone in a new AWS account, for information on creating your account and your IAM administrator, see [Setting up](setting-up.md)\.
++ To set up your landing zone with *new* shared accounts, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. Each of these email addresses will serve as a collaborative inbox \-\- a shared email account \-\- intended for the various users in your enterprise that will do specific work related to AWS Control Tower\.
++ If you are setting up AWS Control Tower for the first time, and if you are bringing existing security and log archive accounts into AWS Control Tower, you can enter the current email addresses of the existing AWS accounts\.
 
-To set up your landing zone, AWS Control Tower requires two unique email addresses that aren't already associated with an AWS account\. Each of these email addresses will serve as a collaborative inbox \-\- a shared email account \-\- intended for the various users in your enterprise that will do specific work related to AWS Control Tower\. The email addresses are required for:
+The email addresses are required for:
 + **Audit account** – This account is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
 + **Log archive account** – This account is for your team of users that need access to all the logging information for all of your enrolled accounts within registered OUs in your landing zone\.
 
-These accounts are created in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you perform actions in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
+These accounts are set up in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you perform actions in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
 
-For the sake of clarity, this User Guide always refers to the shared accounts by their default names: **log archive** and **audit**\. As you read this document, remember to substitute the customized names you give to these accounts initially, if you choose to customize them\. You can view your accounts with their customized names on the **Account details** page\.
+**Note**  
+If you specify existing AWS accounts as your **audit** and **log archive** accounts, the existing accounts must pass some pre\-launch checks to ensure that no resources are in conflict with AWS Control Tower requirements\. If these checks are not successful, your landing zone setup may not succeed\. For more information, see [Considerations for bringing existing security or logging accounts](accounts.md#considerations-for-existing-shared-accounts)\.
+
+For the sake of clarity, this *User Guide* always refers to the shared accounts by their default names: **log archive** and **audit**\. As you read this document, remember to substitute the customized names you give to these accounts initially, if you choose to customize them\. You can view your accounts with their customized names on the **Account details** page\.
 
 **Note**  
 We are changing our terminology regarding the default names of some AWS Control Tower organizational units \(OUs\) to align with the AWS multi\-account strategy\. You may notice some inconsistencies while we are making a transition to improve the clarity of these names\. The Security OU was formerly called the Core OU\. The Sandbox OU was formerly called the Custom OU\.
@@ -60,7 +65,8 @@ The process of setting up your AWS Control Tower landing zone has multiple steps
 
 **Key items to configure during setup**
 + You can select your top\-level OU names during setup, and you also can change OU names after you've set up your landing zone\. By default, the top\-level OUs are named **Security** and **Sandbox**\. For more information, see [Guidelines to set up a well\-architected environment](aws-multi-account-landing-zone.md#guidelines-for-multi-account-setup)\. 
-+ During setup, you can select customized names for your shared accounts, called **log archive** and **audit** by default, but you cannot change these names after setup\. \(This is a one\-time selection\.\)
++ During setup, you can select customized names for the shared accounts that AWS Control Tower creates, called **log archive** and **audit** by default, but you cannot change these names after setup\. \(This is a one\-time selection\.\)
++ During setup, you can optionally specify existing AWS accounts for AWS Control Tower to use as security and logging accounts\. \(This is a one\-time selection\.\)
 
 **Configuration choices that cannot be undone**
 + You cannot change your home Region after you've set up your landing zone\.
@@ -101,7 +107,7 @@ If you accept the default names of these OUs, there's no action you need to take
 
 ### Step 3\. Configure your shared accounts and encryption<a name="configure-shared-accounts"></a>
 
-In this section of the setup process, the panel shows the default selections for the names of your shared AWS Control Tower accounts\. These accounts are an essential part of your landing zone\. **Do not move or delete these shared accounts**, although you can choose customized names for them during setup\.
+In this section of the setup process, the panel shows the default selections for the names of your shared AWS Control Tower accounts\. These accounts are an essential part of your landing zone\. **Do not move or delete these shared accounts**\. You can choose customized names for the **audit** and **log archive** accounts during setup\. Alternatively, you have a one\-time option to specify existing AWS accounts as your shared accounts\.
 
 You must provide unique email addresses for your log archive and audit accounts, and you can verify the email address that you previously provided for your management account\. Choose the **Edit** button to change the editable default values\.
 
@@ -109,15 +115,15 @@ You must provide unique email addresses for your log archive and audit accounts,
 + **The management account** – The AWS Control Tower management account is part of the Root level\. The management account allows for AWS Control Tower billing\. The account also has administrator permissions for your landing zone\. You cannot create separate accounts for billing and for administrator permissions in AWS Control Tower\.
 
   The email address shown for the management account is not editable during this phase of setup\. It is shown as a confirmation, so you can check that you're editing the correct management account, in case you have multiple accounts\.
-+ **The two shared accounts** – You can choose customized names for these two accounts, and you must supply a unique email address for each account\. Remember that the email addresses must not already have associated AWS accounts\.
++  **The two shared accounts** – You can choose customized names for these two accounts, and you must supply a unique email address for each account, either new or existing\. If you choose to have AWS Control Tower create new shared accounts for you, the email addresses must not already have associated AWS accounts\.
 
 **To configure the shared accounts, fill in the requested information\.**
 
-1. At the console, select a name for the account initially called the **log archive** account\. Many customers decide to keep the default name for this account\.
+1. At the console, enter a name for the account initially called the **log archive** account\. Many customers decide to keep the default name for this account\.
 
 1. Provide a unique email address for this account\.
 
-1. Select a name for the account initially called the **audit** account\. Many customers choose to call it the **Security** account\.
+1. Enter a name for the account initially called the **audit** account\. Many customers choose to call it the **Security** account\.
 
 1. Provide a unique email address for this account\.
 

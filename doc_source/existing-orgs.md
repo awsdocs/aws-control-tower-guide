@@ -2,7 +2,7 @@
 
 All organizational units \(OUs\) and accounts that you create in AWS Control Tower are governed automatically by AWS Control Tower\. Also, if you have existing OUs and accounts that were created outside of AWS Control Tower, you can bring them into AWS Control Tower governance\. 
 
-For existing AWS Organizations and AWS accounts, most customers prefer to enroll groups of accounts by registering the entire organizational unit \(OU\) that contains the accounts\. You also can enroll accounts individually\.
+For existing AWS Organizations and AWS accounts, most customers prefer to enroll groups of accounts by registering the entire organizational unit \(OU\) that contains the accounts\. You also can enroll accounts individually\. For more information on enrolling individual accounts, see [Enroll an existing AWS account](enroll-account.md)\.
 
 **Terminology**
 + When you bring an existing organization into AWS Control Tower, it's called *registering* the organization, or *extending governance* to the organization\.

@@ -92,7 +92,7 @@ Here is an example of an event schema \(JSON format\) you can create to pass inp
     },
     {
       "type": "accounts",
-      "target_value": [ "acc1","acc2"]
+      "target_value": [ "acc1_ID","acc2_ID"]
     }
   ],
 

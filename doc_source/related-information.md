@@ -50,6 +50,7 @@ Automate account creation and integrate lifecycle events with AWS Control Tower\
 + [Lifecycle events](http://aws.amazon.com/blogs/mt/using-lifecycle-events-to-track-aws-control-tower-actions-and-trigger-automated-workflows) – This blog post describes how to use lifecycle events with AWS Control Tower\.
 + [Automate account creation](http://aws.amazon.com/blogs/mt/how-to-automate-the-creation-of-multiple-accounts-in-aws-control-tower/) – This blog post describes how to set up automated account creation in AWS Control Tower\. 
 + [Amazon VPC flow log automation](http://aws.amazon.com/blogs/mt/vpc-flow-log-with-aws-control-tower-lifecycle) – This blog post describes how to automate and centralize Amazon VPC Flow Logs in a multi\-account environment\.
++  [Automate VPC tagging with AWS Control Tower lifecycle events](http://aws.amazon.com/blogs/infrastructure-and-automation/automate-vpc-tagging-with-aws-control-tower-lifecycle-events/)– This blog post describes how to automate resource tagging for VPCs, by means of lifecycle events in AWS Control Tower\.
 + [Automated account management](http://aws.amazon.com/blogs/mt/using-aws-control-tower-and-aws-service-catalog-to-automate-control-tower-lifecycle-events/) – This blog post describes how to automate account management tasks after your AWS Control Tower environment is set up\.
 
 ## Migrating workloads<a name="migrating"></a>

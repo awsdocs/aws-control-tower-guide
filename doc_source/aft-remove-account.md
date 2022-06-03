@@ -1,6 +1,6 @@
 # Remove an account from AFT<a name="aft-remove-account"></a>
 
-This section walks you through the steps to remove accounts from AFT\. For example, you may be closing accounts for retiring applications, isolating accounts that are compromised, or moving accounts from one organization to another\.
+This section walks you through the steps to remove accounts from AFT, so they are no longer deployed or updated by the pipeline\. For example, you may be closing accounts for retiring applications, isolating accounts that are compromised, or moving accounts from one organization to another\. Removing an account from AFT is not the same as removing an account from AWS Control Tower\. After an account is provisioned by AFT, it is removed from AWS Control Tower in the same way as any other AWS account\.
 
 **Important**  
 Removing an account from AFT is irreversible\. It can result in a loss of state\.

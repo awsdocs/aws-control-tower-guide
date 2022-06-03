@@ -1,14 +1,30 @@
-# Update and move account factory accounts with AWS Service Catalog<a name="updating-account-factory-accounts"></a>
+# Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog<a name="updating-account-factory-accounts"></a>
 
-The following procedure guides you through how to update your Account Factory account or move it to a new OU, through AWS Service Catalog, by updating the provisioned product\.
+The easiest way to update an enrolled account is through the AWS Control Tower console\. Individual account updates are useful for resolving drift, such as [Moved Member Account](governance-drift.md#drift-account-moved)\. Account updates also are required as part of a full landing zone update\.
 
-**To update an Account Factory account or change its OU**
+## Update the account in the console<a name="update-account-in-console"></a>
+
+**To update an account in the AWS Control Tower console**
+
+1. When signed in to AWS Control Tower, navigate to the **Accounts** page\.
+
+1. In the list of accounts, select the account you wish to update\. Accounts that are available for updating show a status of **Update available**\.
+
+1. Next you'll see the **Account details** page for your selected account\.
+
+1. In the upper right, choose **Update account**\.
+
+## Update the provisioned product<a name="update-provisioned-product"></a>
+
+The following procedure guides you through how to update your Account Factory account or move it to a new OU, by updating the account's provisioned product in AWS Service Catalog\.
+
+**To update an Account Factory account or change its OU through AWS Service Catalog**
 
 1. Sign in to the AWS Management Console and open the AWS Service Catalog console at **https://console\.aws\.amazon\.com/servicecatalog/**
 **Note**  
 You must be signed in as a user with the permissions to provision new products in AWS Service Catalog; for example, an AWS SSO user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\.
 
-1. From the navigation pane, choose **Provisioned products list**\. 
+1. From the navigation pane, choose **Provisioned products**\. 
 
 1. For each account listed, perform the following steps to update all your member accounts:
 

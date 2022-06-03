@@ -5,6 +5,8 @@ This section is intended for administrators of AWS Control Tower environments wh
 **Note**  
 AFT is deployed with a Terraform module, available in the [AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main)\. We recommend that you refer to AFT Terraform modules from the GitHub source, and do not clone it, so that you can control and consume updates to the modules as they are available\.
 
+ For details about the latest releases of the AWS Control Tower Account Factory for Terraform \(AFT\) functionality, see [the Releases file](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/releases) for this GitHub repository\.
+
 **Deployment prerequisites**
 
 AFT has prerequisites for installation and for running\. This guide assumes that you can create and interact with each of the following resources required to deploy the AFT solution:

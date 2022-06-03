@@ -26,7 +26,6 @@ To begin provisioning, set up a *create account request* file that contains appr
 **Include the following list of parameters in your file:**
 + The value of **module name** must be unique per AWS account request\.
 + The value of **module source** is the path to the account request Terraform module provided by AFT\. 
-+ The value of `create_customizations` must be set to **True** if you intend to customize your account after provisioning\. For more information, see [Set up the account provisioning framework customizations with a state machine](aft-provisioning-framework.md#aft-customizations)\.
 + The value of `control_tower_parameters` captures the input required to create an AWS Control Tower account, as follows\.
   + **AccountEmail**
   + **AccountName**
@@ -45,9 +44,12 @@ For more information about setting up accounts in AWS Control Tower, see [Provis
 
 ## Update an existing account<a name="aft-update-account"></a>
 
-You may update the accounts that AFT has provisioned by updating previously submitted account requests\. The `git push` action triggers the account provisioning workflow, which processes an account update request\.
+You may update exsting accounts that AFT has provisioned by updating previously submitted account requests\. The `git push` action triggers the account provisioning workflow, which processes an account update request\.
 
 When you're updating an existing account, AFT allows you to update the `ManagedOrganizationalUnit` field of the `control_tower_parameters` input, and other fields that are NOT part of the `control_tower_parameters` input\. The input to `control_tower_parameters`, which you provided during provisioning, cannot be changed\.
+
+**Note**  
+You can update existing AWS Control Tower accounts that were created outside of AFT by specifying the account in the `aft-account-request` repository\.
 
 ## Submit multiple account requests<a name="aft-multiple-account-requests"></a>
 

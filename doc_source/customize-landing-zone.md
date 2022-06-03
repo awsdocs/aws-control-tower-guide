@@ -1,35 +1,59 @@
-# Walkthrough: Customize Your AWS Control Tower Landing Zone<a name="customize-landing-zone"></a>
+# Customize your AWS Control Tower landing zone<a name="customize-landing-zone"></a>
 
-Certain aspects of your AWS Control Tower landing zone are configurable in the console\. To make these customizations, follow the steps given by the AWS Control Tower console\.
+## <a name="w266aac24b3"></a>
+
+Certain aspects of your AWS Control Tower landing zone are configurable in the console, such as selection of Regions and optional guardrails\. Other changes may be made outside the console, with automation\.
+
+For example, you can create more extensive customizations of your landing zone with the *Customizations for AWS Control Tower* capability, a GitOps\-style customization framework that works with AWS CloudFormation templates and AWS Control Tower lifecycle events\.
+
+## Customize from the AWS Control Tower console<a name="console-customize"></a>
+
+To make these customizations to your landing zone, follow the steps given by the AWS Control Tower console\.
 
 **Select customized names during setup**
-+ You can select your top\-level OU names and you can change OU names after you've set up your landing zone\.
++ You can select your top\-level OU names during setup\. You can rename your OUs at any time using the AWS Organizations console, but making changes to your OUs in AWS Organizations may cause repairable [drift](drift.md)\.
 + You can select the names of your shared **Audit** and **Log Archive** accounts, but you cannot change the names after setup\. \(This is a one\-time selection\.\)
+
+**Tip**  
+Remember that renaming an OU in AWS Organizations does not update the corresponding provisioned product in Account Factory\. To update the provisioned product automatically \(and avoid drift\), you must perform the OU operation through AWS Control Tower, including creating, deleting, or re\-registering an OU\.
 
 **Select AWS Regions**
 + You can customize your landing zone by selecting specific AWS Regions for governance\. Follow the steps in the AWS Control Tower console\.
 + You can select and de\-select AWS Regions for governance when you update your landing zone\.
-+ You can select and de\-select the Region Deny guardrail to control user access to most AWS services in ungoverned AWS Regions\.
++ You can set the Region Deny guardrail to **Enabled** or **Not enabled**, and control user access to most AWS services in ungoverned AWS Regions\.
 
 **Customize by adding optional guardrails**
 + Strongly recommended and elective guardrails are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. [Optional guardrails](optional-guardrails.md) are not enabled by default\. 
 + The optional [Guardrails that enhance data residency protection](data-residency-guardrails.md) allow you to customize the Regions in which you store and allow access to your data\.
 
-**Configure customizations outside the AWS Control Tower console**
+## Automate customizations outside the AWS Control Tower console<a name="automate-customizations"></a>
 
 Some customizations are not available through the AWS Control Tower console, but they can be implemented in other ways\. For example:
-+ You can customize accounts during provisioning with Account Factory for Terraform\.
-+ You can customize your AWS Control Tower landing zone with an AWS CloudFormation template and service control policies \(SCPs\)\. You can deploy the custom template and policies to individual accounts and organizational units \(OUs\) within your organization\.
++ You can customize accounts during provisioning, in a GitOps\-style workflow, with [*Account Factory for Terraform \(AFT\)*](taf-account-provisioning.md)\.
 
-## Customize with AWS CloudFormation templates<a name="customize-with-templates"></a>
+  AFT is deployed with a Terraform module, available in the [AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main)\.
++ You can customize your AWS Control Tower landing zone with [*Customizations for AWS Control Tower*](cfct-overview.md) \(CfCT\), a package of functionality that is built upon AWS CloudFormation templates and service control policies \(SCPs\)\. You can deploy the custom templates and policies to individual accounts and organizational units \(OUs\) within your organization\.
 
-The AWS CloudFormation customization process is integrated with AWS Control Tower [lifecycle events](https://docs.aws.amazon.com/controltower/latest/userguide/lifecycle-events.html), so that your resource deployments stay synchronized with your landing zone\. For example, when a new account is created by the AWS Control Tower account factory, the resources attached to the account's OU can be deployed automatically\.
+  Source code for CfCT is available in a [GitHub repository](https://github.com/aws-solutions/aws-control-tower-customizations)\.
 
-To learn more, see the [https://docs.aws.amazon.com/solutions/latest/customizations-for-aws-control-tower/welcome.html](https://docs.aws.amazon.com/solutions/latest/customizations-for-aws-control-tower/welcome.html) for AWS Control Tower customizations with AWS CloudFormation templates\.
+## Benefits of Customizations for AWS Control Tower \(CfCT\)<a name="benefits-of-cfct"></a>
 
-**Benefits of AWS CloudFormation customization**
-+ **Quicker set up for a customized and secure AWS environment** – With AWS Control Tower and other highly\-available, trusted AWS services, you can establish a secure, multi\-account AWS environment more quickly, and incorporate AWS best practices\.
-+ **Customization to your requirements** – You can use the AWS CloudFormation template and service control policies to customize your AWS Control Tower landing zone for your business requirements\.
-+ **Automate with AWS Control Tower lifecycle events** – Lifecycle events allow you to deploy resources based on completion of a previous series of events\. You can rely on a lifecycle event to help you deploy resources automatically\.
+The package of functionality that we refer to as *Customizations for AWS Control Tower* \(CfCT\) helps you create more extensive customizations for your landing zone than you can create in the AWS Control Tower console\. It offers a GitOps\-style, automated process\. You can reshape your landing zone to meet your business requirements\.
 
-For more information, see the deployment documentation for this AWS Control Tower solution architecture, available through the [AWS Solutions web page](http://aws.amazon.com/solutions/customizations-for-aws-control-tower/)\.
+This *infrastructure\-as\-code* customization process integrates AWS CloudFormation templates with AWS service control policies \(SCPs\) and AWS Control Tower [lifecycle events](lifecycle-events.md), so that your resource deployments remain synchronized with your landing zone\. For example, when you create a new account with Account Factory, the resources attached to the account and the OU can be deployed automatically\.
+
+**Note**  
+Unlike Account Factory and AFT, CfCT is not specifically intended to create new accounts, but to customize accounts and OUs in your landing zone by deploying resources that you specify\.
+
+**Benefits**
++ **Expand a customized and secure AWS environment** – You can expand your multi\-account AWS Control Tower environment more quickly, and incorporate AWS best practices into a repeatable customization workflow\.
++ **Instantiate your requirements** – You can customize your AWS Control Tower landing zone for your business requirements, with the AWS CloudFormation templates and service control policies that express your policy intentions\.
++ **Automate further with AWS Control Tower lifecycle events** – Lifecycle events allow you to deploy resources based on completion of a previous series of events\. You can rely on a lifecycle event to help you deploy resources to accounts and OUs, automatically\.
++ **Extend your network architecture** – You can deploy customized network architectures that improve and protect your connectivity, such as a transit gateway\.
+
+## Additional CfCT examples<a name="cfct-examples"></a>
++ An example networking use case with *Customizations for AWS Control Tower* \(CfCT\) is given in the AWS Architecture blog post, [Deploy consistent DNS with AWS Service Catalog and AWS Control Tower customizations](http://aws.amazon.com/blogs/architecture/deploy-consistent-dns-with-aws-service-catalog-and-aws-control-tower-customizations/)\.
++ A specific example [related to CfCT and Amazon GuardDuty](https://github.com/aws-samples/aws-security-reference-architecture-examples/tree/main/aws_sra_examples/solutions/guardduty/guardduty_org/customizations_for_aws_control_tower) is available on GitHub in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\.
++ Additional code examples regarding CfCT are available as part of the AWS Security Reference Architecture, in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\. Many of these examples contain sample `manifest.yaml` files in a directory named `customizations_for_aws_control_tower`\.
+
+For more information about the AWS Security Reference Architecture, see the [AWS Prescriptive Guidance pages](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html)\.

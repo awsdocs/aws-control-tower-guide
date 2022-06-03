@@ -2,11 +2,16 @@
 
 You can extend AWS Control Tower governance to an individual, existing AWS account when you *enroll* it into an organizational unit \(OU\) that's already governed by AWS Control Tower\. Eligible accounts exist in *unregistered OUs that are part of the same AWS Organizations organization* as the AWS Control Tower OU\. 
 
+**Note**  
+You cannot enroll an existing account to serve as your Audit or Log Archive account except during initial landing zone setup\.
+
 **Set Up Trusted Access First**
 
-Before you can enroll an existing AWS account into AWS Control Tower you must give permission for AWS Control Tower to manage, or *govern*, the account\. Specifically, AWS Control Tower requires permission to establish trusted access between AWS CloudFormation and AWS Organizations on your behalf, so that AWS CloudFormation can deploy your stack automatically to the accounts in your selected organization\.
+Before you can enroll an existing AWS account into AWS Control Tower you must give permission for AWS Control Tower to manage, or *govern*, the account\. Specifically, AWS Control Tower requires permission to establish trusted access between AWS CloudFormation and AWS Organizations on your behalf, so that AWS CloudFormation can deploy your stack automatically to the accounts in your selected organization\. Based on this trusted access, the `AWSControlTowerExecution` role conducts activites required to manage each account\.
 
- To learn more about trusted access and AWS CloudFormation StackSets, see [AWS CloudFormation StackSets and AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-cloudformation.html)\. When trusted access is enabled, AWS CloudFormation can create, update, or delete stacks across multiple accounts and AWS Regions with a single operation\. AWS Control Tower relies on this trust capability so it can apply roles and permissions to existing accounts before it moves them into a registered organizational unit and thereby brings them under governance\.
+ When trusted access is enabled, AWS CloudFormation can create, update, or delete stacks across multiple accounts and AWS Regions with a single operation\. AWS Control Tower relies on this trust capability so it can apply roles and permissions to existing accounts before it moves them into a registered organizational unit, and thereby brings them under governance\.
+
+To learn more about trusted access and AWS CloudFormation StackSets, see [AWS CloudFormation StackSets and AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-cloudformation.html)\. 
 
 **What Happens During Account Enrollment**
 
@@ -43,43 +48,6 @@ AWS Control Tower handles VPCs differently when you provision a new account in A
 **Note**  
 The conformance pack also works in situations where the accounts are located in OUs registered by AWS Control Tower, but the workloads run within AWS Regions that don’t have AWS Control Tower support\. You can use the conformance pack to manage resources in accounts that exist in Regions where AWS Control Tower is not deployed\.
 
-## Prerequisites for Enrollment<a name="enrollment-prerequisites"></a>
-
-These prerequisites are required before you can enroll an account in AWS Control Tower:
-
-1. We recommend that the account should not have an AWS Config configuration recorder or delivery channel\. These may be deleted through the AWS CLI before you can enroll an account\. Otherwise, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html) for instructions on how you can modify your existing resources\.
-
-1. The account that you wish to enroll must exist in the same AWS Organizations organization as the AWS Control Tower management account\. The account that exists can be enrolled *only* into the same organization as the AWS Control Tower management account, in an OU that already is registered with AWS Control Tower\. 
-
-1. Before you can enroll an existing account in AWS Control Tower, the account must have the following roles, permissions, and trust relationships in place\. Otherwise, enrollment will fail\.
-
-   Role Name: `AWSControlTowerExecution`
-
-   Role Permission: `AdministratorAccess` \(AWS managed policy\)
-
-   Role Trust Relationship:
-
-   ```
-   {
-           "Version": "2012-10-17",
-           "Statement": [
-            {
-           "Effect": "Allow",
-           "Principal": {
-           "AWS": "arn:aws:iam::Management Account ID:root"
-                },
-               "Action": "sts:AssumeRole",
-               "Condition": {}
-             }
-             ]
-            }
-   ```
-
-To check other prerequisites for enrollment, see [Getting Started with AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html)\.
-
-**Note**  
-When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
-
 ## What if the account does not meet the prerequisites?<a name="fulfill-prerequisites"></a>
 
 To fulfill the prerequisites for account enrollment, you can follow these preparatory steps to move an account into the same organization as AWS Control Tower\.
@@ -93,9 +61,9 @@ To fulfill the prerequisites for account enrollment, you can follow these prepar
 1. Accept the invitation\. \(The account shows up in the root of the organization\.\) This step moves the account into the same organization as AWS Control Tower\. It establishes SCPs and consolidated billing\.
 
 1. Now you must fulfill the remaining enrollment prerequisites:
-   + Create the necessary role\.
+   + Create the necessary `AWSControlTowerExecution` role\.
    + Clear out the default VPC\. \(This part is optional—AWS Control Tower does not change your existing default VPC\.\)
-   + Delete the AWS Config configuration recorder or delivery channel through the CLI if one exists\.
+   + Delete or modify any existing AWS Config configuration recorder or delivery channel through the AWS CLI or AWS CloudShell\.
    + Any other prerequisites, as needed\.
 
 1. Enroll the account into AWS Control Tower\. This step brings the account into full AWS Control Tower governance\.
@@ -120,7 +88,7 @@ You can send the invitation for the new organization before the account drops ou
 
 **Optional steps for deprovisioning an account so it can be enrolled, keeping its stack**
 
-1. Optionally, to keep the applied CFN, delete the stack instance from the stack sets, making sure to choose **Retain stacks** for the instance\.
+1. Optionally, to keep the applied AWS CloudFormation stack, delete the stack instance from the stack sets, making sure to choose **Retain stacks** for the instance\.
 
 1. Terminate the account provisioned product in AWS Service Catalog Account Factory\. \(This step only removes the provisioned product from AWS Control Tower, it does not actually delete the account\.\)
 
@@ -133,3 +101,35 @@ You can send the invitation for the new organization before the account drops ou
 ## Automated Enrollment of AWS Organizations Accounts<a name="automated-account-enrollment"></a>
 
 You can use the enrollment method described in a blog post called [Enroll existing AWS accounts into AWS Control Tower](http://aws.amazon.com/blogs/architecture/field-notes-enroll-existing-aws-accounts-into-aws-control-tower) to enroll your AWS Organizations accounts into AWS Control Tower with a programmatic process\.
+
+The following YAML template may assist you in creating the required role in an account, so that it can be enrolled programmatically\.
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+Description: Configure the AWSControlTowerExecution role to enable use of your account as a target account in AWS CloudFormation StackSets.
+​
+Parameters:
+  AdministratorAccountId:
+    Type: String
+    Description: AWS Account Id of the administrator account (the account in which StackSets will be created).
+    MaxLength: 12
+    MinLength: 12
+​
+Resources:
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: AWSControlTowerExecution
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !Ref AdministratorAccountId
+            Action:
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+```

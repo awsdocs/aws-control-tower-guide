@@ -1,8 +1,8 @@
 # Provision Account Factory accounts with AWS Service Catalog<a name="provision-as-end-user"></a>
 
-The following procedure describes how to provision accounts as an AWS SSO end user, through AWS Service Catalog\. This procedure also is referred to as *advanced account provisioning*\. We recommend using the **Enroll account** capability whenever possible\.
+The following procedure describes how to create and provision accounts as an AWS SSO end user, through AWS Service Catalog\. This procedure also is referred to as *advanced account provisioning*, or *manual account provisioning*\. Optionally, you may be able to provision accounts programmatically, with the AWS CLI or with AWS Control Tower Account Factory for Terraform \(AFT\)\.
 
-**To provision accounts in Account Factory as an end user**
+**To provision accounts individually in Account Factory, as an end user**
 
 1. Sign in from your user portal URL\.
 
@@ -16,7 +16,7 @@ The following procedure describes how to provision accounts as an AWS SSO end us
 
 1. Search for and choose **Service Catalog** to open the AWS Service Catalog console\.
 
-1. From the navigation pane, choose **Products list**\.
+1. From the navigation pane, choose **Products**\.
 
 1. Select **AWS Control Tower Account Factory**, then choose the **Launch** button\. This selection starts the wizard to provision a new account\.
 

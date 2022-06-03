@@ -36,7 +36,7 @@ If you signed up for AWS but have not created an IAM user for yourself, you can 
 **Note**  
 We strongly recommend that you adhere to the best practice of using the **Administrator** IAM user that follows and securely lock away the root user credentials\. Sign in as the root user only to perform a few [account and service management tasks](https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html)\.
 
-1. In the navigation pane, choose **Users** and then choose **Add user**\.
+1. In the navigation pane, choose **Users** and then choose **Add users**\.
 
 1. For **User name**, enter **Administrator**\.
 
@@ -87,6 +87,13 @@ To verify the sign\-in link for IAM users for your account, open the IAM console
 ### Set up MFA<a name="setup-mfa"></a>
 
 Because of the nature of AWS Control Tower, we strongly recommend that you enable multi\-factor authentication \(MFA\) for your management account\. For more information, see [Enable MFA on the AWS Account Root User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa) in the *IAM User Guide*\.
+
+## <a name="w266aac12c13"></a>
+
+**Security for your accounts**  
+You can find additional guidance about how to set up best practices that protect the security of your AWS Control Tower accounts, in the AWS Organizations documentation\.  
+[Best practices for the management account](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html)
+[Best practices for member accounts](https://docs.aws.amazon.com/organizations/latest/userguide/best-practices_member-acct.html)
 
 ## Next Step<a name="setting-up-next-step"></a>
 

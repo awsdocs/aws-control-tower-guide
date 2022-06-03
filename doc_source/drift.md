@@ -39,6 +39,7 @@ For more information, see [Types of Governance Drift](governance-drift.md)\.
 Although detection is automatic, the steps to resolve drift must be done through the console\.
 + Many types of drift can be resolved through the **Landing zone settings** page\. You can choose the **Repair** button in the **Versions** section to repair these types of drift\.
 + If your OU has fewer than 300 accounts, you can repair drift by selecting **Re\-register OU** on the **OU** page, to repair drift in Account Factory provisioned accounts, or SCP drift\.
++ You may be able to repair account drift, such as [Moved Member Account](governance-drift.md#drift-account-moved), by updating an individual account\. For more information, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
 
 **Note**  
 When you repair your landing zone, the landing zone is upgraded to the latest landing zone version\.
