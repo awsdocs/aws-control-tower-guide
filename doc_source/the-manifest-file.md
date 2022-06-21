@@ -8,7 +8,7 @@ region: String
 version: 2021-03-15
 
 resources:
-  #set of CloudFoundation resources or SCP policies
+  #set of CloudFormation resources or SCP policies
 ...
 ```
 
