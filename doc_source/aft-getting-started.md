@@ -49,7 +49,7 @@ This step assumes that you are experienced with Terraform, and that you have pro
 
 The Account Factory for Terraform module must be called while you are authenticated with **AdministratorAccess** credentials in your AWS Control Tower management account\.
 
-AWS Control Tower, through the AWS Control Tower management account, vends a Terraform module that establishes all infrastructure necessary to orchestrate your AWS Control Tower account factory requests\. You can view that module in [the AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main)\. Refer to the module’s README file for information about the input required to run the module and deploy AFT\.
+AWS Control Tower, through the AWS Control Tower management account, sends a Terraform module that establishes all infrastructure necessary to orchestrate your AWS Control Tower account factory requests\. You can view that module in [the AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main)\. Refer to the module’s README file for information about the input required to run the module and deploy AFT\.
 
 If you have established pipelines for managing Terraform in your environment, you can integrate this module into your existing workflow\. Otherwise, run the module from any environment that is authenticated with the required credentials\.
 
