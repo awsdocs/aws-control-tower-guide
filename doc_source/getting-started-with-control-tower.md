@@ -61,7 +61,7 @@ We are changing our terminology regarding the default names of some AWS Control 
 
 ## Expectations for landing zone configuration<a name="getting-started-configure"></a>
 
-The process of setting up your AWS Control Tower landing zone has multiple steps\. Certain aspects of your AWS Control Tower landing zone are configurable\. Other choices are "one\-way doors" that cannot be changed after setup\.
+The process of setting up your AWS Control Tower landing zone has multiple steps\. Certain aspects of your AWS Control Tower landing zone are configurable\. Other choices cannot be changed after setup\.
 
 **Key items to configure during setup**
 + You can select your top\-level OU names during setup, and you also can change OU names after you've set up your landing zone\. By default, the top\-level OUs are named **Security** and **Sandbox**\. For more information, see [Guidelines to set up a well\-architected environment](aws-multi-account-landing-zone.md#guidelines-for-multi-account-setup)\. 
