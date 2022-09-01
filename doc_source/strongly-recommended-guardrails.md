@@ -16,6 +16,7 @@ Strongly recommended guardrails are based on best practices for well\-architecte
 + [Detect Whether Public Access to Amazon RDS Database Instances is Enabled](#disallow-rds-public-access)
 + [Detect Whether Public Access to Amazon RDS Database Snapshots is Enabled](#disallow-rds-snapshot-public-access)
 + [Detect Whether Storage Encryption is Enabled for Amazon RDS Database Instances](#disallow-rds-storage-unencrypted)
++ [Detect whether an account has AWS CloudTrail or CloudTrail Lake enabled](#ensure-cloudtrail-enabled-recommended)
 
 ## Disallow Creation of Access Keys for the Root User<a name="disallow-root-access-keys"></a>
 
@@ -478,4 +479,30 @@ Resources:
       Scope:
         ComplianceResourceTypes:
           - AWS::RDS::DBInstance
+```
+
+## Detect whether an account has AWS CloudTrail or CloudTrail Lake enabled<a name="ensure-cloudtrail-enabled-recommended"></a>
+
+This guardrail detects whether an account has AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled on any OUs\.
+
+The artifact for this guardrail is the following AWS Config rule\.
+
+```
+AWSTemplateFormatVersion: 2010-09-09
+	 Description: Configure AWS Config rules to detect whether an account has AWS CloudTrail or CloudTrail Lake enabled.
+	 
+	 Parameters:
+	   ConfigRuleName:
+	     Type: 'String'
+	     Description: 'Name for the Config rule'
+	 
+	 Resources:
+	   CheckForCloudtrailEnabled:
+	     Type: AWS::Config::ConfigRule
+	     Properties:
+	       ConfigRuleName: !Sub ${ConfigRuleName}
+	       Description: Detects whether an account has AWS CloudTrail or CloudTrail Lake enabled. The rule is NON_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account.
+	       Source:
+	         Owner: AWS
+	         SourceIdentifier: CLOUD_TRAIL_ENABLED
 ```

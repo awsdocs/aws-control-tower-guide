@@ -4,9 +4,11 @@ Before you use AWS Control Tower for the first time, complete the following task
 
 1. [Sign up for AWS](#setting-up-signup)
 
-1. [Create an IAM User](#setting-up-iam)
+1. [Sign in as an Administrator user](#setting-up-iam)
 
-These tasks create an AWS account and an IAM user with administrator privileges for the account\. For information on additional setup tasks specifically for AWS Control Tower, see [Getting started with AWS Control Tower](getting-started-with-control-tower.md)\.
+1. [Set up MFA](#setup-mfa)
+
+These tasks create an AWS account and  protect your AWS Control Tower management account\. For information on additional setup tasks specifically for AWS Control Tower, see [Getting started with AWS Control Tower](getting-started-with-control-tower.md)\.
 
 ## Sign up for AWS<a name="setting-up-signup"></a>
 
@@ -20,15 +22,17 @@ When you sign up for Amazon Web Services \(AWS\), your AWS account is automatica
 
    Part of the sign\-up procedure involves receiving a phone call and entering a verification code on the phone keypad\.
 
-Note your AWS account number, because you need it for the next task\.
+Note your AWS account number, because you need it for other tasks\.
 
-## Create an IAM User<a name="setting-up-iam"></a>
+## Sign in as an Administrator user<a name="setting-up-iam"></a>
 
-Services in AWS, such as AWS Control Tower, require that your user account must provide credentials, so that the service can determine whether you have permission to utilize its resources\. AWS recommends that you don't make requests to other services from the *root user* credentials of your AWS account\. Instead, create an AWS Identity and Access Management \(IAM\) user and grant that user full access\. We call these full\-access users *administrators*\.
+Services in AWS, such as AWS Control Tower, require your user account to provide credentials, so that the service can determine whether you have permission to utilize its resources\. AWS recommends that you don't make requests to services from the *root user* credentials of your AWS account\. 
+
+Instead, create an AWS Identity and Access Management \(IAM\) user and grant that user full access\. We call these full\-access users *administrators*\.
 
 You can use the administrator credentials, instead of AWS account root user credentials of your account, to interact with AWS and perform tasks, such as create users and grant them the appropriate permissions\. For more information, see [Root Account Credentials vs\. IAM User Credentials](https://docs.aws.amazon.com/general/latest/gr/root-vs-iam.html) in the *AWS General Reference* and [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\. 
 
-If you signed up for AWS but have not created an IAM user for yourself, you can create one using the IAM Management Console\.
+If you signed up for AWS but have not created an IAM user for yourself, you can create one using the [IAM console](https://console.aws.amazon.com/iam.)\.
 
 **To create an administrator user for yourself and add the user to an administrators group \(console\)**
 
@@ -86,15 +90,15 @@ To verify the sign\-in link for IAM users for your account, open the IAM console
 
 ### Set up MFA<a name="setup-mfa"></a>
 
-Because of the nature of AWS Control Tower, we strongly recommend that you enable multi\-factor authentication \(MFA\) for your management account\. For more information, see [Enable MFA on the AWS Account Root User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa) in the *IAM User Guide*\.
+Because of the nature of AWS Control Tower, we strongly recommend that you enable multi\-factor authentication \(MFA\) for your account\. This account becomes your AWS Control Tower management account\. For more information, see [Enable MFA on the AWS Account Root User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa) in the *IAM User Guide*\.
 
-## <a name="w266aac12c13"></a>
+### <a name="w347aac12c13c37"></a>
 
 **Security for your accounts**  
 You can find additional guidance about how to set up best practices that protect the security of your AWS Control Tower accounts, in the AWS Organizations documentation\.  
 [Best practices for the management account](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html)
 [Best practices for member accounts](https://docs.aws.amazon.com/organizations/latest/userguide/best-practices_member-acct.html)
 
-## Next Step<a name="setting-up-next-step"></a>
+### Next step<a name="setting-up-next-step"></a>
 
 [Getting started with AWS Control Tower](getting-started-with-control-tower.md)

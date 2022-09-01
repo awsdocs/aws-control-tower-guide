@@ -29,9 +29,11 @@ The relevant portfolio is one created by AWS Control Tower, called **AWS Control
 
 ## Common causes of failure during registration or re\-registration<a name="common-eg-failures"></a>
 
-If registration \(or re\-registration\) of an OU or any of its member accounts fails, you can download a file containing a detailed report that shows which pre\-checks did not pass\. This section lists the types of errors you may receive if pre\-checks fail, and how to correct the errors\.
+If registration \(or re\-registration\) of an OU or any of its member accounts fails, you can download a file containing a detailed report that shows which pre\-checks did not pass\. You can complete the download by choosing the **Download** button, which appears at the upper right of the registration area\.
 
-In general, when you register or re\-register an OU, all accounts within that OU are enrolled in AWS Control Tower\. However, it is possible that some accounts may fail to enroll, even if the OU as a whole is registered successfully\. In these cases, you must resolve the pre\-check failure related to the account and then try re\-enrolling that account, by using the **Enroll account** form in the AWS Control Tower console\.
+ This section lists the types of errors you may receive if pre\-checks fail, and how to correct the errors\.
+
+In general, when you register or re\-register an OU, all accounts within that OU are enrolled in AWS Control Tower\. However, it is possible that some accounts may fail to enroll, even if the OU as a whole is registered successfully\. In these cases, you must resolve the pre\-check failure related to the account and then try re\-enrolling that account or OU\.
 
 **Landing Zone error**
 + **Landing zone not ready**
@@ -61,11 +63,11 @@ In general, when you register or re\-register an OU, all accounts within that OU
   The email address you specified for the account does not conform to the naming standards\. Here is the regular expression \(regex\) that specifies which characters are allowed: `[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+[.]+[A-Za-z]+`
 + **Config recorder or delivery channel enabled**
 
-  The account may have an existing AWS Config configuration recorder or delivery channel\. These must be deleted through the AWS CLI in all AWS Regions where the AWS Control Tower management account has governed resources, before you can enroll an account\.
+  The account may have an existing AWS Config configuration recorder or delivery channel\. These must be deleted or modified through the AWS CLI in all AWS Regions where the AWS Control Tower management account has governed resources, before you can enroll an account\.
 + **STS disabled**
 
   AWS Security Token Service \(AWS STS\) may be disabled in the account\. AWS STS endpoints must be activated in the accounts for all Regions supported by AWS Control Tower\.
-+ **SSO conflict**
++ **AWS SSO conflict**
 
   The AWS Control Tower home Region is not the same as the AWS Single Sign\-On \(AWS SSO\) Region\. If AWS SSO is already set up, the AWS Control Tower home region must be the same as the AWS SSO Region\.
 + **Conflicting SNS topic**

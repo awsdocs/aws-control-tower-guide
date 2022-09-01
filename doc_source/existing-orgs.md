@@ -10,9 +10,9 @@ For existing AWS Organizations and AWS accounts, most customers prefer to enroll
 
 **View your OUs and accounts**
 
-On the AWS Control Tower **Organizational units** page, you can view all the OUs in your AWS Organizations, including OUs that are registered with AWS Control Tower and those that are not registered\.
+On the AWS Control Tower **Organization** page, you can view all the OUs in your AWS Organizations, including OUs that are registered with AWS Control Tower and those that are not registered\. You can view nested OUs as part of the hierarchy\. An easy way to view your organizational units on the **Organization** page is to select **Organizational units only** from the dropdown at the upper right\.
 
-The **Accounts** page lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can view and enroll accounts individually within the OUs, if the accounts meet the prerequisites for enrollment\.
+The **Organization** page lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. An easy way to view your accounts on the **Organization** page is to select **Accounts only** from the dropdown at the upper right\. You can view, update, and enroll accounts individually within the OUs, if the accounts meet the prerequisites for enrollment\.
 
 ## <a name="topics-for-existing-orgs-and-accounts"></a>
 
@@ -50,13 +50,13 @@ During set up, AWS Control Tower performs pre\-checks to avoid common issues\. H
 ## Considerations for AWS SSO and existing organizations<a name="sso-and-existing-orgs"></a>
 + If AWS Single Sign\-On \(AWS SSO\) is already set up, the AWS Control Tower home Region must be the same as the AWS SSO Region\.
 + AWS Control Tower does not delete an existing configuration\.
-+  If AWS SSO is already enabled, and if you are using SSO Directory, AWS Control Tower adds resources such as permission sets, groups, and so forth, and proceeds as usual\. 
-+ If another directory \(external, AD, Managed AD\) is set up, AWS Control Tower does not change the existing configuration\. For more details, see [Considerations for AWS Single Sign\-On \(AWS SSO\) customers](getting-started-with-control-tower.md#sso-considerations)\.
++  If AWS SSO is already enabled, and if you are using AWS SSO Directory, AWS Control Tower adds resources such as permission sets, groups, and so forth, and proceeds as usual\. 
++ If another directory \(external, AD, Managed AD\) is set up, AWS Control Tower does not change the existing configuration\. For more details, see [Considerations for AWS Single Sign\-On \(AWS SSO\) customers](getting-started-prereqs.md#sso-considerations)\.
 
 ## Access to other AWS services<a name="other-services"></a>
 
 After you bring your organization into AWS Control Tower governance, you still have access to any AWS services that are available through AWS Organizations, by means of the AWS Organizations console and APIs\. For more information, see [Related AWS services](related-information.md#related-aws-services)\.
 
-## Enable a Landing Zone in Existing AWS Organizations<a name="existing-orgs-video"></a>
+## Enable a Landing Zone in existing AWS Organizations<a name="existing-orgs-video"></a>
 
 This video \(7:48\), [getting started with AWS Control Tower for AWS Organizations](https://www.youtube.com/watch?v=CwRy0t8nfgM), describes how to set up and enable an AWS Control Tower landing zone in existing AWS Organizations\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.

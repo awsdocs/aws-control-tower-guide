@@ -1,6 +1,6 @@
 # Enable feature options<a name="aft-feature-options"></a>
 
-AFT offers feature options based on best practices\. You can opt\-in to these features, by means of feature flags, during AFT deployment\. Refer to [Provision a new account with AFT](taf-account-provisioning.md#aft-provision-account) for more information about AFT input configuration parameters\.
+AFT offers feature options based on best practices\. You can opt\-in to these features, by means of feature flags, during AFT deployment\. Refer to [Provision a new account with AFT](aft-provision-account.md) for more information about AFT input configuration parameters\.
 
 These features are not enabled by default\. You must explicitly enable each one in your environment\.
 
@@ -54,11 +54,16 @@ aft_feature_enterprise_support=false
 
 Refer to [Compare AWS Support Plans](http://aws.amazon.com/aws.amazon.com/premiumsupport/plans/) to learn more about AWS Support Plans\.
 
+**Note**  
+To allow this feature to operate, you must enroll the payer account into the Enterprise Support plan\.
+
 ## Delete the AWS default VPC<a name="delete-default-vpc-option"></a>
 
-When this option is enabled, the AFT pipeline deletes the associated AWS default VPCs in all AWS Regions, for the accounts that AFT provisions\.
+When this option is enabled, the AFT pipeline deletes the associated AWS default VPCs for the AFT management account in all AWS Regions, even if you don’t have AWS Control Tower resources deployed in those Regions\.
 
-New AWS accounts are created with a VPC set up in each AWS Region, by default\. Your enterprise may have standard practices for creating VPCs, which require you to delete the AWS default VPC and avoid enabling it\. AFT provides an automated way to delete the default VPCs for the accounts that AFT provisions\.
+The AFT pipeline does not delete the AWS default VPCs automatically for any AWS Control Tower accounts that AFT provisions, or for existing AWS accounts that you enroll in AWS Control Tower by means of AFT\.
+
+New AWS accounts are created with a VPC set up in each AWS Region, by default\. Your enterprise may have standard practices for creating VPCs, which require you to delete the AWS default VPC and avoid enabling it, especially for the AFT management account\. 
 
 To enable this option, set the following feature flag to **True** in your AFT deployment input configuration\.
 

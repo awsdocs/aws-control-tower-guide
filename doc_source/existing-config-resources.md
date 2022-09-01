@@ -1,6 +1,9 @@
 # Enroll accounts that have existing AWS Config resources<a name="existing-config-resources"></a>
 
-This topic provides a step\-by\-step approach for how to enroll accounts that have existing AWS Config resources\.
+This topic provides a step\-by\-step approach for how to enroll accounts that have existing AWS Config resources\. For examples of how to check your existing resources, see [Example AWS Config CLI commands for resource status](enroll-account.md#example-config-cli-commands)\.
+
+**Note**  
+If you plan to bring existing AWS accounts into AWS Control Tower as **Audit** and **Log archive** accounts, and if those accounts have existing AWS Config resources, you must delete the existing AWS Config resources before you can enroll the accounts into AWS Control Tower\.
 
 **Examples of AWS Config resources**
 
@@ -74,7 +77,7 @@ For a blog that describes an automated approach to enrolling accounts with exist
                  - sts:AssumeRole
          Path: /
          ManagedPolicyArns:
-           - arn:aws:iam::aws:policy/service-role/AWSConfigRole
+           - arn:aws:iam::aws:policy/service-role/AWS_ConfigRole
            - arn:aws:iam::aws:policy/ReadOnlyAccess
    ```
 
@@ -109,13 +112,13 @@ Only one AWS Config recorder can exist per AWS Region\. If another exists, modif
 + **RoleARN:**` IAM_ROLE_ARN`
   + **RecordingGroup:**
   + **AllSupported:** true
-  + **IncludeGlobalResourceTypes:** true
+  + **IncludeGlobalResourceTypes:** `GLOBAL_RESOURCE_RECORDING`
   + **ResourceTypes:** Empty
 
 This modification can be made through the AWS CLI using the following command\. Replace the string `RECORDER_NAME` with the existing AWS Config recorder name\.
 
 ```
-aws configservice put-configuration-recorder —configuration-recorder  name=RECORDER_NAME,roleARN=arn:aws:iam::MEMBER_ACCOUNT_NUMBER:role/aws-controltower-ConfigRecorderRole-customer-created —recording-group allSupported=true,includeGlobalResourceTypes=true --region CURRENT_REGION
+aws configservice put-configuration-recorder --configuration-recorder  name=RECORDER_NAME,roleARN=arn:aws:iam::MEMBER_ACCOUNT_NUMBER:role/aws-controltower-ConfigRecorderRole-customer-created --recording-group allSupported=true,includeGlobalResourceTypes=GLOBAL_RESOURCE_RECORDING --region CURRENT_REGION
 ```
 
 ## Step 5b\. Modify AWS Config delivery channel resources<a name="modify-config-delivery-channel-step-5"></a>
@@ -134,7 +137,7 @@ Only one AWS Config delivery channel can exist per Region\. If another exists, m
 This modification can be made through the AWS CLI using the following command\. Replace the string `DELIVERY_CHANNEL_NAME` with the existing AWS Config recorder name\.
 
 ```
-aws configservice put-delivery-channel --delivery-channel name=DELIVERY_CHANNEL_NAME, s3BucketName=aws-controltower-logs-LOGGING_ACCOUNT_ID-ap-northeast-2, s3KeyPrefix="ORGANIZATION_ID", configSnapshotDeliveryProperties={deliveryFrequency=TwentyFour_Hours}, snsTopicARN=arn:aws:sns:CURRENT_REGION:AUDIT_ACCOUNT:aws-controltower-AllConfigNotifications --region CURRENT_REGION
+aws configservice put-delivery-channel --delivery-channel name=DELIVERY_CHANNEL_NAME, s3BucketName=aws-controltower-logs-LOGGING_ACCOUNT_ID-HOME_REGION, s3KeyPrefix="ORGANIZATION_ID", configSnapshotDeliveryProperties={deliveryFrequency=TwentyFour_Hours}, snsTopicARN=arn:aws:sns:CURRENT_REGION:AUDIT_ACCOUNT:aws-controltower-AllConfigNotifications --region CURRENT_REGION
 ```
 
 ## Step 5c\. Modify AWS Config aggregation authorization resources<a name="modify-config-aggregator-auth-step-5c"></a>
@@ -145,7 +148,7 @@ Multiple aggregation authorizations can exist per Region\. AWS Control Tower req
 
 This modification can be made through the AWS CLI using the following command:
 
- `aws configservice put-aggregation-authorization —authorized-account-id AUDIT_ACCOUNT_ID —authorized-aws-region HOME_REGION —region CURRENT_REGION` 
+ `aws configservice put-aggregation-authorization --authorized-account-id AUDIT_ACCOUNT_ID --authorized-aws-region HOME_REGION --region CURRENT_REGION` 
 
 ## Step 6: Create resources where they don’t exist, in Regions governed by AWS Control Tower<a name="existing-config-step-6"></a>
 
@@ -166,7 +169,7 @@ This modification can be made through the AWS CLI using the following command:
          RoleARN: !Sub arn:aws:iam::${AWS::AccountId}:role/aws-controltower-ConfigRecorderRole-customer-created
          RecordingGroup:
            AllSupported: true
-           IncludeGlobalResourceTypes: true
+           IncludeGlobalResourceTypes: GLOBAL_RESOURCE_RECORDING
            ResourceTypes: []
      CustomerCreatedConfigDeliveryChannel:
        Type: AWS::Config::DeliveryChannel

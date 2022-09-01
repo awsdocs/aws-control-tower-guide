@@ -24,12 +24,14 @@ When you enable optional guardrails, AWS Control Tower creates and manages AWS r
 **Note**  
 You can enable preventive and detective guardrails concurrently\.
 
-## Concurrent guardrail deployment<a name="concurrent-optional-guardrails"></a>
+## Concurrent deployment for optional guardrails<a name="concurrent-optional-guardrails"></a>
 
-When applying optional guardrails, you can deploy more than one guardrail at a time, up to the StackSets limitation of 5000 concurrent operations\.
+When applying optional guardrails, you can deploy more than one guardrail at a time, up to the StackSets limitation of 5000 concurrent operations\. For example, you can enable **Detect Whether MFA for the Root User is Enabled** and **Detect Whether Public Write Access to Amazon S3 Buckets is Allowed**, at the same time\.
+
+You can apply and remove multiple optional guardrails without waiting for individual guardrail operations to complete\. The only restricted times are when AWS Control Tower is in the process of landing zone setup, or while extending governance to a new organization\.
 
 **Functionality available**
-+ Apply and remove different detective guardrails on the same OU, concurrently\. For example, you can enable **Detect Whether MFA for the Root User is Enabled** and **Detect Whether Public Write Access to Amazon S3 Buckets is Allowed**\. 
++ Apply and remove different detective guardrails on the same OU, concurrently\. 
 + Apply and remove different detective guardrails on different OUs, concurrently\. 
 + Apply and remove the same detective guardrail on multiple OUs, concurrently\.
 + Apply and remove different preventive guardrails on the same OU, concurrently\.
@@ -39,4 +41,4 @@ When applying optional guardrails, you can deploy more than one guardrail at a t
 
 You can apply and remove multiple optional guardrails without waiting for individual guardrail operations to complete\. The only restricted times are when AWS Control Tower is in the process of landing zone setup, or while extending governance to a new organization\.
 
-When you apply preventive guardrails to nested OUs, the preventive guardrails affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered with AWS Control Tower\. Preventive guardrails are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\. Detective guardrails are implemented using AWS Config rules\. Guardrails remain in effect as you create new accounts or make changes to your existing accounts, and AWS Control Tower provides a summary report of how each account conforms to your enabled policies\. For a full list of available guardrails, see the [Guardrail reference](guardrails-reference.md)\.
+When you apply preventive guardrails to nested OUs, the preventive guardrails affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered with AWS Control Tower\. Preventive guardrails are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\. Detective guardrails are implemented using AWS Config rules\. Guardrails remain in effect as you create new accounts or make changes to your existing accounts, and AWS Control Tower provides a summary report of how each account conforms to your enabled policies\. For a full list of available guardrails, see the [Guardrail reference](guardrails-reference.md)\. 

@@ -9,7 +9,7 @@ In the guardrail details page of the console, you can find the following details
 + **Category** – The guardrail category can be **Audit logs**, **Data residency**, **Data security**, **Monitoring**, **Network**, **Operations**, **IAM**, or **AWS Control Tower Setup**\.
 + **Release date** –The date the guardrail became available\.
 + **Behavior** – A guardrail's behavior is set to either preventive or detective\.
-+ **Compliance Status** – A guardrail's compliance status can be **Clear**, **Compliant**, **Enforced**, **Unknown**, or **In violation**\. For more information, see [AWS Control Tower guardrail compliance status](compliance.md#compliance-statuses)\.
++ **Compliance Status** – A guardrail's compliance status can be **Clear**, **Compliant**, **Enforced**, **Unknown**, or **In violation**\. For more information, see [AWS Control Tower compliance status for guardrails, OUs, and accounts](compliance-statuses.md)\.
 + **State** – The state of enablement for a guardrail on the current OU\. A guardrail's state can be **Enabled**, **Enabling**, **Failed to enable**, **Failed to disable**, or **Disabling**\. If a guardrail is enabled on an OU higher on the hierarchy tree of a nested OU, the state will show **Inherited**\.
 +  The status of the Region deny guardrail is shown as a separate entry\. 
 

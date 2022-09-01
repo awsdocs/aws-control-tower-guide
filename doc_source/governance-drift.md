@@ -11,6 +11,8 @@ Governance drift, also called *organizational drift* occurs when OUs, SCPs, and 
 
 Another type of drift is *landing zone drift*, which may be found through the management account\. Landing zone drift consists of IAM role drift, or any type of organizational drift that specifically affects Foundational OUs and shared accounts\.
 
+A special case of landing zone drift is *role drift*, which is detected when a required role is not available\. If this type of drift occurs, the console displays a warning page and some instructions on how to restore the role\. Your landing zone is unavailable until the role drift is repaired\. For more information about drift, see *Don't delete required roles* in the section called [Types of drift to repair right away](drift.md#types-of-drift)\.
+
 AWS Control Tower does not look for drift regarding other services that work with the management account, including CloudTrail, CloudWatch, AWS SSO, AWS CloudFormation, AWS Config, and so forth\. No drift detection is available in child accounts, because these accounts are protected by preventive mandatory guardrails\.
 
 ## Moved Member Account<a name="drift-account-moved"></a>
@@ -33,17 +35,17 @@ This type of drift occurs on the account rather than the OU\. This type of drift
 ### Resolutions<a name="drift-account-moved-resolution"></a>
 
 When this type of drift occurs for an Account Factory provisioned account in an OU with up to 300 accounts, you can resolve it by:
-+ Navigating to the **Accounts** page in the AWS Control Tower console, selecting the account, and choosing **Update account** at the upper right \(fastest option for individual accounts\)\.
-+ Navigating to the **Organizational units** page in the AWS Control Tower console, then choosing **Re\-register** for the OU that contains the account \(fastest option for multiple accounts\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
++ Navigating to the **Organization** page in the AWS Control Tower console, selecting the account, and choosing **Update account** at the upper right \(fastest option for individual accounts\)\.
++ Navigating to the **Organization** page in the AWS Control Tower console, then choosing **Re\-register** for the OU that contains the account \(fastest option for multiple accounts\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
 + Updating the provisioned product in Account Factory\. For more information, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
-+ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
++ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 **Note**  
-If you have several individual accounts to update, also see this method for making updates with a script: [Provisioning and updating accounts using script automation](configuration-updates.md#update-accounts-by-script)\.
-+ When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+If you have several individual accounts to update, also see this method for making updates with a script: [Provision and update accounts using automation](update-accounts-by-script.md)\.
++ When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
   + **If an Account Factory provisioned account is moved** – In an OU with fewer than 300 accounts, you can resolve the account drift by updating the provisioned product in Account Factory, by re\-registering the OU, or by updating your landing zone\. 
 
     In an OU with more than 300 accounts, you *must* resolve the drift by making an update to each moved account, either through the AWS Control Tower console or the provisioned product because re\-register OU will not perform the update\. For more information, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
-  + **If a shared account is moved** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+  + **If a shared account is moved** – You can resolve the drift from moving the audit or log archive account by updating your landing zone\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
 **Deprecated field name**  
 The field name `MasterAccountID` has been changed to `ManagementAccountID` to comply with AWS guidelines\. The old name is **deprecated**\. Beginning in 2022, scripts that contain the deprecated field name will no longer work\.
@@ -109,10 +111,10 @@ This type of drift can occur when an SCP for a guardrail is updated in the AWS O
 ### Resolution<a name="drift-scp-update-resolution"></a>
 
 When this type of drift occurs in an OU with up to 300 accounts, you can resolve it by:
-+ Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
-+ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
++ Navigating to the **Organization** page in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
++ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
-When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
 ## SCP Attached to Managed OU<a name="drift-scp-attached-ou"></a>
 
@@ -133,10 +135,10 @@ This type of drift can occur when an SCP for a guardrail is attached to any othe
 ### Resolution<a name="drift-scp-attached-ou-resolution"></a>
 
 When this type of drift occurs in an OU with up to 300 accounts, you can resolve it by:
-+ Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
-+ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
++ Navigating to the **Organization** page in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
++ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
-When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
 ## SCP Detached from Managed OU<a name="drift-scp-detached-ou"></a>
 
@@ -158,9 +160,9 @@ This type of drift can occur when an SCP for a guardrail has been detached from 
 
 When this type of drift occurs in an OU with up to 300 accounts, you can resolve it by:
 + Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
-+ Updating your landing zone \(slower option\)\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
++ Updating your landing zone \(slower option\)\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
 
-When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
 
 ## SCP Attached to Member Account<a name="drift-scp-attached-account"></a>
 
@@ -182,13 +184,13 @@ This type of drift can occur when an SCP for a guardrail is attached to an accou
 
 This type of drift occurs on the account rather than the OU\.
 
-When this type of drift occurs for accounts in a Foundational OU, such as the Security OU, the resolution is to update your landing zone\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs for accounts in a Foundational OU, such as the Security OU, the resolution is to update your landing zone\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
 When this type of drift occurs in a non\-Foundational OU with up to 300 accounts, you can resolve it by:
 + Detaching the AWS Control Tower SCP from the account factory account\.
 + Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\.
 
-When this type of drift occurs in an OU with more than 300 accounts, you may attempt to resolve it by updating the account factory configuration for the account\. It may not be possible to resolve it successfully\. For more information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.
+When this type of drift occurs in an OU with more than 300 accounts, you may attempt to resolve it by updating the account factory configuration for the account\. It may not be possible to resolve it successfully\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 
 ## Deleted Foundational OU<a name="drift-ou-deleted"></a>
 

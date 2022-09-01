@@ -6,7 +6,7 @@ This section describes at a high level how AWS Control Tower works\. Your landin
 
 The structure of a landing zone in AWS Control Tower is as follows:
 + **Root** – The parent that contains all other OUs in your landing zone\. 
-+ **Security OU** – This OU contains the Log Archive and Audit accounts\. These accounts often are referred to as *shared accounts*\. You can choose customized names for these shared accounts when you launch your landing zone\. However, they cannot be renamed later\.
++ **Security OU** – This OU contains the Log Archive and Audit accounts\. These accounts often are referred to as *shared accounts*\. When you launch your landing zone, you can choose customized names for these shared accounts, and you have the option to bring existing AWS accounts into AWS Control Tower for security and logging\. However, these cannot be renamed later, and existing accounts cannot be added for security and logging after initial launch\.
 + **Sandbox OU** – The Sandbox OU is created when you launch your landing zone, if you enable it\. This and other registered OUs contain the enrolled accounts that your users work with to perform their AWS workloads\.
 + **AWS SSO directory** – This directory houses your AWS SSO users\. It defines the scope of permissions for each AWS SSO user\.
 + **AWS SSO users** – These are the identities that your users can assume to perform their AWS workloads in your landing zone\.
@@ -15,10 +15,10 @@ The structure of a landing zone in AWS Control Tower is as follows:
 
 When you set up a landing zone, AWS Control Tower performs the following actions in your management account on your behalf:
 + Creates two AWS Organizations organizational units \(OUs\): Security, and Sandbox \(optional\), contained within the organizational root structure\.
-+ Creates two shared accounts in the Security OU: the Log Archive account and the Audit account\.
++ Creates or adds two shared accounts in the Security OU: the Log Archive account and the Audit account\.
 + Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
-+ Applies 20 mandatory, preventive guardrails to enforce policies\.
-+ Applies two mandatory, detective guardrails to detect configuration violations\.
++ Applies all mandatory, preventive guardrails to enforce policies\.
++ Applies all mandatory, detective guardrails to detect configuration violations\.
 + Preventive guardrails are not applied to the management account\.
 + Except for the management account, guardrails are applied to the organization as a whole\.
 
@@ -28,7 +28,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
-In AWS Control Tower, three shared accounts in your landing zone are provisioned automatically during setup: the management account, the log archive account, and the audit account\.
+In AWS Control Tower, the shared accounts in your landing zone are provisioned during setup: the management account, the log archive account, and the audit account\.
 
 ### What is the management account?<a name="what-is-mgmt"></a>
 

@@ -8,6 +8,7 @@ This section describes known limitations and unsupported use cases in AWS Contro
 + Email addresses of shared accounts in the Security OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
 + A limit of 5 SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
 + Existing OUs with over 300 accounts cannot be registered or re\-registered in AWS Control Tower\.
++ The limit for `EnableControl` and `DisableControl` updates in AWS Control Tower is 10 concurrent operations\.
 
 For information about how to increase certain AWS Control Tower service quotas with an automated request method, view this video: [Automate Service Limit Increases](https://www.youtube.com/watch?v=3WUShZ4lZGE)\. When provisioning new accounts in this environment, you can use lifecycle events to trigger automated requests for service limit increases in specified AWS Regions\. The video also shows how to automate enrollment of new accounts into Enterprise support for your organization\.
 

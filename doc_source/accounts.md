@@ -4,19 +4,21 @@ An AWS account is the container for all your owned resources\. These resources i
 
 **Resources and account creation time**
 
-When AWS Control Tower creates or enrolls an account, it deploys the minimum necessary resource configuration for the account, including resources in the form of [Account Factory templates](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory-considerations.html) and other resources in your landing zone\. These resources may include IAM roles, AWS CloudTrail trails, [AWS Service Catalog provisioned products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-dashboard.html), and SSO users\. AWS Control Tower also deploys resources, as required by the guardrail configuration, for the OU in which the new account is destined to become a member account\.
+When AWS Control Tower creates or enrolls an account, it deploys the minimum necessary resource configuration for the account, including resources in the form of [Account Factory templates](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory-considerations.html) and other resources in your landing zone\. These resources may include IAM roles, AWS CloudTrail trails, [AWS Service Catalog provisioned products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-dashboard.html), and AWS SSO users\. AWS Control Tower also deploys resources, as required by the guardrail configuration, for the OU in which the new account is destined to become a member account\.
 
 AWS Control Tower orchestrates the deployment of these resources on your behalf\. It may require several minutes per resource to complete the deployment, so consider the total time before you create or enroll an account\. For more information about managing resources in your accounts, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)\.
 
 ## View your accounts<a name="view-your-accounts"></a>
 
-The **Accounts** page lists all accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can view and enroll member accounts into AWS Control Tower — individually or by OU groups — if each account meets the prerequisites for enrollment\.
+The **Organization** page lists all OUs and accounts in your organization, regardless of OU or enrollment status in AWS Control Tower\. You can view and enroll member accounts into AWS Control Tower — individually or by OU groups — if each account meets the prerequisites for enrollment\.
 
-On the **Accounts** page, you can see the account's **State**, which is one of these:
+To view a specific account on the **Organization** page, you can choose **Accounts only** from the dropdown menu at the upper right, and then select the name of your account from the table\. Alternatively, you can select the name of the parent OU from the table, and you can view a list of all accounts within that OU on the **Details** page for that OU\.
+
+On the **Organization** page and the**Account details** page, you can see the account's **State**, which is one of these:
 + **Not enrolled** – The account is a member of the parent OU, but it is not fully managed by AWS Control Tower\. If the parent OU is registered, the account is governed by the preventive guardrails configured for its registered parent OU, but the OU’s detective guardrails do not apply to this account\. If the parent OU is unregistered, no guardrails apply to this account\. 
 + **Enrolling** – Your account is being brought into governance by AWS Control Tower\. We are aligning the account with the guardrail configuration for the parent OU\. This process may require several minutes per account resource\. 
 + **Enrolled** – The account is governed by the guardrails configured for its parent OU\. It is fully managed by AWS Control Tower\.
-+ **Enrollment failed** – AWS Control Tower could not enroll the account\. For more information, see [Common causes for failure of enrollment](enrollment-steps.md#common-causes-for-enrollment-failure)\.
++ **Enrollment failed** – AWS Control Tower could not enroll the account\. For more information, see [Common causes for failure of enrollment](quick-account-provisioning.md#common-causes-for-enrollment-failure)\.
 + **Update available** – This account can be updated\. Accounts in this state are still **Enrolled**, but the account must be updated to reflect recent changes made to your environment\. To update a single account, navigate to the account detail page and select **Update account**\.
 
   If you have multiple accounts with this state under a single OU, you can choose to **Re\-register** the OU and update those accounts together\. 
@@ -77,9 +79,9 @@ The email address you provided for the audit account receives **AWS Notification
 
 ## About member accounts<a name="member-accounts"></a>
 
-Member accounts are the accounts through which your users perform their AWS workloads\. These member accounts can be created in Account Factory, by SSO users with **Admin** privileges in the AWS Service Catalog console, or by automated methods\. When created, these member accounts exist in an OU that was created in the AWS Control Tower console, or registered with AWS Control Tower\. For more information, see these related topics:
+Member accounts are the accounts through which your users perform their AWS workloads\. These member accounts can be created in Account Factory, by AWS SSO users with **Admin** privileges in the AWS Service Catalog console, or by automated methods\. When created, these member accounts exist in an OU that was created in the AWS Control Tower console, or registered with AWS Control Tower\. For more information, see these related topics:
 + [Provision and manage accounts with Account Factory](account-factory.md)
-+ [Automating tasks in AWS Control Tower](automating-tasks.md)
++ [Automate tasks in AWS Control Tower](automating-tasks.md)
 + [AWS Organizations Terminology and Concepts](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html) in the *AWS Organizations User Guide*\.
 
 Also see [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.

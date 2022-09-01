@@ -11,7 +11,7 @@ From January 1 through December 31, 2019, AWS Control Tower released the followi
 
 **November 13, 2019**
 
-\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.\)
+\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](update-controltower.md)\.\)
 
 AWS Control Tower version 2\.2 provides three new preventive guardrails that prevent drift in accounts:
 + [Disallow Changes to Amazon CloudWatch Logs Log Groups set up by AWS Control Tower](mandatory-guardrails.md#log-group-deletion-policy) 
@@ -64,7 +64,7 @@ In AWS Control Tower, you can now submit email addresses for shared accounts \(l
 
 **June 24, 2019**
 
-\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.\)
+\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](update-controltower.md)\.\)
 
 AWS Control Tower is now generally available and supported for production use\. AWS Control Tower is intended for organizations with multiple accounts and teams who are looking for the easiest way to set up their new multi\-account AWS environment and govern at scale\. With AWS Control Tower, you can help make sure that accounts in your organization are compliant with established policies\. End users on distributed teams can provision new AWS accounts quickly\.
 

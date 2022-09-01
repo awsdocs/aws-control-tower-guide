@@ -25,6 +25,7 @@ Mandatory guardrails are enabled by default when you set up your landing zone an
 + [Disallow Changes to AWS Lambda Functions Set Up by AWS Control Tower](#lambda-disallow-changes)
 + [Disallow Changes to Amazon SNS Set Up by AWS Control Tower](#sns-disallow-changes)
 + [Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower](#sns-subscriptions-disallow-changes)
++ [Detect whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled](#ensure-cloudtrail-enabled-mandatory)
 
 **Note**  
 The four mandatory guardrails with `"Sid": "GRCLOUDTRAILENABLED"` are identical by design\. The sample code is correct\.
@@ -768,4 +769,30 @@ The artifact for this guardrail is the following SCP\.
     }
   ]
 }
+```
+
+## Detect whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled<a name="ensure-cloudtrail-enabled-mandatory"></a>
+
+This guardrail detects whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in a shared account\. This is a detective guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\.
+
+The artifact for this guardrail is the following AWS Config rule\.
+
+```
+     AWSTemplateFormatVersion: 2010-09-09
+	 Description: Configure AWS Config rules to detect whether an account has AWS CloudTrail or CloudTrail Lake enabled.
+	 
+	 Parameters:
+	   ConfigRuleName:
+	     Type: 'String'
+	     Description: 'Name for the Config rule'
+	 
+	 Resources:
+	   CheckForCloudtrailEnabled:
+	     Type: AWS::Config::ConfigRule
+	     Properties:
+	       ConfigRuleName: !Sub ${ConfigRuleName}
+	       Description: Detects whether an account has AWS CloudTrail or CloudTrail Lake enabled. The rule is NON_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account.
+	       Source:
+	         Owner: AWS
+	         SourceIdentifier: CLOUD_TRAIL_ENABLED
 ```

@@ -25,7 +25,7 @@ When you're using AWS CodeCommit to store the configuration package, it is not n
 
 ### Choose your pipeline configuration approval parameters<a name="deploy-pipeline-config-parameters"></a>
 
-The AWS CloudFormation template provides the option to approve the deployment of configuration changes manually\. By default, manual approval is not enabled\. For more information, refer to [Step 1\. Launch the stack](deployment.md#step1)\.
+The AWS CloudFormation template provides the option to approve the deployment of configuration changes manually\. By default, manual approval is not enabled\. For more information, refer to [Step 1\. Launch the stack](step1.md)\.
 
 When manual approval is enabled, the configuration pipeline validates the customizations made to the AWS Control Tower file manifest and templates, then it pauses the process until manual approval is granted\. After approval, the deployment proceeds to run the remaining pipeline stages, as needed, to implement the *Customizations for AWS Control Tower* \(CfCT\) functionality\.
 
@@ -33,4 +33,4 @@ You can use the manual approval parameter to keep the customizations for the AWS
 
 ## To update Customizations for AWS Control Tower<a name="update"></a>
 
-If you have previously deployed CfCT, you must update the AWS CloudFormation stack to get the latest version of the CfCT framework\. For details, refer to [Update the Stack](deployment.md#update-stack)\.
+If you have previously deployed CfCT, you must update the AWS CloudFormation stack to get the latest version of the CfCT framework\. For details, refer to [Update the Stack](update-stack.md)\.

@@ -11,7 +11,7 @@ AFT is deployed with a Terraform module, available in the [AFT repository](https
 
 AFT has prerequisites for installation and for running\. This guide assumes that you can create and interact with each of the following resources required to deploy the AFT solution:
 +  An AWS Control Tower landing zone\.
-+ A Terraform version and distribution\. See [Terraform version supported](version-supported.md) for more details about compatible AFT Terraform distributions\.
++ A Terraform version and distribution\. See [Terraform and AFT versions](version-supported.md) for more details about compatible AFT Terraform distributions\.
 + A home Region for your AWS Control Tower landing zone\.
 + If you are not choosing AWS CodeCommit – you must set up available git\-based repositories if you plan to use a third\-party version control system \(VCS\)\. See [Alternatives for version control of source code in AFT](aft-alternative-vcs.md) for instructions on how to set up these repositories in your environment\.
 + A runtime environment in which to run the Terraform module that installs AFT\.
@@ -30,7 +30,7 @@ Before launching AFT, you must have a working AWS Control Tower landing zone in 
 
 **Step 2: Create a new organizational unit for AFT \(recommended\)**
 
-We recommend that you create a separate OU in your AWS Organization, where you will deploy the AFT management account\. Create an OU through your *AWS Control Tower management account*\. For instructions on how to create an OU, refer to [Create an organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_create.html#create-org) in the *AWS Organizations User Guide*\.
+We recommend that you create a separate OU in your AWS organization, where you will deploy the AFT management account\. Create an OU through your *AWS Control Tower management account*\. For instructions on how to create an OU, refer to [Create an organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_create.html#create-org) in the *AWS Organizations User Guide*\.
 
 **Step 3: Provision the AFT management account**
 

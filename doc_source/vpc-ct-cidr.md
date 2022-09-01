@@ -1,5 +1,7 @@
 # CIDR and Peering for VPC and AWS Control Tower<a name="vpc-ct-cidr"></a>
 
+This section is intended primarily for network administrators\. Your company’s network administrator usually is the person who selects the overall CIDR range for your AWS Control Tower organization\. The network administrator then allocates subnets from within that range for specific purposes\.
+
 When you choose a CIDR range for your VPC, AWS Control Tower validates the IP address ranges according to the RFC 1918 specification\. Account Factory allows a CIDR block of up to `/16` in the ranges of: 
 + `10.0.0.0/8`
 + `172.16.0.0/12`

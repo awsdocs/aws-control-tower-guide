@@ -1,10 +1,17 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** May 31, 2022
++ **Latest documentation update:** September 1, 2022
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [APIs for guardrails, AWS CloudFormation resource](#doc-history) | AWS Control Tower now supports activation and deactivation of guardrails through a set of API calls, and a new AWS CloudFormation resource\. | September 1, 2022 | 
+| [CfCT supports stack set deletion](#doc-history) | CfCT supports stack set deletion, by setting a parameter in the manifest file\. | August 26, 2022 | 
+| [Customized log retention](#doc-history) | You can customize the retention policy for Amazon S3 buckets that store your AWS Control Tower CloudTrail logs, in increments of days or years, up to a maximum of 15 years\. | August 15, 2022 | 
+| [Role drift repair available](#doc-history) | AWS Control Tower supports repair for role drift, without a full repair of the landing zone\. | August 11, 2022 | 
+| [Version 3\.0 available](#doc-history) | AWS Control Tower landing zone version 3\.0 changes from account\-based AWS CloudTrail trails to organization\-based trails, and it updates the managed policy to enable organization\-level trails\. It enables you to aggregate AWS Config information in your home Region only\. Verion 3\.0 also includes an update to the Region deny guardrail, and two new detective guardrails\. | July 26, 2022 | 
+| [The Organization page combines views of OUs and accounts](#doc-history) | The new **Organization** page in AWS Control Tower shows a hierarchical view of all Organizational units \(OUs\) and accounts\.  | July 18, 2022 | 
+| [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that customers can have organization\-level AWS CloudTrail trails to aggregate AWS CloudTrail logs\. | June 20, 2022 | 
 | [Easier enroll and update for member accounts](#doc-history) | AWS Control Tower now gives you the capability to to enroll and update member accounts individually, from within your landing zone\. Each account shows when it is available for an update\. We separated the **Enroll account** button from the **Create** account workflow in Account Factory\. | May 31, 2022 | 
 | [AFT supports customization for shared accounts](#doc-history) | AWS Control Tower Account Factory for Terraform now supports customization for the AWS Control Tower management account, log archive, and audit accounts\. | May 27, 2022 | 
 | [Concurrent operations for all optional guardrails](#doc-history) |  AWS Control Tower now allows you to apply and remove optional preventive guardails concurrently, as well as detective guardrails\. | May 18, 2022 | 

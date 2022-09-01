@@ -54,7 +54,7 @@ When you register or re\-register a nested OU, AWS Control Tower enrolls all une
 + Adds the `AWSControlTowerExecution` role to all unenrolled accounts under this OU, and to all unenrolled accounts in its nested OUs\. 
 + Enrolls member accounts that are not enrolled\.
 + Re\-enrolls enrolled member accounts\.
-+ Creates an SSO login for newly enrolled member accounts\.
++ Creates an AWS SSO login for newly enrolled member accounts\.
 + Updates existing enrolled member accounts to reflect your landing zone changes\.
 + Updates guardrails that are configured for this OU and its member accounts\.
 
@@ -75,13 +75,14 @@ When you register or re\-register a nested OU, AWS Control Tower enrolls all une
 
 ## Nested OUs and compliance<a name="nested-ou-compliance"></a>
 
-From the AWS Control Tower console, you can view OUs and accounts that are non\-compliant, so you can understand compliance at a larger scale\.
+From the AWS Control Tower console, you can view OUs and accounts that are non\-compliant in the **Organization** page, so you can understand compliance at a larger scale\.
 
 **Considerations about compliance for nested OUs and accounts**
 + An OU's compliance is not determined based on the compliance of the OUs nested under it\.
-+ A guardrail's compliance status is computed over all OUs on which the guardrail is enabled, including nested OUs\.
++ A guardrail's compliance status is computed over all OUs on which the guardrail is enabled, including nested OUs\. See [AWS Control Tower compliance status for guardrails, OUs, and accounts](compliance-statuses.md)\.
 + An OU is shown as noncompliant only if it has accounts that are noncompliant, regardless of where the OU sits in the OU hierarchy\.
 + If a nested OU is noncompliant, its parent OU is not automatically considered to be noncompliant\.
++ On the **OU detail** or **Account detail** page, you can view a list of noncompliant resources that may be causing your OUs or accounts to show a non\-compliant status\.
 
 ## Nested OUs and drift<a name="nested-ous-and-drift"></a>
 
@@ -109,7 +110,10 @@ When you enable a guardrail on a registered OU, preventive and detective guardra
 
 **Enabled guardrail states and inheritance**
 
- You can view inherited guardrails for each OU, on the **OU details** page\. 
+ You can view inherited guardrails for each OU, on the **OU details** page\.
+
+**Tip**  
+You can make use of guardrail inheritance to help stay within an OU's SCP quota\. For example, you can enable a guardrail at the top\-level OU of an OU hierarchy, instead of enabling directly for a nested OU\.
 
 **Inherited status**
 + The status **Inherited** indicates that the guardrail is enabled by inheritance only, and it has not been applied directly to the OU\.
@@ -126,4 +130,4 @@ The status **Inherited** indicates that the guardrail was applied to an OU highe
 
 The root is not an OU, and it cannot be registered or re\-registered\. You also can’t create accounts directly in the root\. The root cannot be noncompliant or have a lifecycle state, such as *registered* or *in drift*\. 
 
-However, the root is the top\-level container for all accounts and OUs\. In the context of nested OUs, it is the node that all other OUs are “nested” under\.
+However, the root is the top\-level container for all accounts and OUs\. In the context of nested OUs, it is the node under which all other OUs are nested\.

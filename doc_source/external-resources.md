@@ -28,11 +28,11 @@ When you create new OUs and accounts outside of AWS Control Tower, they are not 
 
 **Creating an OU**
 
-Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **OU list** page, but they are not governed by AWS Control Tower guardrails\.
+Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **Organization** page, but they are not governed by AWS Control Tower guardrails\.
 
 **Creating an account**
 
-Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Accounts that belong to an organization that’s registered with AWS Control Tower are displayed in the **Accounts list** page\. Accounts that do not belong to a registered organization can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the Account Factory page in AWS Control Tower and choose **Enroll account**\.
+Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Enrolled and unenrolled accounts that belong to an OU that’s registered with AWS Control Tower are displayed in the **Organization** page\. Accounts that do not belong to a registered OU can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the **Organization** page or the **Account detail** pagein AWS Control Tower and choose **Enroll account**\.
 
 ## Externally changing AWS Control Tower resource names<a name="changing-names"></a>
 
@@ -40,9 +40,9 @@ You can change the names of your organizational units \(OUs\) and accounts outsi
 
 **Renaming an OU**
 
-In AWS Organizations, you can change the name of an OU by using either the AWS Organizations API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Landing zone settings** page\. See "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
+In AWS Organizations, you can change the name of an OU by using either the AWS Organizations API or the console\. When you change an OU name outside of AWS Control Tower, the AWS Control Tower console automatically reflects the name change\. However, if you provision your accounts using AWS Service Catalog, you also must repair your landing zone to ensure that AWS Control Tower stays consistent with AWS Organizations\. The **Repair** workflow ensures consistency across services for the Foundational and Additional OUs\. You can repair this type of drift from the **Landing zone settings** page\. See the section called "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
-AWS Control Tower displays the names of OUs in the AWS Control Tower dashboard and displays Additional OUs in Account Factory\. You can see when your landing zone repair has succeeded\.
+AWS Control Tower displays the names of OUs on the **Organization** page in the AWS Control Tower dashboard\. You can see when your landing zone repair has succeeded\.
 
 **Renaming an enrolled account**
 
@@ -89,7 +89,7 @@ We do not recommend that you remove any of the shared accounts from your organiz
    + If you have access to the email message sent when you re\-invited the account, sign in to the removed account, then click the link in the message to navigate directly to the account invitation\.
    + If the shared account that was removed is not in another organization, sign into the account, open the AWS Organizations console and navigate to **Invitations**\.
 
-1. Sign in to the management account again, or reload the AWS Control Tower console if it's already open\. You'll see the **Landing zone drift** page\. Choose **Repair** to repair the landing zone\. 
+1. Sign in to the management account again, or reload the AWS Control Tower console if it's already open\. You'll see the **Landing zone drift** page\. Choose **Repair** to repair the landing zone\.
 
 1. Wait for the repair process to complete\.
 

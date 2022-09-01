@@ -1,4 +1,4 @@
-# Guardrail compliance notifications by SNS<a name="receive-notifications"></a>
+# Compliance notifications by SNS in the audit account<a name="receive-notifications"></a>
 
 To receive compliance change notifications in email sent to your audit account, subscribe to this Amazon SNS topic:
 

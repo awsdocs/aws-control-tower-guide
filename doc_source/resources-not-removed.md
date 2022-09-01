@@ -45,3 +45,6 @@ AWS Control Tower customers can use account factory to create new AWS accounts\.
 
 A CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, is created as part of the blueprint named `AWSControlTowerBP-BASELINE-CLOUDTRAIL-MANAGEMENT`\. This log group is not removed\. Instead, the blueprint is deleted and the resources are retained\.
 + This log group must be deleted manually before you set up another landing zone\.
+
+**Note**  
+Customers on landing zone 3\.0 and later do not need to delete their individual enrolled account’s CloudTrail logs and CloudTrail logs roles, because these are created in the management account only, for the organization\-level trail\.

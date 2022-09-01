@@ -16,7 +16,7 @@ Since January 1, 2020, AWS Control Tower has released the following updates:
 
  **December 29, 2020**
 
-\(Update required for AWS Control Tower landing zone to version 2\.6\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\)
+\(Update required for AWS Control Tower landing zone to version 2\.6\. For information, see [Update Your Landing Zone](update-controltower.md)\)
 
 AWS Control Tower now includes an organization\-level aggregator, which assists in detecting external AWS Config rules\. This provides you with visibility in the AWS Control Tower console to see the existence of externally created AWS Config rules in addition to those AWS Config rules created by AWS Control Tower\. The aggregator allows AWS Control Tower to detect external rules and provide a link to the AWS Config console without the need for AWS Control Tower to gain access to unmanaged accounts\.
 
@@ -26,7 +26,7 @@ With this feature, you now have a consolidated view of detective guardrails appl
 
  **November 18, 2020**
 
-\(Update required for AWS Control Tower landing zone to version 2\.5\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\)
+\(Update required for AWS Control Tower landing zone to version 2\.5\. For information, see [Update Your Landing Zone](update-controltower.md)\)
 
 AWS Control Tower is now available in 5 additional AWS Regions:
 + Asia Pacific \(Singapore\) Region
@@ -95,7 +95,7 @@ The deployment documentation for this AWS Control Tower solution architecture is
 
 **March 5, 2020** 
 
-\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](configuration-updates.md#update-controltower)\.\)
+\(Update required for AWS Control Tower landing zone\. For information, see [Update Your Landing Zone](update-controltower.md)\.\)
 
 AWS Control Tower is now available in the Asia Pacific \(Sydney\) AWS Region, in addition to the US East \(Ohio\), US East \(N\. Virginia\), US West \(Oregon\), and Europe \(Ireland\) Regions\. The addition of the Asia Pacific \(Sydney\) Region is the only change introduced for version 2\.3 of AWS Control Tower\.
 
@@ -114,12 +114,12 @@ Updating your landing zone does not automatically update your accounts\. If you 
 
 AWS Control Tower now supports single\-step account provisioning through the AWS Control Tower console\. This feature allows you to provision new accounts from within the AWS Control Tower console\.
 
-To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(SSO\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through AWS Service Catalog\.
+To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(AWS SSO\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through AWS Service Catalog\.
 
 Update accounts that you create through quick account provisioning by using AWS Service Catalog and the AWS Control Tower account factory, just like updates to any other account\.
 
 **Note**  
-In April 2020, the **Quick account provisioning** capability was renamed to **Enroll account**\. It now permits enrollment of existing AWS accounts as well as creation of new accounts\. For more information, see [Enroll an existing account](quick-account-provisioning.md)\.
+In April 2020, the **Quick account provisioning** capability was renamed to **Enroll account**\. In June 2022, the ability to create and update accounts in the AWS Control Tower console was separated from the ability to enroll AWS accounts\. For more information, see [Enroll an existing account](quick-account-provisioning.md)\.
 
 ## AWS Control Tower decommissioning tool<a name="Decommissioning-tool"></a>
 

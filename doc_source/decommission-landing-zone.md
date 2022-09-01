@@ -21,13 +21,13 @@ Manually deleting all of your AWS Control Tower resources is not the same as dec
 
 ## <a name="manual-cleanup-required"></a>
 
-**Manual Cleanup tasks required after decommissioning**
+**Manual cleanup tasks required after decommissioning**
 + You must specify different email addresses for the logging and audit accounts if you create a new landing zone after decommissioning one\.
 + The CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, must be deleted manually before you set up another landing zone\.
-+ The two S3 buckets with reserved names for logs must be removed, or renamed, manually\.
++ The two Amazon S3 buckets with reserved names for logs must be removed, or renamed, manually\.
 + You must delete, or rename, the existing **Security** and **Sandbox** organizational units manually\.
 **Note**  
-Before you can delete the AWS Control Tower **Security OU** organization, you must first delete the logging and audit accounts, but not the management account\. To delete these accounts, you must [Sign in as a Root User](root-login.md) to the audit account and to the logging account and delete them individually\. 
+Before you can delete the AWS Control Tower **Security OU** organization, you must first delete the logging and audit accounts, but not the management account\. To delete these accounts, you must [When to Sign in as a Root User](root-login.md) to the audit account and to the logging account and delete them individually\. 
 +  You may wish to delete the AWS Single Sign\-On \(AWS SSO\) configuration for AWS Control Tower manually, but you can proceed with the existing AWS SSO configuration\.
 + You may wish to remove the VPC created by AWS Control Tower, and remove the associated AWS CloudFormation stack set\.
 + Before you can set up an AWS Control Tower landing zone in a different home Region, you also must run the command `aws organizations disable\-aws\-service\-access \-\-service\-principal controltower\.amazonaws\.com`\.

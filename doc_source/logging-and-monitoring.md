@@ -4,13 +4,13 @@ Monitoring allows you to plan for and respond to potential incidents\. Therefore
 
 When you set up your landing zone, one of the shared accounts created is the *log archive* account, dedicated to collecting all logs centrally, including logs for all of your other accounts\. These log files allow administrators and auditors to review actions and events that have occurred\. 
 
-As a best practice, you should collect monitoring data from all of the parts of your AWS solution into your logs, so that you can more easily debug a multi\-point failure if one occurs\. AWS provides several tools for monitoring your resources and activity in your landing zone\.
+As a best practice, you should collect monitoring data from all of the parts of your AWS setup into your logs, so that you can more easily debug a multi\-point failure if one occurs\. AWS provides several tools for monitoring your resources and activity in your landing zone\.
 
 For example, the status of your guardrails is monitored constantly\. You can see their status at a glance in the AWS Control Tower console\. The health and status of the accounts you provisioned in Account Factory also is monitored constantly\.
 
 **Logging**
 
-Logging of actions and events in AWS Control Tower is accomplished automatically through its integration with CloudWatch\. All actions are logged, including actions from the AWS Control Tower management account and from your organization's member accounts\. Management account actions and events are viewable on the **Activities** page in the console\. Member account actions and events are viewable in log archive files\.
+AWS Control Tower accomplishes logging of actions and events automatically, through its integration with AWS CloudTrail and AWS Config, and it records them in CloudWatch\. All actions are logged, including actions from the AWS Control Tower management account and from your organization's member accounts\. Management account actions and events are viewable on the **Activities** page in the console\. You can view member account actions and events in the log archive files\.
 
 **The **Activities** Page**
 

@@ -1,14 +1,14 @@
-# Unmanage a member account<a name="unmanage-account"></a>
+# Unmanage an account<a name="unmanage-account"></a>
 
-If you created an account in Account Factory that you no longer want to be managed by AWS Control Tower in a landing zone, you can unmanage the account\. This can be done in the AWS Service Catalog console by an AWS SSO user in the **AWSAccountFactory** group\. For more information on AWS SSO users or groups, see [Managing Users and Access Through AWS Single Sign\-On](sso.md)\. The following procedure describes how to unmanage a member account\.
+If you created an account in Account Factory or enrolled an AWS account, and you no longer want the account to be managed by AWS Control Tower in a landing zone, you can unmanage the account\. This can be done in the AWS Service Catalog console by an AWS SSO user in the **AWSAccountFactory** group\. For more information on AWS SSO users or groups, see [Managing Users and Access Through AWS Single Sign\-On](sso.md)\. The following procedure describes how to unmanage a member account\.
 
-**To unmanage a member account**
+**To unmanage an enrolled account**
 
 1. Open the AWS Service Catalog console in your web browser at [https://console.aws.amazon.com/servicecatalog](https://console.aws.amazon.com/servicecatalog)\.
 
 1. From the left navigation pane, choose **Provisioned products list**\.
 
-1. From the list of provisioned accounts, choose the name of the account that you want AWS Control Tower to no longer manage\.
+1. From the list of provisioned accounts, choose the name of the account that you want AWS Control Tower no longer to manage\.
 
 1. On the **Provisioned product details** page, from the **Actions** menu, choose **Terminate**\.
 

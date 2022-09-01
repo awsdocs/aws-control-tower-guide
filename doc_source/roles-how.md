@@ -1,8 +1,10 @@
 # How AWS Control Tower works with roles to create and manage accounts<a name="roles-how"></a>
 
-In general, roles are a part of identity and access management \(IAM\) in AWS\. Refer to [Permissions Required to Use the AWS Control Tower Console](access-control-managing-permissions.md#additional-console-required-permissions) for information about the roles required by AWS Control Tower\. For general information about IAM and roles in AWS, see [ the IAM roles topic in the *AWS IAM User Guide*](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)\.
+In general, roles are a part of identity and access management \(IAM\) in AWS\. For general information about IAM and roles in AWS, see [ the IAM roles topic in the *AWS IAM User Guide*](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)\.
 
-## Roles and account creation<a name="roles-and-accont-creation"></a>
+For specific information about the roles required to use the AWS Control Tower console, see [Permissions Required to Use the AWS Control Tower Console](access-control-managing-permissions.md#additional-console-required-permissions)\.
+
+## Roles and account creation<a name="roles-and-account-creation"></a>
 
 AWS Control Tower creates a customer's account by calling the `CreateAccount` API of AWS Organizations\. When AWS Organizations creates this account, it creates a role within that account, which AWS Control Tower names by passing in a parameter to the API\. The name of the role is `AWSControlTowerExecution`\.
 
@@ -1320,7 +1322,7 @@ The AWS Control Tower stack set `StackSet-AWSControlTowerBP-BASELINE-ROLES` crea
 + **aws\-controltower\-ReadOnlyExecutionRole**
 + **aws\-controltower\-AuditReadOnlyRole**
 
-`ReadOnlyExecutionRole:` Note that this role allows the audit account to read objects in S3 buckets across the entire organization \(in contrast to the `SecurityAudit` policy, which allows for metadata access only\)\.
+`ReadOnlyExecutionRole:` Note that this role allows the audit account to read objects in Amazon S3 buckets across the entire organization \(in contrast to the `SecurityAudit` policy, which allows for metadata access only\)\.
 
 **aws\-controltower\-AdministratorExecutionRole:**
 + Has administrator permissions

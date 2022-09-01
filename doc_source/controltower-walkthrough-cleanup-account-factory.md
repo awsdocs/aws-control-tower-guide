@@ -1,6 +1,6 @@
-# Clean Up Account Factory<a name="controltower-walkthrough-cleanup-account-factory"></a>
+# Remove an Account Factory Portfolio and Product<a name="controltower-walkthrough-cleanup-account-factory"></a>
 
-The following procedure guides you through how to sign in as an AWS SSO user in the **AWSServiceCatalogAdmins** group and then clean up your Account Factory accounts\.
+The following procedure guides you through how to sign in as an AWS SSO user in the **AWSServiceCatalogAdmins** group and then clean up your Account Factory portfolio and products\.
 
 **To sign in to your management account with the right permissions**
 

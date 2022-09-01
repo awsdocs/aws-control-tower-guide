@@ -2,7 +2,7 @@
 
 If you’ve already set up your AWS Control Tower landing zone, you can begin enrolling your organization’s accounts into an OU that is registered with AWS Control Tower\. If you haven't set up your landing zone, follow the steps as described in the AWS Control Tower User Guide at [Getting Started, Step 2](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\. After the landing zone is ready, complete the following steps to bring existing accounts into governance by AWS Control Tower, manually\.
 
-**Be sure to review the [Prerequisites for Enrollment](enrollment-prerequisites.md) noted previously in this chapter\.**
+**Be sure to review the [Prerequisites for enrollment](enrollment-prerequisites.md) noted previously in this chapter\.**
 
 Before enrolling an account with AWS Control Tower, you must give AWS Control Tower permission to manage that account\. To do so, you’ll add a role that has full access to the account, as shown in the steps that follow\. These steps must be performed for each account that you enroll\.
 
@@ -61,19 +61,19 @@ For example, if you created this account from AWS Organizations and you use a cr
 1. Copy the code example shown here and paste it into the Policy Document\. Replace the string *`Management Account ID`* with the actual management account ID of your management account\. Here is the policy to paste:
 
    ```
-     {
-           "Version": "2012-10-17",
-           "Statement": [
-            {
-           "Effect": "Allow",
-           "Principal": {
-           "AWS": "arn:aws:iam::Management Account ID:root"
-                },
-               "Action": "sts:AssumeRole",
-               "Condition": {}
-             }
-             ]
-            }
+   {
+   "Version": "2012-10-17",
+   "Statement": [
+   {
+   "Effect": "Allow",
+   "Principal": {
+   "AWS": "arn:aws:iam::Management Account ID:root"
+   },
+   "Action": "sts:AssumeRole",
+   "Condition": {}
+   }
+   ]
+   }
    ```
 
 **Step 3: Enroll the account by moving it into a registered OU, and verify enrollment\.**
@@ -85,13 +85,13 @@ After you’ve set up the necessary permissions by creating the role, follow the
 1. 
 
 **Enroll the account\.**
-   + From the **Accounts** page in AWS Control Tower, choose **Enroll account**\.
-   + Follow the steps for enrolling an individual account, as shown on the [Enroll an account](enrollment-steps.md) page\.
+   + From the **Organization** page in AWS Control Tower, select your account, then choose **Enroll** from the **Actions** dropdown menu at the upper right\.
+   + Follow the steps for enrolling an individual account, as shown on the [Steps to enroll an account](quick-account-provisioning.md#enrollment-steps) page\.
 
 1. 
 
 **Verify enrollment\.**
-   + From AWS Control Tower, choose **Accounts**\.
+   + From AWS Control Tower, choose **Organization** in the left navigation\.
    + Look for the account you have recently enrolled\. Its initial state will show a status of **Enrolling**\.
    + When the state changes to **Enrolled**, the move was successful\.
 

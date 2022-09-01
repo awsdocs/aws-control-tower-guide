@@ -6,9 +6,9 @@ The easiest way to update an enrolled account is through the AWS Control Tower c
 
 **To update an account in the AWS Control Tower console**
 
-1. When signed in to AWS Control Tower, navigate to the **Accounts** page\.
+1. When signed in to AWS Control Tower, navigate to the **Organization** page\.
 
-1. In the list of accounts, select the account you wish to update\. Accounts that are available for updating show a status of **Update available**\.
+1. In the list of OUs and accounts, select the name of the account you wish to update\. Accounts that are available for updating show a status of **Update available**\.
 
 1. Next you'll see the **Account details** page for your selected account\.
 
@@ -33,9 +33,9 @@ You must be signed in as a user with the permissions to provision new products i
    1. Make a note of the following parameters:
       + **SSOUserEmail** \(Available in provisioned product details\)
       + **AccountEmail** \(Available in provisioned product details\)
-      + **SSOUserFirstName** \(Available in SSO\)
-      + **SSOUSerLastName** \(Available in SSO\)
-      + **AccountName** \(Available in SSO\)
+      + **SSOUserFirstName** \(Available in AWS SSO\)
+      + **SSOUSerLastName** \(Available in AWS SSO\)
+      + **AccountName** \(Available in AWS SSO\)
 
    1. From **Actions**, choose **Update**\.
 
@@ -45,7 +45,7 @@ You must be signed in as a user with the permissions to provision new products i
       + If you want to keep the existing OU, for **ManagedOrganizationalUnit**, choose the OU that the account was already in\.
       + If you want to migrate the account to a new OU, for **ManagedOrganizationalUnit**, choose the new OU for the account\.
 
-       A central cloud administrator can find this information in the AWS Control Tower console, under **Accounts**\.
+       A central cloud administrator can find this information in the AWS Control Tower console, on the **Organization** page in AWS Control Tower\.
 
    1. Choose **Next**\.
 

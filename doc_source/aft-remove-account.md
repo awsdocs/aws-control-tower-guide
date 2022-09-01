@@ -1,9 +1,11 @@
 # Remove an account from AFT<a name="aft-remove-account"></a>
 
-This section walks you through the steps to remove accounts from AFT, so they are no longer deployed or updated by the pipeline\. For example, you may be closing accounts for retiring applications, isolating accounts that are compromised, or moving accounts from one organization to another\. Removing an account from AFT is not the same as removing an account from AWS Control Tower\. After an account is provisioned by AFT, it is removed from AWS Control Tower in the same way as any other AWS account\.
+This section walks you through the steps to remove accounts from AFT, so they are no longer deployed or updated by the pipeline\. For example, you may be closing accounts for retiring applications, isolating accounts that are compromised, or moving accounts from one organization to another\. 
+
+Removing an account from AFT is not the same process as removing an account from AWS Control Tower or deleting it from AWS\. An account provisioned by AFT is handled in the same way as any other AWS account\. That is, the removed AFT account is not deleted, it is only removed from management by AWS Control Tower and AFT\. To delete the account completely, follow the steps in the [Billing console](https://console.aws.amazon.com/billing/)\.
 
 **Important**  
-Removing an account from AFT is irreversible\. It can result in a loss of state\.
+Removing an account from the AFT pipeline is irreversible\. It can result in a loss of state\.
 
 **Step 1: Remove account from the `git` repository that stores your account requests**
 
@@ -19,9 +21,9 @@ Delete the global customizations and account customizations workspaces for the a
 
 **Step 4: Delete the Terraform state from the Amazon S3 backend**
 
-In the AFT management account, delete all relevant folders inside S3 buckets for the account you intend to remove from AFT\. In the examples that follow, replace the placeholder number `012345678901` with the AFT management account ID number\.
+In the AFT management account, delete all relevant folders inside Amazon S3 buckets for the account you intend to remove from AFT\. In the examples that follow, replace the placeholder number `012345678901` with the AFT management account ID number\.
 
-If you chose Terraform OSS, you will find 3 folders for each account \(related to customizations pipeline state, global and account customizations state\) in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` S3 buckets\.
+If you chose Terraform OSS, you will find 3 folders for each account \(related to customizations pipeline state, global and account customizations state\) in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` Amazon S3 buckets\.
 
 If you chose Terraform Cloud or Terraform Enterprise, you will find a folder for each account \(related to customizations pipeline state\) in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` S3 buckets\. 
 

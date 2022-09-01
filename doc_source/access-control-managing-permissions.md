@@ -11,7 +11,7 @@ AWS Control Tower creates three roles automatically when you set up a landing zo
 
 **Three required roles**
 + [AWSControlTowerAdmin role](#AWSControlTowerAdmin)
-+ [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy)
++ [AWSControlTowerStackSetRole](#AWSControlTowerStackSetRole)
 + [AWSControlTowerCloudTrailRole](#AWSControlTowerCloudTrailRole)
 
 We recommend that you restrict access to your role trust policies for these roles\. For more information, see [Optional conditions for your role trust relationships](roles-how.md#conditions-for-role-trust)\.
@@ -22,7 +22,7 @@ This role provides AWS Control Tower with access to infrastructure critical to m
 
 ** Managed Policy for this role: `AWSControlTowerServiceRolePolicy`**
 
-The **AWSControlTowerServiceRolePolicy** AWS managed policy defines permissions to create and manage AWS Control Tower resources such as AWS CloudFormation stacksets and stack instances, AWS CloudTrail log files, a configuration aggregator for AWS Control Tower, as well as AWS Organizations accounts and organizational units \(Ous\) that are governed by AWS Control Tower\.
+The **AWSControlTowerServiceRolePolicy** AWS managed policy defines permissions to create and manage AWS Control Tower resources such as AWS CloudFormation stacksets and stack instances, AWS CloudTrail log files, a configuration aggregator for AWS Control Tower, as well as AWS Organizations accounts and organizational units \(OUs\) that are governed by AWS Control Tower\.
 
 ## AWSControlTowerServiceRolePolicy<a name="AWSControlTowerServiceRolePolicy"></a>
 
@@ -31,7 +31,7 @@ Managed Policy Name: `AWSControlTowerServiceRolePolicy`
 The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following: 
 
 ```
- {
+{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -184,11 +184,27 @@ The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following:
         },
         {
             "Effect": "Allow",
-            "Action": "organizations:EnableAWSServiceAccess",
+            "Action": [
+                "organizations:EnableAWSServiceAccess",
+                "organizations:DisableAWSServiceAccess"
+            ],
             "Resource": "*",
             "Condition": {
                 "StringLike": {
-                    "organizations:ServicePrincipal": "config.amazonaws.com"
+                    "organizations:ServicePrincipal": [
+                        "config.amazonaws.com",
+                        "cloudtrail.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": "cloudtrail.amazonaws.com"
                 }
             }
         }
@@ -218,7 +234,6 @@ Role trust policy:
 The inline policy is `AWSControlTowerAdminPolicy`:
 
 ```
- 
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -279,5 +294,6 @@ AWS Control Tower enables CloudTrail as a best practice and provides this role t
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow customers to set up organization\-level AWS CloudTrail trails, starting in landing zone version 3\.0\. The organization\-based CloudTrail feature requires customers to have trusted access enabled for the CloudTrail service, and the IAM user or role must have permission to create an organization\-level trail in the management account\.  | June 20, 2022 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow customers to use KMS key encryption\. The KMS feature allows customers to provide their own KMS key to encrypt their AWS CloudTrail logs\. Customers also can change the KMS key during landing zone update or repair\. When updating the KMS key, AWS CloudFormation needs permissions to call the AWS CloudTrail `PutEventSelector` API\. The change to the policy is to allow the **AWSControlTowerAdmin** role to call the AWS CloudTrail `PutEventSelector` API\.  | July 28, 2021 | 
 |  AWS Control Tower started tracking changes  |  AWS Control Tower started tracking changes for its AWS managed policies\.  | May 27, 2021 | 

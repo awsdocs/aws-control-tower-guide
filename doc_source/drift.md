@@ -38,7 +38,7 @@ For more information, see [Types of Governance Drift](governance-drift.md)\.
 
 Although detection is automatic, the steps to resolve drift must be done through the console\.
 + Many types of drift can be resolved through the **Landing zone settings** page\. You can choose the **Repair** button in the **Versions** section to repair these types of drift\.
-+ If your OU has fewer than 300 accounts, you can repair drift by selecting **Re\-register OU** on the **OU** page, to repair drift in Account Factory provisioned accounts, or SCP drift\.
++ If your OU has fewer than 300 accounts, you can repair drift in Account Factory provisioned accounts, or SCP drift, by selecting **Re\-register OU** on the **Organization** page or the **OU details** page\.
 + You may be able to repair account drift, such as [Moved Member Account](governance-drift.md#drift-account-moved), by updating an individual account\. For more information, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
 
 **Note**  
@@ -82,6 +82,8 @@ An OU may have one or more managed SCPs\.
 Most types of drift can be resolved by administrators\. A few types of drift must be repaired immediately, including deletion of an organizational unit that the AWS Control Tower landing zone requires\. Here are some examples of major drift that you may wish to avoid:
 + *Don't delete the Security OU:* The organizational unit originally named **Security** during landing zone setup by AWS Control Tower should not be deleted\. If you delete it, you'll see an error message instructing you to repair the landing zone immediately\. You won't be able to take any other actions in AWS Control Tower until the repair is complete\.
 + *Don't delete required roles:* AWS Control Tower checks certain AWS Identity and Access Management \(IAM\) roles when you log into the console for *IAM role drift*\. If these roles are missing or inaccessible, you'll see an error page instructing you to repair your landing zone\. These roles are `AWSControlTowerAdmin` `AWSControlTowerCloudTrailRole` `AWSControlTowerStackSetRole`\.
+
+  For more information about these roles, see [Permissions Required to Use the AWS Control Tower Console](access-control-managing-permissions.md#additional-console-required-permissions)\.
 + *Don't delete all Additional OUs:* If you delete the organizational unit originally named **Sandbox** during landing zone setup by AWS Control Tower, your landing zone will be in a state of drift, but you still can use AWS Control Tower\. At least one Additional OU is required for AWS Control Tower to operate, but it doesn’t have to be the **Sandbox** OU\.
 + *Don't remove shared accounts:* If you remove shared accounts from Foundational OUs, such as removing the logging account from the Security OU, your landing zone will be in a state of drift and must be repaired before you can continue using the AWS Control Tower console\.
 

@@ -1,4 +1,4 @@
-# Prerequisites for Enrollment<a name="enrollment-prerequisites"></a>
+# Prerequisites for enrollment<a name="enrollment-prerequisites"></a>
 
 These prerequisites are required before you can enroll an account in AWS Control Tower:
 

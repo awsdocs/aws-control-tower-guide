@@ -22,7 +22,7 @@ In contrast to preventive guardrails, detective guardrails notify you of resourc
 
 **To receive SNS notifications about drift and guardrail compliance**
 
-For information about how to receive appropriate drift and guardrail compliance notifications by Amazon SNS, see [Guardrail compliance notifications by SNS](receive-notifications.md)\.
+For information about how to receive appropriate drift and guardrail compliance notifications by Amazon SNS, see [Compliance notifications by SNS in the audit account](receive-notifications.md)\.
 
 ## Publishers and subscribers for SNS topics<a name="publishers-and-subscribers"></a>
 

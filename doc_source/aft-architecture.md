@@ -7,7 +7,7 @@ The AFT architecture has three high\-level principles\.
 1. **AFT Feature Options** – \(Optional\) These components are embedded in the offering, and built according to AWS prescriptive guidance\. These options are deployed with feature flags that you can select, and they are supported by the AWS Control Tower team\.
 
 **Feature options include**
-   + AWS CloudTrail data event logging for Amazon S3 buckets and Lambda; functions\.
+   + AWS CloudTrail data event logging for Amazon S3 buckets and Lambda functions\.
    + Automated deletion of the AWS default VPC for an account, in all AWS Regions\.
    + Automatic enrollment in the AWS Enterprise Support plan\.
 

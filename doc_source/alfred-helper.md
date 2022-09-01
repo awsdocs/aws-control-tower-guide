@@ -31,9 +31,9 @@ The following example shows the parameters for AWS CloudFormation **stack 2** sp
 ```
 parameters:
       - parameter_key: VpcId
-        parameter_value: $[alfred_ssm_/stack_1/vpc/id']
+        parameter_value: $[alfred_ssm_/stack_1/vpc/id]
       - parameter_key: SubnetId
-        parameter_value: $[ alfred_ssm_/stack_1/subnet/id’]
+        parameter_value: $[alfred_ssm_/stack_1/subnet/id]
 ```
 
 Starting with version 2\.1, you can use a list of `alfred_ssm` properties under `parameter_value` to support the **CommaDelimitedList** type of AWS CloudFormation parameter\. For example:
