@@ -1,0 +1,8 @@
+# About Updates<a name="about-updates"></a>
+
+Updates are required to correct governance drift, or to move to a new version of AWS Control Tower\. To perform a complete update of AWS Control Tower, you must update your landing zone first and then update the enrolled accounts individually\. You may need to perform three types of updates at different times\.
++ **A landing zone update:** Most often this type of update is performed by choosing **Update** on the **Landing zone settings** page\. You may need to perform a landing zone update to repair certain types of drift, and you can choose **Repair** when necessary\.
++ **An update of one or more individual accounts:** You must update accounts if the associated information changes, or if certain types of drift have occurred\. If an account requires an update, the account's status will show **Update available** on the **Accounts** page\.
+
+  To update a single account, navigate to the account detail page and select **Update account**\. Accounts also may be updated by a manual process, by choosing **Re\-register OU**, or with an automated scripting approach, described in a later section of this page\.
++ **A full update:** A full update includes an update of your landing zone, followed by an update of all the enrolled accounts in your registered OU\. Full updates are required with a new release of AWS Control Tower such as 2\.9, 3\.0, and so forth\.
