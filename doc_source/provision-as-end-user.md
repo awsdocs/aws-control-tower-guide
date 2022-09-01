@@ -27,7 +27,6 @@ The following procedure describes how to create and provision accounts as an AWS
 1. Do not define **TagOptions** and do not enable **Notifications**, otherwise the account can fail to be provisioned\. When you're finished, choose **Launch product**\.
 
 1. Review your account settings, and then choose **Launch**\. Do not create a resource plan, otherwise the account will fail to be provisioned\.
-
 1. Your account is now being provisioned\. It can take a few minutes to complete\. You can refresh the page to update the displayed status information\.
 **Note**  
 Only one account can be provisioned at a time\.

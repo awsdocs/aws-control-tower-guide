@@ -41,9 +41,12 @@ AWS Control Tower provides three categories of guidance: *mandatory*, *strongly 
 When working with guardrails and OUs, consider the following properties:
 
 **Guardrails, landing zones, and OUs**
+
 + After you create your landing zone, all resources in your landing zone are subject to guardrails\. For example, certain guardrails apply to Amazon S3 buckets\.
 + OUs created through AWS Control Tower have mandatory guardrails applied to them automatically\. Optional guardrails are applied at the discretion of administrators\.
 + OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs*\) are displayed in the AWS Control Tower console, but AWS Control Tower guardrails do not apply to them, unless they become registered OUs\.
+
+
 + When you enable guardrails on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive guardrails apply to all member accounts under the OU, enrolled and unenrolled\. Detective guardrails apply to enrolled accounts only\.
 
 For more information about how guardrails are applied to nested OUs, in AWS Control Tower, see [Nested OUs and guardrails](nested-ous.md#nested-ous-and-guardrails)\.
