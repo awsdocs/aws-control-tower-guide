@@ -54,7 +54,7 @@ Each item in the list that follows serves as a link, which provides more informa
 + [arn:aws:controltower:REGION::control/AWS\-GR\_ROOT\_ACCOUNT\_MFA\_ENABLED](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-guardrails.html#enable-root-mfa)
 + [arn:aws:controltower:REGION::control/AWS\-GR\_S3\_BUCKET\_PUBLIC\_READ\_PROHIBITED](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-guardrails.html#s3-disallow-public-read)
 + [arn:aws:controltower:REGION::control/AWS\-GR\_S3\_BUCKET\_PUBLIC\_WRITE\_PROHIBITED](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-guardrails.html#s3-disallow-public-write)
-+ [arn:aws:controltower:REGION::control/AWS\-GR\_ENSURE\_CLOUDTRAIL\_ENABLED\_ON\_MEMBER\_ACCOUNTS](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-guardrails.html#ensure-cloudtrail-enabled-recommended)
++ [arn:aws:controltower:REGION::control/AWS\-GR\_DETECT\_CLOUDTRAIL\_ENABLED\_ON\_MEMBER\_ACCOUNTS](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-guardrails.html#ensure-cloudtrail-enabled-recommended)
 
 ## Guardrails that cannot be changed with the AWS Control Tower guardrail APIs<a name="cannot-change-with-gr-api"></a>
 
