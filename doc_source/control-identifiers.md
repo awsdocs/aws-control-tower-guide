@@ -56,6 +56,7 @@ Each item in the list that follows serves as a link, which provides more informa
 + [arn:aws:controltower:REGION::control/AWS\-GR\_S3\_BUCKET\_PUBLIC\_WRITE\_PROHIBITED](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-controls.html#s3-disallow-public-write)
 + [arn:aws:controltower:REGION::control/AWS\-GR\_DETECT\_CLOUDTRAIL\_ENABLED\_ON\_MEMBER\_ACCOUNTS](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-controls.html#ensure-cloudtrail-enabled-recommended)
 
+
 ## Controls that cannot be changed with the AWS Control Tower APIs<a name="cannot-change-with-gr-api"></a>
 
 The following controls cannot be activated or deactivated by means of the AWS Control Tower APIs\. Except for the Region deny control, all of these are mandatory controls\. In general, mandatory controls cannot be deactivated\. The Region deny control must be changed in the console\.
