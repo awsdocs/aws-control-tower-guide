@@ -8,23 +8,23 @@ The structure of a landing zone in AWS Control Tower is as follows:
 + **Root** – The parent that contains all other OUs in your landing zone\. 
 + **Security OU** – This OU contains the Log Archive and Audit accounts\. These accounts often are referred to as *shared accounts*\. When you launch your landing zone, you can choose customized names for these shared accounts, and you have the option to bring existing AWS accounts into AWS Control Tower for security and logging\. However, these cannot be renamed later, and existing accounts cannot be added for security and logging after initial launch\.
 + **Sandbox OU** – The Sandbox OU is created when you launch your landing zone, if you enable it\. This and other registered OUs contain the enrolled accounts that your users work with to perform their AWS workloads\.
-+ **AWS SSO directory** – This directory houses your AWS SSO users\. It defines the scope of permissions for each AWS SSO user\.
-+ **AWS SSO users** – These are the identities that your users can assume to perform their AWS workloads in your landing zone\.
++ **IAM Identity Center directory** – This directory houses your IAM Identity Center users\. It defines the scope of permissions for each IAM Identity Center user\.
++ **IAM Identity Center users** – These are the identities that your users can assume to perform their AWS workloads in your landing zone\.
 
 ## What happens when you set up a landing zone<a name="how-it-works-setup"></a>
 
 When you set up a landing zone, AWS Control Tower performs the following actions in your management account on your behalf:
 + Creates two AWS Organizations organizational units \(OUs\): Security, and Sandbox \(optional\), contained within the organizational root structure\.
 + Creates or adds two shared accounts in the Security OU: the Log Archive account and the Audit account\.
-+ Creates a cloud\-native directory in AWS SSO, with preconfigured groups and single sign\-on access\.
-+ Applies all mandatory, preventive guardrails to enforce policies\.
-+ Applies all mandatory, detective guardrails to detect configuration violations\.
-+ Preventive guardrails are not applied to the management account\.
-+ Except for the management account, guardrails are applied to the organization as a whole\.
++ Creates a cloud\-native directory in IAM Identity Center, with preconfigured groups and single sign\-on access\.
++ Applies all mandatory, preventive controls to enforce policies\.
++ Applies all mandatory, detective controls to detect configuration violations\.
++ Preventive controls are not applied to the management account\.
++ Except for the management account, controls are applied to the organization as a whole\.
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)
-+ When you enable optional guardrails \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the guardrails entering an unknown state\. For more information, see [Guardrail reference](guardrails-reference.md)\.
++ When you enable optional controls \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the controls entering an unknown state\. For more information, see [Control reference](controls-reference.md)\.
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
@@ -32,7 +32,7 @@ In AWS Control Tower, the shared accounts in your landing zone are provisioned d
 
 ### What is the management account?<a name="what-is-mgmt"></a>
 
-This is the account that you created specifically for your landing zone\. This account is used for billing for everything in your landing zone\. It's also used for Account Factory provisioning of accounts, as well as to manage OUs and guardrails\.
+This is the account that you created specifically for your landing zone\. This account is used for billing for everything in your landing zone\. It's also used for Account Factory provisioning of accounts, as well as to manage OUs and controls\.
 
 **Note**  
 It is not recommended to run any type of production workloads from an AWS Control Tower management account\. Create a separate AWS Control Tower account to run your workloads\. 
@@ -53,8 +53,8 @@ When you set up your landing zone, the following AWS resources are created withi
 | Amazon CloudWatch | CloudWatch Logs | aws\-controltower/CloudTrailLogs | 
 | AWS Identity and Access Management | Roles | AWSControlTowerAdmin AWSControlTowerStackSetRole AWSControlTowerCloudTrailRolePolicy | 
 | AWS Identity and Access Management | Policies | AWSControlTowerServiceRolePolicy AWSControlTowerAdminPolicy AWSControlTowerCloudTrailRolePolicy AWSControlTowerStackSetRolePolicy | 
-| AWS Single Sign\-On | Directory groups | AWSAccountFactory AWSAuditAccountAdmins AWSControlTowerAdmins AWSLogArchiveAdmins AWSLogArchiveViewers AWSSecurityAuditors AWSSecurityAuditPowerUsers AWSServiceCatalogAdmins  | 
-| AWS Single Sign\-On | Permission Sets | AWSAdministratorAccess AWSPowerUserAccess AWSServiceCatalogAdminFullAccess AWSServiceCatalogEndUserAccess AWSReadOnlyAccess AWSOrganizationsFullAccess  | 
+| AWS IAM Identity Center \(successor to AWS Single Sign\-On\) | Directory groups | AWSAccountFactory AWSAuditAccountAdmins AWSControlTowerAdmins AWSLogArchiveAdmins AWSLogArchiveViewers AWSSecurityAuditors AWSSecurityAuditPowerUsers AWSServiceCatalogAdmins  | 
+| AWS IAM Identity Center \(successor to AWS Single Sign\-On\) | Permission Sets | AWSAdministratorAccess AWSPowerUserAccess AWSServiceCatalogAdminFullAccess AWSServiceCatalogEndUserAccess AWSReadOnlyAccess AWSOrganizationsFullAccess  | 
 
 ### What is the log archive account?<a name="what-is-log-archive"></a>
 
@@ -97,18 +97,18 @@ When you set up your landing zone, the following AWS resources are created withi
 | Amazon Simple Notification Service | Topics | aws\-controltower\-AggregateSecurityNotifications aws\-controltower\-AllConfigNotifications aws\-controltower\-SecurityNotifications | 
 | AWS Lambda | Functions | aws\-controltower\-NotificationForwarder | 
 
-## How Guardrails Work<a name="how-guardrails-work"></a>
+## How Controls Work<a name="how-controls-work"></a>
 
-A guardrail is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each guardrail enforces a single rule, and it's expressed in plain language\. You can change the elective or strongly recommended guardrails that are in force, at any time, from the AWS Control Tower console\. Mandatory guardrails are always applied, and they can't be changed\.
+A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each control enforces a single rule, and it's expressed in plain language\. You can change the elective or strongly recommended controls that are in force, at any time, from the AWS Control Tower console\. Mandatory controls are always applied, and they can't be changed\.
 
-Preventive guardrails prevent actions from occurring\. For example, the elective guardrail called **Disallow Changes to Bucket Policy for Amazon S3 Buckets** \(Previously called **Disallow Policy Changes to Log Archive**\) prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
+Preventive controls prevent actions from occurring\. For example, the elective control called **Disallow Changes to Bucket Policy for Amazon S3 Buckets** \(Previously called **Disallow Policy Changes to Log Archive**\) prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
-Detective guardrails detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended guardrail called **Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
+Detective controls detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended control called **Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
-*For those who are familiar with AWS:* In AWS Control Tower preventive guardrails are implemented with Service Control Policies \(SCPs\)\. Detective guardrails are implemented with AWS Config rules\.
+*For those who are familiar with AWS:* In AWS Control Tower preventive controls are implemented with Service Control Policies \(SCPs\)\. Detective controls are implemented with AWS Config rules\.
 
-### Related Topics<a name="how-guardrails-related"></a>
-+ [Guardrails in AWS Control Tower](guardrails.md)
+### Related Topics<a name="how-controls-related"></a>
++ [The AWS Control Tower control library](controls.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
 
 ## How AWS Control Tower Works With StackSets<a name="stacksets-how"></a>

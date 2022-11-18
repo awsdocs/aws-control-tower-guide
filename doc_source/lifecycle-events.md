@@ -1,6 +1,6 @@
 # Lifecycle Events in AWS Control Tower<a name="lifecycle-events"></a>
 
-Some events logged by AWS Control Tower are *lifecycle events*\. A lifecycle event's purpose is to mark the *completion* of certain AWS Control Tower actions that change the state of resources\. Lifecycle events apply to resources that AWS Control Tower creates or manages, such as organizational units \(OUs\), accounts, and guardrails\.
+Some events logged by AWS Control Tower are *lifecycle events*\. A lifecycle event's purpose is to mark the *completion* of certain AWS Control Tower actions that change the state of resources\. Lifecycle events apply to resources that AWS Control Tower creates or manages, such as organizational units \(OUs\), accounts, and controls\.
 
 **Characteristics of AWS Control Tower lifecycle events**
 + For each lifecycle event, the event log shows whether the originating Control Tower action completed successfully, or failed\.
@@ -13,7 +13,7 @@ Some events logged by AWS Control Tower are *lifecycle events*\. A lifecycle eve
 
 **How lifecycle events work**
 
- AWS Control Tower relies upon multiple services to implement its actions\. Therefore, each lifecycle event is recorded only after a series of actions is complete\. For example, when you enable a guardrail on an OU, AWS Control Tower launches a series of sub\-steps that implement the request\. The final result of the entire series of sub\-steps is recorded in the log as the state of the lifecycle event\.
+ AWS Control Tower relies upon multiple services to implement its actions\. Therefore, each lifecycle event is recorded only after a series of actions is complete\. For example, when you enable a control on an OU, AWS Control Tower launches a series of sub\-steps that implement the request\. The final result of the entire series of sub\-steps is recorded in the log as the state of the lifecycle event\.
 + If every underlying sub\-step has completed successfully, the lifecycle event state is recorded as **Succeeded**\.
 + If any of the underlying sub\-steps did not complete successfully, the lifecycle event state is recorded as **Failed**\.
 
@@ -46,8 +46,8 @@ Although `JSON` does not support comments, some comments have been added in the 
 In these examples, some account names and organization names are obscured\. An `accountId` is always a 12\-number sequence, which has been replaced with "xxxxxxxxxxxx" in the examples\. An `organizationalUnitID` is a unique string of letters and numbers\. Its form is preserved in the examples\.
 + [`CreateManagedAccount`](#create-managed-account): The log records whether AWS Control Tower successfully completed every action to create and provision a new account using account factory\.
 + [`UpdateManagedAccount`](#update-managed-account): The log records whether AWS Control Tower successfully completed every action to update a provisioned product that's associated with an account you had previously created by using account factory\.
-+ [`EnableGuardrail`](#enable-guardrail): The log records whether AWS Control Tower successfully completed every action to enable a guardrail on an OU that was created by AWS Control Tower\.
-+ [`DisableGuardrail`](#disable-guardrail): The log records whether AWS Control Tower successfully completed every action to disable a guardrail on an OU that was created by AWS Control Tower\.
++ [`EnableGuardrail`](#enable-control): The log records whether AWS Control Tower successfully completed every action to enable a control on an OU that was created by AWS Control Tower\.
++ [`DisableGuardrail`](#disable-control): The log records whether AWS Control Tower successfully completed every action to disable a control on an OU that was created by AWS Control Tower\.
 + [`SetupLandingZone`](#setup-landing-zone): The log records whether AWS Control Tower successfully completed every action to set up a landing zone\.
 + [`UpdateLandingZone`](#update-landing-zone): The log records whether AWS Control Tower successfully completed every action to update your existing landing zone\.
 + [`RegisterOrganizationalUnit`](#register-organizational-unit): The log records whether AWS Control Tower successfully completed every action to enable its governance features on an OU\. 
@@ -153,9 +153,9 @@ This lifecycle event records whether AWS Control Tower successfully updated the 
 }
 ```
 
-## `EnableGuardrail`<a name="enable-guardrail"></a>
+## `EnableGuardrail`<a name="enable-control"></a>
 
-This lifecycle event records whether AWS Control Tower successfully enabled a guardrail on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `EnableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the guardrail, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the guardrail is enabled\.
+This lifecycle event records whether AWS Control Tower successfully enabled a control on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `EnableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the control, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the control is enabled\.
 
 ```
 {
@@ -206,9 +206,9 @@ This lifecycle event records whether AWS Control Tower successfully enabled a gu
 }
 ```
 
-## `DisableGuardrail`<a name="disable-guardrail"></a>
+## `DisableGuardrail`<a name="disable-control"></a>
 
-This lifecycle event records whether AWS Control Tower successfully disabled a guardrail on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `DisableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the guardrail, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the guardrail is disabled\. 
+This lifecycle event records whether AWS Control Tower successfully disabled a control on an OU that is being managed by AWS Control Tower\. This event corresponds to the AWS Control Tower `DisableGuardrail` CloudTrail event\. The lifecycle event log includes the `guardrailId` and `guardrailBehavior` of the control, and the `organizationalUnitName` and `organizationalUnitId` of the OU on which the control is disabled\. 
 
 ```
 {

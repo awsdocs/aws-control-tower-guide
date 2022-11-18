@@ -1,16 +1,18 @@
 # Automate tasks in AWS Control Tower<a name="automating-tasks"></a>
 
-Many customers prefer to automate tasks in AWS Control Tower, such as account provisioning, guardrail assignment, and auditing\. You can set up these automated actions with calls to: 
+Many customers prefer to automate tasks in AWS Control Tower, such as account provisioning, control assignment, and auditing\. You can set up these automated actions with calls to: 
 + [AWS Service Catalog APIs](https://docs.aws.amazon.com/servicecatalog/latest/dg/service-catalog-api-overview.html) 
 + [AWS Organizations APIs](https://docs.aws.amazon.com/organizations/latest/APIReference/Welcome.html)
-+ [AWS Control Tower Guardrail APIs](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
++ [AWS Control Tower APIs](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
 + [the AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/servicecatalog/index.html)
 
 The [Related information](related-information.md) page contains links to many excellent technical blog posts that can help you automate tasks in AWS Control Tower\. The sections that follow provide links to areas in this *AWS Control Tower User Guide* that can assist you with automating tasks\.
 
-**Automating guardrail tasks**
+**Automating control tasks**
 
- You can automate tasks related to applying and removing guardrails through the AWS Control Tower API\. For details, see the [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)\.
+ You can automate tasks related to applying and removing controls \(also known as *guardrails*\) through the AWS Control Tower API\. For details, see the [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)\.
+
+For more information about how to perform operations with AWS Control Tower APIs, see the blog post [AWS Control Tower releases API, pre\-defined controls to your organizational units](http://aws.amazon.com/blogs/mt/aws-control-tower-releases-api-pre-defined-controls-to-your-organizational-units/)\.
 
 **Automated account closure**
 
@@ -36,7 +38,7 @@ For technical blogs that cover automation and integration use cases, see [Automa
 
 Two open source samples are available on GitHub to help you with certain automation tasks related to security\.
 + The sample called [aws\-control\-tower\-org\-setup\-sample](https://github.com/aws-samples/aws-control-tower-org-setup-sample) shows how to automate setting up the Audit account as the delegated administrator for security\-related services\.
-+ The sample called [aws\-control\-tower\-account\-setup\-using\-step\-functions](https://github.com/aws-samples/aws-control-tower-account-setup-using-step-functions) shows how to automate security best practices using Step Functions, when provisioning and configuring new accounts\. This sample includes adding principals to organizationally\-shared AWS Service Catalog portfolios and associating organization\-wide AWS AWS SSO groups to new accounts automatically\. It also illustrates how to delete the default VPC in every Region\.
++ The sample called [aws\-control\-tower\-account\-setup\-using\-step\-functions](https://github.com/aws-samples/aws-control-tower-account-setup-using-step-functions) shows how to automate security best practices using Step Functions, when provisioning and configuring new accounts\. This sample includes adding principals to organizationally\-shared AWS Service Catalog portfolios and associating organization\-wide AWS IAM Identity Center groups to new accounts automatically\. It also illustrates how to delete the default VPC in every Region\.
 
 The *AWS Security Reference Architecture* includes code examples for automating tasks related to AWS Control Tower\. For more information, see the [AWS Prescriptive Guidance pages](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html) and the [associated GitHub repository](https://github.com/aws-samples/aws-security-reference-architecture-examples/tree/main/aws_sra_examples)\.
 

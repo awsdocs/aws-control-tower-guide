@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -42,7 +42,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)
    + [When to Sign in as a Root User](root-login.md)
    + [AWS Organizations Guidance](orgs-guidance.md)
-   + [AWS Single Sign-On Guidance](sso-guidance.md)
+   + [AWS IAM Identity Center (successor to AWS Single Sign-On) Guidance](sso-guidance.md)
    + [Account Factory Guidance](af-guidance.md)
    + [Guidance on Subscribing to SNS Topics](sns-guidance.md)
    + [Guidance for KMS keys](kms-guidance.md)
@@ -54,8 +54,8 @@ Amazon's trademarks and trade dress may not be used in
 + [Automate tasks in AWS Control Tower](automating-tasks.md)
    + [Using AWS CloudShell to work with AWS Control Tower](using-aws-with-cloudshell.md)
    + [Creating AWS Control Tower resources with AWS CloudFormation](creating-resources-with-cloudformation.md)
-   + [Resource identifiers for APIs and guardrails](control-identifiers.md)
-      + [Guardrail API examples](guardrail-api-examples-short.md)
+   + [Resource identifiers for APIs and controls](control-identifiers.md)
+      + [Control API examples](control-api-examples-short.md)
       + [Enable controls with AWS CloudFormation](enable-controls.md)
 + [Customize your AWS Control Tower landing zone](customize-landing-zone.md)
    + [Customizations for AWS Control Tower (CfCT) overview](cfct-overview.md)
@@ -88,7 +88,7 @@ Amazon's trademarks and trade dress may not be used in
       + [CIDR and Peering for VPC and AWS Control Tower](vpc-ct-cidr.md)
 + [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)
 + [How AWS Regions Work With AWS Control Tower](region-how.md)
-   + [Configure the Region deny guardrail](region-deny.md)
+   + [Configure the Region deny control](region-deny.md)
 + [Provision and manage accounts in AWS Control Tower](provision-and-manage-accounts.md)
    + [About AWS accounts in AWS Control Tower](accounts.md)
    + [Enroll an existing AWS account](enroll-account.md)
@@ -127,6 +127,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Data protection](aft-data-protection.md)
       + [Remove an account from AFT](aft-remove-account.md)
       + [Operational metrics](aft-operational-metrics.md)
+      + [Account Factory troubleshooting guide](account-troubleshooting-guide.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
    + [Types of Governance Drift](governance-drift.md)
    + [If you manage resources outside of AWS Control Tower](external-resources.md)
@@ -138,20 +139,20 @@ Amazon's trademarks and trade dress may not be used in
       + [Update existing OUs and accounts](update-existing-accounts.md)
          + [Update multiple accounts](update-multiple-accounts.md)
          + [Update a single account](update-account-in-sc.md)
-+ [Guardrails in AWS Control Tower](guardrails.md)
-   + [View guardrail details](guardrail-details.md)
-   + [Enable guardrails](enable-guardrails.md)
-   + [Optional guardrails](optional-guardrails.md)
-   + [Guardrails and compliance](compliance.md)
++ [The AWS Control Tower control library](controls.md)
+   + [View control details](control-details.md)
+   + [Enable controls on an OU](enable-controls-on-ou.md)
+   + [Optional controls](optional-controls.md)
+   + [Controls and compliance](compliance.md)
       + [How can administrators review compliance?](review-compliance.md)
-      + [AWS Control Tower compliance status for guardrails, OUs, and accounts](compliance-statuses.md)
+      + [AWS Control Tower compliance status for controls, OUs, and accounts](compliance-statuses.md)
       + [Drift prevention and notification](prevention-and-notification.md)
       + [Compliance notifications by SNS in the audit account](receive-notifications.md)
-   + [Guardrail reference](guardrails-reference.md)
-      + [Mandatory guardrails](mandatory-guardrails.md)
-      + [Strongly recommended guardrails](strongly-recommended-guardrails.md)
-      + [Elective guardrails](elective-guardrails.md)
-         + [Guardrails that enhance data residency protection](data-residency-guardrails.md)
+   + [Control reference](controls-reference.md)
+      + [Mandatory controls](mandatory-controls.md)
+      + [Strongly recommended controls](strongly-recommended-controls.md)
+      + [Elective controls](elective-controls.md)
+         + [Controls that enhance data residency protection](data-residency-controls.md)
 + [Integrated services](integrated-services.md)
    + [Scripting Environments with AWS CloudFormation](cloudformation.md)
    + [Monitoring Events with CloudTrail](cloudtrail.md)
@@ -163,7 +164,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Manage Accounts Through AWS Organizations](organizations.md)
    + [Store Objects with Amazon S3](s3.md)
    + [Provisioning Accounts Through AWS Service Catalog](service-catalog.md)
-   + [Managing Users and Access Through AWS Single Sign-On](sso.md)
+   + [Managing Users and Access Through AWS IAM Identity Center (successor to AWS Single Sign-On)](sso.md)
    + [Tracking Alerts Through Amazon Simple Notification Service](sns.md)
    + [Build Distributed Applications with AWS Step Functions](step-functions.md)
 + [Security in AWS Control Tower](security.md)
@@ -184,16 +185,16 @@ Amazon's trademarks and trade dress may not be used in
    + [Walkthrough: Move from ALZ to AWS Control Tower](alz-to-control-tower.md)
    + [Walkthrough: Automate Account Provisioning in AWS Control Tower by AWS Service Catalog APIs](automated-provisioning-walkthrough.md)
    + [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)
-   + [Walkthrough: Manage AWS Control Tower Resources](walkthrough-delete.md)
-      + [Delete SCPs](controltower-walkthrough-delete-scps.md)
-      + [Delete StackSets and Stacks](controltower-walkthrough-delete-stacksets.md)
-      + [Delete Amazon S3 Buckets in the Log Archive Account](controltower-walkthrough-delete-s3-buckets.md)
-      + [Remove an Account Factory Portfolio and Product](controltower-walkthrough-cleanup-account-factory.md)
-      + [Remove AWS Control Tower Roles and Policies](controltower-walkthrough-cleanup-identity.md)
    + [Walkthrough: Set Up Security Groups in AWS Control Tower With AWS Firewall Manager](firewall-setup-walkthrough.md)
    + [Walkthrough: Decommission an AWS Control Tower Landing Zone](decommission-landing-zone.md)
       + [Overview of the decommissioning process](decommissioning-process-overview.md)
       + [Resources not removed during decommissioning](resources-not-removed.md)
+         + [Manage AWS Control Tower Resources](walkthrough-delete.md)
+            + [Delete SCPs](controltower-walkthrough-delete-scps.md)
+            + [Delete StackSets and Stacks](controltower-walkthrough-delete-stacksets.md)
+            + [Delete Amazon S3 Buckets in the Log Archive Account](controltower-walkthrough-delete-s3-buckets.md)
+            + [Remove an Account Factory Portfolio and Product](controltower-walkthrough-cleanup-account-factory.md)
+            + [Remove AWS Control Tower Roles and Policies](controltower-walkthrough-cleanup-identity.md)
       + [How to decommission a landing zone](how-to-decommission.md)
       + [Setup after decommissioning a landing zone](known-issues-decommissioning.md)
 + [Troubleshooting](troubleshooting.md)

@@ -1,6 +1,6 @@
 # Monitoring resource changes with AWS Config<a name="monitoring-with-config"></a>
 
-AWS Control Tower enables AWS Config on all enrolled accounts, so that it can monitor compliance with detective guardrails, record resource changes, and deliver resource change logs to the log archive account\.
+AWS Control Tower enables AWS Config on all enrolled accounts, so that it can monitor compliance through detective controls, record resource changes, and deliver resource change logs to the log archive account\.
 
 **If your landing zone version is earlier than 3\.0**: For your enrolled accounts, AWS Config logs all changes to resources, for all Regions in which the account operates\. Each change is modeled as a configuration item \(CI\), which contains information such as the resource identifier, the Region, the date that each change was recorded, and whether the change relates to a known resource or a newly discovered one\.
 
@@ -67,7 +67,7 @@ This section gives information about some problems you may encounter when using 
 If your workflow includes processes that create, update, or delete resources frequently, or if it handles resources in large numbers, that workflow may generate large numbers of CIs\. If you run these processes in a non\-production account, consider unenrolling the account\. You may need to de\-activate the AWS Config recorder for that account manually\.
 
 **Note**  
-After you unenroll the account, AWS Control Tower cannot enforce detective guardrails or log account events, such as AWS Config activities, for resources in that account\.
+After you unenroll the account, AWS Control Tower cannot enforce detective controls or log account events, such as AWS Config activities, for resources in that account\.
 
 For more information, see [Unmanage an enrolled account](https://docs.aws.amazon.com/controltower/latest/userguide/unmanage-account.html)\. To learn how to deactivate the AWS Config recorder, see [Managing the configuration recorder](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html)\.
 
@@ -91,4 +91,4 @@ Check whether the resource is a [global resource](https://docs.aws.amazon.com/co
 
 ### AWS Config did not record a resource<a name="resource-not-recorded"></a>
 
-Certain resources have dependency relationships with other resources\. These relationships may be *direct* or *indirect*\. AWS Config no longer records resource changes for certain indirect relationships\. You can find a list of deprecated indirect relationships in [the AWS Config FAQ](https://docs.aws.amazon.com/config/latest/developerguide/faq.html#faq-2)\.
+Certain resources have dependency relationships with other resources\. These relationships may be *direct* or *indirect*\.  You can find a list of deprecated indirect relationships in [the AWS Config FAQ](https://docs.aws.amazon.com/config/latest/developerguide/faq.html#faq-2)\.

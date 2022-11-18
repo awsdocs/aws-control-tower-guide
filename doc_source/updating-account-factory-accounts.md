@@ -22,7 +22,7 @@ The following procedure guides you through how to update your Account Factory ac
 
 1. Sign in to the AWS Management Console and open the AWS Service Catalog console at **https://console\.aws\.amazon\.com/servicecatalog/**
 **Note**  
-You must be signed in as a user with the permissions to provision new products in AWS Service Catalog; for example, an AWS SSO user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\.
+You must be signed in as a user with the permissions to provision new products in AWS Service Catalog; for example, an IAM Identity Center user in either the **AWSAccountFactory** or **AWSServiceCatalogAdmins** groups\.
 
 1. From the navigation pane, choose **Provisioned products**\. 
 
@@ -33,9 +33,9 @@ You must be signed in as a user with the permissions to provision new products i
    1. Make a note of the following parameters:
       + **SSOUserEmail** \(Available in provisioned product details\)
       + **AccountEmail** \(Available in provisioned product details\)
-      + **SSOUserFirstName** \(Available in AWS SSO\)
-      + **SSOUSerLastName** \(Available in AWS SSO\)
-      + **AccountName** \(Available in AWS SSO\)
+      + **SSOUserFirstName** \(Available in IAM Identity Center\)
+      + **SSOUSerLastName** \(Available in IAM Identity Center\)
+      + **AccountName** \(Available in IAM Identity Center\)
 
    1. From **Actions**, choose **Update**\.
 

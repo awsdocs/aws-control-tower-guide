@@ -1,6 +1,6 @@
-# Strongly recommended guardrails<a name="strongly-recommended-guardrails"></a>
+# Strongly recommended controls<a name="strongly-recommended-controls"></a>
 
-Strongly recommended guardrails are based on best practices for well\-architected multi\-account environments\. These guardrails are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the strongly recommended guardrails available in AWS Control Tower\.
+Strongly recommended controls are based on best practices for well\-architected multi\-account environments\. These controls are not enabled by default, and can be disabled\. Following, you'll find a reference for each of the strongly recommended controls available in AWS Control Tower\.
 
 **Topics**
 + [Disallow Creation of Access Keys for the Root User](#disallow-root-access-keys)
@@ -20,9 +20,9 @@ Strongly recommended guardrails are based on best practices for well\-architecte
 
 ## Disallow Creation of Access Keys for the Root User<a name="disallow-root-access-keys"></a>
 
-Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users with limited permissions to interact with your AWS account\. This is a preventive guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users with limited permissions to interact with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -49,9 +49,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Actions as a Root User<a name="disallow-root-auser-actions"></a>
 
-Secures your AWS accounts by disallowing account access with root user credentials, which are credentials of the account owner that allow unrestricted access to all resources in the account\. Instead, we recommend that you create AWS Identity and Access Management \(IAM\) users for everyday interaction with your AWS account\. This is a preventive guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Secures your AWS accounts by disallowing account access with root user credentials, which are credentials of the account owner that allow unrestricted access to all resources in the account\. Instead, we recommend that you create AWS Identity and Access Management \(IAM\) users for everyday interaction with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -78,9 +78,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances<a name="ebs-enable-encryption"></a>
 
-This guardrail detects whether the Amazon EBS volumes attached to an Amazon EC2 instance are encrypted\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail isn't enabled on any OUs\.
+This control detects whether the Amazon EBS volumes attached to an Amazon EC2 instance are encrypted\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control isn't enabled on any OUs\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -105,9 +105,9 @@ Resources:
 
 ## Detect Whether Unrestricted Incoming TCP Traffic is Allowed<a name="rdp-disallow-internet"></a>
 
-This guardrail helps reduce a server's exposure to risk by detecting whether unrestricted incoming TCP traffic is allowed\. It detects whether internet connections are enabled to Amazon EC2 instances through services such as Remote Desktop Protocol \(RDP\)\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control helps reduce a server's exposure to risk by detecting whether unrestricted incoming TCP traffic is allowed\. It detects whether internet connections are enabled to Amazon EC2 instances through services such as Remote Desktop Protocol \(RDP\)\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -204,9 +204,9 @@ Resources:
 
 ## Detect Whether Unrestricted Internet Connection Through SSH is Allowed<a name="ssh-disallow-internet"></a>
 
-This guardrail detects whether internet connections are allowed through remote services such as the Secure Shell \(SSH\) protocol\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control detects whether internet connections are allowed through remote services such as the Secure Shell \(SSH\) protocol\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -231,9 +231,9 @@ Resources:
 
 ## Detect Whether MFA for the Root User is Enabled<a name="enable-root-mfa"></a>
 
-This guardrail detects whether multi\-factor authentication \(MFA\) is enabled for the root user of the management account\. MFA reduces vulnerability risks from weak authentication by requiring an additional authentication code after the user name and password are successful\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control detects whether multi\-factor authentication \(MFA\) is enabled for the root user of the management account\. MFA reduces vulnerability risks from weak authentication by requiring an additional authentication code after the user name and password are successful\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -278,9 +278,9 @@ Resources:
 
 ## Detect Whether Public Read Access to Amazon S3 Buckets is Allowed<a name="s3-disallow-public-read"></a>
 
-This guardrail detects whether public read access is allowed to Amazon S3 buckets\. It helps you maintain secure access to data stored in the buckets\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control detects whether public read access is allowed to Amazon S3 buckets\. It helps you maintain secure access to data stored in the buckets\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -305,9 +305,9 @@ Resources:
 
 ## Detect Whether Public Write Access to Amazon S3 Buckets is Allowed<a name="s3-disallow-public-write"></a>
 
-This guardrail detects whether public write access is allowed to Amazon S3 buckets\. It helps you maintain secure access to data stored in the buckets\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control detects whether public write access is allowed to Amazon S3 buckets\. It helps you maintain secure access to data stored in the buckets\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -332,9 +332,9 @@ Resources:
 
 ## Detect Whether Amazon EBS Volumes are Attached to Amazon EC2 Instances<a name="disallow-unattached-ebs"></a>
 
-This guardrail detects whether an Amazon EBS volume device persists independently from an Amazon EC2 instance\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+This control detects whether an Amazon EBS volume device persists independently from an Amazon EC2 instance\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -375,9 +375,9 @@ Resources:
 
 ## Detect Whether Amazon EBS Optimization is Enabled for Amazon EC2 Instances<a name="disallow-not-ebs-optimized"></a>
 
-Detects whether Amazon EC2 instances are launched without an Amazon EBS volume that is optimized for performance\. Amazon EBS\-optimized volumes minimize contention between Amazon EBS I/O and other traffic from your instance\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Detects whether Amazon EC2 instances are launched without an Amazon EBS volume that is optimized for performance\. Amazon EBS\-optimized volumes minimize contention between Amazon EBS I/O and other traffic from your instance\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -402,9 +402,9 @@ Resources:
 
 ## Detect Whether Public Access to Amazon RDS Database Instances is Enabled<a name="disallow-rds-public-access"></a>
 
-Detects whether your Amazon RDS database instances allow public access\. You can secure your Amazon RDS database instances by disallowing public access\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Detects whether your Amazon RDS database instances allow public access\. You can secure your Amazon RDS database instances by disallowing public access\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -429,9 +429,9 @@ Resources:
 
 ## Detect Whether Public Access to Amazon RDS Database Snapshots is Enabled<a name="disallow-rds-snapshot-public-access"></a>
 
-Detects whether your Amazon RDS database snapshots have public access enabled\. You can protect your information by disabling public access\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Detects whether your Amazon RDS database snapshots have public access enabled\. You can protect your information by disabling public access\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -456,9 +456,9 @@ Resources:
 
 ## Detect Whether Storage Encryption is Enabled for Amazon RDS Database Instances<a name="disallow-rds-storage-unencrypted"></a>
 
-Detects Amazon RDS database instances that are not encrypted at rest\. You can secure your Amazon RDS database instances at rest by encrypting the underlying storage for database instances and their automated backups, Read Replicas, and snapshots\. This guardrail does not change the status of the account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled\.
+Detects Amazon RDS database instances that are not encrypted at rest\. You can secure your Amazon RDS database instances at rest by encrypting the underlying storage for database instances and their automated backups, Read Replicas, and snapshots\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -483,9 +483,9 @@ Resources:
 
 ## Detect whether an account has AWS CloudTrail or CloudTrail Lake enabled<a name="ensure-cloudtrail-enabled-recommended"></a>
 
-This guardrail detects whether an account has AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account\. This is a detective guardrail with strongly recommended guidance\. By default, this guardrail is not enabled on any OUs\.
+This control detects whether an account has AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled on any OUs\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09

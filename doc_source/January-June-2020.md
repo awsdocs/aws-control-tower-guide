@@ -3,7 +3,7 @@
 Since January 1, 2020, AWS Control Tower has released the following updates:
 + [AWS Control Tower console now links to external AWS Config rules](#config-aggregator-12-2020)
 + [AWS Control Tower now available in additional Regions](#region-expansion-11-19-20)
-+ [Guardrail update](#guardrail-update)
++ [Guardrail update](#control-update)
 + [AWS Control Tower console shows more detail about OUs and accounts](#OU-account-detail)
 + [Use AWS Control Tower to set up new multi\-account AWS environments in AWS Organizations](#multiaccount-environments) 
 + [Customizations for AWS Control Tower solution](#Customizations)
@@ -20,7 +20,7 @@ Since January 1, 2020, AWS Control Tower has released the following updates:
 
 AWS Control Tower now includes an organization\-level aggregator, which assists in detecting external AWS Config rules\. This provides you with visibility in the AWS Control Tower console to see the existence of externally created AWS Config rules in addition to those AWS Config rules created by AWS Control Tower\. The aggregator allows AWS Control Tower to detect external rules and provide a link to the AWS Config console without the need for AWS Control Tower to gain access to unmanaged accounts\.
 
-With this feature, you now have a consolidated view of detective guardrails applied to your accounts so you can track compliance and determine if you need additional guardrails for your account\. For information, see [How AWS Control Tower aggregates AWS Config rules in unmanaged OUs and accounts](roles-how.md#config-role-for-organizations)\.
+With this feature, you now have a consolidated view of detective controls applied to your accounts so you can track compliance and determine if you need additional controls for your account\. For information, see [How AWS Control Tower aggregates AWS Config rules in unmanaged OUs and accounts](roles-how.md#config-role-for-organizations)\.
 
 ## AWS Control Tower now available in additional Regions<a name="region-expansion-11-19-20"></a>
 
@@ -41,17 +41,17 @@ AWS Control Tower is also available in US East \(N\. Virginia\) Region, US East 
 
 This landing zone update includes all Regions listed and cannot be undone\. After updating your landing zone to version 2\.5, you must manually update all enrolled accounts for AWS Control Tower to govern in the 10 supported AWS Regions\. For information, see [Configure your AWS Control Tower Regions](region-how.md#deploying-to-new-region)\.
 
-## Guardrail update<a name="guardrail-update"></a>
+## Guardrail update<a name="control-update"></a>
 
 **October 8, 2020**
 
 \(No update required for AWS Control Tower landing zone\)
 
-An updated version has been released for the mandatory guardrail `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\.
+An updated version has been released for the mandatory control `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\.
 
-This change to the guardrail is required because accounts that are being enrolled automatically into AWS Control Tower must have the `AWSControlTowerExecution` role enabled\. The previous version of the guardrail prevents this role from being created\.
+This change to the control is required because accounts that are being enrolled automatically into AWS Control Tower must have the `AWSControlTowerExecution` role enabled\. The previous version of the control prevents this role from being created\.
 
-For more information, see [Guardrail update](mandatory-guardrails.md#guardrail-update-hotfix) in the AWS Control Tower User Guide Guardrail reference\.
+For more information, see [Control update](mandatory-controls.md#control-update-hotfix) in the AWS Control Tower User Guide Control reference\.
 
 ## AWS Control Tower console shows more detail about OUs and accounts<a name="OU-account-detail"></a>
 
@@ -104,7 +104,7 @@ If you have not used AWS Control Tower previously, you can launch it today in an
 **Note**  
 Updating your landing zone does not automatically update your accounts\. If you have more than a few accounts, the required updates can be time\-consuming\. For that reason, we recommend that you avoid expanding your AWS Control Tower landing zone into Regions in which you do not require your workloads to run\.
 
- For information about the expected behavior of detective guardrails as a result of a deployment to a new Region, see [Configure your AWS Control Tower Regions](region-how.md#deploying-to-new-region)\.
+ For information about the expected behavior of detective controls as a result of a deployment to a new Region, see [Configure your AWS Control Tower Regions](region-how.md#deploying-to-new-region)\.
 
 ## Single\-step account provisioning in AWS Control Tower<a name="Single-step-provisioning"></a>
 
@@ -114,7 +114,7 @@ Updating your landing zone does not automatically update your accounts\. If you 
 
 AWS Control Tower now supports single\-step account provisioning through the AWS Control Tower console\. This feature allows you to provision new accounts from within the AWS Control Tower console\.
 
-To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(AWS SSO\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through AWS Service Catalog\.
+To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(IAM Identity Center\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through AWS Service Catalog\.
 
 Update accounts that you create through quick account provisioning by using AWS Service Catalog and the AWS Control Tower account factory, just like updates to any other account\.
 
@@ -137,8 +137,8 @@ To decommission your landing zone by using a process that is mostly automated, c
 
 \(No update required for AWS Control Tower landing zone\)
 
-AWS Control Tower announces the availability of lifecycle event notifications\. A [lifecycle event](lifecycle-events.md) marks the completion of an AWS Control Tower action that can change the state of resources such as organizational units \(OUs\), accounts, and guardrails that are created and managed by AWS Control Tower\. Lifecycle events are recorded as AWS CloudTrail events and delivered to Amazon EventBridge as events\. 
+AWS Control Tower announces the availability of lifecycle event notifications\. A [lifecycle event](lifecycle-events.md) marks the completion of an AWS Control Tower action that can change the state of resources such as organizational units \(OUs\), accounts, and controls that are created and managed by AWS Control Tower\. Lifecycle events are recorded as AWS CloudTrail events and delivered to Amazon EventBridge as events\. 
 
-AWS Control Tower records lifecycle events at the completion of the following actions that can be performed using the service: creating or updating a landing zone; creating or deleting an OU; enabling or disabling a guardrail on an OU; and using account factory to create a new account or to move an account to another OU\.
+AWS Control Tower records lifecycle events at the completion of the following actions that can be performed using the service: creating or updating a landing zone; creating or deleting an OU; enabling or disabling a control on an OU; and using account factory to create a new account or to move an account to another OU\.
 
 AWS Control Tower uses multiple AWS services to build and govern a best practices multi\-account AWS environment\. It can take several minutes for an AWS Control Tower action to complete\. You can track lifecycle events in the CloudTrail logs to verify if the originating AWS Control Tower action completed successfully\. You can create an EventBridge rule to notify you when CloudTrail records a lifecycle event or to automatically trigger the next step in your automation workflow\.

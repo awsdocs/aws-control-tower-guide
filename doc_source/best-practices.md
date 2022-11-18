@@ -2,13 +2,13 @@
 
 This topic is intended primarily for management account administrators\.
 
-Management account administrators are responsible for explaining some tasks that AWS Control Tower guardrails prevent their member account administrators from doing\. This topic describes some best practices and procedures for transferring this knowledge, and it gives other tips for setting up and maintaining your AWS Control Tower environment efficiently\.
+Management account administrators are responsible for explaining some tasks that AWS Control Tower controls prevent their member account administrators from doing\. This topic describes some best practices and procedures for transferring this knowledge, and it gives other tips for setting up and maintaining your AWS Control Tower environment efficiently\.
 
 ## Explaining Access to Users<a name="explaining-users"></a>
 
 The AWS Control Tower console is available only to users with the management account administrator permissions\. Only these users can perform administrative work within your landing zone\. In accordance with best practices, this means that the majority of your users and member account administrators will never see the AWS Control Tower console\. As a member of the management account administrator group, it's your responsibility to explain the following information to the users and administrators of your member accounts, as appropriate\.
 + Explain which AWS resources that users and administrators have access to within the landing zone\.
-+ List the preventive guardrails that apply to each Organizational Unit \(OU\) so that the other administrators can plan and execute their AWS workloads accordingly\.
++ List the preventive controls that apply to each Organizational Unit \(OU\) so that the other administrators can plan and execute their AWS workloads accordingly\.
 
 ## Explaining Resource Access<a name="explaining-resource-access"></a>
 
@@ -25,25 +25,25 @@ AWS offers tools to identify the scope of a user's AWS resource access\. After y
 
   You can view a summary table of AWS Control Tower events in the [**Activities** page\.](https://console.aws.amazon.com/)
 
-## Explaining Preventive Guardrails<a name="explaining-preventive-guardrails"></a>
+## Explaining Preventive Controls<a name="explaining-preventive-controls"></a>
 
-A preventive guardrail ensures that your organization's accounts maintain compliance with your corporate policies\. The status of a preventive guardrail is either **enforced** or **not\-enabled**\. A preventive guardrail prevents policy violations by using service control policies \(SCPs\)\. In comparison, a detective guardrail informs you of various events or states that exist, by means of defined AWS Config rules\.
+A preventive control ensures that your organization's accounts maintain compliance with your corporate policies\. The status of a preventive control is either **enforced** or **not\-enabled**\. A preventive control prevents policy violations by using service control policies \(SCPs\)\. In comparison, a detective control informs you of various events or states that exist, by means of defined AWS Config rules\.
 
-Some of your users, such as AWS developers, may need to know about the preventive guardrails that apply to any accounts and OUs they use, so they can create engineering solutions\. The following procedure offers some guidance on how to provide this information for the right users, according to your organization's information management policies\.
+Some of your users, such as AWS developers, may need to know about the preventive controls that apply to any accounts and OUs they use, so they can create engineering solutions\. The following procedure offers some guidance on how to provide this information for the right users, according to your organization's information management policies\.
 
 **Note**  
-This procedure assumes you've already created at least one child OU within your landing zone, as well as at least one AWS Single Sign\-On user\.
+This procedure assumes you've already created at least one child OU within your landing zone, as well as at least one AWS IAM Identity Center \(successor to AWS Single Sign\-On\) user\.
 
-**To show preventive guardrails for users with a need to know**
+**To show preventive controls for users with a need to know**
 
 1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower/](https://console.aws.amazon.com/controltower/)\.
 
 1. From the left navigation, choose **Organization**\.
 
-1. From the table, choose the **name** of one of the OUs for which your user needs information about the applicable guardrails\.
+1. From the table, choose the **name** of one of the OUs for which your user needs information about the applicable controls\.
 
-1. Note the name of the OU and the guardrails that apply to this OU\.
+1. Note the name of the OU and the controls that apply to this OU\.
 
 1. Repeat the previous two steps for each OU about which your user needs information\.
 
-For detailed information about the guardrails and their functions, see [Guardrails in AWS Control Tower](guardrails.md)\.
+For detailed information about the controls and their functions, see [The AWS Control Tower control library](controls.md)\.

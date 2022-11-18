@@ -8,7 +8,7 @@ After your customizations are specified in your chosen `git` repositories, eithe
 
 **Global customizations \(optional\)**
 
-You can choose to apply certain customizations to all accounts that are provisioned by AFT\. For example, if you need to create a particular IAM role, or to deploy a custom guardrail in every account, the global customizations stage in AFT pipeline allows you to do so, automatically\.
+You can choose to apply certain customizations to all accounts that are provisioned by AFT\. For example, if you need to create a particular IAM role, or to deploy a custom control in every account, the global customizations stage in AFT pipeline allows you to do so, automatically\.
 
 **Account customizations \(optional\)**
 
@@ -107,7 +107,7 @@ Here is an example of an event schema \(JSON format\) you can create to pass inp
     },
     {
       "type": "accounts",
-      "target_value": [ "acc1","acc2"]
+      "target_value": [ "acc1_ID","acc2_ID"]
     }
   ]
 }

@@ -14,12 +14,12 @@ If the default configuration or capabilities of the AWS Control Tower VPC do not
 
 As a standard part of account creation, AWS creates an AWS\-default VPC in every Region, even the Regions you are not governing with AWS Control Tower\. This default VPC is not the same as a VPC that AWS Control Tower creates for a provisioned account, but the AWS default VPC in a non\-governed Region may be accessible to IAM users\.
 
-Adminstrators can enable the Region deny guardrail, so that your end\-users do not have permission to connect to a VPC in *a Region that's supported by AWS Control Tower* but outside your governed Regions\. To configure the Region deny guardrail, go to the **Landing zone settings** page and select **Modify settings**\.
+Adminstrators can enable the Region deny control, so that your end\-users do not have permission to connect to a VPC in *a Region that's supported by AWS Control Tower* but outside your governed Regions\. To configure the Region deny control, go to the **Landing zone settings** page and select **Modify settings**\.
 
-The Region deny guardrail blocks API calls to most services in non\-governed Regions\. For more information, see [Deny access to AWS based on the requested AWS Region](data-residency-guardrails.md#primary-region-deny-policy)\.
+The Region deny control blocks API calls to most services in non\-governed Regions\. For more information, see [Deny access to AWS based on the requested AWS Region](data-residency-controls.md#primary-region-deny-policy)\.
 
 **Note**  
-The Region deny guardrail may not prevent IAM users from connecting to an AWS default VPC in a Region where AWS Control Tower is not supported\.
+The Region deny control may not prevent IAM users from connecting to an AWS default VPC in a Region where AWS Control Tower is not supported\.
 
 Optionally, you can remove the AWS default VPCs in non\-governed Regions\. To list the default VPC in a Region you can use a CLI command similar to this example:
 

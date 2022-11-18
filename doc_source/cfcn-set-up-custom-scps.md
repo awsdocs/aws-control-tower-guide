@@ -26,9 +26,9 @@ region: your-home-region
 version: 2021-03-15
 
 resources:
-  - name: test-preventive-guardrails
+  - name: test-preventive-controls
     description: To prevent from deleting or disabling resources in member accounts
-    resource_file: policies/preventive-guardrails.json
+    resource_file: policies/preventive-controls.json
     deploy_method: scp
     #Apply to the following OU(s)
     deployment_targets:

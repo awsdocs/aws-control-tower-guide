@@ -25,11 +25,11 @@ During the enrollment process, AWS Control Tower performs these actions:
   + `AWSControlTowerBP-VPC-ACCOUNT-FACTORY-V1`
 
   It is a good idea to review the templates of these stack sets and make sure that they don’t conflict with your existing policies\.
-+ Identifies the account through AWS Single Sign\-On or AWS Organizations\.
++ Identifies the account through AWS IAM Identity Center \(successor to AWS Single Sign\-On\) or AWS Organizations\.
 + Places the account into the OU that you've specified\. Be sure to apply all SCPs that are applied in the current OU, so that your security posture remains consistent\.
-+ Applies mandatory guardrails to the account by means of the SCPs that apply to the selected OU as a whole\.
++ Applies mandatory controls to the account by means of the SCPs that apply to the selected OU as a whole\.
 + Enables AWS Config and configures it to record all resources in the account\.
-+ Adds the AWS Config rules that apply the AWS Control Tower detective guardrails to the account\.
++ Adds the AWS Config rules that apply the AWS Control Tower detective controls to the account\.
 
 **Note**  
 When you enroll the account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the new organization\. If you have an existing deployment of a CloudTrail trail, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\.
@@ -83,7 +83,7 @@ After you've completed these preparatory steps, you can enroll the account into 
 
 1. Clean up the account, if resources remain, and close it, following account closure steps given in [Unmanage an account](unmanage-account.md)\.
 
-1. If you have a **Suspended** OU with defined guardrails, you can move the account there instead of doing Step 1\.
+1. If you have a **Suspended** OU with defined controls, you can move the account there instead of doing Step 1\.
 
 ## Example AWS Config CLI commands for resource status<a name="example-config-cli-commands"></a>
 
@@ -93,7 +93,8 @@ Here are some example AWS Config CLI commands you can use to determine the statu
 + `aws configservice describe-delivery-channels`
 + `aws configservice describe-delivery-channel-status`
 + `aws configservice describe-configuration-recorders`
-+ `The normal response is something like "name": "default"`
+
+The normal response is something like `"name": "default"`
 
 **Delete commands:**
 + `aws configservice stop-configuration-recorder --configuration-recorder-name NAME-FROM-DESCRIBE-OUTPUT`

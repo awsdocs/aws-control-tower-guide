@@ -16,15 +16,15 @@ Before AWS Control Tower sets up the landing zone, it automatically runs a serie
 **Note**  
 By default, all accounts are subscribed to these services\.
 
-## Considerations for AWS Single Sign\-On \(AWS SSO\) customers<a name="sso-considerations"></a>
-+ If AWS Single Sign\-On \(AWS SSO\) is already set up, the AWS Control Tower home Region must be the same as the AWS SSO Region\.
-+ AWS SSO can be installed only in the management account of an organization\.
-+ Three options apply to your AWS SSO directory, based on the identity source you choose:
-  + **AWS SSO User Store**: If AWS Control Tower is set up with AWS SSO, AWS Control Tower creates groups in the AWS SSO directory and provisions access to these groups, for the user you select, for member accounts\.
-  + **Active Directory**: If AWS SSO for AWS Control Tower is set up with Active Directory, AWS Control Tower does not manage the AWS SSO directory\. It does not assign users or groups to new AWS accounts\.
-  + **External Identity Provider**: If AWS SSO for AWS Control Tower is set up with an external identity provider \(IdP\), AWS Control Tower creates groups in the AWS SSO directory and provisions access to these groups for the user you select for member accounts\. You can specify an existing user from your external IdP in Account Factory during account creation, and AWS Control Tower gives this user access to the newly vended account when it synchronizes users of the same name between AWS SSO and the external IdP\. You can also create groups in your external IdP to match the names of the default groups in AWS Control Tower\. When you assign users to these groups, these users will have access to your enrolled accounts\.
+## Considerations for AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(IAM Identity Center\) customers<a name="sso-considerations"></a>
++ If AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(IAM Identity Center\) is already set up, the AWS Control Tower home Region must be the same as the IAM Identity Center Region\.
++ IAM Identity Center can be installed only in the management account of an organization\.
++ Three options apply to your IAM Identity Center directory, based on the identity source you choose:
+  + **IAM Identity Center User Store**: If AWS Control Tower is set up with IAM Identity Center, AWS Control Tower creates groups in the IAM Identity Center directory and provisions access to these groups, for the user you select, for member accounts\.
+  + **Active Directory**: If IAM Identity Center for AWS Control Tower is set up with Active Directory, AWS Control Tower does not manage the IAM Identity Center directory\. It does not assign users or groups to new AWS accounts\.
+  + **External Identity Provider**: If IAM Identity Center for AWS Control Tower is set up with an external identity provider \(IdP\), AWS Control Tower creates groups in the IAM Identity Center directory and provisions access to these groups for the user you select for member accounts\. You can specify an existing user from your external IdP in Account Factory during account creation, and AWS Control Tower gives this user access to the newly vended account when it synchronizes users of the same name between IAM Identity Center and the external IdP\. You can also create groups in your external IdP to match the names of the default groups in AWS Control Tower\. When you assign users to these groups, these users will have access to your enrolled accounts\.
 
-   For more information about working with AWS SSO and AWS Control Tower see [Things to Know About AWS SSO Accounts and AWS Control Tower](sso.md#sso-good-to-know)
+   For more information about working with IAM Identity Center and AWS Control Tower see [Things to Know About IAM Identity Center Accounts and AWS Control Tower](sso.md#sso-good-to-know)
 
 ### Considerations for AWS Config and AWS CloudTrail customers<a name="config-and-cloudtrail-considerations"></a>
 + The AWS account cannot have trusted access enabled in the organization  management account for AWS Config or CloudTrail\. For information about how to disable trusted access, see [the AWS Organizations documentation on how to enable or disable trusted access](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_how-to-enable-disable-trusted-access)\.
@@ -33,4 +33,4 @@ By default, all accounts are subscribed to these services\.
 + When you enroll an account into AWS Control Tower, your account is governed by the AWS CloudTrail trail for the AWS Control Tower organization\. If you have an existing deployment of a CloudTrail trail in the account, you may see duplicate charges unless you delete the existing trail for the account before you enroll it in AWS Control Tower\. For information about organization\-level trails and AWS Control Tower, see [Pricing](pricing.md)\.
 
 **Note**  
-When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions supported by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.
+When launching, AWS Security Token Service \(STS\) endpoints must be activated in the management account, for all Regions governed by AWS Control Tower\. Otherwise, the launch may fail midway through the configuration process\.

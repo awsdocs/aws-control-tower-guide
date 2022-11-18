@@ -9,7 +9,7 @@ When subscribing, substitute your actual AWS Control Tower home Region and audit
 **SNS topics and notifications you can receive**
 + The `aws-controltower-AllConfigNotifications` topic:
 
-  It receives notifications from AWS Config regarding compliance, noncompliance, and change\.
+  It receives notifications from AWS Config regarding compliance, noncompliance, and change\. It also receives notification from AWS CloudTrail on log file delivery\.
 + The `aws-controltower-SecurityNotifications` topic:
 
   One of these topics exists for each supported AWS Region\. It receives compliance, noncompliance, and change notifications from AWS Config in that Region\. It forwards all incoming notifications to `aws-controltower-AggregateSecurityNotifications`

@@ -16,7 +16,7 @@ When granting permissions, you decide who is getting the permissions, the resour
 
 ## AWS Control Tower Resources and Operations<a name="access-control-resources"></a>
 
-In AWS Control Tower, the primary resource is a *landing zone*\. AWS Control Tower also supports an additional resource type, *guardrails*\. However, for AWS Control Tower, you can manage guardrails only in the context of an existing landing zone\. Guardrails are referred to as a *subresource*\.
+In AWS Control Tower, the primary resource is a *landing zone*\. AWS Control Tower also supports an additional resource type, *controls*, sometimes referred to as *guardrails*\. However, for AWS Control Tower, you can manage controls only in the context of an existing landing zone\. Controls can be referred to as a *subresource*\.
 
 ## Understanding Resource Ownership<a name="access-control-owner"></a>
 

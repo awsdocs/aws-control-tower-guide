@@ -6,7 +6,7 @@ For more information about this topic, see [Identity and Access Management in AW
 
 **Recommended restrictions**
 
-You can restrict the scope of administrative access to your organizations by setting up an IAM role or policy that allows administrators to manage AWS Control Tower actions only\. The recommended approach is to use the IAM Policy `arn:aws:iam::aws:policy/service-role/AWSControlTowerServiceRolePolicy`\. With the `AWSControlTowerServiceRolePolicy` role enabled, an administrator can manage AWS Control Tower only\. Be sure to include appropriate access to AWS Organizations for managing your preventive guardrails, and SCPs, and access to AWS Config, for managing detective guardrails, in each account\.
+You can restrict the scope of administrative access to your organizations by setting up an IAM role or policy that allows administrators to manage AWS Control Tower actions only\. The recommended approach is to use the IAM Policy `arn:aws:iam::aws:policy/service-role/AWSControlTowerServiceRolePolicy`\. With the `AWSControlTowerServiceRolePolicy` role enabled, an administrator can manage AWS Control Tower only\. Be sure to include appropriate access to AWS Organizations for managing your preventive controls, and SCPs, and access to AWS Config, for managing detective controls, in each account\.
 
 When you're setting up the shared audit account in your landing zone, we recommend that you assign the `AWSSecurityAuditors` group to any third\-party auditors of your accounts\. This group gives its members read\-only permission\. An account must not have write permissions on the environment that it is auditing, because it can violate compliance with Separation of Duty requirements for auditors\. 
 

@@ -4,7 +4,7 @@ An efficient way to bring multiple, existing AWS accounts into AWS Control Tower
 
 To enable AWS Control Tower governance over an existing OU that was created with AWS Organizations, and its accounts, *register* the OU with your AWS Control Tower landing zone\. You can register OUs that contain up to 300 accounts\. If an OU contains more than 300 accounts, you cannot register it in AWS Control Tower\.
 
-When you register an OU, its member accounts are enrolled into the AWS Control Tower landing zone\. They are governed by the guardrails that apply to their OU\.
+When you register an OU, its member accounts are enrolled into the AWS Control Tower landing zone\. They are governed by the controls that apply to their OU\.
 
 **Note**  
 If you don't already have an AWS Control Tower landing zone, start by setting up a landing zone, either in a new organization created by AWS Control Tower, or in an existing AWS Organizations organization\. For more details about how to set up a landing zone, see [Getting started with AWS Control Tower](getting-started-with-control-tower.md)\.
@@ -13,7 +13,7 @@ If you don't already have an AWS Control Tower landing zone, start by setting up
 
 AWS Control Tower requires permission to establish trusted access between AWS CloudFormation and AWS Organizations on your behalf, so that AWS CloudFormation can deploy your stack to the accounts in your organization automatically\.
 + The `AWSControlTowerExecution` role is added to all accounts with status **Not enrolled**\.
-+ Mandatory guardrails are enabled by default to your OU and all its accounts when you register your OU\.
++ Mandatory controls are enabled by default to your OU and all its accounts when you register your OU\.
 
 **Partial enrollment of accounts after an OU is registered**
 
@@ -67,9 +67,9 @@ In general, when you register or re\-register an OU, all accounts within that OU
 + **STS disabled**
 
   AWS Security Token Service \(AWS STS\) may be disabled in the account\. AWS STS endpoints must be activated in the accounts for all Regions supported by AWS Control Tower\.
-+ **AWS SSO conflict**
++ **IAM Identity Center conflict**
 
-  The AWS Control Tower home Region is not the same as the AWS Single Sign\-On \(AWS SSO\) Region\. If AWS SSO is already set up, the AWS Control Tower home region must be the same as the AWS SSO Region\.
+  The AWS Control Tower home Region is not the same as the AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(IAM Identity Center\) Region\. If IAM Identity Center is already set up, the AWS Control Tower home region must be the same as the IAM Identity Center Region\.
 + **Conflicting SNS topic**
 
   The account has an Amazon Simple Notification Service \(Amazon SNS\) topic name that AWS Control Tower needs to use\. AWS Control Tower creates resources \(such as SNS topics\) with specific names\. If these names are already taken, AWS Control Tower setup fails\. This situation could occur if you are reusing an account previously enrolled in AWS Control Tower\.

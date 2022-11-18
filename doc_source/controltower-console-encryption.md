@@ -32,6 +32,6 @@ AWS Control Tower uses Transport Layer Security \(TLS\) and client\-side encrypt
 
 ## Restrict Access to Content<a name="data-protection-restrict-access"></a>
 
-As a best practice, you should restrict access to the appropriate subset of users\. With AWS Control Tower, you can do this by ensuring that your central cloud administrators and end users have the right IAM permissions or, in the case of AWS SSO users, that they are in the correct groups\.
+As a best practice, you should restrict access to the appropriate subset of users\. With AWS Control Tower, you can do this by ensuring that your central cloud administrators and end users have the right IAM permissions or, in the case of IAM Identity Center users, that they are in the correct groups\.
 + For more information about roles and policies for IAM entities, see *[IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)*\.
-+ For more information about the AWS SSO groups that are created when you set up your landing zone, see [AWS SSO Groups for AWS Control Tower](sso.md#sso-groups)\.
++ For more information about the IAM Identity Center groups that are created when you set up your landing zone, see [IAM Identity Center Groups for AWS Control Tower](sso.md#sso-groups)\.

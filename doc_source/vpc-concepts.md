@@ -18,5 +18,5 @@ When working with VPCs, AWS Control Tower makes no distinction at the Region lev
 **Manage VPC costs**  
 If you set the Account Factory VPC configuration so that public subnets are enabled when provisioning a new account, Account Factory configures VPC to create a NAT Gateway\. You will be billed for your usage by Amazon VPC\.
 
-**VPC and guardrail settings**  
-If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the guardrail [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-guardrails.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)\.
+**VPC and control settings**  
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the control [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-controls.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)\.

@@ -1,6 +1,6 @@
 # Delete SCPs<a name="controltower-walkthrough-delete-scps"></a>
 
-AWS Control Tower uses service control policies \(SCPs\) for its guardrails\. This procedure walks through how to delete the SCPs specifically related to AWS Control Tower\.
+AWS Control Tower uses service control policies \(SCPs\) for its controls\. This procedure walks through how to delete the SCPs specifically related to AWS Control Tower\.
 
 **To delete AWS Organizations SCPs**
 

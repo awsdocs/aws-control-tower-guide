@@ -36,7 +36,7 @@ New accounts in AWS Control Tower are created and then provisioned by an interac
 
 1. AWS Control Tower begins a workflow, which as a first step calls the AWS Organizations `CreateAccount` API\.
 
-1. After AWS Organizations creates the account, AWS Control Tower completes the provisioning process by applying blueprints and guardrails\.
+1. After AWS Organizations creates the account, AWS Control Tower completes the provisioning process by applying blueprints and controls\.
 
 1. AWS Service Catalog continues to poll AWS Control Tower to check for completion of the provisioning process\.
 
@@ -48,7 +48,7 @@ The permissions required for each method of provisioning and updating are discus
 
 For general information about permissions required in AWS Control Tower, see [Using Identity\-Based Policies \(IAM Policies\) for AWS Control Tower](access-control-managing-permissions.md)\. For information about roles and accounts in AWS Control Tower, see [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)\.
 
-## <a name="w347aac32c15"></a>
+## <a name="w371aac32c15"></a>
 
 **Security for your accounts**  
 You can find guidance about best practices to protect the security of your AWS Control Tower management account and member accounts in the AWS Organizations documentation\.  

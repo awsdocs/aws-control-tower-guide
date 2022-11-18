@@ -1,8 +1,8 @@
-# Guardrail API examples<a name="guardrail-api-examples-short"></a>
+# Control API examples<a name="control-api-examples-short"></a>
 
 **Example input for EnableControl:**
 
-This example shows how to specify the guardrail control you wish to enable, and activate that control for the target OU that you identify\.
+This example shows how to specify the control you wish to enable, and activate that control for the target OU that you identify\.
 
 ```
 {

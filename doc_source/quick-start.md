@@ -30,7 +30,7 @@ If you've created a new AWS account, it automatically meets the required prerequ
 
 1. Confirm your choices and choose **Set up landing zone**\.
 
-1. AWS Control Tower takes about 30 to 45 minutes to set up all of the resources in your landing zone\.
+1. AWS Control Tower takes about 30 minutes to set up all of the resources in your landing zone\.
 
 For a more detailed version of how to set up AWS Control Tower, including ways to customize your environment, read and follow the procedures in the next few topics\.
 

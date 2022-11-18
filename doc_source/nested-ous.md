@@ -40,7 +40,7 @@ To support successful registration of your nested OUs and their member accounts,
 
 ## Nested OUs and roles<a name="nested-ous-and-roles"></a>
 
-AWS Control Tower deploys the `AWSControlTowerExecution` role to accounts under the target OU, and to accounts in all OUs nested under the target OU, even when your intention is to register the target OU only\. This role gives any user of the management account **Administrator** permissions on any account that has the `AWSControlTowerExecution` role\. The role can be used to perform actions that normally would be disallowed by AWS Control Tower guardrails\.
+AWS Control Tower deploys the `AWSControlTowerExecution` role to accounts under the target OU, and to accounts in all OUs nested under the target OU, even when your intention is to register the target OU only\. This role gives any user of the management account **Administrator** permissions on any account that has the `AWSControlTowerExecution` role\. The role can be used to perform actions that normally would be disallowed by AWS Control Tower controls\.
 
 You can delete this role from unenrolled accounts that you don't plan to enroll\. If you delete this role, you cannot enroll the account with AWS Control Tower, or register the immediate parent OUs, unless you restore the role to the account\. To delete the `AWSControlTowerExecution` role from an account, you must be signed in under the `AWSControlTowerExecution` role, because no other IAM principals are allowed to delete roles managed by AWS Control Tower\.
 
@@ -54,9 +54,9 @@ When you register or re\-register a nested OU, AWS Control Tower enrolls all une
 + Adds the `AWSControlTowerExecution` role to all unenrolled accounts under this OU, and to all unenrolled accounts in its nested OUs\. 
 + Enrolls member accounts that are not enrolled\.
 + Re\-enrolls enrolled member accounts\.
-+ Creates an AWS SSO login for newly enrolled member accounts\.
++ Creates an IAM Identity Center login for newly enrolled member accounts\.
 + Updates existing enrolled member accounts to reflect your landing zone changes\.
-+ Updates guardrails that are configured for this OU and its member accounts\.
++ Updates controls that are configured for this OU and its member accounts\.
 
 ## Considerations for nested OU registration<a name="nested-ou-registration"></a>
 + You cannot register an OU under the core OU \(Security OU\)\.
@@ -68,7 +68,7 @@ When you register or re\-register a nested OU, AWS Control Tower enrolls all une
 ## Nested OU limitations<a name="nested-ou-limitations"></a>
 + OUs may be nested a maximum of 5 levels deep under the root\.
 + Nested OUs under the target OU must be registered or re\-registered separately\.
-+ If the target OU is at Level 2 or below in the hierarchy, that is, if it is not a top\-level OU, preventive guardrails enabled on higher OUs are enforced on this OU and all OUs below it, automatically\.
++ If the target OU is at Level 2 or below in the hierarchy, that is, if it is not a top\-level OU, preventive controls enabled on higher OUs are enforced on this OU and all OUs below it, automatically\.
 + OU registration failures do not propagate up the hierarchy tree\. You can see details about the states of nested OUs on the parent’s OU details page\.
 + OU registration failures do not propagate down the hierarchy tree\.
 + AWS Control Tower does not modify your VPC settings for any new or existing accounts\.
@@ -79,7 +79,7 @@ From the AWS Control Tower console, you can view OUs and accounts that are non\-
 
 **Considerations about compliance for nested OUs and accounts**
 + An OU's compliance is not determined based on the compliance of the OUs nested under it\.
-+ A guardrail's compliance status is computed over all OUs on which the guardrail is enabled, including nested OUs\. See [AWS Control Tower compliance status for guardrails, OUs, and accounts](compliance-statuses.md)\.
++ A control's compliance status is computed over all OUs on which the control is enabled, including nested OUs\. See [AWS Control Tower compliance status for controls, OUs, and accounts](compliance-statuses.md)\.
 + An OU is shown as noncompliant only if it has accounts that are noncompliant, regardless of where the OU sits in the OU hierarchy\.
 + If a nested OU is noncompliant, its parent OU is not automatically considered to be noncompliant\.
 + On the **OU detail** or **Account detail** page, you can view a list of noncompliant resources that may be causing your OUs or accounts to show a non\-compliant status\.
@@ -89,42 +89,42 @@ From the AWS Control Tower console, you can view OUs and accounts that are non\-
 In certain situations, drift can prevent the registration of nested OUs\.
 
 **Expectations for drift and nested OUs**
-+ You can enable guardrails on OUs with drifted parents, but not on drifted OUs directly\.
-+ You are allowed to enable detective guardrails under a drifted OU, as long as it’s not a top\-level drifted OU\.
-+ Mandatory guardrails are enabled on top\-level OUs only\. Mandatory guardrails are skipped when you register a nested OU\.
-+ One mandatory guardrail protects AWS Config resources; therefore, that guardrail must be in a non\-drifted state to register nested OUs\. If drifted, AWS Control Tower blocks registration of nested OUs\.
-+ If the top\-level OU is in drift, the guardrail that protects AWS Config resources may be in drift\. In this situation, AWS Control Tower blocks any action that requires creation or update of AWS Config resources, including application of detective guardrails\.
++ You can enable controls on OUs with drifted parents, but not on drifted OUs directly\.
++ You are allowed to enable detective controls under a drifted OU, as long as it’s not a top\-level drifted OU\.
++ Mandatory controls are enabled on top\-level OUs only\. Mandatory controls are skipped when you register a nested OU\.
++ One mandatory control protects AWS Config resources; therefore, that control must be in a non\-drifted state to register nested OUs\. If drifted, AWS Control Tower blocks registration of nested OUs\.
++ If the top\-level OU is in drift, the control that protects AWS Config resources may be in drift\. In this situation, AWS Control Tower blocks any action that requires creation or update of AWS Config resources, including application of detective controls\.
 
-## Nested OUs and guardrails<a name="nested-ous-and-guardrails"></a>
+## Nested OUs and controls<a name="nested-ous-and-controls"></a>
 
-When you enable a guardrail on a registered OU, preventive and detective guardrails have different behaviors\.
+When you enable a control on a registered OU, preventive and detective controls have different behaviors\.
 
-**Preventive guardrails**
-+ Preventive guardrails are enforced on nested OUs\.
-+ Mandatory preventive guardrails are enforced on all accounts under the OU and its nested OUs\.
-+ Preventive guardrails affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered\.
+**Preventive controls**
++ Preventive controls are enforced on nested OUs\.
++ Mandatory preventive controls are enforced on all accounts under the OU and its nested OUs\.
++ Preventive controls affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered\.
 
-**Detective guardrails**
-+ Nested OUs do not inherit detective guardrails automatically; these must be enabled separately\.
-+ Detective guardrails are deployed only to registered accounts in your landing zone’s operating Regions\.
+**Detective controls**
++ Nested OUs do not inherit detective controls automatically; these must be enabled separately\.
++ Detective controls are deployed only to registered accounts in your landing zone’s operating Regions\.
 
-**Enabled guardrail states and inheritance**
+**Enabled control states and inheritance**
 
- You can view inherited guardrails for each OU, on the **OU details** page\.
+ You can view inherited controls for each OU, on the **OU details** page\.
 
 **Tip**  
-You can make use of guardrail inheritance to help stay within an OU's SCP quota\. For example, you can enable a guardrail at the top\-level OU of an OU hierarchy, instead of enabling directly for a nested OU\.
+You can make use of control inheritance to help stay within an OU's SCP quota\. For example, you can enable a control at the top\-level OU of an OU hierarchy, instead of enabling directly for a nested OU\.
 
 **Inherited status**
-+ The status **Inherited** indicates that the guardrail is enabled by inheritance only, and it has not been applied directly to the OU\.
-+ The status **Enabled** means the guardrail is enforced on this OU, regardless of its state on  other OUs\.
-+ The status **Failed** means the guardrail is not enforced on this OU, regardless of its state on  other OUs\.
++ The status **Inherited** indicates that the control is enabled by inheritance only, and it has not been applied directly to the OU\.
++ The status **Enabled** means the control is enforced on this OU, regardless of its state on  other OUs\.
++ The status **Failed** means the control is not enforced on this OU, regardless of its state on  other OUs\.
 
 **Note**  
-The status **Inherited** indicates that the guardrail was applied to an OU higher in the tree, and it is enforced on this OU, but it was not added directly to this OU\.
+The status **Inherited** indicates that the control was applied to an OU higher in the tree, and it is enforced on this OU, but it was not added directly to this OU\.
 
 **If your landing zone is not the current version**  
- Each row in the **Enabled guardrails** table represents one enabled guardrail on one, individual OU\.
+ Each row in the **Enabled controls** table represents one enabled control on one, individual OU\.
 
 ## Nested OUs and the root<a name="nested-ous-and-root"></a>
 

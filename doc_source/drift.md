@@ -2,7 +2,7 @@
 
 Identifying and resolving drift is a regular operations task for AWS Control Tower management account administrators\. Resolving drift helps to ensure your compliance with governance requirements\.
 
-When you create your landing zone, the landing zone and all the organizational units \(OUs\), accounts, and resources are compliant with the governance rules enforced by your chosen guardrails\. As you and your organization members use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
+When you create your landing zone, the landing zone and all the organizational units \(OUs\), accounts, and resources are compliant with the governance rules enforced by your chosen controls\. As you and your organization members use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
 
 Drift detection assists you in identifying resources that need changes or configuration updates to resolve the drift\. 
 
@@ -46,7 +46,7 @@ When you repair your landing zone, the landing zone is upgraded to the latest la
 
 ## Considerations about drift and SCP scans<a name="scp-invariance-scans"></a>
 
- AWS Control Tower scans your managed SCPs daily to verify that the corresponding guardrails are applied correctly and that they have not drifted\. To retrieve the SCPs and run checks on them, AWS Control Tower calls AWS Organizations on your behalf, using a role in your management account\.
+ AWS Control Tower scans your managed SCPs daily to verify that the corresponding controls are applied correctly and that they have not drifted\. To retrieve the SCPs and run checks on them, AWS Control Tower calls AWS Organizations on your behalf, using a role in your management account\.
 
 If an AWS Control Tower scan discovers drift, you'll receive a notification\. AWS Control Tower sends only one notification per drift issue, so if your landing zone already is in a state of drift, you won't receive additional notifications unless a new drift item is found\.
 
@@ -64,7 +64,7 @@ In rare situations, this limit can be reached when you call the same APIs repeat
 
 1. For each registered OU, retrieving all SCPs managed by AWS Control Tower that are attached to the OU\. Managed SCPs have identifiers that begin with `aws-guardrails`\.
 
-1. For each preventive guardrail enabled on the OU, verifying that the guardrail's policy statement is present in the OU's managed SCPs\.
+1. For each preventive control enabled on the OU, verifying that the control's policy statement is present in the OU's managed SCPs\.
 
 The daily scans consume the TPS for the following AWS Organizations APIs:
 

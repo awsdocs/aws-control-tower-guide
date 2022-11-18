@@ -4,7 +4,7 @@ An AWS account is the container for all your owned resources\. These resources i
 
 **Resources and account creation time**
 
-When AWS Control Tower creates or enrolls an account, it deploys the minimum necessary resource configuration for the account, including resources in the form of [Account Factory templates](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory-considerations.html) and other resources in your landing zone\. These resources may include IAM roles, AWS CloudTrail trails, [AWS Service Catalog provisioned products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-dashboard.html), and AWS SSO users\. AWS Control Tower also deploys resources, as required by the guardrail configuration, for the OU in which the new account is destined to become a member account\.
+When AWS Control Tower creates or enrolls an account, it deploys the minimum necessary resource configuration for the account, including resources in the form of [Account Factory templates](https://docs.aws.amazon.com/controltower/latest/userguide/account-factory-considerations.html) and other resources in your landing zone\. These resources may include IAM roles, AWS CloudTrail trails, [AWS Service Catalog provisioned products](https://docs.aws.amazon.com/servicecatalog/latest/userguide/enduser-dashboard.html), and IAM Identity Center users\. AWS Control Tower also deploys resources, as required by the control configuration, for the OU in which the new account is destined to become a member account\.
 
 AWS Control Tower orchestrates the deployment of these resources on your behalf\. It may require several minutes per resource to complete the deployment, so consider the total time before you create or enroll an account\. For more information about managing resources in your accounts, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)\.
 
@@ -15,9 +15,9 @@ The **Organization** page lists all OUs and accounts in your organization, regar
 To view a specific account on the **Organization** page, you can choose **Accounts only** from the dropdown menu at the upper right, and then select the name of your account from the table\. Alternatively, you can select the name of the parent OU from the table, and you can view a list of all accounts within that OU on the **Details** page for that OU\.
 
 On the **Organization** page and the**Account details** page, you can see the account's **State**, which is one of these:
-+ **Not enrolled** – The account is a member of the parent OU, but it is not fully managed by AWS Control Tower\. If the parent OU is registered, the account is governed by the preventive guardrails configured for its registered parent OU, but the OU’s detective guardrails do not apply to this account\. If the parent OU is unregistered, no guardrails apply to this account\. 
-+ **Enrolling** – Your account is being brought into governance by AWS Control Tower\. We are aligning the account with the guardrail configuration for the parent OU\. This process may require several minutes per account resource\. 
-+ **Enrolled** – The account is governed by the guardrails configured for its parent OU\. It is fully managed by AWS Control Tower\.
++ **Not enrolled** – The account is a member of the parent OU, but it is not fully managed by AWS Control Tower\. If the parent OU is registered, the account is governed by the preventive controls configured for its registered parent OU, but the OU’s detective controls do not apply to this account\. If the parent OU is unregistered, no controls apply to this account\. 
++ **Enrolling** – Your account is being brought into governance by AWS Control Tower\. We are aligning the account with the control configuration for the parent OU\. This process may require several minutes per account resource\. 
++ **Enrolled** – The account is governed by the controls configured for its parent OU\. It is fully managed by AWS Control Tower\.
 + **Enrollment failed** – AWS Control Tower could not enroll the account\. For more information, see [Common causes for failure of enrollment](quick-account-provisioning.md#common-causes-for-enrollment-failure)\.
 + **Update available** – This account can be updated\. Accounts in this state are still **Enrolled**, but the account must be updated to reflect recent changes made to your environment\. To update a single account, navigate to the account detail page and select **Update account**\.
 
@@ -35,14 +35,14 @@ For more information about the shared accounts and their associated resources, s
 
 Before accepting an AWS account as a security or logging account, AWS Control Tower checks the account for resources that conflict with AWS Control Tower requirements\. For example, you may have a logging bucket with the same name that AWS Control Tower requires\. Also, AWS Control Tower validates that the account can provision resources; for example, by ensuring that AWS STS is enabled, that the account is not suspended, and that AWS Control Tower has permission to provision resources within the account\.
 
-AWS Control Tower does not remove any existing resources in the logging and security accounts that you provide\. However, if you choose to enable the Region deny capability, the Region deny guardrail prevents access to resources in denied Regions\.
+AWS Control Tower does not remove any existing resources in the logging and security accounts that you provide\. However, if you choose to enable the Region deny capability, the Region deny control prevents access to resources in denied Regions\.
 
 ### Management account<a name="mgmt-account"></a>
 
 This AWS account launches AWS Control Tower\. By default, the root user for this account and the IAM administrator user for this account have full access to all resources within your landing zone\.
 
 **Note**  
-As a best practice, we recommend signing in as an AWS SSO user with **Administrator** privileges when performing administrative functions within the AWS Control Tower management console, instead of the signing in as the root or IAM administrator users for this account\.
+As a best practice, we recommend signing in as an IAM Identity Center user with **Administrator** privileges when performing administrative functions within the AWS Control Tower management console, instead of the signing in as the root or IAM administrator users for this account\.
 
 For more information about the roles and resources available in the management account, see [What is the management account?](how-control-tower-works.md#what-is-mgmt)
 
@@ -79,12 +79,12 @@ The email address you provided for the audit account receives **AWS Notification
 
 ## About member accounts<a name="member-accounts"></a>
 
-Member accounts are the accounts through which your users perform their AWS workloads\. These member accounts can be created in Account Factory, by AWS SSO users with **Admin** privileges in the AWS Service Catalog console, or by automated methods\. When created, these member accounts exist in an OU that was created in the AWS Control Tower console, or registered with AWS Control Tower\. For more information, see these related topics:
+Member accounts are the accounts through which your users perform their AWS workloads\. These member accounts can be created in Account Factory, by IAM Identity Center users with **Admin** privileges in the AWS Service Catalog console, or by automated methods\. When created, these member accounts exist in an OU that was created in the AWS Control Tower console, or registered with AWS Control Tower\. For more information, see these related topics:
 + [Provision and manage accounts with Account Factory](account-factory.md)
 + [Automate tasks in AWS Control Tower](automating-tasks.md)
 + [AWS Organizations Terminology and Concepts](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html) in the *AWS Organizations User Guide*\.
 
 Also see [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
 
-**Accounts and guardrails**  
-Member accounts can be *enrolled* in AWS Control Tower, or they can be *unenrolled*\. Guardrails apply differently to enrolled and unenrolled accounts, and guardrails may apply to accounts in nested OUs based on inheritance\.
+**Accounts and controls**  
+Member accounts can be *enrolled* in AWS Control Tower, or they can be *unenrolled*\. Controls apply differently to enrolled and unenrolled accounts, and controls may apply to accounts in nested OUs based on inheritance\.

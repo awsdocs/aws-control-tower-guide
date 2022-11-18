@@ -48,7 +48,7 @@ If you cannot confirm that an existing AWS account meets the enrollment prerequi
 If you have doubts that your existing accounts and their configurations are compatible with AWS Control Tower, you can follow the best practice recommended in the following section\. 
 
 **Recommended: You can set up a two\-step approach to account enrollment**
-+ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower guardrails\. To determine how enrollment into AWS Control Tower may affect your accounts, see **[ Extend AWS Control Tower governance using AWS Config conformance packs](http://aws.amazon.com/blogs/mt/extend-aws-control-tower-governance-using-aws-config-conformance-packs/)**\. 
++ First, use an AWS Config *conformance pack* to evaluate how your accounts may be affected by some AWS Control Tower controls\. To determine how enrollment into AWS Control Tower may affect your accounts, see **[ Extend AWS Control Tower governance using AWS Config conformance packs](http://aws.amazon.com/blogs/mt/extend-aws-control-tower-governance-using-aws-config-conformance-packs/)**\. 
 + Next, you may wish to enroll the account\. If the compliance results are satisfactory, the migration path is easier because you can enroll the account without unexpected consequences\.
 + After you've done your evaluation, if you decide to set up an AWS Control Tower landing zone, you may need to remove the AWS Config delivery channel and configuration recorder that were created for your evaluation\. Then you'll be able to set up AWS Control Tower successfully\.
 

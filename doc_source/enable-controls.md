@@ -1,10 +1,10 @@
 # Enable controls with AWS CloudFormation<a name="enable-controls"></a>
 
-You can enable guardrail controls with AWS CloudFormation, either through the AWS CloudFormation console, or through the AWS CLI\. This section gives an example of each type\.
+You can enable controls with AWS CloudFormation, either through the AWS CloudFormation console, or through the AWS CLI\. This section gives an example of each type\.
 
 ## Create the stack through AWS CloudFormation<a name="enable-controls-in-cfn"></a>
 
-You can use AWS CloudFormation to help you enable AWS Control Tower guardrails\. Here's an example template\.
+You can use AWS CloudFormation to help you enable AWS Control Tower controls\. Here's an example template\.
 
 ```
 Resources:

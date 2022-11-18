@@ -2,7 +2,7 @@
 
 You may update exsting accounts that AFT has provisioned by updating previously submitted account requests\. The `git push` action triggers the account provisioning workflow, which processes an account update request\.
 
-When you're updating an existing account, AFT allows you to update the `ManagedOrganizationalUnit` field of the `control_tower_parameters` input, and other fields that are NOT part of the `control_tower_parameters` input\. The input to `control_tower_parameters`, which you provided during provisioning, cannot be changed\.
+When you're updating an existing account, AFT allows you to update the `ManagedOrganizationalUnit` field of the `control_tower_parameters` input, and other fields that are **not** part of the `control_tower_parameters` input\. The input to `control_tower_parameters`, which you provided during provisioning, can't be changed\.
 
 **Note**  
 You can update existing AWS Control Tower accounts that were created outside of AFT by specifying the account in the `aft-account-request` repository\.

@@ -1,4 +1,4 @@
-# Walkthrough: Manage AWS Control Tower Resources<a name="walkthrough-delete"></a>
+# Manage AWS Control Tower Resources<a name="walkthrough-delete"></a>
 
 This document provides instructions for how to remove AWS Control Tower resources individually, as part of regular maintenance and administrative tasks\. The procedures given in this chapter are intended only for removing individual resources, or a few resources, when needed\. It not the same as decommissioning your landing zone\.
 

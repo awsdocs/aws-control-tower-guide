@@ -26,9 +26,14 @@ Each time you update your landing zone, you have the opportunity to modify your 
 **Benefits of updating**
 + You can change your governed Regions
 + You can change your log retention policy
-+ You can add or remove the Region deny guardrail
++ You can add or remove the Region deny control
 + You can apply AWS KMS encryption keys
 + You can activate or deactivate your organization\-level CloudTrail trail\.
 + You can resolve [landing zone drift](governance-drift.md)
 
 When you update your landing zone, you receive the latest features for AWS Control Tower, automatically\.
+
+You have the opportunity to clear unused AWS Identity center \(formerly called AWS SSO\) mappings when you update your landing zone\. For more information, see [Field Notes: Clear Unused IAM Identity Center Mappings Automatically During AWS Control Tower Upgrades](http://aws.amazon.com/blogs/architecture/field-notes-clear-unused-aws-sso-mappings-automatically-during-aws-control-tower-upgrades/)\.
+
+**Prerequisite for Update and Repair – turn off Requester Pays**  
+Before you update or repair your landing zone, be sure that the Amazon S3 logging bucket for the Log Archive account does not have the **Requester Pays** feature enabled\. You must turn off that feature before you begin the **Update** or **Repair** process\. When AWS Control Tower sets up your logging bucket, this feature is not enabled\. Therefore, only the customers who have subesquently activated the Requester Pays feature must turn it off\. For more information, see [Amazon S3 bucket policy for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html) and [Using Requester Pays buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)\.

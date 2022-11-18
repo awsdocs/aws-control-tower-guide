@@ -28,7 +28,7 @@ When you create new OUs and accounts outside of AWS Control Tower, they are not 
 
 **Creating an OU**
 
-Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **Organization** page, but they are not governed by AWS Control Tower guardrails\.
+Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **Organization** page, but they are not governed by AWS Control Tower controls\.
 
 **Creating an account**
 
@@ -61,7 +61,7 @@ In this situation, the landing zone repair process creates a new Security OU and
 Before you can delete the **Security** OU, you must make sure it contains no accounts\. Specifically, you must remove the Log Archive and Audit accounts from the OU\. We recommend that you move these accounts to another OU\.
 
 **Note**  
-The action of deleting your Security OU is not to be performed without due consideration\. The action could create compliance concerns if logging is suspended temporarily, and because some guardrails might not be enforced\.
+The action of deleting your Security OU is not to be performed without due consideration\. The action could create compliance concerns if logging is suspended temporarily, and because some controls might not be enforced\.
 
  For general information about drift, see "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
@@ -73,7 +73,7 @@ We do not recommend that you remove any of the shared accounts from your organiz
 + If the remediation steps don't restore the account, contact AWS Support\.
 
 **The results of removing a shared account through AWS Organizations:**
-+ The account is no longer protected by AWS Control Tower mandatory guardrail service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
++ The account is no longer protected by AWS Control Tower mandatory controls with service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
 + The account is no longer under the AWS Organizations management account\. **Result:** *The administrator of the AWS Organizations management account no longer has visibility into the account's spending\.*
 + The account is no longer guaranteed to be monitored by AWS Config\. **Result:** *The administrator of the AWS Organizations management account may not be able to detect resource changes\.*
 + The account is no longer in the organization\. **Result:** *AWS Control Tower updates and repair will fail\.*

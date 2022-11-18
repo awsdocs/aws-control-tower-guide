@@ -24,6 +24,14 @@ For an ongoing record of events in your AWS account, including events for AWS Co
 + [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)
 
 AWS Control Tower logs the following actions as events in CloudTrail log files:
+
+**Public APIs**
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_DisableControl.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_DisableControl.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_GetControlOperation.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_GetControlOperation.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_ListEnabledControls.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_ListEnabledControls.html)
+
+**Other APIs**
 + `SetupLandingZone`
 + `UpdateAccountFactoryConfig`
 + `ManageOrganizationalUnit`
