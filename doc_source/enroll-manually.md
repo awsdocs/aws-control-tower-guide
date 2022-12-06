@@ -62,18 +62,18 @@ For example, if you created this account from AWS Organizations and you use a cr
 
    ```
    {
-   "Version": "2012-10-17",
-   "Statement": [
-   {
-   "Effect": "Allow",
-   "Principal": {
-   "AWS": "arn:aws:iam::Management Account ID:root"
-   },
-   "Action": "sts:AssumeRole",
-   "Condition": {}
-   }
-   ]
-   }
+      "Version":"2012-10-17",
+      "Statement":[
+         {
+            "Effect":"Allow",
+            "Principal":{
+               "AWS":"arn:aws:iam::Management Account ID:root"
+            },
+            "Action":"sts:AssumeRole",
+            "Condition":{
+               
+            }
+         }
    ```
 
 **Step 3: Enroll the account by moving it into a registered OU, and verify enrollment\.**

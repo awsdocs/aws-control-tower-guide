@@ -9,6 +9,10 @@ This document provides instructions for how to remove AWS Control Tower resource
 **Warning**  
 Manually removing resources will not allow you to set up a new landing zone\. It is not the same as decommissioning\. If you intend to decommission your AWS Control Tower landing zone, follow the instructions on [Walkthrough: Decommission an AWS Control Tower Landing Zone](decommission-landing-zone.md) before you take any actions described in this chapter\. The instructions in this chapter can help you clean up resources that remain after automated decommissioning is complete\. Even if you delete all of your landing zone resources manually, it is not the same as decommissioning the landing zone, and you may incur unexpected charges\.
 
+ If you need to remove an account from AWS Control Tower, see the following sections to close an account: 
++  [Unmanage an account](https://docs.aws.amazon.com/controltower/latest/userguide/unmanage-account.html) 
++  [Close an account created in Account Factory](https://docs.aws.amazon.com/controltower/latest/userguide/delete-account.html) 
+
 ## Do I need decommissioning instead of deleting?<a name="about-decommissioning"></a>
 
 If you no longer intend to use AWS Control Tower for your enterprise, or if you require a major redeployment of your organizational resources, you may want to decommission the resources created when you initially set up your landing zone\.

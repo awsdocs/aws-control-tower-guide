@@ -77,13 +77,14 @@ The following snippet is an example of a `block-s3-public.json` policy file\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "GuardPutAccountPublicAccessBlock",
-      "Effect": "Deny",
-      "Action": "s3:PutAccountPublicAccessBlock",
-      "Resource": "arn:aws:s3:::*"
-  ]
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"GuardPutAccountPublicAccessBlock",
+         "Effect":"Deny",
+         "Action":"s3:PutAccountPublicAccessBlock",
+         "Resource":"arn:aws:s3:::*"
+      }
+   ]
 }
 ```

@@ -205,7 +205,7 @@ If you try to enable a detective control before updating your accounts, you may 
 
 **Action to take: Update accounts\.**
 
-To update your accounts from the AWS Control Tower console, see [Update existing OUs and accounts](update-existing-accounts.md)\.
+To update your accounts from the AWS Control Tower console, see [When to update AWS Control Tower OUs and accounts](update-existing-accounts.md)\.
 
 To update multiple individual accounts programmatically, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
 

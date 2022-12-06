@@ -1,6 +1,6 @@
 # Provision Account Factory accounts with AWS Service Catalog<a name="provision-as-end-user"></a>
 
-The following procedure describes how to create and provision accounts as an IAM Identity Center end user, through AWS Service Catalog\. This procedure also is referred to as *advanced account provisioning*, or *manual account provisioning*\. Optionally, you may be able to provision accounts programmatically, with the AWS CLI or with AWS Control Tower Account Factory for Terraform \(AFT\)\.
+The following procedure describes how to create and provision accounts as an IAM Identity Center end user, through AWS Service Catalog\. This procedure also is referred to as *advanced account provisioning*, or *manual account provisioning*\. Optionally, you may be able to provision accounts programmatically, with the AWS CLI or with AWS Control Tower Account Factory for Terraform \(AFT\)\. You may be able to provision customized accounts in the console if you've previously set up custom blueprints\. For more information about customization, see [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 **To provision accounts individually in Account Factory, as an end user**
 

@@ -1,10 +1,14 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** September 1, 2022
++ **Latest documentation update:** November 28, 2022
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Compliance status viewable for all AWS Config rules](#doc-history) | AWS Control Tower now displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower\. | November 18, 2202 | 
+| [Proactive controls assist in resource provisioning](#doc-history) | AWS Control Tower now supports proactive controls, implemented through AWS CloudFormation hooks\. | November 28, 2022 | 
+| [Account factory customization available](#doc-history) | AWS Control Tower now supports account provisioning with customizable account templates, called blueprints, directly from the AWS Control Tower console\. | November 28, 2022 | 
+| [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that AWS Control Tower can assume the `AWSControlTowerBlueprintAccess` role, which is needed for Account Factory customizations\.  | October 28, 2022 | 
 | [APIs for controls, AWS CloudFormation resource](#doc-history) | AWS Control Tower now supports activation and deactivation of controls through a set of API calls, and a new AWS CloudFormation resource\. | September 1, 2022 | 
 | [CfCT supports stack set deletion](#doc-history) | CfCT supports stack set deletion, by setting a parameter in the manifest file\. | August 26, 2022 | 
 | [Customized log retention](#doc-history) | You can customize the retention policy for Amazon S3 buckets that store your AWS Control Tower CloudTrail logs, in increments of days or years, up to a maximum of 15 years\. | August 15, 2022 | 

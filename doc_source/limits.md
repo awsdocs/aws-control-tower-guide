@@ -5,13 +5,21 @@ This chapter covers the AWS service limitations and quotas that you should keep 
 ## Limitations in AWS Control Tower<a name="controltower-limits"></a>
 
 This section describes known limitations and unsupported use cases in AWS Control Tower\.
-+ AWS Control Tower has overall concurrency limitations\. In general, one operation at a time is permitted\. The exception to this limitation is that optional controls can be activated and deactivated simultaneously, through an asynchronous process\.
++ AWS Control Tower has overall concurrency limitations\. In general, one operation at a time is permitted\. The exception to this limitation is that optional controls can be activated and deactivated concurrently, through an asynchronous process\. Up to ten \(10\) control\-related operations at a time can be in progress\.
 + Email addresses of shared accounts in the Security OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
 + A limit of 5 SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
 + Existing OUs with over 300 accounts cannot be registered or re\-registered in AWS Control Tower\.
 + The limit for `EnableControl` and `DisableControl` updates in AWS Control Tower is 10 concurrent operations\.
 
-For information about how to increase certain AWS Control Tower service quotas with an automated request method, view this video: [Automate Service Limit Increases](https://www.youtube.com/watch?v=3WUShZ4lZGE)\. When provisioning new accounts in this environment, you can use lifecycle events to trigger automated requests for service limit increases in specified AWS Regions\. The video also shows how to automate enrollment of new accounts into Enterprise support for your organization\.
+**Video about quotas**
+
+For information about how to increase certain AWS Control Tower service quotas with an automated request method, view this video: [Automate Service Limit Increases](https://www.youtube.com/watch?v=3WUShZ4lZGE)\. 
+
+When provisioning new accounts in this environment, you can use lifecycle events to trigger automated requests for service limit increases in specified AWS Regions\. The video also shows how to automate enrollment of new accounts into Enterprise support for your organization\.
+
+**Control limitations**  
+If you modify AWS Control Tower resources, such as an SCP, or remove any AWS Config resource, such as a Config recorder or aggregator, AWS Control Tower can no longer guarantee that the controls are functioning as designed\. Therefore, the security of your multi\-account environment may be compromised\. The AWS shared responsibility model of security is applicable to any such changes you may make\.   
+ AWS Control Tower helps maintain the integrity of your environment by resetting the SCPs of the controls to their standard configuration when you update your landing zone\. Changes that you may have made to SCPs are replaced by the standard version of the control, by design\.
 
 ## Quotas for Integrated Services<a name="integrated-services-limits"></a>
 

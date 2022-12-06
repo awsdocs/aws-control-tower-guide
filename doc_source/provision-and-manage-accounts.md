@@ -8,21 +8,24 @@ For more information about accounts in AWS Control Tower, see  [About AWS accoun
 
 ## Methods of provisioning<a name="methods-of-provisioning"></a>
 
-AWS Control Tower provides four methods for creating and updating member accounts\. Two methods are primarily console\-based, and two methods are primarily automated\.
+AWS Control Tower provides several methods for creating and updating member accounts\. Some methods are primarily console\-based, and some methods are primarily automated\.
 
 **Overview**
 
-The standard way to create member accounts is through Account Factory, a console\-based product that's part of the AWS Service Catalog\. If your landing zone is not in a state of drift, you can use **Enroll account** as a method to add new accounts from the console, as well as to enroll existing AWS accounts into AWS Control Tower\.
+The standard way to create member accounts is through Account Factory, a console\-based product that's part of the AWS Service Catalog\. If your landing zone is not in a state of drift, you can use **Create account** as a method to add new accounts from the console, as well as **Enroll account**to enroll existing AWS accounts into AWS Control Tower\.
 
-If you intend to set up or manage many accounts as a group, you may prefer an automated method: either to configure new accounts programmatically using IAM roles and Lambda functions, or to use a `GitOps` approach with AFT\.
+With Account Factory, you can provision basic accounts, by relying on the AWS Control Tower default settings\. You also can provision customized accounts that meet requirements for specialized use cases\.
+
+Account Factory Customization \(AFC\) is a way of provisioning customized accounts from the AWS Control Tower console, and it automates the customization and deployment of your accounts\. It allows console\-based, automated provisioning, after some one\-time setup steps, which eliminates the need to write scripts or set up pipelines\. For more information, see [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 **Console\-based methods:**
-+ Through the Account Factory console that is part of AWS Service Catalog\. See [Provision and manage accounts with Account Factory](account-factory.md)\.
++ Through the Account Factory console that is part of AWS Service Catalog, for basic or customized accounts\. See [Provision and manage accounts with Account Factory](account-factory.md)\.
 + Through the **Enroll account** feature within AWS Control Tower, if your landing zone is not in a state of drift\. See [Enroll an existing account](quick-account-provisioning.md)\.
 
 **Automated methods:**
-+ From your AWS Control Tower landing zone's management account, using Lambda code and appropriate IAM roles\. See [Automated Account Provisioning With IAM Roles](roles-how.md#automated-provisioning)\.
-+ From the AWS Control Tower Account Factory for Terraform \(AFT\), which relies on Account Factory and a GitOps model to allow automation of account provisioning and updating\. See [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
++ **Lambda code: **From your AWS Control Tower landing zone's management account, using Lambda code and appropriate IAM roles\. See [Automated Account Provisioning With IAM Roles](roles-how.md#automated-provisioning)\.
++ **Terraform: **From the AWS Control Tower Account Factory for Terraform \(AFT\), which relies on Account Factory and a GitOps model to allow automation of account provisioning and updating\. See [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
++ **Account Factory customization in the AWS Control Tower console:** After the setup steps, future provisioning of customized accounts requires no additional configuration or pipeline maintenance\. Accounts are provisioned by means of AWS CloudFormation templates\.
 
 ## What happens when AWS Control Tower creates an account<a name="what-happens-in-account-creation"></a>
 
@@ -48,7 +51,7 @@ The permissions required for each method of provisioning and updating are discus
 
 For general information about permissions required in AWS Control Tower, see [Using Identity\-Based Policies \(IAM Policies\) for AWS Control Tower](access-control-managing-permissions.md)\. For information about roles and accounts in AWS Control Tower, see [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)\.
 
-## <a name="w371aac32c15"></a>
+## <a name="w24aac32c15"></a>
 
 **Security for your accounts**  
 You can find guidance about best practices to protect the security of your AWS Control Tower management account and member accounts in the AWS Organizations documentation\.  

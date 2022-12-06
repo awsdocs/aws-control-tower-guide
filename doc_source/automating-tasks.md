@@ -20,6 +20,8 @@ You can automate the closure of AWS Control Tower member accounts with an AWS Or
 
 **Automated account provisioning and updating**
 
+*AWS Control Tower Account Factory Customization \(AFC\)* helps you create accounts from the AWS Control Tower console, with customized AWS CloudFormation templates that we refer to as blueprints\. This process is automated in the sense that you can create new accounts and update accounts repeatedly, after setting up a single blueprint, without maintaining pipelines\.
+
 *AWS Control Tower Account Factory for Terraform* \(AFT\) follows a GitOps model to automate the processes of account provisioning and account updating in AWS Control Tower\. For more information, see [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
 
 *Customizations for AWS Control Tower* \(CfCT\) helps you customize your AWS Control Tower landing zone and stay aligned with AWS best practices\. Customizations are implemented with AWS CloudFormation templates and service control policies \(SCPs\)\. For more information, see [Customizations for AWS Control Tower \(CfCT\) overview](cfct-overview.md)\.

@@ -32,7 +32,7 @@ AWS Control Tower now includes the following four new elective  controls:
 + [Disallow Actions as a Root User](strongly-recommended-controls.md#disallow-root-auser-actions)
 + [Disallow Creation of Access Keys for the Root User](strongly-recommended-controls.md#disallow-root-access-keys)
 
-A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. Guardrails enable you to express your policy intentions\. For more information, see [The AWS Control Tower control library](controls.md)\.
+A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. Guardrails enable you to express your policy intentions\. For more information, see [About controls in AWS Control Tower](controls.md)\.
 
 ## New detective controls in AWS Control Tower<a name="New-controls"></a>
 
@@ -50,7 +50,7 @@ AWS Control Tower now includes the following eight new detective controls:
 + [Detect Whether Public Access to Amazon RDS Database Snapshots is Enabled](strongly-recommended-controls.md#disallow-rds-snapshot-public-access)
 + [Detect Whether Storage Encryption is Enabled for Amazon RDS Database Instances](strongly-recommended-controls.md#disallow-rds-storage-unencrypted)
 
-A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. A detective control detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. For more information, see [The AWS Control Tower control library](controls.md)\.
+A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. A detective control detects noncompliance of resources within your accounts, such as policy violations, and provides alerts through the dashboard\. For more information, see [About controls in AWS Control Tower](controls.md)\.
 
 ## AWS Control Tower accepts email addresses for shared accounts with different domains than the management account<a name="Email-address-shared-accounts"></a>
 

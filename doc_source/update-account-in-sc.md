@@ -1,5 +1,7 @@
 # Update a single account<a name="update-account-in-sc"></a>
 
+You can update individual AWS Control Tower accounts in the AWS Control Tower console, or in the AWS Service Catalog console\.
+
 To update a single account in the AWS Control Tower console, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
 
 **To update a single account in AWS Service Catalog**

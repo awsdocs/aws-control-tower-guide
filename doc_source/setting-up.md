@@ -28,7 +28,7 @@ Note your AWS account number, because you need it for other tasks\.
 
 Because of the nature of AWS Control Tower, we strongly recommend that you enable multi\-factor authentication \(MFA\) for your account\. This account becomes your AWS Control Tower management account\. For more information, see [Enable MFA on the AWS Account Root User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa) in the *IAM User Guide*\.
 
-## <a name="w371aac12c17"></a>
+## <a name="w24aac12c17"></a>
 
 **Security for your accounts**  
 You can find additional guidance about how to set up best practices that protect the security of your AWS Control Tower accounts, in the AWS Organizations documentation\.  

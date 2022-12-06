@@ -1,6 +1,6 @@
 # Mandatory controls<a name="mandatory-controls"></a>
 
-Mandatory controls are enabled by default when you set up your landing zone and can't be disabled\. Following, you'll find a reference for each of the mandatory controls available in AWS Control Tower\.
+Mandatory controls are owned by AWS Control Tower, and they apply to every OU on your landing zone\. These controls are applied by default when you set up your landing zone, and they can't be deactivated\. Following, you'll find a reference for each of the mandatory controls available in AWS Control Tower\.
 
 **Topics**
 + [Disallow Changes to Encryption Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-changes-s3-buckets-created)

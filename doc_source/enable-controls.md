@@ -2,6 +2,8 @@
 
 You can enable controls with AWS CloudFormation, either through the AWS CloudFormation console, or through the AWS CLI\. This section gives an example of each type\.
 
+Each control in AWS Control Tower has a unique identifier for use with the control APIs\. The identifier for each control is shown in the **API controlIdentifier** field, on the **Control details** page in the AWS Control Tower console\. This identifier is distinct from the **ControlID** field, which is a classification system for controls\.
+
 ## Create the stack through AWS CloudFormation<a name="enable-controls-in-cfn"></a>
 
 You can use AWS CloudFormation to help you enable AWS Control Tower controls\. Here's an example template\.

@@ -12,7 +12,7 @@ Elective controls enable you to lock down or track attempts at performing common
 + [Detect Whether MFA is Enabled for AWS IAM Users](#disallow-access-mfa)
 + [Detect Whether MFA is Enabled for AWS IAM Users of the AWS Console](#disallow-console-access-mfa)
 + [Detect Whether Versioning for Amazon S3 Buckets is Enabled](#disallow-s3-no-versioning)
-+ [Controls that enhance data residency protection](data-residency-controls.md)
++ [Disallow management of resource types, modules, and hooks within the AWS CloudFormation registry](#disallow-cfn-extensions)
 
 ## Disallow Changes to Encryption Configuration for Amazon S3 Buckets \[Previously: Enable Encryption at Rest for Log Archive\]<a name="log-archive-encryption-enabled"></a>
 
@@ -297,4 +297,49 @@ Resources:
       Scope:
         ComplianceResourceTypes:
           - AWS::S3::Bucket
+```
+
+## Disallow management of resource types, modules, and hooks within the AWS CloudFormation registry<a name="disallow-cfn-extensions"></a>
+
+This elective control disallows management of the following extension types in the AWS CloudFormation registry: resource types, modules, and hooks\. For more information about AWS CloudFormation extensions, see [Using the AWS CloudFormationregistry](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry.html)\.
+
+**Note**  
+You must enable this control when you activate proactive controls in your environment\.
++ **Control objective:** Protect configurations
++ **Implementation** Service control policy \(SCP\)
++ **Control behavior:** Preventive
++ **Control guidance:** Elective
++ **Control owner:** AWS Control Tower
++ **Control ID:** CT\.CLOUDFORMATION\.PR\.1
++ **Severity:** Critical
++ **AWS Service:** AWS CloudFormation
++ **Resource types: ** `AWS::CloudFormation::HookDefaultVersion, AWS::CloudFormation::HookTypeConfig, AWS::CloudFormation::HookVersion, AWS::CloudFormation::ModuleDefaultVersion, AWS::CloudFormation::ModuleVersion, AWS::CloudFormation::ResourceDefaultVersion, AWS::CloudFormation::ResourceVersion `
+
+ The following example shows the SCP artifact for this control\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRDISALLOWMODIFICATIONCFNREGISTRY",
+            "Effect": "Deny",
+            "Action": [
+                "cloudformation:RegisterType",
+                "cloudformation:DeregisterType",
+                "cloudformation:SetTypeConfiguration",
+                "cloudformation:SetTypeDefaultVersion",
+                "cloudformation:PublishType"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "ArnNotLike": {
+                    "aws:PrincipalARN": "arn:aws:iam::*:role/AWSControlTowerExecution"
+                }
+            }
+        }
+    ]
+}
 ```

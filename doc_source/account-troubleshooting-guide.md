@@ -3,11 +3,11 @@
  This section can help you troubleshoot common issues that you might encounter when using Account Factory\. 
 
 **Topics**
-+ [General issues](#w371aac32c27c45b7)
-+ [Issues related to account provisioning/registration](#w371aac32c27c45b9)
-+ [Issues related to customizations invocation](#w371aac32c27c45c11)
++ [General issues](#w24aac32c29c45b7)
++ [Issues related to account provisioning/registration](#w24aac32c29c45b9)
++ [Issues related to customizations invocation](#w24aac32c29c45c11)
 
-## General issues<a name="w371aac32c27c45b7"></a>
+## General issues<a name="w24aac32c29c45b7"></a>
 +  **Exceeded AWS resource quotas** 
 
    If your log groups indicate that you exceeded AWS resource quotas, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\. Account Factory uses AWS services with resource quotas that include AWS CodeBuild, AWS Organizations, and AWS Systems Manager\. For more information, see the following: 
@@ -32,7 +32,7 @@
 
    Drift isn't detected when the organizational unit \(OU\) is changed manually\. This is due to the event\-driven nature of Account Factory\. When an account request is submitted, the resource that Terraform manages is an Amazon DynamoDB item, not a direct account\. After an item is changed, the request is put in a queue, where AWS Control Tower processes them through AWS Service Catalog \(the service that manages account details\)\. If you change the OU manually, drift isn't detected because the account request hasn't changed\. 
 
-## Issues related to account provisioning/registration<a name="w371aac32c27c45b9"></a>
+## Issues related to account provisioning/registration<a name="w24aac32c29c45b9"></a>
 +  **Account request \(email address/name\) already exists** 
 
    The issue typically results in an AWS Service Catalog product failure during provisioning or as `ConditionalCheckFailedException`\. 
@@ -47,7 +47,7 @@
 
    Make sure that your account request doesn't exceed AWS Organizations resource quotas\. For more information, see [Quotas for AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html)\. 
 
-## Issues related to customizations invocation<a name="w371aac32c27c45c11"></a>
+## Issues related to customizations invocation<a name="w24aac32c29c45c11"></a>
 +  ** Target account not onboarded to Account Factory ** 
 
    Make sure all accounts that are included in a customization request have been onboarded to Account Factory\. For more information, see [Update an existing account](https://docs.aws.amazon.com/controltower/latest/userguide/aft-update-account.html)\. 

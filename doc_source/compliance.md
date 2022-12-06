@@ -19,5 +19,5 @@ For more information about how AWS Control Tower helps you maintain compliance w
 + The European Union’s General Data Protection Regulation of 2016 \(GDPR\)
 
 For ongoing governance, administrators can enable pre\-configured controls—clearly defined rules for security, operations, and compliance\. These controls can:
-+ prevent deployment of resources that don’t conform to policies \(by means of preventive controls, implemented with SCPs\)
-+ continuously monitor deployed resources for nonconformance \(by means of detective controls, implemented with AWS Config Rules\)
++ Prevent deployment of resources that don’t conform to policies \(by means of preventive controls, implemented with SCPs, or by means of proactive controls, implemented with AWS CloudFormation hooks\)\.
++ Continuously monitor deployed resources for nonconformance \(by means of detective controls, implemented with AWS Config rules\)\.

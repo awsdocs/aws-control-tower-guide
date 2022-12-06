@@ -1,5 +1,10 @@
 # Control API examples<a name="control-api-examples-short"></a>
 
+Each control in AWS Control Tower has a unique identifier for use with the control APIs\. The identifier for each control is shown in the **API controlIdentifier** field, on the **Control details** page in the AWS Control Tower console\. This identifier is distinct from the **ControlID** field, which is a classification system for controls\.
+
+**Note**  
+When you invoke `EnableControl` on an account or OU, the `operationIdentifier` value is returned by means of `ListEnabledControls` or `GetEnabledControl` even if the enable operation fails\. In the AWS Control Tower console, you can determine whether the `EnableControl` operation was successful, by verifying that the control is enabled on the account or OU\. Programatically, you can track the status of the `EnableControl` operation with the `GetControlOperation` API command, by passing it the value of `operationIdentifier` as shown in an example that follows\.
+
 **Example input for EnableControl:**
 
 This example shows how to specify the control you wish to enable, and activate that control for the target OU that you identify\.

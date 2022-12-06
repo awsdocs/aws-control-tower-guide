@@ -32,7 +32,7 @@ Organizational Units \(OUs\) created outside of AWS Control Tower are referred t
 
 **Creating an account**
 
-Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Enrolled and unenrolled accounts that belong to an OU that’s registered with AWS Control Tower are displayed in the **Organization** page\. Accounts that do not belong to a registered OU can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the **Organization** page or the **Account detail** pagein AWS Control Tower and choose **Enroll account**\.
+Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Enrolled and unenrolled accounts that belong to an OU that’s registered with AWS Control Tower are displayed in the **Organization** page\. Accounts that do not belong to a registered OU can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the **Organization** page or the **Account detail** page in AWS Control Tower and choose **Enroll account**\.
 
 ## Externally changing AWS Control Tower resource names<a name="changing-names"></a>
 
@@ -127,6 +127,10 @@ AWS Control Tower retrieves and displays email addresses as required by the cons
 
 **Note**  
 In AWS Service Catalog, the Account Factory displays the parameters that were specified in the console when you created a provisioned product\. However, the original account email address is not updated automatically when the account email address changes\. That’s because the account is conceptually contained within the provisioned product; it is not the same as the provisioned product\. To update this value, you must update the provisioned product, which may cause a change in governance posture\.
+
+**Applying external AWS Config rules**
+
+AWS Control Tower displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower, including rules that were activated outside of the AWS Control Tower console\. 
 
 ### Deleting AWS Control Tower resources outside AWS Control Tower<a name="deleting-resources"></a>
 

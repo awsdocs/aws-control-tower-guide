@@ -62,13 +62,11 @@ From the AWS Control Tower dashboard, you can view and edit your network configu
 **Option 1 – Removing subnets**
       + Turn off the **Internet\-accessible subnet** toggle switch\.
       + Set the **Maximum number of private subnets** value to 0\.
-      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
    1. 
 
 **Option 2 – Removing AWS Regions**
       + Clear every checkbox in the **Regions for VPC creation** column\.
-      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
 1. Choose **Save**\.
 

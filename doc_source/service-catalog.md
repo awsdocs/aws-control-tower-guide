@@ -1,4 +1,4 @@
-# Provisioning Accounts Through AWS Service Catalog<a name="service-catalog"></a>
+# Provision Accounts Through AWS Service Catalog<a name="service-catalog"></a>
 
 AWS Service Catalog enables IT administrators to create, manage, and distribute portfolios of approved products to end users, who then have access the products they need in a personalized portal\. Typical products include servers, databases, websites, or applications that are deployed using AWS resources\.
 

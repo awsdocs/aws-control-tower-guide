@@ -24,7 +24,7 @@ When you set up a landing zone, AWS Control Tower performs the following actions
 
 **Safely Managing Resources Within Your AWS Control Tower Landing Zone and Accounts**
 + When you create your landing zone, a number of AWS resources are created\. To use AWS Control Tower, you must not modify or delete these AWS Control Tower managed resources outside of the supported methods described in this guide\. Deleting or modifying these resources will cause your landing zone to enter an unknown state\. For details, see [Guidance for creating and modifying AWS Control Tower resources](getting-started-guidance.md)
-+ When you enable optional controls \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the controls entering an unknown state\. For more information, see [Control reference](controls-reference.md)\.
++ When you enable optional controls \(those with *strongly recommended or elective * guidance\), AWS Control Tower creates AWS resources that it manages in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so can result in the controls entering an unknown state\. For more information, see [The AWS Control Tower controls library](controls-reference.md)\.
 
 ## What Are the Shared Accounts?<a name="what-shared"></a>
 
@@ -97,18 +97,20 @@ When you set up your landing zone, the following AWS resources are created withi
 | Amazon Simple Notification Service | Topics | aws\-controltower\-AggregateSecurityNotifications aws\-controltower\-AllConfigNotifications aws\-controltower\-SecurityNotifications | 
 | AWS Lambda | Functions | aws\-controltower\-NotificationForwarder | 
 
-## How Controls Work<a name="how-controls-work"></a>
+## How controls work<a name="how-controls-work"></a>
 
-A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each control enforces a single rule, and it's expressed in plain language\. You can change the elective or strongly recommended controls that are in force, at any time, from the AWS Control Tower console\. Mandatory controls are always applied, and they can't be changed\.
+A control is a high\-level rule that provides ongoing governance for your overall AWS environment\. Each control enforces a single rule, and it's expressed in plain language\. You can change the elective or strongly recommended controls that are in force, at any time, from the AWS Control Tower console or the AWS Control Tower APIs\. Mandatory controls are always applied, and they can't be changed\.
 
 Preventive controls prevent actions from occurring\. For example, the elective control called **Disallow Changes to Bucket Policy for Amazon S3 Buckets** \(Previously called **Disallow Policy Changes to Log Archive**\) prevents any IAM policy changes within the log archive shared account\. Any attempt to perform a prevented action is denied and logged in CloudTrail\. The resource is also logged in AWS Config\.
 
 Detective controls detect specific events when they occur and log the action in CloudTrail\. For example, the strongly recommended control called **Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances** detects whether an unencrypted Amazon EBS volume is attached to an EC2 instance in your landing zone\.
 
-*For those who are familiar with AWS:* In AWS Control Tower preventive controls are implemented with Service Control Policies \(SCPs\)\. Detective controls are implemented with AWS Config rules\.
+Proactive controls check whether resources are compliant with your company policies and objectives, before the resources are provisioned in your accounts\. If the resources are out of compliance, they are not provisioned\. Proactive controls monitor resources that would be deployed in your accounts by means of AWS CloudFormation templates\.
+
+*For those who are familiar with AWS:* In AWS Control Tower preventive controls are implemented with Service Control Policies \(SCPs\)\. Detective controls are implemented with AWS Config rules\. Proactive controls are implemented with AWS CloudFormation hooks\.
 
 ### Related Topics<a name="how-controls-related"></a>
-+ [The AWS Control Tower control library](controls.md)
++ [About controls in AWS Control Tower](controls.md)
 + [Detect and resolve drift in AWS Control Tower](drift.md)
 
 ## How AWS Control Tower Works With StackSets<a name="stacksets-how"></a>
@@ -117,7 +119,7 @@ Detective controls detect specific events when they occur and log the action in 
 
 AWS Control Tower uses AWS CloudFormation StackSets to set up resources in your accounts\. Each stack set has StackInstances that correspond to accounts, and to AWS Regions per account\. AWS Control Tower deploys one stack set instance per account and Region\.
 
-AWS Control Tower applies updates to certain accounts and AWS Regions selectively, based on CloudFormation parameters\. When updates are applied to some stack instances, other stack instances may be left in **Outdated** status\. This behavior is expected and normal\.
+AWS Control Tower applies updates to certain accounts and AWS Regions selectively, based on AWS CloudFormation parameters\. When updates are applied to some stack instances, other stack instances may be left in **Outdated** status\. This behavior is expected and normal\.
 
 When a stack instance goes into **Outdated** status, it usually means that the stack corresponding to that stack instance is not aligned with the latest template in the stack set\. The stack remains in the older template, so it might not include the latest resources or parameters\. The stack is still completely usable\.
 

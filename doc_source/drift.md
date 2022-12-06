@@ -12,6 +12,9 @@ AWS Control Tower detects drift automatically\. To detect drift, the `AWSControl
 
 Drift is surfaced in the Amazon Simple Notification Service \(Amazon SNS\) notifications that are aggregated in the audit account\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\.
 
+**Note**  
+AWS Control Tower does not detect drift for controls that are part of the AWS Security Hub **Service\-Managed Standard: AWS Control Tower**\.
+
 Member account administrators can \(and as a best practice, they should\) subscribe to the SNS drift notifications for specific accounts\. For example, the `aws-controltower-AggregateSecurityNotifications` SNS topic provides drift notifications\. The AWS Control Tower console indicates to management account administrators when drift has occurred\. For more information about SNS topics for drift detection and notification, see [Drift prevention and notification](prevention-and-notification.md)\.
 
 **Drift notification de\-duplication**
@@ -25,6 +28,9 @@ If the same type of drift occurs on the same set of resources multiple times, AW
 **Types of account drift**
 + Account moved between OUs
 + Account removed from organization
+
+**Note**  
+When you move an account from one OU to another, the controls from the previous OU are not removed\. If you enable any new hook\-based control on the destination OU, the old  hook\-based control is removed from the account, and the new control replaces it\. Controls implemented with SCPs and AWS Config rules always must be removed manually when an account changes OUs\.
 
 **Types of policy drift**
 + SCP updated

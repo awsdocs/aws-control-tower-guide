@@ -5,7 +5,7 @@
 **Important**  
  The *alfred* helper has two limitations\. Parameters are available only in the home region of the AWS Control Tower management account\. As a best practice, consider working with values that don't change from stack instance to stack instance\. When the 'alfred' helper retreives parameters, it chooses a random stack instance from the stack set that exports the variable\. 
 
-## Example<a name="w371aac24c37c17c12b7"></a>
+## Example<a name="w24aac24c37c17c12b7"></a>
 
  Suppose that you have two AWS CloudFormation stack sets\. *Stack set 1* has one stack instance and deploys to one account in one Region\. It creates an Amazon VPC and subnets in an availability zone, and the `VPC ID` and `subnet ID` must be passed into *stack set 2* as parameter values\. Before the `VPC ID` and `subnet ID` can be passed to *stack set 2*, the `VPC ID` and `subnet ID` must be stored in *stack set 1* using `AWS:::SSM::Parameter`\. For more information, see [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html) in the *AWS CloudFormation User Guide*\. 
 

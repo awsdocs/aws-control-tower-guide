@@ -46,4 +46,4 @@ This procedure assumes you've already created at least one child OU within your 
 
 1. Repeat the previous two steps for each OU about which your user needs information\.
 
-For detailed information about the controls and their functions, see [The AWS Control Tower control library](controls.md)\.
+For detailed information about the controls and their functions, see [About controls in AWS Control Tower](controls.md)\.

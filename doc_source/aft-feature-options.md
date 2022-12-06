@@ -52,7 +52,7 @@ To enable the Enterprise Support option, set the following feature flag to **Tru
 aft_feature_enterprise_support=false
 ```
 
-Refer to [Compare AWS Support Plans](http://aws.amazon.com/aws.amazon.com/premiumsupport/plans/) to learn more about AWS Support Plans\.
+Refer to [Compare AWS Support Plans](http://aws.amazon.com/premiumsupport/plans/) to learn more about AWS Support Plans\.
 
 **Note**  
 To allow this feature to operate, you must enroll the payer account into the Enterprise Support plan\.

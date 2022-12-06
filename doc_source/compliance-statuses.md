@@ -4,6 +4,9 @@ Compliance is reported in the AWS Control Tower dashboard for controls, accounts
 + **For a control: **A compliance status of **Enforced**, **Clear**, or **In violation** is possible, as long as the control is enabled on your OUs and the member accounts in the OUs\. You can view this control status on individual control detail pages\.
 + **For an account or OU: **A compliance status of **Compliant**, **Noncompliant**, or **Unknown** is possible\. The compliance status refers to the status of the resources associated with a single account, or the status of all accounts in an OU that has multiple controls enabled on it\. The account or OU compliance status can be found on the account or OU detail pages\.
 
+**Note**  
+The **State** of a control, as viewed in the AWS Control Tower console, reflects only the enabled or de\-activated state of the control for a specific OU\. This field does not reflect any information about the framework compliance status or the drift status of the landing zone environment\. The control **State** and **Status** information is available in the console only\. It is not available from the public API\. To view the control status, navigate to the **Control details** page in the AWS Control Tower console\.
+
 ****The following list gives more information about compliance status as reported specifically for controls\.****
 +  **`Enforced`** – Maximum level of protection\. Operations that would break this compliance rule are simply not allowed\. 
   + **Reported for:** Preventive controls \(SCPs\)

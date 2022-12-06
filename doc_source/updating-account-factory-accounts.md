@@ -2,6 +2,19 @@
 
 The easiest way to update an enrolled account is through the AWS Control Tower console\. Individual account updates are useful for resolving drift, such as [Moved Member Account](governance-drift.md#drift-account-moved)\. Account updates also are required as part of a full landing zone update\.
 
+If you move an account from one OU to another, remember that the controls applied by the new OU may be different than the controls in the former OU\. Be sure that the controls in the new OU meet your policy requirements for the account\.
+
+## <a name="when-accounts-are-moved"></a>
+
+**Control behavior when accounts are moved between  OUs**
+
+When you move an account between OUs, the controls for the destination OU are applied to the  account\. However, the controls that applied to the account from the former OU are not  removed\. The exact behavior of the controls is specific to the implementation of the  controls that are active on the former OU and the destination OU\.
++  *For controls implemented with AWS Config rules:* The controls from the previous OU  are not removed\. These controls must be removed manually\.
++ *For controls implemented with SCPs:* The controls from the previous OU are not  removed\. These controls must be removed manually\. 
++ *For controls implemented with AWS CloudFormation hooks:* This behavior  depends on the status of controls in the new OU\.
+  + *If the destination OU has no hook\-based controls active:* The old  controls remain active for the moved account, unless you remove them  manually\.
+  + *If the destination OU has hook controls active:* The old controls are  removed and the controls in the destination OU are applied to the  account\.
+
 ## Update the account in the console<a name="update-account-in-console"></a>
 
 **To update an account in the AWS Control Tower console**

@@ -1,11 +1,11 @@
 # Enable controls on an OU<a name="enable-controls-on-ou"></a>
 
-Most controls are enabled automatically according to an OU's configuration, and some controls can be enabled manually on your OUs\. The following procedure describes the steps for enabling controls on an OU\.
+Mandatory and inherited controls are enabled automatically according to an OU's configuration\. Optional controls can be enabled manually on your OUs, from the console, or by means of the [control APIs](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)\. The following procedure describes the steps for enabling controls on an OU, from the console\.
 
 **Important**  
 When you enable optional controls, AWS Control Tower creates and manages AWS resources in your accounts\. Do not modify or delete resources created by AWS Control Tower\. Doing so could result in the controls entering an unknown state\.
 
-**To enable controls in an OU**
+**To enable controls in an OU, from the console**
 
 1. Using a web browser, navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\.
 
@@ -41,4 +41,4 @@ You can apply and remove multiple optional controls without waiting for individu
 
 You can apply and remove multiple optional controls without waiting for individual control operations to complete\. The only restricted times are when AWS Control Tower is in the process of landing zone setup, or while extending governance to a new organization\.
 
-When you apply preventive controls to nested OUs, the preventive controls affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered with AWS Control Tower\. Preventive controls are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\. Detective controls are implemented using AWS Config rules\. Controls remain in effect as you create new accounts or make changes to your existing accounts, and AWS Control Tower provides a summary report of how each account conforms to your enabled policies\. For a full list of available controls, see the [Control reference](controls-reference.md)\. 
+When you apply preventive controls to nested OUs, the preventive controls affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered with AWS Control Tower\. Preventive controls are implemented using Service Control Policies \(SCPs\), which are part of AWS Organizations\. Detective controls are implemented using AWS Config rules\. Controls remain in effect as you create new accounts or make changes to your existing accounts, and AWS Control Tower provides a summary report of how each account conforms to your enabled policies\. For a full list of available controls, see the [The AWS Control Tower controls library](controls-reference.md)\. 

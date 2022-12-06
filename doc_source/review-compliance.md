@@ -6,13 +6,21 @@ Compliance with detective controls is determined according to data retrieved fro
 
 To view the compliance status of detective controls in the AWS Control Tower console, select **Controls** in the left navigation, choose the control name from the controls table, and then scroll to the **Accounts** section on that control details page\. Accounts may show a control compliance status of **Unknown** if any detective controls are misconfigured\. For example, status **Unknown** often can appear due to account drift, such as **Moved account** drift\. The **Unknown** status also can appear as a result of SCP drift\.
 
+**Note**  
+AWS Control Tower displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower, including rules that were activated outside of the AWS Control Tower console\. To view the compliance status of all your Config rules, navigate to the **Account details** page in the AWS Control Tower console\. You will see a list showing the compliance status of controls managed by AWS Control Tower and Config rules deployed outside of AWS Control Tower\. You can identify any non\-compliant AWS Config rule\.
+
 **Preventive control status**
 
 The compliance status of preventive controls on an OU may be viewed on the **OU detail** page, by scrolling to the **Enabled controls** section\. If any preventive controls are misconfigured for an OU, the **State** field for that OU may show the state of **Registration failed**, in the **Details** section near the top of the page\. Preventive control misconfiguration is caused most often by SCP drift, which can occur if the control's SCP is modified or detached from the OU by means of the AWS Organizations console\.
 
+**Proactive control status**
+
 The control compliance status also can be viewed on other pages:
-+ the AWS Control Tower **Dashboard** page, by scrolling to the **Controls** section near the bottom of the page
-+ the **Control details** page, which you can view by selecting the name of a control on another page
++ On the AWS Control Tower **Dashboard** page, by scrolling to the **Controls** section near the bottom of the page\.
++ On the **Control details** page, which you can view by selecting the name of a control on another page\.
+
+**Note**  
+The **State** of a control, as viewed in the AWS Control Tower console, reflects only the enabled or de\-activated state of the control for a specific OU\. This field does not reflect any information about the framework compliance status or the drift status of the landing zone environment\. The control **State** and **Status** information is available in the console only\. It is not available from the public API\. To view the control status, navigate to the **Control details** page in the AWS Control Tower console\.
 
 **Nested OUs and compliance**
 

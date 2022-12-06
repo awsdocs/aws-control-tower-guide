@@ -1,4 +1,4 @@
-# Managing Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)<a name="sso"></a>
+# Manage Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)<a name="sso"></a>
 
 AWS IAM Identity Center \(successor to AWS Single Sign\-On\) is a cloud\-based service that simplifies how you manage IAM Identity Center access to AWS accounts and business applications\. You can control IAM Identity Center access and user permissions across all your AWS accounts in AWS Organizations\. You also can administer access to popular business applications and custom applications that support Security Assertion Markup Language \(SAML\) 2\.0\. Also, IAM Identity Center offers a user portal where your users can find all their assigned AWS accounts, business applications, and custom applications in one place\. For more information, see *[AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide](https://docs.aws.amazon.com/singlesignon/latest/userguide/)*\.
 

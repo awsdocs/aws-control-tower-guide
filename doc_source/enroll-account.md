@@ -109,15 +109,15 @@ The following YAML template may assist you in creating the required role in an a
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
-Description: Configure the AWSControlTowerExecution role to enable use of your account as a target account in AWS CloudFormation StackSets.
-​
+Description: Configure the AWSControlTowerExecution role to enable use of your
+  account as a target account in AWS CloudFormation StackSets.
 Parameters:
   AdministratorAccountId:
     Type: String
-    Description: AWS Account Id of the administrator account (the account in which StackSets will be created).
+    Description: AWS Account Id of the administrator account (the account in which
+      StackSets will be created).
     MaxLength: 12
     MinLength: 12
-​
 Resources:
   ExecutionRole:
     Type: AWS::IAM::Role
@@ -129,7 +129,7 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                - !Ref AdministratorAccountId
+                - AdministratorAccountId
             Action:
               - sts:AssumeRole
       Path: /

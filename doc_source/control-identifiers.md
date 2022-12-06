@@ -1,8 +1,12 @@
 # Resource identifiers for APIs and controls<a name="control-identifiers"></a>
 
-The following list contains the `ControlARN` designations of the **Strongly recommended** and **Elective** controls that are part of AWS Control Tower, including the elective **Data residency** controls\. 
+Each control in AWS Control Tower has a unique identifier for use with the control APIs\. The identifier for each control is shown in the **API controlIdentifier** field, on the **Control details** page in the AWS Control Tower console\. This identifier is distinct from the **ControlID** field, which is a classification system for controls\.
 
-Each item in the list that follows serves as a link, which provides more information about these individual controls, given in the [Control reference](controls-reference.md)\.
+The following list contains the `API controlIdentifier` designations of the \(legacy\) **Strongly recommended** and **Elective**, *preventive* and *detective*, controls that are owned by AWS Control Tower, including the elective **Data residency** controls\. Mandatory controls cannot be deactivated by the control APIs\.
+
+To view the control identifiers and other details about [Proactive controls](proactive-controls.md), navigate to the **Control details** page in the AWS Control Tower console\. You can find the identifier in the **API controlIdentifier** field\.
+
+Each item in the list that follows serves as a link, which provides more information about these individual controls, given in [The AWS Control Tower controls library](controls-reference.md)\.
 
 ## <a name="control-arns-for-elective-gr"></a>
 
@@ -56,7 +60,6 @@ Each item in the list that follows serves as a link, which provides more informa
 + [arn:aws:controltower:REGION::control/AWS\-GR\_S3\_BUCKET\_PUBLIC\_WRITE\_PROHIBITED](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-controls.html#s3-disallow-public-write)
 + [arn:aws:controltower:REGION::control/AWS\-GR\_DETECT\_CLOUDTRAIL\_ENABLED\_ON\_MEMBER\_ACCOUNTS](https://docs.aws.amazon.com/controltower/latest/userguide/strongly-recommended-controls.html#ensure-cloudtrail-enabled-recommended)
 
-
 ## Controls that cannot be changed with the AWS Control Tower APIs<a name="cannot-change-with-gr-api"></a>
 
 The following controls cannot be activated or deactivated by means of the AWS Control Tower APIs\. Except for the Region deny control, all of these are mandatory controls\. In general, mandatory controls cannot be deactivated\. The Region deny control must be changed in the console\.
@@ -90,3 +93,6 @@ The following controls cannot be activated or deactivated by means of the AWS Co
 For more information about how to find the resource identifier for an OU and its resources, see [Resource types defined by AWS Organizations](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies)\.
 
 To learn more about how to get information from an OU, see [the AWS Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/APIReference/API_DescribeOrganizationalUnit.html)\.
+
+**Note**  
+ The control **State** and status information is available in the console only\. It is not available from the public API\. To view the status of a control, navigate to the **Control details** page in the AWS Control Tower console\.

@@ -34,7 +34,7 @@ This step must be done in the in AWS Organizations console because AWS Control T
 
 ## Nested OU registration pre\-checks<a name="nested-ou-prechecks"></a>
 
-To support successful registration of your nested OUs and their member accounts, AWS Control Tower performs a series of pre\-checks\. These same prechecks are performed when registering any top\-level OU or nested OU\. For more information, see [Common causes of failure during registration or re\-registration](importing-existing.md#common-eg-failures)\.
+To support successful registration of your nested OUs and their member accounts, AWS Control Tower performs a series of pre\-checks\. These same prechecks are performed when registering any top\-level OU or nested OU\. For more information, see [Common causes of failure during registration or re\-registration](common-eg-failures.md)\.
 + If all pre\-checks pass, AWS Control Tower begins registering your OU, automatically\.
 + If any pre\-checks fail, AWS Control Tower stops the registration process and provides you with a list of items that must be fixed before you can register your OU\. 
 
@@ -97,16 +97,16 @@ In certain situations, drift can prevent the registration of nested OUs\.
 
 ## Nested OUs and controls<a name="nested-ous-and-controls"></a>
 
-When you enable a control on a registered OU, preventive and detective controls have different behaviors\.
+When you enable a control on a registered OU, preventive and detective controls have different behaviors\. For nested OUs, proactive controls behave similarly to detective controls\.
 
 **Preventive controls**
 + Preventive controls are enforced on nested OUs\.
 + Mandatory preventive controls are enforced on all accounts under the OU and its nested OUs\.
 + Preventive controls affect all accounts and OUs nested under the target OU, even if those accounts and OUs are not registered\.
 
-**Detective controls**
-+ Nested OUs do not inherit detective controls automatically; these must be enabled separately\.
-+ Detective controls are deployed only to registered accounts in your landing zone’s operating Regions\.
+**Detective and proactive controls**
++ Nested OUs do not inherit detective or proactive controls automatically; these must be enabled separately\.
++ Detective and proactive controls are deployed only to registered accounts in your landing zone’s operating Regions\.
 
 **Enabled control states and inheritance**
 

@@ -1,6 +1,6 @@
 # Customize your AWS Control Tower landing zone<a name="customize-landing-zone"></a>
 
-## <a name="w371aac24b3"></a>
+## <a name="w24aac24b3"></a>
 
 Certain aspects of your AWS Control Tower landing zone are configurable in the console, such as selection of Regions and optional controls\. Other changes may be made outside the console, with automation\.
 
@@ -25,9 +25,14 @@ Remember that renaming an OU in AWS Organizations does not update the correspond
 **Customize by adding optional controls**
 + Strongly recommended and elective controls are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. [Optional controls](optional-controls.md) are not enabled by default\. 
 + The optional [Controls that enhance data residency protection](data-residency-controls.md) allow you to customize the Regions in which you store and allow access to your data\.
++ The optional controls that are part of the integrated Security Hub standard allow you to scan your AWS Control Tower environment to check for security risks\.
++ The optional proactive controls allow you to check your AWS CloudFormation resources before they are provisioned, to make sure the new resources will comply with your environment's control objectives\.
 
 **Customize your AWS CloudTrail trails**
 + When you update your landing zone to version 3\.0 or later, you can choose to opt into or opt out of organization\-level CloudTrail trails managed by AWS Control Tower\. You can change this selection any time you update your landing zone\. AWS Control Tower creates an organization\-level trail in your management account, and that trail enters active or inactive status, based on your choice\. Landing zone 3\.0 does not support account\-level CloudTrail trails; however, if you require these, you can configure and manage your own trails\. You may incur additional cost for duplicate trails\.
+
+**Create customized member accounts in the console**
++ You can create AWS Control Tower member accounts that are customized, and you can update existing member accounts to add customizations, from the AWS Control Tower console\. For more information, see [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 ## Automate customizations outside the AWS Control Tower console<a name="automate-customizations"></a>
 
