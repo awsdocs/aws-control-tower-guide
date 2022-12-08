@@ -60,21 +60,21 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. Copy the code example shown here and paste it into the Policy Document\. Replace the string *`Management Account ID`* with the actual management account ID of your management account\. Here is the policy to paste:
 
-   ```
-   {
-      "Version":"2012-10-17",
-      "Statement":[
-         {
-            "Effect":"Allow",
-            "Principal":{
-               "AWS":"arn:aws:iam::Management Account ID:root"
-            },
-            "Action":"sts:AssumeRole",
-            "Condition":{
-               
-            }
-         }
-   ```
+```
+{
+           "Version": "2012-10-17",
+           "Statement": [
+            {
+           "Effect": "Allow",
+           "Principal": {
+           "AWS": "arn:aws:iam::Management Account ID:root"
+                },
+               "Action": "sts:AssumeRole",
+               "Condition": {}
+             }
+             ]
+}
+```
 
 **Step 3: Enroll the account by moving it into a registered OU, and verify enrollment\.**
 
