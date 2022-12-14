@@ -5,7 +5,7 @@ The following table describes important changes to the *AWS Control Tower User G
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [Compliance status viewable for all AWS Config rules](#doc-history) | AWS Control Tower now displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower\. | November 18, 2202 | 
+| [Compliance status viewable for all AWS Config rules](#doc-history) | AWS Control Tower now displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower\. | November 18, 2022 |
 | [Proactive controls assist in resource provisioning](#doc-history) | AWS Control Tower now supports proactive controls, implemented through AWS CloudFormation hooks\. | November 28, 2022 | 
 | [Account factory customization available](#doc-history) | AWS Control Tower now supports account provisioning with customizable account templates, called blueprints, directly from the AWS Control Tower console\. | November 28, 2022 | 
 | [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that AWS Control Tower can assume the `AWSControlTowerBlueprintAccess` role, which is needed for Account Factory customizations\.  | October 28, 2022 | 
@@ -54,4 +54,4 @@ The following table describes important changes to the *AWS Control Tower User G
 | [Settings and Activities pages are available for AWS Control Tower](#doc-history) | The Settings and Activities pages make it easier to update your landing zone and to view logged events\. | November 30, 2019 | 
 | [Additional preventive controls are available for AWS Control Tower ](#doc-history) | Preventive controls in AWS Control Tower keep your organization and resources aligned with your environment\.  | September 6, 2019 | 
 | [Additional detective controls are available for AWS Control Tower ](#doc-history) | Detective controls in AWS Control Tower give information about the state of your organization and resources\.  | August 27, 2019 | 
-| [AWS Control Tower is now generally available](#doc-history) | AWS Control Tower is a service that offers the easiest way to set up and govern your multi\-account AWS environment at scale\. | June 24, 2019 | 
+| [AWS Control Tower is now generally available](#doc-history) | AWS Control Tower is a service that offers the easiest way to set up and govern your multi\-account AWS environment at scale\. | June 24, 2019 |
