@@ -69,7 +69,7 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Config | AWS Config Rules | AWSControlTower\_AWS\-GR\_AUDIT\_BUCKET\_PUBLIC\_READ\_PROHIBITED AWSControlTower\_AWS\-GR\_AUDIT\_BUCKET\_PUBLIC\_WRITE\_PROHIBIT | 
 | AWS CloudTrail | Trails | aws\-controltower\-BaselineCloudTrail | 
 | Amazon CloudWatch | CloudWatch Event Rules | aws\-controltower\-ConfigComplianceChangeEventRule | 
-| Amazon CloudWatch | CloudWatch Logs | aws\-controltower/CloudTrailLogs /aws/lambda/aws\-controltower\-NotificationForwarder | 
+| Amazon CloudWatch | CloudWatch Logs | /aws/lambda/aws\-controltower\-NotificationForwarder | 
 | AWS Identity and Access Management | Roles | aws\-controltower\-AdministratorExecutionRole aws\-controltower\-CloudWatchLogsRole aws\-controltower\-ConfigRecorderRole aws\-controltower\-ForwardSnsNotificationRole aws\-controltower\-ReadOnlyExecutionRole AWSControlTowerExecution | 
 | AWS Identity and Access Management | Policies | AWSControlTowerServiceRolePolicy | 
 | Amazon Simple Notification Service | Topics | aws\-controltower\-SecurityNotifications | 
@@ -91,7 +91,7 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Config | AWS Config Rules | AWSControlTower\_AWS\-GR\_AUDIT\_BUCKET\_PUBLIC\_READ\_PROHIBITED AWSControlTower\_AWS\-GR\_AUDIT\_BUCKET\_PUBLIC\_WRITE\_PROHIBITED | 
 | AWS CloudTrail | Trail | aws\-controltower\-BaselineCloudTrail | 
 | Amazon CloudWatch | CloudWatch Event Rules | aws\-controltower\-ConfigComplianceChangeEventRule | 
-| Amazon CloudWatch | CloudWatch Logs | aws\-controltower/CloudTrailLogs /aws/lambda/aws\-controltower\-NotificationForwarder | 
+| Amazon CloudWatch | CloudWatch Logs | /aws/lambda/aws\-controltower\-NotificationForwarder | 
 | AWS Identity and Access Management | Roles | aws\-controltower\-AdministratorExecutionRole aws\-controltower\-CloudWatchLogsRole aws\-controltower\-ConfigRecorderRole aws\-controltower\-ForwardSnsNotificationRole aws\-controltower\-ReadOnlyExecutionRole aws\-controltower\-AuditAdministratorRole aws\-controltower\-AuditReadOnlyRole AWSControlTowerExecution | 
 | AWS Identity and Access Management | Policies | AWSControlTowerServiceRolePolicy | 
 | Amazon Simple Notification Service | Topics | aws\-controltower\-AggregateSecurityNotifications aws\-controltower\-AllConfigNotifications aws\-controltower\-SecurityNotifications | 
