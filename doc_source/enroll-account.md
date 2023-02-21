@@ -129,7 +129,7 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                - AdministratorAccountId
+                - !Ref AdministratorAccountId
             Action:
               - sts:AssumeRole
       Path: /
