@@ -5,7 +5,7 @@ This chapter covers the AWS service limitations and quotas that you should keep 
 ## Limitations in AWS Control Tower<a name="controltower-limits"></a>
 
 This section describes known limitations and unsupported use cases in AWS Control Tower\.
-+ AWS Control Tower has overall concurrency limitations\. In general, one operation at a time is permitted\. The exception to this limitation is that optional controls can be activated and deactivated concurrently, through an asynchronous process\. Up to ten \(10\) control\-related operations at a time can be in progress\.
++ AWS Control Tower has overall concurrency limitations\. In general, five operations at a time are permitted\. Optional controls can be activated and deactivated concurrently, through an asynchronous process\. Up to ten \(10\) control\-related operations at a time can be in progress\.
 + Email addresses of shared accounts in the Security OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
 + A limit of 5 SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
 + Existing OUs with over 300 accounts cannot be registered or re\-registered in AWS Control Tower\.
