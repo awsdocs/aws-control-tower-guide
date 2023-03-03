@@ -11,6 +11,6 @@
 + We recommend enabling multi\-factor authentication \(MFA\) for every account that AWS Control Tower manages\.
 
 **Considerations about VPCs**
-+ The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported Regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the AWS Service Catalog portfolio, or to create a custom VPC that runs in only the required Regions\.
-+ The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In Regions where AWS Control Tower is supported, AWS Control Tower deletes the default AWS VPC when it creates the AWS Control Tower VPC\.
++ The VPC created by AWS Control Tower is limited to the AWS Regions in which AWS Control Tower is available\. Some customers whose workloads run in non\-supported Regions may want to disable the VPC that is created with your Account Factory account\. They may prefer to create a new VPC using the Service Catalog portfolio, or to create a custom VPC that runs only in the required Regions\.
++ The VPC created by AWS Control Tower is not the same as the default VPC that is created for all AWS accounts\. In Regions where AWS Control Tower is supported, AWS Control Tower deletes the default VPC when it creates the AWS Control Tower VPC\.
 +  If you delete your default VPC in your home AWS Region, it's best to delete it in all other AWS Regions\. 

@@ -114,6 +114,6 @@ Moving accounts between OUs is considered drift, and it must be repaired\.
 
 ## Drift and New Account Provisioning<a name="drift-and-accounts"></a>
 
-If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\.
+If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provision accounts with AWS Service Catalog Account Factory ](provision-as-end-user.md)\.
 
-In particular, if you've made certain changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.
+In particular, if you've made certain changes to your accounts by means of Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.

@@ -4,13 +4,13 @@ If you created an account in Account Factory or enrolled an AWS account, and you
 
 When you unmanage an AWS Control Tower account, all resources provisioned by AWS Control Tower are removed, including any blueprints\. The account is moved out of any AWS Control Tower OU and into the **Root** area\. The account is no longer part of a registered OU, and it is no longer subject to AWS Control Tower SCPs\. You can close the account through AWS Organizations\.
 
-Unmanaging an account also can be done in the AWS Service Catalog console by an IAM Identity Center user in the **AWSAccountFactory** group, by terminating the Provisioned Product\. For more information on IAM Identity Center users or groups, see [Manage Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](sso.md)\. The following procedure describes how to unmanage a member account in AWS Service Catalog\.
+Unmanaging an account also can be done in the Service Catalog console by an IAM Identity Center user in the `AWSAccountFactory` group, by terminating the Provisioned Product\. For more information on IAM Identity Center users or groups, see [Manage users and access through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](https://docs.aws.amazon.com/controltower/latest/userguide/unmanage-account.html)\. The following procedure describes how to unmanage a member account in Service Catalog\.
 
 **To unmanage an enrolled account**
 
-1. Open the AWS Service Catalog console in your web browser at [https://console.aws.amazon.com/servicecatalog](https://console.aws.amazon.com/servicecatalog)\.
+1. Open the Service Catalog console in your web browser at [https://console.aws.amazon.com/servicecatalog](https://console.aws.amazon.com/servicecatalog)\.
 
-1. From the left navigation pane, choose **Provisioned products list**\.
+1. In the left navigation pane, choose **Provisioned products list**\.
 
 1. From the list of provisioned accounts, choose the name of the account that you want AWS Control Tower no longer to manage\.
 
@@ -18,11 +18,11 @@ Unmanaging an account also can be done in the AWS Service Catalog console by an 
 
 1. From the dialog box that appears, choose **Terminate**\.
 **Important**  
-The word *terminate* is specific to AWS Service Catalog\. When you terminate an Account Factory account in AWS Service Catalog, the account is not closed\. This action removes the account from its OU and your landing zone\.
+The word *terminate* is specific to Service Catalog\. When you terminate an account in Service Catalog Account Factory, the account is not closed\. This action removes the account from its OU and your landing zone\.
 
 1.  When the account has been unmanaged, its status changes to **Not Enrolled**\.
 
-1. If you no longer need the account, close it\. For more information about closing AWS accounts, see [Closing an Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing User Guide*
+1. If you no longer need the account, close it\. For more information about closing AWS accounts, see [Closing an account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html) in the *AWS Billing User Guide*
 
 When you unmanage a customized account, AWS Control Tower removes the resources that the blueprint has deployed, as well as any other resources that AWS Control Tower created within the account\. After you unmanage the account, you can close the account through AWS Organizations\.
 

@@ -1,10 +1,14 @@
 # Overview of AWS Control Tower Account Factory for Terraform<a name="aft-overview"></a>
 
-AWS Control Tower Account Factory for Terraform \(AFT\) sets up a Terraform pipeline that helps you provision and customize your accounts in AWS Control Tower\. It is designed to provide the advantage of Terraform\-based account provisioning, while maintaining AWS Control Tower governance of your accounts\. 
+ Account Factory for Terraform \(AFT\) sets up a Terraform pipeline to help you provision and customize accounts in AWS Control Tower\. AFT provides you with the advantage of Terraform\-based account provisioning while allowing you to govern your accounts with AWS Control Tower\. 
 
-You'll create an *account request* Terraform file, which provides the necessary input that triggers the AFT workflow for account provisioning\. After provisioning is complete, AFT can run additional customization steps, automatically\.
+ With AFT you create an *account request Terraform file* to get the input that triggers the AFT workflow for account provisioning\. After the account provisioning stage is complete, AFT automatically runs a series of steps before the account customizations stage begins\. For more information, see [AFT account provisioning pipeline](https://docs.aws.amazon.com/controltower/latest/userguide/aft-provisioning-framework.html)\. 
 
-AFT supports Terraform Cloud, Terraform Enterprise, and Terraform Open Source\. It provides the ability to initiate account creation with an input file and a simple `git push` command, as well as the ability to customize new or existing accounts\. Account creation includes all AWS Control Tower governance benefits, and account customizations that assist you to meet your organization’s standard security procedures and compliance guidelines\.
+ AFT supports Terraform Cloud, Terraform Enterprise, and Terraform Open Source\. With AFT you can initiate account creation using an input file and a simple `git push` command and customize new or existing accounts\. Account creation includes all of the AWS Control Tower governance benefits and account customizations that help you meet your organization’s standard security procedures and compliance guidelines\. 
+
+ AFT supports account customization request tracing\. Every time you submit an account customization request, AFT generates a unique tracing token that passes through an AFT customizations AWS Step Functions state machine, which logs the token as part of its execution\. You can then use Amazon CloudWatch Logs insights queries to search timestamp ranges and retrieve the request token\. As a result, you can see payloads that accompany the token, so you can trace your account customization request throughout the entire AFT workflow\. For information about CloudWatch Logs and Step Functions, see the following: 
++  [What is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) in the *Amazon CloudWatch Logs User Guide* 
++  [What is AWS Step Functions?](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) in the *AWS Step Functions Developer Guide* 
 
 AFT combines the capabilities of other AWS services as [Component services](aft-components.md), to build a framework, with pipelines that deploy Terraform Infrastructure as Code \(IaC\)\. AFT enables you to:
 + Submit account provisioning and update requests in a GitOps model

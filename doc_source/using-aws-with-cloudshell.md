@@ -6,12 +6,12 @@ When you [launch AWS CloudShell from the AWS Management Console](https://docs.aw
 
 ## Obtaining IAM permissions for AWS CloudShell<a name="cloudshell-permissions"></a>
 
-AWS Identity and Access Management provides access management resources that allow administrators to grant permissions to IAM users for access to AWS CloudShell\.
+AWS Identity and Access Management provides access management resources that allow administrators to grant permissions to IAM users and IAM Identity Center users for access to AWS CloudShell\.
 
 The quickest way for an administrator to grant access to users is through an AWS managed policy\. An [AWS managed policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) is a standalone policy that's created and administered by AWS\. The following AWS managed policy for CloudShell can be attached to IAM identities:
 + `AWSCloudShellFullAccess`: Grants permission to use AWS CloudShell with full access to all features\.
 
- If you want to limit the scope of actions that an IAM user can perform with AWS CloudShell, you can create a custom policy that uses the `AWSCloudShellFullAccess` managed policy as a template\. For more information about limiting the actions that are available to users in CloudShell, see [Managing AWS CloudShell access and usage with IAM policies](https://docs.aws.amazon.com/cloudshell/latest/userguide/sec-auth-with-identities.html) in the *AWS CloudShell User Guide*\.
+ If you want to limit the scope of actions that an IAM user or IAM Identity Center user can perform with AWS CloudShell, you can create a custom policy that uses the `AWSCloudShellFullAccess` managed policy as a template\. For more information about limiting the actions that are available to users in CloudShell, see [Managing AWS CloudShell access and usage with IAM policies](https://docs.aws.amazon.com/cloudshell/latest/userguide/sec-auth-with-identities.html) in the *AWS CloudShell User Guide*\.
 
 **Note**  
 Your IAM identity also requires a policy that grants permission to make calls to AWS Control Tower\. For more information, see [Permissions required to use the AWS Control Tower console](https://docs.aws.amazon.com/controltower/latest/userguide/access-control-managing-permissions.html#additional-console-required-permissions)\.
@@ -32,7 +32,7 @@ When using AWS CLI in AWS CloudShell, you don't need to download or install any 
 
 ## Using AWS CloudShell to help set up AWS Control Tower<a name="cloudshell-and-controltower"></a>
 
-Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user with administrative permissions for the management account that contains your landing zone\.
+Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM Identity Center user or IAM user with administrative permissions for the management account that contains your landing zone\.
 
 1. Here's how you can use AWS Config CLI commands in AWS CloudShell to determine the status of your configuration recorder and delivery channel before you start to configure your AWS Control Tower landing zone\.
 

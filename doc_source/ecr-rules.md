@@ -7,11 +7,6 @@
 
 ## \[CT\.ECR\.PR\.1\] Require Amazon ECR repositories to have a lifecycle policy configured<a name="ct-ecr-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether a private Amazon Elastic Container Registry \(Amazon ECR\) repository has at least one lifecycle policy configured\.
 + **Control objective: **Manage vulnerabilities, Protect configurations
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -237,11 +232,6 @@ Resources:
 
 ## \[CT\.ECR\.PR\.2\] Require Amazon ECR private repositories to have image scanning enabled<a name="ct-ecr-pr-2-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether a private Amazon Elastic Container Registry \(Amazon ECR\) repository has image scanning enabled\.
 + **Control objective: **Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -251,7 +241,7 @@ This control checks whether a private Amazon Elastic Container Registry \(Amazon
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECR\.PR\.2 rule specification](#ct-ecr-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECR.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECR\.PR\.2 example templates](#ct-ecr-pr-2-templates) 
 
 **Explanation**
 
@@ -398,12 +388,33 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ECR\.PR\.2 example templates<a name="ct-ecr-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageScanningConfiguration:
+        ScanOnPush: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageScanningConfiguration:
+        ScanOnPush: false
+```
+
 ## \[CT\.ECR\.PR\.3\] Require Amazon ECR private repositories to have tag immutability enabled<a name="ct-ecr-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether a private Amazon Elastic Container Registry \(Amazon ECR\) repository has tag immutability enabled\.
 + **Control objective: **Protect configurations
@@ -414,7 +425,7 @@ This control checks whether a private Amazon Elastic Container Registry \(Amazon
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECR\.PR\.3 rule specification](#ct-ecr-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECR.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECR\.PR\.3 example templates](#ct-ecr-pr-3-templates) 
 
 **Explanation**
 
@@ -550,4 +561,28 @@ rule is_cfn_template(doc) {
 rule is_cfn_hook(doc, RESOURCE_TYPE) {
     %doc.%RESOURCE_TYPE.resourceProperties exists
 }
+```
+
+### CT\.ECR\.PR\.3 example templates<a name="ct-ecr-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageTagMutability: IMMUTABLE
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageTagMutability: MUTABLE
 ```

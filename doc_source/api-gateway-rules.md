@@ -8,11 +8,6 @@
 
 ## \[CT\.APIGATEWAY\.PR\.1\] Require an Amazon API Gateway REST and WebSocket API to have logging activated<a name="ct-apigateway-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether all methods in Amazon API Gateway stage have execution logging configured\.
 + **Control objective: **Establish logging and monitoring
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -22,7 +17,7 @@ This control checks whether all methods in Amazon API Gateway stage have executi
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.APIGATEWAY\.PR\.1 rule specification](#ct-apigateway-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.APIGATEWAY.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.APIGATEWAY\.PR\.1 example templates](#ct-apigateway-pr-1-templates) 
 
 **Explanation**
 
@@ -219,12 +214,128 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.APIGATEWAY\.PR\.1 example templates<a name="ct-apigateway-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: ExampleRestApi
+  GetMethod:
+    DependsOn: PutMethod
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RestApiId:
+        Ref: RestApi
+      ResourceId:
+        Fn::GetAtt:
+        - "RestApi"
+        - "RootResourceId"
+      AuthorizationType: NONE
+      MethodResponses:
+      - StatusCode: "200"
+      Integration:
+        Type: MOCK
+  PutMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      RestApiId:
+        Ref: RestApi
+      ResourceId:
+        Fn::GetAtt:
+        - "RestApi"
+        - "RootResourceId"
+      AuthorizationType: NONE
+      MethodResponses:
+      - StatusCode: "200"
+      Integration:
+        Type: MOCK
+  Deployment:
+    DependsOn: GetMethod
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId:
+        Ref: RestApi
+  ApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: Example
+      RestApiId:
+        Ref: RestApi
+      DeploymentId:
+        Ref: Deployment
+      MethodSettings:
+      - ResourcePath: "/*"
+        HttpMethod: "*"
+        LoggingLevel: ERROR
+      - ResourcePath: "/"
+        HttpMethod: GET
+        LoggingLevel: INFO
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: ExampleRestApi
+  GetMethod:
+    DependsOn: PutMethod
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RestApiId:
+        Ref: RestApi
+      ResourceId:
+        Fn::GetAtt:
+        - "RestApi"
+        - "RootResourceId"
+      AuthorizationType: NONE
+      MethodResponses:
+      - StatusCode: "200"
+      Integration:
+        Type: MOCK
+  PutMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      RestApiId:
+        Ref: RestApi
+      ResourceId:
+        Fn::GetAtt:
+        - "RestApi"
+        - "RootResourceId"
+      AuthorizationType: NONE
+      MethodResponses:
+      - StatusCode: "200"
+      Integration:
+        Type: MOCK
+  Deployment:
+    DependsOn: GetMethod
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId:
+        Ref: RestApi
+  ApiGatewayStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: Example
+      RestApiId:
+        Ref: RestApi
+      DeploymentId:
+        Ref: Deployment
+```
+
 ## \[CT\.APIGATEWAY\.PR\.2\] Require an Amazon API Gateway REST API stage to have AWS X\-Ray tracing activated<a name="ct-apigateway-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control ensures that AWS X\-Ray tracing is enabled on Amazon API Gateway REST APIs\.
 + **Control objective: **Establish logging and monitoring
@@ -504,11 +615,6 @@ Resources:
 ```
 
 ## \[CT\.APIGATEWAY\.PR\.3\] Require that an Amazon API Gateway REST API stage has encryption at rest configured for cache data<a name="ct-apigateway-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon API Gateway REST API stage that has caching enabled also encrypts the caches\.
 + **Control objective: **Encrypt data at rest
@@ -871,11 +977,6 @@ Resources:
 ```
 
 ## \[CT\.APIGATEWAY\.PR\.4\] Require an Amazon API Gateway V2 stage to have access logging activated<a name="ct-apigateway-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon API Gateway V2 stages have access logging enabled\. Access logging is supported for HTTP and WebSocket APIs\.
 + **Control objective: **Establish logging and monitoring

@@ -4,7 +4,7 @@ After you have created custom blueprints, you can start creating custom accounts
 
 **Follow these steps to deploy a custom blueprint when you're creating a new AWS account:**
 
-1. Go to AWS Control Tower in your AWS management console\. 
+1. Go to AWS Control Tower in the AWS Management Console\. 
 
 1. Select **Account factory** and **Create account**\.
 
@@ -16,9 +16,9 @@ After you have created custom blueprints, you can start creating custom accounts
 
 1. Expand the **Account factory customization** section\.
 
-1. Enter the blueprint hub account ID that contains your AWS Service Catalog products and choose **Validate**\.
+1. Enter the blueprint hub account ID that contains your Service Catalog products and choose **Validate**\.
 
-1. Select the dropdown menu that contains all blueprints from your AWS Service Catalog Product List \(all custom and partner blueprints\)\. Choose a blueprint and corresponding version to deploy\. 
+1. Select the dropdown menu that contains all blueprints from your Service Catalog Product List \(all custom and partner blueprints\)\. Choose a blueprint and corresponding version to deploy\. 
 
 1. If your blueprint contains parameters, these fields are displayed for you to populate\. Default values are pre\-populated\. 
 

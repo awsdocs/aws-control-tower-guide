@@ -1,6 +1,6 @@
 # Customize your AWS Control Tower landing zone<a name="customize-landing-zone"></a>
 
-## <a name="w24aac24b3"></a>
+## <a name="w32aac24b3"></a>
 
 Certain aspects of your AWS Control Tower landing zone are configurable in the console, such as selection of Regions and optional controls\. Other changes may be made outside the console, with automation\.
 
@@ -60,7 +60,7 @@ Unlike Account Factory and AFT, CfCT is not specifically intended to create new 
 + **Extend your network architecture** – You can deploy customized network architectures that improve and protect your connectivity, such as a transit gateway\.
 
 ## Additional CfCT examples<a name="cfct-examples"></a>
-+ An example networking use case with *Customizations for AWS Control Tower* \(CfCT\) is given in the AWS Architecture blog post, [Deploy consistent DNS with AWS Service Catalog and AWS Control Tower customizations](http://aws.amazon.com/blogs/architecture/deploy-consistent-dns-with-aws-service-catalog-and-aws-control-tower-customizations/)\.
++ An example networking use case with *Customizations for AWS Control Tower* \(CfCT\) is given in the AWS Architecture blog post, [Deploy consistent DNS with Service Catalog and AWS Control Tower customizations](http://aws.amazon.com/blogs/architecture/deploy-consistent-dns-with-aws-service-catalog-and-aws-control-tower-customizations/)\.
 + A specific example [related to CfCT and Amazon GuardDuty](https://github.com/aws-samples/aws-security-reference-architecture-examples/tree/main/aws_sra_examples/solutions/guardduty/guardduty_org/customizations_for_aws_control_tower) is available on GitHub in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\.
 + Additional code examples regarding CfCT are available as part of the AWS Security Reference Architecture, in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\. Many of these examples contain sample `manifest.yaml` files in a directory named `customizations_for_aws_control_tower`\.
 

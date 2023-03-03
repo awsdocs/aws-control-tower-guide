@@ -16,11 +16,6 @@
 
 ## \[CT\.ECS\.PR\.1\] Require Amazon ECS Fargate Services to run on the latest Fargate platform version<a name="ct-ecs-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon Elastic Container Service \(Amazon ECS\) Fargate services are configured to deploy using the `LATEST` platform version rather than a specified version number\.
 + **Control objective: **Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -30,7 +25,7 @@ This control checks whether Amazon Elastic Container Service \(Amazon ECS\) Farg
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECS\.PR\.1 rule specification](#ct-ecs-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECS.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECS\.PR\.1 example templates](#ct-ecs-pr-1-templates) 
 
 **Explanation**
 
@@ -292,12 +287,140 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ECS\.PR\.1 example templates<a name="ct-ecs-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      CapacityProviders:
+        - FARGATE
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainer
+      Memory: '512'
+      RequiresCompatibilities:
+        - FARGATE
+      NetworkMode: awsvpc
+      Cpu: 256
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: ECSCluster
+      DesiredCount: 0
+      TaskDefinition:
+        Ref: ECSTaskDefinition
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          Subnets:
+           - Ref: SubnetOne
+           - Ref: SubnetTwo
+      LaunchType: FARGATE
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      CapacityProviders:
+        - FARGATE
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainer
+      Memory: '512'
+      RequiresCompatibilities:
+        - FARGATE
+      NetworkMode: awsvpc
+      Cpu: 256
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: ECSCluster
+      DesiredCount: 0
+      TaskDefinition:
+        Ref: ECSTaskDefinition
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          Subnets:
+           - Ref: SubnetOne
+           - Ref: SubnetTwo
+      LaunchType: FARGATE
+      PlatformVersion: 1.4.0
+```
+
 ## \[CT\.ECS\.PR\.2\] Require any Amazon ECS cluster to have container insights activated<a name="ct-ecs-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon Elastic Container Service \(Amazon ECS\) clusters have container insights enabled\.
 + **Control objective: **Establish logging and monitoring
@@ -308,7 +431,7 @@ This control checks whether your Amazon Elastic Container Service \(Amazon ECS\)
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECS\.PR\.2 rule specification](#ct-ecs-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECS.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECS\.PR\.2 example templates](#ct-ecs-pr-2-templates) 
 
 **Explanation**
 
@@ -476,14 +599,37 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ECS\.PR\.2 example templates<a name="ct-ecs-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterSettings:
+      - Name: containerInsights
+        Value: enabled
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterSettings:
+      - Name: containerInsights
+        Value: disabled
+```
+
 ## \[CT\.ECS\.PR\.3\] Require any Amazon ECS task definition to specify a user that is not the root<a name="ct-ecs-pr-3-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
-This control checks whether Amazon Elastic Container Service \(ECS\) task definitions run as a non\-root user within Amazon ECS containers\.
+This control checks whether Amazon Elastic Container Service \(ECS\) task definitions run as a non\-root user user within Amazon ECS containers\.
 + **Control objective: **Enforce least privilege, Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
 + **Control behavior: **Proactive
@@ -496,20 +642,20 @@ This control checks whether Amazon Elastic Container Service \(ECS\) task defini
 
 **Explanation**
 
-It is a best practice to run containers as a non\-root user\. By default, containers run as the root user, unless the `User` directive is included in your Dockerfile\. The default Linux capabilities that are assigned by Docker restrict the actions that can be run as the root user, but only marginally\. For example, a container running as the root user does not have access to devices\.
+It is a best practice to run containers as a non\-root user user\. By default, containers run as the root user user, unless the `User` directive is included in your Dockerfile\. The default Linux capabilities that are assigned by Docker restrict the actions that can be run as the root user user, but only marginally\. For example, a container running as the root user user does not have access to devices\.
 
 **Usage considerations**  
 This control applies only to Amazon ECS task definitions that are configured with container definitions\.
 
 ### Remediation for rule failure<a name="ct-ecs-pr-3-remediation"></a>
 
-Set the `User` property to a non\-root user\.
+Set the `User` property to a non\-root user user\.
 
 The examples that follow show how to implement this remediation\.
 
 #### Amazon ECS Task Definition \- Example<a name="ct-ecs-pr-3-remediation-1"></a>
 
-Amazon ECS task definition configured with a container definition and a non\-root user\. The example is shown in JSON and in YAML\.
+Amazon ECS task definition configured with a container definition and a non\-root user user\. The example is shown in JSON and in YAML\.
 
 **JSON example**
 
@@ -717,11 +863,6 @@ Resources:
 ```
 
 ## \[CT\.ECS\.PR\.4\] Require Amazon ECS tasks to use 'awsvpc' networking mode<a name="ct-ecs-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether the networking mode for Amazon Elastic Container Service \(ECS\) task definitions is set to `awsvpc`\.
 + **Control objective: **Limit network access
@@ -957,11 +1098,6 @@ Resources:
 ```
 
 ## \[CT\.ECS\.PR\.5\] Require an active Amazon ECS task definition to have a logging configuration<a name="ct-ecs-pr-5-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Elastic Container Service \(ECS\) task definitions have a logging configuration specified\.
 + **Control objective: **Establish logging and monitoring
@@ -1274,11 +1410,6 @@ Resources:
 
 ## \[CT\.ECS\.PR\.6\] Require Amazon ECS containers to allow read\-only access to the root filesystem<a name="ct-ecs-pr-6-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon Elastic Container Service \(Amazon ECS\) task definitions have been configured to require read\-only access to container root filesystems\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1288,7 +1419,7 @@ This control checks whether Amazon Elastic Container Service \(Amazon ECS\) task
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECS\.PR\.6 rule specification](#ct-ecs-pr-6-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECS.PR.6) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECS\.PR\.6 example templates](#ct-ecs-pr-6-templates) 
 
 **Explanation**
 
@@ -1472,12 +1603,47 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ECS\.PR\.6 example templates<a name="ct-ecs-pr-6-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainerA
+        ReadonlyRootFilesystem: true
+      - Image: alpine:latest
+        Name: SampleContainerB
+        ReadonlyRootFilesystem: true
+      Memory: '512'
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainerA
+        ReadonlyRootFilesystem: false
+      - Image: alpine:latest
+        Name: SampleContainerB
+        ReadonlyRootFilesystem: false
+      Memory: '512'
+```
+
 ## \[CT\.ECS\.PR\.7\] Require an Amazon ECS task definition to have a specific memory usage limit<a name="ct-ecs-pr-7-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Elastic Container Service \(ECS\) task definitions have specified a memory limit for container definitions\.
 + **Control objective: **Improve availability
@@ -1488,7 +1654,7 @@ This control checks whether Amazon Elastic Container Service \(ECS\) task defini
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECS\.PR\.7 rule specification](#ct-ecs-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECS.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECS\.PR\.7 example templates](#ct-ecs-pr-7-templates) 
 
 **Explanation**
 
@@ -1703,11 +1869,6 @@ Resources:
 ```
 
 ## \[CT\.ECS\.PR\.8\] Require Amazon ECS task definitions to have secure networking modes and user definitions<a name="ct-ecs-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Elastic Container Service \(ECS\) task definitions that use `host` networking mode have a privileged container definition, and whether they specify a non\-root user definition\.
 + **Control objective: **Manage vulnerabilities
@@ -2036,11 +2197,6 @@ Resources:
 
 ## \[CT\.ECS\.PR\.9\] Require Amazon ECS services not to assign public IP addresses automatically<a name="ct-ecs-pr-9-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon Elastic Container Service \(Amazon ECS\) service resources are configured to assign public IP addresses automatically\.
 + **Control objective: **Limit network access, Enforce least privilege
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -2050,7 +2206,7 @@ This control checks whether your Amazon Elastic Container Service \(Amazon ECS\)
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ECS\.PR\.9 rule specification](#ct-ecs-pr-9-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ECS.PR.9) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ECS\.PR\.9 example templates](#ct-ecs-pr-9-templates) 
 
 **Explanation**
 
@@ -2312,12 +2468,138 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ECS\.PR\.9 example templates<a name="ct-ecs-pr-9-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      CapacityProviders:
+        - FARGATE
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainer
+      Memory: '512'
+      RequiresCompatibilities:
+        - FARGATE
+      NetworkMode: awsvpc
+      Cpu: 256
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: ECSCluster
+      DesiredCount: 0
+      TaskDefinition:
+        Ref: ECSTaskDefinition
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+           - Ref: SubnetOne
+           - Ref: SubnetTwo
+      LaunchType: FARGATE
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      CapacityProviders:
+        - FARGATE
+  ECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+      - Essential: true
+        Image: nginx:latest
+        Name: SampleContainer
+      Memory: '512'
+      RequiresCompatibilities:
+        - FARGATE
+      NetworkMode: awsvpc
+      Cpu: 256
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: ECSCluster
+      DesiredCount: 0
+      TaskDefinition:
+        Ref: ECSTaskDefinition
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+           - Ref: SubnetOne
+           - Ref: SubnetTwo
+      LaunchType: FARGATE
+```
+
 ## \[CT\.ECS\.PR\.10\] Require that Amazon ECS task definitions do not share the host's process namespace<a name="ct-ecs-pr-10-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Elastic Container Service \(ECS\) task definitions are configured to share a host's process namespace with its containers\.
 + **Control objective: **Protect configurations, Enforce least privilege
@@ -2579,11 +2861,6 @@ Resources:
 
 ## \[CT\.ECS\.PR\.11\] Require an Amazon ECS container to run as non\-privileged<a name="ct-ecs-pr-11-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether container definitions in Amazon Elastic Container Service \(ECS\) task definitions are configured with elevated privileges\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -2815,11 +3092,6 @@ Resources:
 ```
 
 ## \[CT\.ECS\.PR\.12\] Require that Amazon ECS task definitions do not pass secrets as container environment variables<a name="ct-ecs-pr-12-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Elastic Container Service \(ECS\) task definition container definitions include environment variables named `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or `ECS_ENGINE_AUTH_DATA`\.
 + **Control objective: **Use strong authentication

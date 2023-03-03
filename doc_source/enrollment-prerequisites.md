@@ -2,7 +2,7 @@
 
 These prerequisites are required before you can enroll an account in AWS Control Tower:
 
-1. To enroll an existing account, the **AWSControlTowerExecution** role must be present in the account you're enrolling\.
+1. To enroll an existing account, the `AWSControlTowerExecution` role must be present in the account you're enrolling\.
 
 1. We recommend that the account should not have an AWS Config configuration recorder or delivery channel\. These may be deleted or modified through the AWS CLI before you can enroll an account\. Otherwise, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html) for instructions on how you can modify your existing resources\.
 

@@ -1,4 +1,4 @@
-# Amazon Relational Database Service \(RDS\) controls<a name="rds-rules"></a>
+# Amazon Relational Database Service \(Amazon RDS\) controls<a name="rds-rules"></a>
 
 **Topics**
 + [\[CT\.RDS\.PR\.1\] Require that an Amazon RDS database instance is configured with multiple Availability Zones](#ct-rds-pr-1-description)
@@ -28,11 +28,6 @@
 
 ## \[CT\.RDS\.PR\.1\] Require that an Amazon RDS database instance is configured with multiple Availability Zones<a name="ct-rds-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether high availability is configured for your Amazon Relational Database Service \(RDS\) database instances\.
 + **Control objective: **Improve availability
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -42,7 +37,7 @@ This control checks whether high availability is configured for your Amazon Rela
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.1 rule specification](#ct-rds-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.1 example templates](#ct-rds-pr-1-templates) 
 
 **Explanation**
 
@@ -232,12 +227,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.1 example templates<a name="ct-rds-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      MultiAZ: true
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      MultiAZ: false
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.2\] Require an Amazon RDS database instance or cluster to have enhanced monitoring configured<a name="ct-rds-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether enhanced monitoring is activated for Amazon Relational Database Service \(RDS\) instances\.
 + **Control objective: **Establish logging and monitoring
@@ -248,7 +300,7 @@ This control checks whether enhanced monitoring is activated for Amazon Relation
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.2 rule specification](#ct-rds-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.2 example templates](#ct-rds-pr-2-templates) 
 
 **Explanation**
 
@@ -509,12 +561,86 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.RDS\.PR\.2 example templates<a name="ct-rds-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  MonitoringIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+            - "monitoring.rds.amazonaws.com"
+          Action:
+          - "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      MonitoringInterval: 30
+      MonitoringRoleArn:
+        Fn::GetAtt: ["MonitoringIAMRole", "Arn"]
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      MonitoringInterval: 0
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.3\] Require an Amazon RDS cluster to have deletion protection configured<a name="ct-rds-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon Relational Database Service \(Amazon RDS\) cluster has deletion protection activated\.
 + **Control objective: **Improve availability
@@ -525,7 +651,7 @@ This control checks whether your Amazon Relational Database Service \(Amazon RDS
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.3 rule specification](#ct-rds-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.3 example templates](#ct-rds-pr-3-templates) 
 
 **Explanation**
 
@@ -680,12 +806,129 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.3 example templates<a name="ct-rds-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/25
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.128/25
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+      VpcId:
+        Ref: VPC
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Example DB subnet group
+      SubnetIds:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+  RDSClusterSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "exampleuser"}'
+        GenerateStringKey: password
+        PasswordLength: 32
+        ExcludeCharacters: "/@\""
+  RDSCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      MasterUsername:
+        Fn::Sub: "{{resolve:secretsmanager:${RDSClusterSecret}::username}}"
+      MasterUserPassword:
+        Fn::Sub: "{{resolve:secretsmanager:${RDSClusterSecret}::password}}"
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      DeletionProtection: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/25
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.128/25
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+      VpcId:
+        Ref: VPC
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Example DB subnet group
+      SubnetIds:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+  RDSClusterSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "exampleuser"}'
+        GenerateStringKey: password
+        PasswordLength: 32
+        ExcludeCharacters: "/@\""
+  RDSCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora-mysql
+      MasterUsername:
+        Fn::Sub: "{{resolve:secretsmanager:${RDSClusterSecret}::username}}"
+      MasterUserPassword:
+        Fn::Sub: "{{resolve:secretsmanager:${RDSClusterSecret}::password}}"
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+      DeletionProtection: false
+```
+
 ## \[CT\.RDS\.PR\.4\] Require an Amazon RDS database cluster to have AWS IAM database authentication configured<a name="ct-rds-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Relational Database Service \(RDS\) database \(DB\) cluster has AWS IAM database authentication activated\.
 + **Control objective: **Use strong authentication
@@ -993,11 +1236,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.5\] Require an Amazon RDS database instance to have minor version upgrades configured<a name="ct-rds-pr-5-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether automatic minor version upgrades are enabled for an Amazon Relational Database Service \(RDS\) database instance\.
 + **Control objective: **Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1007,7 +1245,7 @@ This control checks whether automatic minor version upgrades are enabled for an 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.5 rule specification](#ct-rds-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.5 example templates](#ct-rds-pr-5-templates) 
 
 **Explanation**
 
@@ -1252,12 +1490,68 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.5 example templates<a name="ct-rds-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      AutoMinorVersionUpgrade: false
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.6\] Require an Amazon RDS database cluster to have backtracking configured<a name="ct-rds-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Relational Database Service \(RDS\) database \(DB\) cluster has backtracking enabled\.
 + **Control objective: **Improve resiliency
@@ -1595,11 +1889,6 @@ Resources:
 
 ## \[`CT.RDS.PR.7`\] Require Amazon RDS database instances to have IAM authentication configured<a name="ct-rds-pr-7-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an Amazon RDS database \(DB\) instance has AWS Identity and Access Management \(IAM\) database authentication activated\.
 + **Control objective: **Use strong authentication
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1609,7 +1898,7 @@ This control checks whether an Amazon RDS database \(DB\) instance has AWS Ident
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.7 rule specification](#ct-rds-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.7 example templates](#ct-rds-pr-7-templates) 
 
 **Explanation**
 
@@ -1791,12 +2080,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.7 example templates<a name="ct-rds-pr-7-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      EnableIAMDatabaseAuthentication: true
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      EnableIAMDatabaseAuthentication: false
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.8\] Require an Amazon RDS database instance to have automatic backups configured<a name="ct-rds-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon RDS database \(DB\) instances have automated backups enabled, and verifies that the backup retention period is greater than or equal to seven \(7\) days\.
 + **Control objective: **Improve resiliency
@@ -1807,7 +2153,7 @@ This control checks whether Amazon RDS database \(DB\) instances have automated 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.8 rule specification](#ct-rds-pr-8-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.8) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.8 example templates](#ct-rds-pr-8-templates) 
 
 **Explanation**
 
@@ -2005,12 +2351,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.8 example templates<a name="ct-rds-pr-8-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      BackupRetentionPeriod: 14
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      BackupRetentionPeriod: 4
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.9\] Require an Amazon RDS database cluster to copy tags to snapshots<a name="ct-rds-pr-9-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon RDS database \(DB\) cluster is configured to copy all tags to snapshots created\.
 + **Control objective: **Protect configurations
@@ -2318,11 +2721,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.10\] Require an Amazon RDS database instance to copy tags to snapshots<a name="ct-rds-pr-10-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon RDS database \(DB\) instances are configured to copy all tags to snapshots created\.
 + **Control objective: **Protect configurations
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -2332,7 +2730,7 @@ This control checks whether Amazon RDS database \(DB\) instances are configured 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.10 rule specification](#ct-rds-pr-10-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.10) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.10 example templates](#ct-rds-pr-10-templates) 
 
 **Explanation**
 
@@ -2522,12 +2920,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.10 example templates<a name="ct-rds-pr-10-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      CopyTagsToSnapshot: true
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      CopyTagsToSnapshot: false
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.11\] Require an Amazon RDS database instance to have a VPC configuration<a name="ct-rds-pr-11-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon RDS database \(DB\) instance is deployed in a VPC \(that is, with an EC2\-VPC instance\)\.
 + **Control objective: **Limit network access
@@ -2538,7 +2993,7 @@ This control checks whether an Amazon RDS database \(DB\) instance is deployed i
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.11 rule specification](#ct-rds-pr-11-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.11) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.11 example templates](#ct-rds-pr-11-templates) 
 
 **Explanation**
 
@@ -2765,12 +3220,102 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.RDS\.PR\.11 example templates<a name="ct-rds-pr-11-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.96.0/19
+      AvailabilityZone:
+        Fn::Select:
+        - '0'
+        - Fn::GetAZs: {Ref: 'AWS::Region'}
+      VpcId:
+        Ref: VPC
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.128.0/19
+      AvailabilityZone:
+        Fn::Select:
+        - '1'
+        - Fn::GetAZs: {Ref: 'AWS::Region'}
+      VpcId:
+        Ref: VPC
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Test DB subnet group
+      SubnetIds:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.12\] Require an Amazon RDS event subscription to have critical cluster events configured<a name="ct-rds-pr-12-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon RDS event subscriptions for RDS clusters are configured to notify on event categories of `maintenance` and `failure.`
 + **Control objective: **Protect configurations
@@ -2781,7 +3326,7 @@ This control checks whether your Amazon RDS event subscriptions for RDS clusters
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.12 rule specification](#ct-rds-pr-12-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.12) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.12 example templates](#ct-rds-pr-12-templates) 
 
 **Explanation**
 
@@ -3001,12 +3546,46 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.12 example templates<a name="ct-rds-pr-12-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      SourceType: db-cluster
+      Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      EventCategories:
+      - maintenance
+      - deletion
+      SourceType: db-cluster
+      Enabled: true
+```
+
 ## \[CT\.RDS\.PR\.13\] Require any Amazon RDS instance to have deletion protection configured<a name="ct-rds-pr-13-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Relational Database Service \(Amazon RDS\) instance has deletion protection activated\.
 + **Control objective: **Improve availability
@@ -3017,7 +3596,7 @@ This control checks whether an Amazon Relational Database Service \(Amazon RDS\)
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.13 rule specification](#ct-rds-pr-13-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.13) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.13 example templates](#ct-rds-pr-13-templates) 
 
 **Explanation**
 
@@ -3212,12 +3791,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.13 example templates<a name="ct-rds-pr-13-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      DeletionProtection: true
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      DeletionProtection: false
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.14\] Require an Amazon RDS database instance to have logging configured<a name="ct-rds-pr-14-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This rules checks whether Amazon Relational Database Service \(RDS\) instances have all available log types configured for export to Amazon CloudWatch Logs\.
 + **Control objective: **Establish logging and monitoring
@@ -3632,11 +4268,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.15\] Require that an Amazon RDS instance does not create DB security groups<a name="ct-rds-pr-15-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether any Amazon Relational Database Service \(RDS\) database \(DB\) security groups are created by, or associated to, an RDS DB instance, because DB security groups are intended for the EC2\-Classic platform only\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -3943,11 +4574,6 @@ Resources:
 ```
 
 ## \[CT\.RDS\.PR\.16\] Require an Amazon RDS database cluster to have encryption at rest configured<a name="ct-rds-pr-16-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether the storage encryption is configured on Amazon Relational Database Service \(RDS\) database \(DB\) clusters that are not being restored from an existing cluster\.
 + **Control objective: **Encrypt data at rest
@@ -4267,11 +4893,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.17\] Require an Amazon RDS event notification subscription to have critical database instance events configured<a name="ct-rds-pr-17-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon RDS event subscriptions for RDS instances are configured to notify on event categories of `maintenance`, `failure`, and `configuration change`\.
 + **Control objective: **Protect configurations
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -4281,7 +4902,7 @@ This control checks whether your Amazon RDS event subscriptions for RDS instance
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.17 rule specification](#ct-rds-pr-17-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.17) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.17 example templates](#ct-rds-pr-17-templates) 
 
 **Explanation**
 
@@ -4503,12 +5124,46 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.17 example templates<a name="ct-rds-pr-17-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      SourceType: db-instance
+      Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      EventCategories:
+      - maintenance
+      - failure
+      SourceType: db-instance
+      Enabled: true
+```
+
 ## \[CT\.RDS\.PR\.18\] Require an Amazon RDS event notification subscription to have critical database parameter group events configured<a name="ct-rds-pr-18-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon RDS event subscriptions for RDS parameter groups are configured to notify on event categories of `configuration change.`
 + **Control objective: **Protect configurations
@@ -4519,7 +5174,7 @@ This control checks whether your Amazon RDS event subscriptions for RDS paramete
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.18 rule specification](#ct-rds-pr-18-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.18) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.18 example templates](#ct-rds-pr-18-templates) 
 
 **Explanation**
 
@@ -4737,12 +5392,43 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.18 example templates<a name="ct-rds-pr-18-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      SourceType: db-parameter-group
+      Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      Enabled: false
+      SourceType: db-parameter-group
+```
+
 ## \[CT\.RDS\.PR\.19\] Require an Amazon RDS event notifications subscription to have critical database security group events configured<a name="ct-rds-pr-19-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon RDS event subscriptions for RDS security groups are configured to notify on event categories of `failure` and `configuration change`
 + **Control objective: **Protect configurations
@@ -4753,7 +5439,7 @@ This control checks whether your Amazon RDS event subscriptions for RDS security
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.19 rule specification](#ct-rds-pr-19-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.19) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.19 example templates](#ct-rds-pr-19-templates) 
 
 **Explanation**
 
@@ -4973,12 +5659,45 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.19 example templates<a name="ct-rds-pr-19-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      SourceType: db-security-group
+      Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: {}
+  RDSEventSubscription:
+    Type: AWS::RDS::EventSubscription
+    Properties:
+      SnsTopicArn:
+        Ref: SNSTopic
+      EventCategories:
+      - failure
+      SourceType: db-security-group
+      Enabled: true
+```
+
 ## \[CT\.RDS\.PR\.20\] Require an Amazon RDS database instance not to use a database engine default port<a name="ct-rds-pr-20-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Relational Database Service \(RDS\) database instances are configured for default database port for their specific engine types\.
 + **Control objective: **Limit network access
@@ -4989,7 +5708,7 @@ This control checks whether Amazon Relational Database Service \(RDS\) database 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.20 rule specification](#ct-rds-pr-20-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.20) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.20 example templates](#ct-rds-pr-20-templates) 
 
 **Explanation**
 
@@ -5274,12 +5993,69 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.20 example templates<a name="ct-rds-pr-20-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: mysql
+      EngineVersion: 5.7
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      Port: 6733
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS DB instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: mysql
+      EngineVersion: 5.7
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      Port: 3306
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.21\] Require an Amazon RDS DB cluster to have a unique administrator username<a name="ct-rds-pr-21-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Relational Database Service \(RDS\) database \(DB\) cluster has changed the administrator username from its default value\.
 + **Control objective: **Protect configurations
@@ -5568,11 +6344,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.22\] Require an Amazon RDS database instance to have a unique administrator username<a name="ct-rds-pr-22-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an Amazon Relational Database Service \(RDS\) database has changed the adminstrator username from its default value\.
 + **Control objective: **Protect configurations
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -5582,7 +6353,7 @@ This control checks whether an Amazon Relational Database Service \(RDS\) databa
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.22 rule specification](#ct-rds-pr-22-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.22) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.22 example templates](#ct-rds-pr-22-templates) 
 
 **Explanation**
 
@@ -5759,12 +6530,65 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.RDS\.PR\.22 example templates<a name="ct-rds-pr-22-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername: testUser
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Test RDS DB Instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "testUser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: '"@/\'
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername: postgres
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+    DeletionPolicy: Delete
+```
+
 ## \[CT\.RDS\.PR\.23\] Require an Amazon RDS database instance to not be publicly accessible<a name="ct-rds-pr-23-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This rule checks whether Amazon Relational Database Service \(RDS\) database \(DB\) instances are publicly accessible, as determined by checking the `PubliclyAccessible` configuration property\.
 + **Control objective: **Limit network access
@@ -6001,11 +6825,6 @@ Resources:
 
 ## \[CT\.RDS\.PR\.24\] Require an Amazon RDS database instance to have encryption at rest configured<a name="ct-rds-pr-24-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether storage encryption is enabled for your Amazon RDS database \(DB\) instance\.
 + **Control objective: **Encrypt data at rest
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -6015,7 +6834,7 @@ This control checks whether storage encryption is enabled for your Amazon RDS da
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.24 rule specification](#ct-rds-pr-24-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.RDS.PR.24) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.24 example templates](#ct-rds-pr-24-templates) 
 
 **Explanation**
 
@@ -6203,4 +7022,66 @@ rule is_cfn_template(doc) {
 rule is_cfn_hook(doc, RESOURCE_TYPE) {
     %doc.%RESOURCE_TYPE.resourceProperties exists
 }
+```
+
+### CT\.RDS\.PR\.24 example templates<a name="ct-rds-pr-24-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "exampleuser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: "/@\""
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      StorageEncrypted: true
+    DeletionPolicy: Delete
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: RDS instance secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "exampleuser"}'
+        GenerateStringKey: password
+        PasswordLength: 22
+        ExcludeCharacters: "/@\""
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      EngineVersion: 14.2
+      DBInstanceClass: db.m5.large
+      StorageType: gp2
+      AllocatedStorage: 5
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
+      StorageEncrypted: false
+    DeletionPolicy: Delete
 ```

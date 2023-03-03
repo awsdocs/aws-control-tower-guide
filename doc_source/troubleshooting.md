@@ -47,7 +47,7 @@ However, your landing zone update may fail\.
 
 **Steps to take**
 
-Sign in to the management account of your organization, and sign in as root user\. Your IAM user must have AWS Control Tower administrator permissions and be part of the **AWSControlTowerAdmins** group\. Then try the update again\.
+Sign in to the management account of your organization, and sign in as root user\. Your IAM user or user in IAM Identity Center must have AWS Control Tower administrator permissions and be part of the **AWSControlTowerAdmins** group\. Then try the update again\.
 
 ## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
@@ -58,7 +58,7 @@ Sign in to the management account of your organization, and sign in as root user
 + enabled SNS notifications,
 + enabled provisioned product notifications\.
 
-Try again to provision your account, without specifying any of those options\. For more information, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\.
+Try again to provision your account, without specifying any of those options\. For more information, see [Provision accounts with AWS Service Catalog Account Factory ](provision-as-end-user.md)\.
 
 **Other common causes for failure:**
 + If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.
@@ -107,7 +107,7 @@ The `Tainted` state causes a follow\-on issue: An account that is not updated ma
 **Action to take:**
 
 **If the account move was intended:**
-+ Terminate the account in AWS Service Catalog\.
++ Terminate the account in Service Catalog\.
 + Enroll it again\.
 + *Context/impact:* Deployed AWS Config rules don't match the configuration dictated by the destination OU\.
 +  AWS Config rules may remain from the previous OU, causing unintended spending\.
@@ -115,7 +115,7 @@ The `Tainted` state causes a follow\-on issue: An account that is not updated ma
 
 **If the account move was unintended:**
 + Return the account to its original OU\.
-+ Update the account from AWS Service Catalog\.
++ Update the account from Service Catalog\.
 + In the launch parameters, enter the OU that the account was originally in\.
 + *Context/impact:* If the account is not returned to its original OU, its state will be inconsistent with the controls dictated by the new OU it's in\.
 + Updating an account is not a valid remediation, because it does not delete the AWS Config rules associated with its previous OU\.
@@ -148,7 +148,9 @@ If AWS Config is enabled in any AWS Region supported by AWS Control Tower, you m
 + `AWS Control Tower cannot create an AWS Config delivery channel because one already exists. To continue, delete the existing delivery channel and try again .`
 + `AWS Control Tower cannot create an AWS Config configuration recorder because one already exists. To continue, delete the existing delivery channel and try again .`
 
-**Common cause:** When the AWS Config service is enabled on an AWS account, it creates a configuration recorder and delivery channel with a default naming\. If you disable the AWS Config service through the console, it does not delete the configuration recorder or the delivery channel\. You must delete them through the CLI\. If the AWS Config service is enabled in any one of the Regions supported by AWS Control Tower, it can result in this failure\.
+**Common cause:** When the AWS Config service is enabled on an AWS account, it creates a configuration recorder and delivery channel with a default naming\. If you disable the AWS Config service through the console, it does not delete the configuration recorder or the delivery channel\. You must delete them through the CLI, or modify them for AWS Control Tower use\. If the AWS Config service is enabled in any one of the Regions supported by AWS Control Tower, it can result in this failure\.
+
+If the account has existing AWS Config resources, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html) for instructions on how you can modify your existing resources\.
 
 **Action to take:** Delete the configuration recorder and delivery channel in all supported regions\. Disabling AWS Config is not enough, the configuration recorder and delivery channel must be deleted by means of the CLI\. After you’ve deleted the configuration recorder and delivery channel from the CLI, you can try again to launch AWS Control Tower and enroll the account\.
 

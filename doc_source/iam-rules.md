@@ -9,11 +9,6 @@
 
 ## \[CT\.IAM\.PR\.1\] Require that an AWS Identity and Access Management \(IAM\) inline policy does not have a statement that includes "\*" in the Action and Resource elements<a name="ct-iam-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks that AWS Identity and Access Management \(IAM\) inline policies do not include `Effect`: `Allow` with `Action`: `*` over `Resource`: `*`\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -491,11 +486,6 @@ Resources:
 
 ## \[CT\.IAM\.PR\.2\] Require that AWS Identity and Access Management \(IAM\) customer\-managed policies do not contain a statement that includes "\*" in the Action and Resource elements<a name="ct-iam-pr-2-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether AWS Identity and Access Management \(IAM\) customer managed policies do not include `Effect`: `Allow` with `Action`: `*` over `Resource`: `*`\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation guard rule
@@ -505,7 +495,7 @@ This control checks whether AWS Identity and Access Management \(IAM\) customer 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.IAM\.PR\.2 rule specification](#ct-iam-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.IAM.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.IAM\.PR\.2 example templates](#ct-iam-pr-2-templates) 
 
 **Explanation**
 
@@ -803,11 +793,6 @@ Resources:
 
 ## \[CT\.IAM\.PR\.3\] Require that AWS Identity and Access Management \(IAM\) customer\-managed policies do not have wildcard service actions<a name="ct-iam-pr-3-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks that AWS Identity and Access Management \(IAM\) customer\-managed policies do not contain statements of `Effect`: `Allow` with `Action`: `Service:*` \(for example, s3:\*\) for individual AWS services, and that the policies do not use the combination of `NotAction` with an `Effect` of `Allow`\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation guard rule
@@ -817,7 +802,7 @@ This control checks that AWS Identity and Access Management \(IAM\) customer\-ma
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.IAM\.PR\.3 rule specification](#ct-iam-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.IAM.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.IAM\.PR\.3 example templates](#ct-iam-pr-3-templates) 
 
 **Explanation**
 
@@ -1117,11 +1102,6 @@ Resources:
 ```
 
 ## \[CT\.IAM\.PR\.4\] Require that an AWS Identity and Access Management\(IAM\) user does not have an inline or managed policy attached<a name="ct-iam-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your AWS Identity and Access Management \(IAM\) user has inline or managed \(AWS and customer\) policies directly attached\. Instead, IAM users should inherit permissions from IAM groups or roles\.
 + **Control objective: **Enforce least privilege
@@ -1452,11 +1432,6 @@ Resources:
 
 ## \[CT\.IAM\.PR\.5\] Require that AWS Identity and Access Management \(IAM\) inline policies do not have wildcard service actions<a name="ct-iam-pr-5-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether AWS Identity and Access Management \(IAM\) inline policies do not include `Effect`: `Allow` with `Action`: `Service:*` \(e\.g\. s3:\*\) for individual AWS services or use the combination of `NotAction` with an `Effect` of `Allow`\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation guard rule
@@ -1466,7 +1441,7 @@ This control checks whether AWS Identity and Access Management \(IAM\) inline po
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.IAM\.PR\.5 rule specification](#ct-iam-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.IAM.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.IAM\.PR\.5 example templates](#ct-iam-pr-5-templates) 
 
 **Explanation**
 

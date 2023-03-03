@@ -45,8 +45,8 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Organizations | Accounts | audit log archive | 
 | AWS Organizations | OUs | Security Sandbox | 
 | AWS Organizations | Service Control Policies | aws\-guardrails\-\*  | 
-| AWS CloudFormation | Stacks | AWSControlTowerBP\-BASELINE\-CLOUDTRAIL\-MASTER | 
-| AWS CloudFormation | StackSets |  AWSControlTowerBP\-BASELINE\-CLOUDTRAIL AWSControlTowerBP\-BASELINE\-CLOUDWATCH AWSControlTowerBP\-BASELINE\-CONFIG AWSControlTowerBP\-BASELINE\-CONFIG\-MASTER \(in version 2\.6 and later\) AWSControlTowerBP\-BASELINE\-ROLES AWSControlTowerBP\-BASELINE\-SERVICE\-ROLES AWSControlTowerBP\-SECURITY\-TOPICS AWSControlTowerGuardrailAWS\-GR\-AUDIT\-BUCKET\-PUBLIC\-READ\-PROHIBITED AWSControlTowerGuardrailAWS\-GR\-AUDIT\-BUCKET\-PUBLIC\-WRITE\-PROHIBITED AWSControlTowerLoggingResources AWSControlTowerSecurityResources AWSControlTowerExecutionRole  | 
+| AWS CloudFormation | Stacks | AWSControlTowerBP\-BASELINE\-CLOUDTRAIL\-MASTER AWSControlTowerBP\-BASELINE\-CONFIG\-MASTER \(in version 2\.6 and later\) | 
+| AWS CloudFormation | StackSets |  AWSControlTowerBP\-BASELINE\-CLOUDTRAIL \(Not deployed in 3\.0 and later\) AWSControlTowerBP\-BASELINE\-CLOUDWATCH AWSControlTowerBP\-BASELINE\-CONFIG AWSControlTowerBP\-BASELINE\-ROLES AWSControlTowerBP\-BASELINE\-SERVICE\-ROLES AWSControlTowerBP\-SECURITY\-TOPICS AWSControlTowerGuardrailAWS\-GR\-AUDIT\-BUCKET\-PUBLIC\-READ\-PROHIBITED AWSControlTowerGuardrailAWS\-GR\-AUDIT\-BUCKET\-PUBLIC\-WRITE\-PROHIBITED AWSControlTowerLoggingResources AWSControlTowerSecurityResources AWSControlTowerExecutionRole  | 
 | AWS Service Catalog | Product | AWS Control Tower Account Factory | 
 | AWS Config | Aggregator | aws\-controltower\-ConfigAggregatorForOrganizations | 
 | AWS CloudTrail | Trail | aws\-controltower\-BaselineCloudTrail | 
@@ -55,6 +55,9 @@ When you set up your landing zone, the following AWS resources are created withi
 | AWS Identity and Access Management | Policies | AWSControlTowerServiceRolePolicy AWSControlTowerAdminPolicy AWSControlTowerCloudTrailRolePolicy AWSControlTowerStackSetRolePolicy | 
 | AWS IAM Identity Center \(successor to AWS Single Sign\-On\) | Directory groups | AWSAccountFactory AWSAuditAccountAdmins AWSControlTowerAdmins AWSLogArchiveAdmins AWSLogArchiveViewers AWSSecurityAuditors AWSSecurityAuditPowerUsers AWSServiceCatalogAdmins  | 
 | AWS IAM Identity Center \(successor to AWS Single Sign\-On\) | Permission Sets | AWSAdministratorAccess AWSPowerUserAccess AWSServiceCatalogAdminFullAccess AWSServiceCatalogEndUserAccess AWSReadOnlyAccess AWSOrganizationsFullAccess  | 
+
+**Note**  
+The AWS CloudFormation StackSet `BP_BASELINE_CLOUDTRAIL` is not deployed in landing zone versions 3\.0 or later\. However, it continues to exist in earlier versions of the landing zone, until you update your landing zone\.
 
 ### What is the log archive account?<a name="what-is-log-archive"></a>
 

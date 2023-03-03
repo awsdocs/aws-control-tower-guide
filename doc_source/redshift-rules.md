@@ -11,11 +11,6 @@
 
 ## \[CT\.REDSHIFT\.PR\.1\] Require an Amazon Redshift cluster to prohibit public access<a name="ct-redshift-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon Redshift clusters are configured to prohibit public access\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -25,7 +20,7 @@ This control checks whether Amazon Redshift clusters are configured to prohibit 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.1 rule specification](#ct-redshift-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.1 example templates](#ct-redshift-pr-1-templates) 
 
 **Explanation**
 
@@ -182,12 +177,63 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.REDSHIFT\.PR\.1 example templates<a name="ct-redshift-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: true
+```
+
 ## \[CT\.REDSHIFT\.PR\.2\] Require an Amazon Redshift cluster to have automatic snapshots configured<a name="ct-redshift-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon Redshift clusters have automated snapshots enabled, and that the clusters are set with an automated snapshot retention period greater than or equal to seven \(7\) days\.
 + **Control objective: **Improve resiliency
@@ -198,7 +244,7 @@ This control checks whether Amazon Redshift clusters have automated snapshots en
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.2 rule specification](#ct-redshift-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.2 example templates](#ct-redshift-pr-2-templates) 
 
 **Explanation**
 
@@ -359,12 +405,65 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.REDSHIFT\.PR\.2 example templates<a name="ct-redshift-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      AutomatedSnapshotRetentionPeriod: 7
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      AutomatedSnapshotRetentionPeriod: 5
+```
+
 ## \[CT\.REDSHIFT\.PR\.3\] Require an Amazon Redshift cluster to have audit logging configured<a name="ct-redshift-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Redshift cluster has audit logging activated\.
 + **Control objective: **Establish logging and monitoring
@@ -665,11 +764,6 @@ Resources:
 
 ## \[CT\.REDSHIFT\.PR\.4\] Require an Amazon Redshift cluster to have automatic upgrades to major versions configured<a name="ct-redshift-pr-4-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether automatic major version upgrades are enabled for your Amazon Redshift cluster\.
 + **Control objective: **Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -679,7 +773,7 @@ This control checks whether automatic major version upgrades are enabled for you
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.4 rule specification](#ct-redshift-pr-4-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.4) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.4 example templates](#ct-redshift-pr-4-templates) 
 
 **Explanation**
 
@@ -874,12 +968,64 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.REDSHIFT\.PR\.4 example templates<a name="ct-redshift-pr-4-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      AllowVersionUpgrade: false
+```
+
 ## \[CT\.REDSHIFT\.PR\.5\] Require an Amazon Redshift cluster to have enhanced VPC routing<a name="ct-redshift-pr-5-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Redshift cluster has enhanced VPC routing configured\.
 + **Control objective: **Limit network access
@@ -890,7 +1036,7 @@ This control checks whether an Amazon Redshift cluster has enhanced VPC routing 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.5 rule specification](#ct-redshift-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.5 example templates](#ct-redshift-pr-5-templates) 
 
 **Explanation**
 
@@ -1045,12 +1191,65 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.REDSHIFT\.PR\.5 example templates<a name="ct-redshift-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      EnhancedVpcRouting: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      EnhancedVpcRouting: false
+```
+
 ## \[CT\.REDSHIFT\.PR\.6\] Require an Amazon Redshift cluster to have a unique administrator username<a name="ct-redshift-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Redshift cluster has changed the administrator username from its default value\.
 + **Control objective: **Protect configurations
@@ -1061,7 +1260,7 @@ This control checks whether an Amazon Redshift cluster has changed the administr
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.6 rule specification](#ct-redshift-pr-6-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.6) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.6 example templates](#ct-redshift-pr-6-templates) 
 
 **Explanation**
 
@@ -1221,12 +1420,61 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.REDSHIFT\.PR\.6 example templates<a name="ct-redshift-pr-6-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername: examplemasterusername
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "awsuser"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: exampledb
+      MasterUsername: awsuser
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+```
+
 ## \[CT\.REDSHIFT\.PR\.7\] Require an Amazon Redshift cluster to have a unique database name<a name="ct-redshift-pr-7-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon Redshift cluster has changed its database name from the default value\.
 + **Control objective: **Use strong authentication
@@ -1237,7 +1485,7 @@ This control checks whether an Amazon Redshift cluster has changed its database 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.REDSHIFT\.PR\.7 rule specification](#ct-redshift-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.REDSHIFT.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.REDSHIFT\.PR\.7 example templates](#ct-redshift-pr-7-templates) 
 
 **Explanation**
 
@@ -1398,4 +1646,60 @@ rule check_is_string_and_not_empty(value) {
         this != /\A\s*\z/
     }
 }
+```
+
+### CT\.REDSHIFT\.PR\.7 example templates<a name="ct-redshift-pr-7-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: "single-node"
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      DBName: exampledb
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  RedshiftSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: Redshift cluster secret
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "examplemasterusername"}'
+        GenerateStringKey: password
+        PasswordLength: 16
+        ExcludeCharacters: "'\"@/\\"
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: "single-node"
+      MasterUsername:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::username}}'
+      MasterUserPassword:
+        Fn::Sub: '{{resolve:secretsmanager:${RedshiftSecret}::password}}'
+      NodeType: dc2.large
+      PubliclyAccessible: false
+      DBName: dev
 ```

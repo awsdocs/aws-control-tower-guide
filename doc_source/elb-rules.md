@@ -2,6 +2,7 @@
 
 **Topics**
 + [\[CCT\.ELASTICLOADBALANCING\.PR\.1\] Require any application load balancer listener default actions to redirect all HTTP requests to HTTPS](#ct-elasticloadbalancing-pr-1-description)
++ [\[CT\.ELASTICLOADBALANCING\.PR\.2\] Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate](#ct-elasticloadbalancing-pr-2-description)
 + [\[CT\.ELASTICLOADBALANCING\.PR\.3\] Require any application load balancer to have defensive or strictest desync mitigation mode activated](#ct-elasticloadbalancing-pr-3-description)
 + [\[CT\.ELASTICLOADBALANCING\.PR\.4\] Require that any application load balancer must be configured to drop HTTP headers](#ct-elasticloadbalancing-pr-4-description)
 + [\[CT\.ELASTICLOADBALANCING\.PR\.5\] Require that application load balancer deletion protection is activated](#ct-elasticloadbalancing-pr-5-description)
@@ -16,11 +17,6 @@
 
 ## \[CCT\.ELASTICLOADBALANCING\.PR\.1\] Require any application load balancer listener default actions to redirect all HTTP requests to HTTPS<a name="ct-elasticloadbalancing-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether HTTP to HTTPS redirection is configured as a default action on HTTP listeners of Application Load Balancers\.
 + **Control objective: **Encrypt data in transit
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -30,7 +26,7 @@ This control checks whether HTTP to HTTPS redirection is configured as a default
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.1 rule specification](#ct-elasticloadbalancing-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.1 example templates](#ct-elasticloadbalancing-pr-1-templates) 
 
 **Explanation**
 
@@ -231,12 +227,567 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.1 example templates<a name="ct-elasticloadbalancing-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn:
+        Ref: ApplicationLoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+      - Type: redirect
+        RedirectConfig:
+          Protocol: HTTPS
+          Port: 443
+          Host: "#{host}"
+          Path: "/#{path}"
+          Query: "#{query}"
+          StatusCode: "HTTP_301"
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn:
+        Ref: ApplicationLoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+      - Type: redirect
+        RedirectConfig:
+          Protocol: HTTP
+          Port: 8080
+          Host: "#{host}"
+          Path: "/#{path}"
+          Query: "#{query}"
+          StatusCode: "HTTP_301"
+```
+
+## \[CT\.ELASTICLOADBALANCING\.PR\.2\] Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate<a name="ct-elasticloadbalancing-pr-2-description"></a>
+
+This control checks whether your Elastic Load Balancing \(ELB\) application and network load balancers use certificates provided by AWS Certificate Manager \(ACM\)\.
++ **Control objective: **Encrypt data in transit
++ **Implementation: **AWS CloudFormation Guard Rule
++ **Control behavior: **Proactive
++ **Resource types: **`AWS::ElasticLoadBalancingV2::Listener`, `AWS::ElasticLoadBalancingV2::ListenerCertificate`
++ **AWS CloudFormation guard rule: ** [CT\.ELASTICLOADBALANCING\.PR\.2 rule specification](#ct-elasticloadbalancing-pr-2-rule) 
+
+**Details and examples**
++ For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.2 rule specification](#ct-elasticloadbalancing-pr-2-rule) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.2 example templates](#ct-elasticloadbalancing-pr-2-templates) 
+
+**Explanation**
+
+To create a certificate, use AWS Certificate Manager \(ACM\) or another tool that supports the SSL and TLS protocols, such as OpenSSL\. AWS Control Tower recommends that you use AWS Certificate Manager to create or import certificates for your load balancer\.
+
+AWS Certificate Manager integrates with Amazon ELB application load balancers and network load balancers, so that you can deploy the certificate on your load balancer\. We also recommend that you automatically renew these certificates\.
+
+**Usage considerations**  
+This control applies only to `HTTPS` and `TLS` Amazon ELB listeners and ELB listener certificate resources that have one or more certificates configured\.
+
+### Remediation for rule failure<a name="ct-elasticloadbalancing-pr-2-remediation"></a>
+
+Configure the `Certificates` property to use certificates provided by AWS Certificate Manager\.
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon ELB Listener \- Example<a name="ct-elasticloadbalancing-pr-2-remediation-1"></a>
+
+Amazon ELB HTTPS listener configured with an AWS Certificate Manager SSL certificate\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "ELBListener": {
+        "Type": "AWS::ElasticLoadBalancingV2::Listener",
+        "Properties": {
+            "DefaultActions": [
+                {
+                    "Type": "forward",
+                    "TargetGroupArn": {
+                        "Ref": "TargetGroup"
+                    }
+                }
+            ],
+            "LoadBalancerArn": {
+                "Ref": "ApplicationLoadBalancer"
+            },
+            "Protocol": "HTTPS",
+            "Certificates": [
+                {
+                    "CertificateArn": {
+                        "Ref": "ACMCertificate"
+                    }
+                }
+            ],
+            "Port": 443
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+ELBListener:
+  Type: AWS::ElasticLoadBalancingV2::Listener
+  Properties:
+    DefaultActions:
+      - Type: forward
+        TargetGroupArn: !Ref 'TargetGroup'
+    LoadBalancerArn: !Ref 'ApplicationLoadBalancer'
+    Protocol: HTTPS
+    Certificates:
+      - CertificateArn: !Ref 'ACMCertificate'
+    Port: 443
+```
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon ELB Listener Certificate \- Example<a name="ct-elasticloadbalancing-pr-2-remediation-2"></a>
+
+Amazon ELB listener certificate configured with an AWS Certificate Manager SSL certificate\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "ELBListenerCertificate": {
+        "Type": "AWS::ElasticLoadBalancingV2::ListenerCertificate",
+        "Properties": {
+            "ListenerArn": {
+                "Ref": "Listener"
+            },
+            "Certificates": [
+                {
+                    "CertificateArn": {
+                        "Ref": "ACMCertificate"
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+ELBListenerCertificate:
+  Type: AWS::ElasticLoadBalancingV2::ListenerCertificate
+  Properties:
+    ListenerArn: !Ref 'Listener'
+    Certificates:
+      - CertificateArn: !Ref 'ACMCertificate'
+```
+
+### CT\.ELASTICLOADBALANCING\.PR\.2 rule specification<a name="ct-elasticloadbalancing-pr-2-rule"></a>
+
+```
+# ###################################
+##       Rule Specification        ##
+#####################################
+# 
+# Rule Identifier:
+#   elbv2_acm_certificate_required_check
+# 
+# Description:
+#   This control checks whether your Elastic Load Balancing (ELB) application and network load balancers use certificates provided by AWS Certificate Manager (ACM).
+# 
+# Reports on:
+#   AWS::ElasticLoadBalancingV2::Listener, AWS::ElasticLoadBalancingV2::ListenerCertificate
+# 
+# Evaluates:
+#   AWS CloudFormation, AWS CloudFormation hook
+# 
+# Rule Parameters:
+#   None
+# 
+# Scenarios:
+#   Scenario: 1
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document does not contain any ElasticLoadBalancingV2 listener or listener certificate resources
+#      Then: SKIP
+#   Scenario: 2
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener resource
+#       And: 'Protocol' is set to a value other than 'HTTPS' or 'TLS'
+#      Then: SKIP
+#   Scenario: 3
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener certificate resource
+#       And: 'Certificates' has not been provided or has been provided as an empty list
+#      Then: SKIP
+#   Scenario: 4
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener resource
+#       And: 'Protocol' is set to 'HTTPS' or 'TLS'
+#       And: 'Certificates' has not been provided or has been provided as an empty list
+#      Then: FAIL
+#   Scenario: 5
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener resource
+#       And: 'Protocol' is set to 'HTTPS' or 'TLS'
+#       And: One or more items in 'Certificates' do not match an ACM certificate ARN
+#      Then: FAIL
+#   Scenario: 6
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener certificate resource
+#       And: One or more items in 'Certificates' do not match an ACM certificate ARN
+#      Then: FAIL
+#   Scenario: 7
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener resource
+#       And: 'Protocol' is set to 'HTTPS' or 'TLS'
+#       And: All items in 'Certificates' match an ACM certificate ARN
+#      Then: PASS
+#   Scenario: 8
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancingV2 listener certificate resource
+#       And: All items in 'Certificates' match an ACM certificate ARN
+#      Then: PASS
+
+#
+# Constants
+#
+let ELASTIC_LOAD_BALANCER_V2_LISTENER_TYPE = "AWS::ElasticLoadBalancingV2::Listener"
+let ELASTIC_LOAD_BALANCER_V2_CERTIFICATE_TYPE = "AWS::ElasticLoadBalancingV2::ListenerCertificate"
+let ACM_CERTIFICATE_ARN_PATTERN = /arn:aws[a-z0-9\-]*:acm:[a-z0-9\-]+:\d{12}:certificate\/[\w\-]{1,64}/
+let INPUT_DOCUMENT = this
+
+#
+# Assignments
+#
+let elb_v2_listeners = Resources.*[ Type == %ELASTIC_LOAD_BALANCER_V2_LISTENER_TYPE ]
+let elb_v2_certificates = Resources.*[ Type == %ELASTIC_LOAD_BALANCER_V2_CERTIFICATE_TYPE ]
+
+#
+# Primary Rules
+#
+rule elbv2_acm_certificate_required_check when is_cfn_template(%INPUT_DOCUMENT)
+                                               %elb_v2_listeners not empty {
+    check_listener(%elb_v2_listeners.Properties)
+        <<
+        [CT.ELASTICLOADBALANCING.PR.2]: Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate
+            [FIX]: Configure the 'Certificates' property to use certificates provided by AWS Certificate Manager.
+        >>
+}
+
+rule elbv2_acm_certificate_required_check when is_cfn_hook(%INPUT_DOCUMENT, %ELASTIC_LOAD_BALANCER_V2_LISTENER_TYPE) {
+    check_listener(%INPUT_DOCUMENT.%ELASTIC_LOAD_BALANCER_V2_LISTENER_TYPE.resourceProperties)
+        <<
+        [CT.ELASTICLOADBALANCING.PR.2]: Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate
+            [FIX]: Configure the 'Certificates' property to use certificates provided by AWS Certificate Manager.
+        >>
+}
+
+rule elbv2_acm_certificate_required_check when is_cfn_template(%INPUT_DOCUMENT)
+                                               %elb_v2_certificates not empty {
+    check_elbv2_listener_certificate(%elb_v2_certificates.Properties)
+        <<
+        [CT.ELASTICLOADBALANCING.PR.2]: Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate
+            [FIX]: Configure the 'Certificates' property to use certificates provided by AWS Certificate Manager.
+        >>
+}
+
+rule elbv2_acm_certificate_required_check when is_cfn_hook(%INPUT_DOCUMENT, %ELASTIC_LOAD_BALANCER_V2_CERTIFICATE_TYPE) {
+    check_elbv2_listener_certificate(%INPUT_DOCUMENT.%ELASTIC_LOAD_BALANCER_V2_CERTIFICATE_TYPE.resourceProperties)
+        <<
+        [CT.ELASTICLOADBALANCING.PR.2]: Require any Amazon ELB application or network load balancer to have an AWS Certificate Manager certificate
+            [FIX]: Configure the 'Certificates' property to use certificates provided by AWS Certificate Manager.
+        >>
+}
+
+#
+# Parameterized Rules
+#
+rule check_listener(elbv2_listener) {
+    %elbv2_listener[
+        # Scenario 2
+        Protocol in ["HTTPS", "TLS"]
+    ] {
+        # Scenarios 3 and 5
+        Certificates exists
+        Certificates is_list
+        Certificates not empty
+        Certificates[*] {
+            CertificateArn exists
+            check_is_acm_certificate(CertificateArn)
+        }
+    }
+}
+
+rule check_elbv2_listener_certificate(listener_certificate) {
+    %listener_certificate[
+        Certificates exists
+        Certificates is_list
+        Certificates not empty
+    ] {
+        # Scenarios 4 and 6
+        Certificates[*] {
+            CertificateArn exists
+            check_is_acm_certificate(CertificateArn)
+        }
+    }
+}
+
+rule check_is_acm_certificate(certificate) {
+    %certificate {
+        this == %ACM_CERTIFICATE_ARN_PATTERN or
+        check_local_references(%INPUT_DOCUMENT, this, "AWS::CertificateManager::Certificate")
+    }
+}
+
+#
+# Utility Rules
+#
+rule is_cfn_template(doc) {
+    %doc {
+        AWSTemplateFormatVersion exists  or
+        Resources exists
+    }
+}
+
+rule is_cfn_hook(doc, RESOURCE_TYPE) {
+    %doc.%RESOURCE_TYPE.resourceProperties exists
+}
+
+rule check_local_references(doc, reference_properties, referenced_resource_type) {
+    %reference_properties {
+        'Fn::GetAtt' {
+            query_for_resource(%doc, this[0], %referenced_resource_type)
+                <<Local Stack reference was invalid>>
+        } or Ref {
+            query_for_resource(%doc, this, %referenced_resource_type)
+                <<Local Stack reference was invalid>>
+        }
+    }
+}
+
+rule query_for_resource(doc, resource_key, referenced_resource_type) {
+    let referenced_resource = %doc.Resources[ keys == %resource_key ]
+    %referenced_resource not empty
+    %referenced_resource {
+        Type == %referenced_resource_type
+    }
+}
+```
+
+### CT\.ELASTICLOADBALANCING\.PR\.2 example templates<a name="ct-elasticloadbalancing-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Protocol: HTTP
+      Port: 80
+      VpcId:
+        Ref: VPC
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+      - Type: forward
+        TargetGroupArn:
+          Ref: TargetGroup
+      LoadBalancerArn:
+        Ref: ApplicationLoadBalancer
+      Protocol: HTTPS
+      Certificates:
+      - CertificateArn:
+          Ref: ACMCertificate
+      Port: 443
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Protocol: HTTP
+      Port: 80
+      VpcId:
+        Ref: VPC
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+      - Type: forward
+        TargetGroupArn:
+          Ref: TargetGroup
+      LoadBalancerArn:
+        Ref: ApplicationLoadBalancer
+      Protocol: HTTPS
+      Certificates:
+      - CertificateArn: arn:aws:iam::123456789012:server-certificate/example-certificate
+      Port: 443
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.3\] Require any application load balancer to have defensive or strictest desync mitigation mode activated<a name="ct-elasticloadbalancing-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks to ensure that an Application Load Balancer is configured with `defensive` or `strictest` desync mitigation mode\.
 + **Control objective: **Protect data integrity
@@ -247,7 +798,7 @@ This control checks to ensure that an Application Load Balancer is configured wi
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.3 rule specification](#ct-elasticloadbalancing-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.3 example templates](#ct-elasticloadbalancing-pr-3-templates) 
 
 **Explanation**
 
@@ -495,12 +1046,99 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.3 example templates<a name="ct-elasticloadbalancing-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      Type: application
+      LoadBalancerAttributes:
+      - Key: routing.http.desync_mitigation_mode
+        Value: strictest
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      Type: application
+      LoadBalancerAttributes:
+      - Key: routing.http.desync_mitigation_mode
+        Value: monitor
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.4\] Require that any application load balancer must be configured to drop HTTP headers<a name="ct-elasticloadbalancing-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Application Load Balancers are configured to drop non\-valid HTTP headers\.
 + **Control objective: **Protect configurations
@@ -511,7 +1149,7 @@ This control checks whether Application Load Balancers are configured to drop no
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.4 rule specification](#ct-elasticloadbalancing-pr-4-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.4) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.4 example templates](#ct-elasticloadbalancing-pr-4-templates) 
 
 **Explanation**
 
@@ -704,12 +1342,99 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.4 example templates<a name="ct-elasticloadbalancing-pr-4-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Type: application
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      LoadBalancerAttributes:
+      - Key: routing.http.drop_invalid_header_fields.enabled
+        Value: "true"
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Type: application
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      LoadBalancerAttributes:
+      - Key: routing.http.drop_invalid_header_fields.enabled
+        Value: "false"
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.5\] Require that application load balancer deletion protection is activated<a name="ct-elasticloadbalancing-pr-5-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 Checks whether Elastic Load Balancing \(ELB\) has deletion protection activated\.
 + **Control objective: **Improve availability
@@ -720,7 +1445,7 @@ Checks whether Elastic Load Balancing \(ELB\) has deletion protection activated\
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.5 rule specification](#ct-elasticloadbalancing-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.5 example templates](#ct-elasticloadbalancing-pr-5-templates) 
 
 **Explanation**
 
@@ -902,12 +1627,99 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.5 example templates<a name="ct-elasticloadbalancing-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Type: application
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      LoadBalancerAttributes:
+      - Key: deletion_protection.enabled
+        Value: "true"
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Type: application
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      LoadBalancerAttributes:
+      - Key: deletion_protection.enabled
+        Value: "false"
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.6\] Require that application and network load balancer access logging is activated<a name="ct-elasticloadbalancing-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Elastic Load Balancing \(ELB\) application and network load balancers have logging activated\.
 + **Control objective: **Establish logging and monitoring
@@ -918,7 +1730,7 @@ This control checks whether your Elastic Load Balancing \(ELB\) application and 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.6 rule specification](#ct-elasticloadbalancing-pr-6-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.6) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.6 example templates](#ct-elasticloadbalancing-pr-6-templates) 
 
 **Explanation**
 
@@ -1225,12 +2037,223 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.6 example templates<a name="ct-elasticloadbalancing-pr-6-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Mappings:
+  RegionToELBAccountId:
+    us-east-1:
+      AccountId: '127311923021'
+    us-west-1:
+      AccountId: '027434742980'
+    us-west-2:
+      AccountId: '797873946194'
+    ca-central-1:
+      AccountId: '985666609251'
+    eu-west-1:
+      AccountId: '156460612806'
+    ap-northeast-1:
+      AccountId: '582318560864'
+    ap-northeast-2:
+      AccountId: '600734575887'
+    ap-southeast-1:
+      AccountId: '114774131450'
+    ap-southeast-2:
+      AccountId: '783225319266'
+    ap-south-1:
+      AccountId: '718504428378'
+    us-east-2:
+      AccountId: '033677994240'
+    sa-east-1:
+      AccountId: '507241528517'
+    eu-central-1:
+      AccountId: '054676820928'
+    af-south-1:
+      AccountId: '098369216593'
+    ap-east-1:
+      AccountId: '754344448648'
+    ap-southeast-3:
+      AccountId: '589379963580'
+    ap-northeast-3:
+      AccountId: '383597477331'
+    eu-west-2:
+      AccountId: '652711504416'
+    eu-south-1:
+      AccountId: '635631232127'
+    eu-west-3:
+      AccountId: '009996457667'
+    eu-north-1:
+      AccountId: '897822967062'
+    me-south-1:
+      AccountId: '076674570225'
+    us-gov-west-1:
+      AccountId: '048591011584'
+    us-gov-east-1:
+      AccountId: '190560391635'
+  RegionToARNPrefix:
+    us-east-1:
+      ARNPrefix: 'arn:aws:'
+    us-west-1:
+      ARNPrefix: 'arn:aws:'
+    us-west-2:
+      ARNPrefix: 'arn:aws:'
+    ca-central-1:
+      ARNPrefix: 'arn:aws:'
+    eu-west-1:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-1:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-2:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-1:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-2:
+      ARNPrefix: 'arn:aws:'
+    ap-south-1:
+      ARNPrefix: 'arn:aws:'
+    us-east-2:
+      ARNPrefix: 'arn:aws:'
+    sa-east-1:
+      ARNPrefix: 'arn:aws:'
+    eu-central-1:
+      ARNPrefix: 'arn:aws:'
+    af-south-1:
+      ARNPrefix: 'arn:aws:'
+    ap-east-1:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-3:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-3:
+      ARNPrefix: 'arn:aws:'
+    eu-west-2:
+      ARNPrefix: 'arn:aws:'
+    eu-south-1:
+      ARNPrefix: 'arn:aws:'
+    eu-west-3:
+      ARNPrefix: 'arn:aws:'
+    eu-north-1:
+      ARNPrefix: 'arn:aws:'
+    me-south-1:
+      ARNPrefix: 'arn:aws:'
+    us-gov-west-1:
+      ARNPrefix: 'arn:aws-us-gov:'
+    us-gov-east-1:
+      ARNPrefix: 'arn:aws-us-gov:'
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - Fn::FindInMap: [RegionToARNPrefix, !Ref 'AWS::Region', ARNPrefix]
+                  - 's3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              AWS: 
+                Fn::FindInMap: [RegionToELBAccountId, !Ref 'AWS::Region', AccountId]
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      Type: application
+      LoadBalancerAttributes:
+      - Key: access_logs.s3.enabled
+        Value: true
+      - Key: access_logs.s3.bucket
+        Value:
+          Ref: LoggingBucket
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      IpAddressType: ipv4
+      Type: application
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.7\] Require any classic load balancer to have multiple Availability Zones configured<a name="ct-elasticloadbalancing-pr-7-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Elastic Load Balancing \(ELB\) classic load balancer has been configured with multiple Availability Zones\.
 + **Control objective: **Improve availability
@@ -1241,7 +2264,7 @@ This control checks whether an Elastic Load Balancing \(ELB\) classic load balan
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.7 rule specification](#ct-elasticloadbalancing-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.7 example templates](#ct-elasticloadbalancing-pr-7-templates) 
 
 **Explanation**
 
@@ -1574,12 +2597,83 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.7 example templates<a name="ct-elasticloadbalancing-pr-7-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internet-facing
+      Listeners:
+      - Protocol: HTTPS
+        InstancePort: '80'
+        InstanceProtocol: HTTP
+        LoadBalancerPort: '443'
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+        SSLCertificateId:
+          Ref: ACMCertificate
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      AvailabilityZones:
+      - Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      - Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+      Subnets:
+      - Ref: Subnet
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.8\] Require any classic load balancer SSL/HTTPS listener to have a certificate provided by AWS Certificate Manager<a name="ct-elasticloadbalancing-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether classic load balancers use HTTPS/SSL certificates provided by AWS Certificate Manager\.
 + **Control objective: **Encrypt data in transit
@@ -1590,7 +2684,7 @@ This control checks whether classic load balancers use HTTPS/SSL certificates pr
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.8 rule specification](#ct-elasticloadbalancing-pr-8-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.8) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.8 example templates](#ct-elasticloadbalancing-pr-8-templates) 
 
 **Explanation**
 
@@ -1832,12 +2926,126 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.8 example templates<a name="ct-elasticloadbalancing-pr-8-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      Listeners:
+      - InstancePort: '80'
+        InstanceProtocol: HTTP
+        LoadBalancerPort: '443'
+        Protocol: HTTPS
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+        SSLCertificateId:
+          Ref: ACMCertificate
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      Listeners:
+      - InstancePort: '80'
+        InstanceProtocol: HTTP
+        LoadBalancerPort: '443'
+        Protocol: HTTPS
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+        SSLCertificateId: arn:aws:iam::123456789012:server-certificate/example-certificate
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.9\] Require that an AWS ELB Application or Classic Load Balancer listener is configured with HTTPS or TLS termination<a name="ct-elasticloadbalancing-pr-9-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Elastic Load Balancing \(ELB\) Classic Load Balancer front\-end listeners are configured with HTTPS or SSL protocols\.
 + **Control objective: **Encrypt data in transit
@@ -1848,7 +3056,7 @@ This control checks whether your Elastic Load Balancing \(ELB\) Classic Load Bal
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.9 rule specification](#ct-elasticloadbalancing-pr-9-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.9) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.9 example templates](#ct-elasticloadbalancing-pr-9-templates) 
 
 **Explanation**
 
@@ -1862,7 +3070,7 @@ The examples that follow show how to implement this remediation\.
 
 #### Classic Load Balancer \- Example One<a name="ct-elasticloadbalancing-pr-9-remediation-1"></a>
 
-Classic Load Balancer configured with an HTTPS listener\. The example is shown in JSON and in YAML\.
+Classic Load Balancer configured with an HTTPS Listener\. The example is shown in JSON and in YAML\.
 
 **JSON example**
 
@@ -1912,7 +3120,7 @@ The examples that follow show how to implement this remediation\.
 
 #### Classic Load Balancer \- Example Two<a name="ct-elasticloadbalancing-pr-9-remediation-2"></a>
 
-Classic Load Balancer configured with an SSL listener\. The example is shown in JSON and in YAML\.
+Classic Load Balancer configured with an SSL Listener\. The example is shown in JSON and in YAML\.
 
 **JSON example**
 
@@ -1982,22 +3190,22 @@ LoadBalancer:
 # 
 # Scenarios:
 #   Scenario: 1
-#     Given: The input document is an AWS CloudFormation or CloudFormation hook document
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
 #       And: The input document does not contain any Elastic Load Balancing LoadBalancer resources
 #      Then: SKIP
 #   Scenario: 2
-#     Given: The input document is an AWS CloudFormation or CloudFormation hook document
-#       And: The input document contains an Elastic Load Balancing LoadBalancer resource
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancing LoadBalancer resource
 #       And: 'Listeners' has not been provided or is provided with a value of an empty list
 #      Then: FAIL
 #   Scenario: 3
-#     Given: The input document is an AWS CloudFormation or CloudFormation hook document
-#       And: The input document contains an Elastic Load Balancing LoadBalancer resource
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancing LoadBalancer resource
 #       And: 'Protocol' on LoadBalancer 'Listeners' is not set to 'HTTPS' or 'SSL'
 #      Then: FAIL
 #   Scenario: 4
-#     Given: The input document is an AWS CloudFormation or CloudFormation hook document
-#       And: The input document contains an Elastic Load Balancing LoadBalancer resource
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an ElasticLoadBalancing LoadBalancer resource
 #       And: 'Protocol' is set to 'HTTPS' or 'SSL' for all 'Listeners'
 #      Then: PASS
 
@@ -2020,7 +3228,7 @@ rule elb_tls_https_listeners_only_check when is_cfn_template(%INPUT_DOCUMENT)
 
     check(%classic_load_balancers.Properties)
         <<
-        [CT.ELASTICLOADBALANCING.PR.9]: Require that an Elastic Load Balancing Application or Classic Load Balancer listener is configured with HTTPS or TLS termination
+        [CT.ELASTICLOADBALANCING.PR.9]: Require that an AWS ELB Application or Classic Load Balancer listener is configured with HTTPS or TLS termination
         [FIX]: Configure Classic Load Balancer front-end listeners with HTTPS or SSL protocols.
         >>
 }
@@ -2029,7 +3237,7 @@ rule elb_tls_https_listeners_only_check when is_cfn_hook(%INPUT_DOCUMENT, %ELAST
 
     check(%INPUT_DOCUMENT.%ELASTIC_LOAD_BALANCER_TYPE.resourceProperties)
         <<
-        [CT.ELASTICLOADBALANCING.PR.9]: Require that an Elastic Load Balancing Application or Classic Load Balancer listener is configured with HTTPS or TLS termination
+        [CT.ELASTICLOADBALANCING.PR.9]: Require that an AWS ELB Application or Classic Load Balancer listener is configured with HTTPS or TLS termination
         [FIX]: Configure Classic Load Balancer front-end listeners with HTTPS or SSL protocols.
         >>
 }
@@ -2067,12 +3275,98 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.9 example templates<a name="ct-elasticloadbalancing-pr-9-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Listeners:
+      - Protocol: HTTPS
+        SSLCertificateId: arn:aws:acm:us-east-1:123456789012:certificate/12345678-12ab-34cd-56ef-12345678
+        InstancePort: 80
+        LoadBalancerPort: 443
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.10\] Require an ELB application or classic load balancer to have logging activated<a name="ct-elasticloadbalancing-pr-10-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Classic Load Balancers have logging enabled\.
 + **Control objective: **Establish logging and monitoring
@@ -2083,7 +3377,7 @@ This control checks whether Classic Load Balancers have logging enabled\.
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.10 rule specification](#ct-elasticloadbalancing-pr-10-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.10) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.10 example templates](#ct-elasticloadbalancing-pr-10-templates) 
 
 **Explanation**
 
@@ -2291,12 +3585,225 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.10 example templates<a name="ct-elasticloadbalancing-pr-10-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Mappings:
+  RegionToELBAccountId:
+    us-east-1:
+      AccountId: '127311923021'
+    us-west-1:
+      AccountId: '027434742980'
+    us-west-2:
+      AccountId: '797873946194'
+    ca-central-1:
+      AccountId: '985666609251'
+    eu-west-1:
+      AccountId: '156460612806'
+    ap-northeast-1:
+      AccountId: '582318560864'
+    ap-northeast-2:
+      AccountId: '600734575887'
+    ap-southeast-1:
+      AccountId: '114774131450'
+    ap-southeast-2:
+      AccountId: '783225319266'
+    ap-south-1:
+      AccountId: '718504428378'
+    us-east-2:
+      AccountId: '033677994240'
+    sa-east-1:
+      AccountId: '507241528517'
+    eu-central-1:
+      AccountId: '054676820928'
+    af-south-1:
+      AccountId: '098369216593'
+    ap-east-1:
+      AccountId: '754344448648'
+    ap-southeast-3:
+      AccountId: '589379963580'
+    ap-northeast-3:
+      AccountId: '383597477331'
+    eu-west-2:
+      AccountId: '652711504416'
+    eu-south-1:
+      AccountId: '635631232127'
+    eu-west-3:
+      AccountId: '009996457667'
+    eu-north-1:
+      AccountId: '897822967062'
+    me-south-1:
+      AccountId: '076674570225'
+    us-gov-west-1:
+      AccountId: '048591011584'
+    us-gov-east-1:
+      AccountId: '190560391635'
+  RegionToARNPrefix:
+    us-east-1:
+      ARNPrefix: 'arn:aws:'
+    us-west-1:
+      ARNPrefix: 'arn:aws:'
+    us-west-2:
+      ARNPrefix: 'arn:aws:'
+    ca-central-1:
+      ARNPrefix: 'arn:aws:'
+    eu-west-1:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-1:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-2:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-1:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-2:
+      ARNPrefix: 'arn:aws:'
+    ap-south-1:
+      ARNPrefix: 'arn:aws:'
+    us-east-2:
+      ARNPrefix: 'arn:aws:'
+    sa-east-1:
+      ARNPrefix: 'arn:aws:'
+    eu-central-1:
+      ARNPrefix: 'arn:aws:'
+    af-south-1:
+      ARNPrefix: 'arn:aws:'
+    ap-east-1:
+      ARNPrefix: 'arn:aws:'
+    ap-southeast-3:
+      ARNPrefix: 'arn:aws:'
+    ap-northeast-3:
+      ARNPrefix: 'arn:aws:'
+    eu-west-2:
+      ARNPrefix: 'arn:aws:'
+    eu-south-1:
+      ARNPrefix: 'arn:aws:'
+    eu-west-3:
+      ARNPrefix: 'arn:aws:'
+    eu-north-1:
+      ARNPrefix: 'arn:aws:'
+    me-south-1:
+      ARNPrefix: 'arn:aws:'
+    us-gov-west-1:
+      ARNPrefix: 'arn:aws-us-gov:'
+    us-gov-east-1:
+      ARNPrefix: 'arn:aws-us-gov:'
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - Fn::FindInMap: [RegionToARNPrefix, !Ref 'AWS::Region', ARNPrefix]
+                  - 's3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              AWS: 
+                Fn::FindInMap: [RegionToELBAccountId, !Ref 'AWS::Region', AccountId]
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      AccessLoggingPolicy:
+        Enabled: true
+        S3BucketName:
+          Ref: LoggingBucket
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.11\] Require any ELB classic load balancer to have connection draining activated<a name="ct-elasticloadbalancing-pr-11-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Elastic Load Balancing \(ELB\) Classic Load Balancers have connection draining configured\.
 + **Control objective: **Improve resiliency
@@ -2307,7 +3814,7 @@ This control checks whether Elastic Load Balancing \(ELB\) Classic Load Balancer
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.11 rule specification](#ct-elasticloadbalancing-pr-11-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.11) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.11 example templates](#ct-elasticloadbalancing-pr-11-templates) 
 
 **Explanation**
 
@@ -2510,12 +4017,118 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.11 example templates<a name="ct-elasticloadbalancing-pr-11-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - InstancePort: '80'
+        InstanceProtocol: HTTP
+        LoadBalancerPort: '443'
+        Protocol: HTTPS
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+        SSLCertificateId:
+          Ref: ACMCertificate
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      ConnectionDrainingPolicy:
+        Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.12\] Require any ELB classic load balancer SSL/HTTPS listener to have a predefined security policy with a strong configuration<a name="ct-elasticloadbalancing-pr-12-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Elastic Load Balancing \(ELB\) Classic Load Balancer HTTPS/SSL listeners use the predefined security policy `ELBSecurityPolicy-TLS-1-2-2017-01`\.
 + **Control objective: **Limit network access
@@ -2526,7 +4139,7 @@ This control checks whether Elastic Load Balancing \(ELB\) Classic Load Balancer
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.12 rule specification](#ct-elasticloadbalancing-pr-12-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.12) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.12 example templates](#ct-elasticloadbalancing-pr-12-templates) 
 
 **Explanation**
 
@@ -2764,12 +4377,126 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICLOADBALANCING\.PR\.12 example templates<a name="ct-elasticloadbalancing-pr-12-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      Listeners:
+      - InstancePort: 80
+        InstanceProtocol: HTTP
+        LoadBalancerPort: 443
+        Protocol: HTTPS
+        SSLCertificateId:
+          Ref: ACMCertificate
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-2016-08
+      Listeners:
+      - InstancePort: 80
+        InstanceProtocol: HTTP
+        LoadBalancerPort: 443
+        Protocol: HTTPS
+        SSLCertificateId: arn:aws:iam::123456789012:server-certificate/example-certificate
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+```
+
 ## \[CT\.ELASTICLOADBALANCING\.PR\.13\] Require any ELB classic load balancer to have cross\-zone load balancing activated<a name="ct-elasticloadbalancing-pr-13-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether cross\-zone load balancing is configured for your Classic Load Balancer\.
 + **Control objective: **Improve availability
@@ -2780,7 +4507,7 @@ This control checks whether cross\-zone load balancing is configured for your Cl
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICLOADBALANCING\.PR\.13 rule specification](#ct-elasticloadbalancing-pr-13-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICLOADBALANCING.PR.13) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICLOADBALANCING\.PR\.13 example templates](#ct-elasticloadbalancing-pr-13-templates) 
 
 **Explanation**
 
@@ -2971,4 +4698,115 @@ rule is_cfn_template(doc) {
 rule is_cfn_hook(doc, RESOURCE_TYPE) {
     %doc.%RESOURCE_TYPE.resourceProperties exists
 }
+```
+
+### CT\.ELASTICLOADBALANCING\.PR\.13 example templates<a name="ct-elasticloadbalancing-pr-13-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ACMCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: example.com
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: www.example.com
+          HostedZoneId: ZZZHHHHWWWWAAA
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - InstancePort: '80'
+        InstanceProtocol: HTTP
+        LoadBalancerPort: '443'
+        Protocol: HTTPS
+        PolicyNames:
+        - Example-SSLNegotiation-Policy
+        SSLCertificateId:
+          Ref: ACMCertificate
+      Policies:
+      - PolicyName: Example-SSLNegotiation-Policy
+        PolicyType: SSLNegotiationPolicyType
+        Attributes:
+        - Name: Reference-Security-Policy
+          Value: ELBSecurityPolicy-TLS-1-2-2017-01
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      CrossZone: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  SubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  SubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 1
+        - Fn::GetAZs: ''
+  ClassicLoadBalancer:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Scheme: internal
+      Listeners:
+      - Protocol: HTTP
+        InstancePort: 80
+        LoadBalancerPort: 80
+      Subnets:
+      - Ref: SubnetOne
+      - Ref: SubnetTwo
+      CrossZone: false
 ```

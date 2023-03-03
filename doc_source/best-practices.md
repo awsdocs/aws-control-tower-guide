@@ -4,13 +4,13 @@ This topic is intended primarily for management account administrators\.
 
 Management account administrators are responsible for explaining some tasks that AWS Control Tower controls prevent their member account administrators from doing\. This topic describes some best practices and procedures for transferring this knowledge, and it gives other tips for setting up and maintaining your AWS Control Tower environment efficiently\.
 
-## Explaining Access to Users<a name="explaining-users"></a>
+## Explaining access to users<a name="explaining-users"></a>
 
 The AWS Control Tower console is available only to users with the management account administrator permissions\. Only these users can perform administrative work within your landing zone\. In accordance with best practices, this means that the majority of your users and member account administrators will never see the AWS Control Tower console\. As a member of the management account administrator group, it's your responsibility to explain the following information to the users and administrators of your member accounts, as appropriate\.
 + Explain which AWS resources that users and administrators have access to within the landing zone\.
-+ List the preventive controls that apply to each Organizational Unit \(OU\) so that the other administrators can plan and execute their AWS workloads accordingly\.
++ List the preventive controls that apply to each organizational unit \(OU\) so that the other administrators can plan and execute their AWS workloads accordingly\.
 
-## Explaining Resource Access<a name="explaining-resource-access"></a>
+## Explaining resource access<a name="explaining-resource-access"></a>
 
 Some administrators and other users may need an explanation of the AWS resources to which they have access to within your landing zone\. This access can include programmatic access and console\-based access\. Generally speaking, read access and write access for AWS resources is allowed\. To perform work within AWS, your users require some level of access to the specific services they need to do their jobs\.
 
@@ -23,9 +23,9 @@ AWS offers tools to identify the scope of a user's AWS resource access\. After y
 
   Actions taken by AWS Control Tower landing zone administrators are viewable in the landing zone management account\. Actions taken by member account administrators and users are viewable in the shared log archive account\.
 
-  You can view a summary table of AWS Control Tower events in the [**Activities** page\.](https://console.aws.amazon.com/)
+  You can view a summary table of AWS Control Tower events in the [Activities page\.](https://console.aws.amazon.com/)
 
-## Explaining Preventive Controls<a name="explaining-preventive-controls"></a>
+## Explaining preventive controls<a name="explaining-preventive-controls"></a>
 
 A preventive control ensures that your organization's accounts maintain compliance with your corporate policies\. The status of a preventive control is either **enforced** or **not\-enabled**\. A preventive control prevents policy violations by using service control policies \(SCPs\)\. In comparison, a detective control informs you of various events or states that exist, by means of defined AWS Config rules\.
 
