@@ -8,7 +8,7 @@ If you are hosting more than a handful of accounts, it’s beneficial to have an
 
 AWS Control Tower enables end users on your distributed teams to provision new AWS accounts quickly, by means of configurable account templates in Account Factory\. Meanwhile, your central cloud administrators can monitor that all accounts are aligned with established, company\-wide compliance policies\.
 
-In short, AWS Control Tower offers the easiest way to set up and govern a secure, compliant, multi\-account AWS environment based on best practices established by working with thousands of enterprises\. For more information about the working with AWS Control Tower and the best practices outlined in the AWS multi\-account strategy, see [AWS multi\-account strategy: Best practices guidance](aws-multi-account-landing-zone.md#multi-account-guidance)\.
+In short, AWS Control Tower offers the easiest way to set up and govern a secure, compliant, multi\-account AWS environment based on best practices established by working with thousands of enterprises\. For more information about working with AWS Control Tower and the best practices outlined in the AWS multi\-account strategy, see [AWS multi\-account strategy: Best practices guidance](aws-multi-account-landing-zone.md#multi-account-guidance)\.
 
 ## Features<a name="features"></a>
 

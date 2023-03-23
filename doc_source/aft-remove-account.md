@@ -9,20 +9,21 @@
 
 **To remove an account from AFT**
 
-1.  ** Remove account from `git` repository that stores your account requests ** 
+**Step 1: Remove account from the `git` repository that stores your account requests ** 
 
-    In the `git` repository where you store your account requests, delete the account request for the account you intend to remove from AFT\. 
+In the `git` repository where you store your account requests, delete the account request for the account you intend to remove from AFT\. 
+
 **Note**  
- When you remove an account request from the account request repository, AFT deletes the customization pipeline and the account's metadata\. For more information, see the [1\.8\.0 release notes](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/releases/tag/1.8.0) for AFT on GitHub\. 
+ For more information, see the [1\.8\.0 release notes](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/releases/tag/1.8.0) for AFT on GitHub\. 
 
-1.  ** Delete Terraform workspace \(For Terraform Cloud and Terraform Enterprise customers only\) ** 
+**Step 2: Delete the Terraform workspace \(For Terraform Cloud and Terraform Enterprise customers only\)**
 
-    Delete the global customizations and account customizations workspaces for the account that you intend to remove from AFT\. 
+Delete the global customizations and account customizations workspaces for the account you intend to remove from AFT\. 
 
-1.  ** Delete the Terraform state from the Amazon S3 backend ** 
+**Step 3: Delete the Terraform state from the Amazon S3 backend**
 
-    In the AFT management account, delete all relevant folders inside the Amazon S3 buckets for the account that you intend to remove from AFT\. In the following examples, replace the placeholder number `012345678901` with the AFT management account ID number\. 
+In the AFT management account, delete all relevant folders inside Amazon S3 buckets for the account you intend to remove from AFT\. In the examples that follow, replace the placeholder number `012345678901` with the AFT management account ID number\.
 
-    When you choose Terraform OSS, you find 3 folders for each account in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` Amazon S3 buckets\. These folders are related to the customizations pipeline state, account customizations state, and global customizations state\. 
+If you chose Terraform OSS, you will find 3 folders for each account \(related to customizations pipeline state, global and account customizations state\) in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` Amazon S3 buckets\.
 
-    When you choose Terraform Cloud or Terraform Enterprise, you find a folder for each account in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` S3 buckets\. These folders are related to the customizations pipeline state\. 
+If you chose Terraform Cloud or Terraform Enterprise, you will find a folder for each account \(related to customizations pipeline state\) in the `aft-backend-012345678901-primary-region` and `aft-backend-012345678901-secondary-region` S3 buckets\. 

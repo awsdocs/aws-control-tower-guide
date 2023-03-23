@@ -14,7 +14,7 @@ The **Organization** page lists all OUs and accounts in your organization, regar
 
 To view a specific account on the **Organization** page, you can choose **Accounts only** from the dropdown menu at the upper right, and then select the name of your account from the table\. Alternatively, you can select the name of the parent OU from the table, and you can view a list of all accounts within that OU on the **Details** page for that OU\.
 
-On the **Organization** page and the**Account details** page, you can see the account's **State**, which is one of these:
+On the **Organization** page and the **Account details** page, you can see the account's **State**, which is one of these:
 + **Not enrolled** – The account is a member of the parent OU, but it is not fully managed by AWS Control Tower\. If the parent OU is registered, the account is governed by the preventive controls configured for its registered parent OU, but the OU’s detective controls do not apply to this account\. If the parent OU is unregistered, no controls apply to this account\. 
 + **Enrolling** – The account is being brought into governance by AWS Control Tower\. We are aligning the account with the control configuration for the parent OU\. This process may require several minutes per account resource\. 
 + **Enrolled** – The account is governed by the controls configured for its parent OU\. It is fully managed by AWS Control Tower\.
