@@ -125,10 +125,12 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                - AdministratorAccountId
+                - !Ref AdministratorAccountId
             Action:
               - sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
 ```
+
+
