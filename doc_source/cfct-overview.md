@@ -4,6 +4,8 @@
 
 This CfCT capability is integrated with AWS Control Tower lifecycle events, so that your resource deployments remain synchronized with your landing zone\. For example, when a new account is created through account factory, all resources attached to the account are deployed automatically\. You can deploy the custom templates and policies to individual accounts and organizational units \(OUs\) within your organization\.
 
+ The following video describes best practices for deploying a scalable CfCT pipeline and common CfCT customizations\. 
+
 The following section provides architectural considerations and configuration steps for deploying Customizations for AWS Control Tower \(CfCT\)\. It includes a link to the [AWS CloudFormation](https://aws.amazon.com/cloudformation) template that launches, configures, and runs the required AWS services, in alignment with AWS best practices for security and availability\.
 
 *This topic is intended for IT infrastructure architects and developers who have practical experience architecting in the AWS Cloud\.*

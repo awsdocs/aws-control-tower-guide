@@ -13,7 +13,7 @@ Another type of drift is *landing zone drift*, which may be found through the ma
 
 A special case of landing zone drift is *role drift*, which is detected when a required role is not available\. If this type of drift occurs, the console displays a warning page and some instructions on how to restore the role\. Your landing zone is unavailable until the role drift is repaired\. For more information about drift, see *Don't delete required roles* in the section called [Types of drift to repair right away](drift.md#types-of-drift)\.
 
-AWS Control Tower does not look for drift regarding other services that work with the management account, including CloudTrail, CloudWatch, AWS SSO, AWS CloudFormation, AWS Config, and so forth\. No drift detection is available in child accounts, because these accounts are protected by preventive mandatory guardrails\.
+AWS Control Tower does not look for drift regarding other services that work with the management account, including CloudTrail, CloudWatch, IAM Identity Center, AWS CloudFormation, AWS Config, and so forth\. No drift detection is available in child accounts, because these accounts are protected by preventive mandatory controls\.
 
 ## Moved Member Account<a name="drift-account-moved"></a>
 
@@ -38,7 +38,6 @@ When this type of drift occurs for an Account Factory provisioned account in an 
 + Navigating to the **Organization** page in the AWS Control Tower console, selecting the account, and choosing **Update account** at the upper right \(fastest option for individual accounts\)\.
 + Navigating to the **Organization** page in the AWS Control Tower console, then choosing **Re\-register** for the OU that contains the account \(fastest option for multiple accounts\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
 + Updating the provisioned product in Account Factory\. For more information, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
-+ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 **Note**  
 If you have several individual accounts to update, also see this method for making updates with a script: [Provision and update accounts using automation](update-accounts-by-script.md)\.
 + When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
@@ -49,25 +48,6 @@ If you have several individual accounts to update, also see this method for maki
 
 **Deprecated field name**  
 The field name `MasterAccountID` has been changed to `ManagementAccountID` to comply with AWS guidelines\. The old name is **deprecated**\. Beginning in 2022, scripts that contain the deprecated field name will no longer work\.
-
-## Added Member Account<a name="drift-account-added"></a>
-
-Adding an account is not technically drift\. However, AWS Control Tower alerts you when an AWS Control Tower account is added to your AWS Control Tower organization\. For example, an account may be added to your AWS Control Tower organization as part of the drift remediation process if a shared account, such as the audit account or log archive account, has been removed and must be replaced\. The following example shows an Amazon SNS notification you may receive when this type of event is detected\.
-
-```
-{
-  "Message" : "AWS Control Tower has detected that the account 'account-email@amazon.com (012345678909)' has been added to organization o-123EXAMPLE. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/add-account'",
-  "ManagementAccountId" : "012345678912",
-  "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "AccountAddedToOrganization",
-  "RemediationStep" : "Update Account Factory Provisioned Product",
-  "AccountId" : "012345678909"
-}
-```
-
-### Resolution<a name="drift-account-added-resolution"></a>
-
-No resolution is required, because adding a member account to an OU or enrolling an Account Factory account does not cause drift\. If a shared account has been removed and re\-added, it is a special case, and you may need to update that shared account or the Security OU\. For information about updating Account Factory accounts, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
 
 ## Removed Member Account<a name="drift-account-removed"></a>
 
@@ -90,18 +70,18 @@ This type of drift can occur when a member account is removed from a registered 
 + For more information about resolving drift for accounts and OUs, see [If you manage resources outside of AWS Control Tower](external-resources.md)\. 
 
 **Note**  
-In AWS Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.
+In Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the Service Catalog, choose the provisioned product, and then choose **Terminate**\.
 
 ## Unplanned Update to Managed SCP<a name="drift-scp-update"></a>
 
-This type of drift can occur when an SCP for a guardrail is updated in the AWS Organizations console or programmatically using the AWS CLI or one of the AWS SDKs\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift can occur when an SCP for a control is updated in the AWS Organizations console or programmatically using the AWS CLI or one of the AWS SDKs\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
   "Message" : "AWS Control Tower has detected that the managed service control policy 'aws-guardrails-012345 (p-tEXAMPLE)', attached to the registered organizational unit 'Security (ou-0123-1EXAMPLE)', has been modified. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/update-scp'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "ServiceControlPolicyUpdated",
+  "DriftType" : "SCP_UPDATED",
   "RemediationStep" : "Update Control Tower Setup",
   "OrganizationalUnitId" : "ou-0123-1EXAMPLE",
   "PolicyId" : "p-tEXAMPLE"
@@ -118,7 +98,7 @@ When this type of drift occurs in an OU with more than 300 accounts, resolve it 
 
 ## SCP Attached to Managed OU<a name="drift-scp-attached-ou"></a>
 
-This type of drift can occur when an SCP for a guardrail is attached to any other OU\. This occurrence is especially common when you are working on your OUs from outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift can occur when an SCP for a control is attached to any other OU\. This occurrence is especially common when you are working on your OUs from outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
@@ -142,7 +122,7 @@ When this type of drift occurs in an OU with more than 300 accounts, resolve it 
 
 ## SCP Detached from Managed OU<a name="drift-scp-detached-ou"></a>
 
-This type of drift can occur when an SCP for a guardrail has been detached from an OU that's managed by AWS Control Tower\. This occurrence is especially common when you're working from outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift can occur when an SCP for a control has been detached from an OU that's managed by AWS Control Tower\. This occurrence is especially common when you're working from outside of the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
@@ -160,20 +140,20 @@ This type of drift can occur when an SCP for a guardrail has been detached from 
 
 When this type of drift occurs in an OU with up to 300 accounts, you can resolve it by:
 + Navigating to the OU in the AWS Control Tower console to re\-register the OU \(fastest option\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
-+ Updating your landing zone \(slower option\)\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
++ Updating your landing zone \(slower option\)\. If the drift is affecting a mandatory control, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
 
-When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. If the drift is affecting a mandatory guardrail, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
+When this type of drift occurs in an OU with more than 300 accounts, resolve it by updating your landing zone\. If the drift is affecting a mandatory control, the update process creates a new service control policy \(SCP\) and attaches it to the OU to repair the drift\. For more information about how to update your landing zone, see [Update Your Landing Zone](update-controltower.md)\.
 
 ## SCP Attached to Member Account<a name="drift-scp-attached-account"></a>
 
-This type of drift can occur when an SCP for a guardrail is attached to an account in the Organizations console\. Guardrails and their SCPs can be enabled on OUs \(and thus applied to all of an OU's enrolled accounts\) through the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
+This type of drift can occur when an SCP for a control is attached to an account in the Organizations console\. Guardrails and their SCPs can be enabled on OUs \(and thus applied to all of an OU's enrolled accounts\) through the AWS Control Tower console\. The following is an example of the Amazon SNS notification when this type of drift is detected\.
 
 ```
 {
   "Message" : "AWS Control Tower has detected that the managed service control policy 'aws-guardrails-012345 (p-tEXAMPLE)' has been attached to the member account 'account-email@amazon.com (012345678909)'. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/scp-detached-account'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "ServiceControlPolicyAttachedToAccount",
+  "DriftType" : "SCP_ATTACHED_TO_ACCOUNT",
   "RemediationStep" : "Re-register this organizational unit (OU)",
   "AccountId" : "012345678909",
   "PolicyId" : "p-tEXAMPLE"
@@ -201,7 +181,7 @@ This type of drift applies only to AWS Control Tower Foundational OUs, such as t
   "Message" : "AWS Control Tower has detected that the registered organizational unit 'Security (ou-0123-1EXAMPLE)' has been deleted. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/delete-ou'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "OrganizationalUnitDeleted",
+  "DriftType" : "ORGANIZATIONAL_UNIT_DELETED",
   "RemediationStep" : "Delete organizational unit in Control Tower",
   "OrganizationalUnitId" : "ou-0123-1EXAMPLE"
 }

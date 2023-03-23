@@ -1,8 +1,8 @@
 # Customize your AWS Control Tower landing zone<a name="customize-landing-zone"></a>
 
-## <a name="w347aac24b3"></a>
+## <a name="w32aac24b3"></a>
 
-Certain aspects of your AWS Control Tower landing zone are configurable in the console, such as selection of Regions and optional guardrails\. Other changes may be made outside the console, with automation\.
+Certain aspects of your AWS Control Tower landing zone are configurable in the console, such as selection of Regions and optional controls\. Other changes may be made outside the console, with automation\.
 
 For example, you can create more extensive customizations of your landing zone with the *Customizations for AWS Control Tower* capability, a GitOps\-style customization framework that works with AWS CloudFormation templates and AWS Control Tower lifecycle events\.
 
@@ -20,14 +20,19 @@ Remember that renaming an OU in AWS Organizations does not update the correspond
 **Select AWS Regions**
 + You can customize your landing zone by selecting specific AWS Regions for governance\. Follow the steps in the AWS Control Tower console\.
 + You can select and de\-select AWS Regions for governance when you update your landing zone\.
-+ You can set the Region Deny guardrail to **Enabled** or **Not enabled**, and control user access to most AWS services in ungoverned AWS Regions\.
++ You can set the Region Deny control to **Enabled** or **Not enabled**, and control user access to most AWS services in ungoverned AWS Regions\.
 
-**Customize by adding optional guardrails**
-+ Strongly recommended and elective guardrails are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. [Optional guardrails](optional-guardrails.md) are not enabled by default\. 
-+ The optional [Guardrails that enhance data residency protection](data-residency-guardrails.md) allow you to customize the Regions in which you store and allow access to your data\.
+**Customize by adding optional controls**
++ Strongly recommended and elective controls are optional, which means that you can customize the level of enforcement for your landing zone by choosing which ones to enable\. [Optional controls](optional-controls.md) are not enabled by default\. 
++ The optional [Controls that enhance data residency protection](data-residency-controls.md) allow you to customize the Regions in which you store and allow access to your data\.
++ The optional controls that are part of the integrated Security Hub standard allow you to scan your AWS Control Tower environment to check for security risks\.
++ The optional proactive controls allow you to check your AWS CloudFormation resources before they are provisioned, to make sure the new resources will comply with your environment's control objectives\.
 
 **Customize your AWS CloudTrail trails**
 + When you update your landing zone to version 3\.0 or later, you can choose to opt into or opt out of organization\-level CloudTrail trails managed by AWS Control Tower\. You can change this selection any time you update your landing zone\. AWS Control Tower creates an organization\-level trail in your management account, and that trail enters active or inactive status, based on your choice\. Landing zone 3\.0 does not support account\-level CloudTrail trails; however, if you require these, you can configure and manage your own trails\. You may incur additional cost for duplicate trails\.
+
+**Create customized member accounts in the console**
++ You can create AWS Control Tower member accounts that are customized, and you can update existing member accounts to add customizations, from the AWS Control Tower console\. For more information, see [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 ## Automate customizations outside the AWS Control Tower console<a name="automate-customizations"></a>
 
@@ -55,7 +60,7 @@ Unlike Account Factory and AFT, CfCT is not specifically intended to create new 
 + **Extend your network architecture** – You can deploy customized network architectures that improve and protect your connectivity, such as a transit gateway\.
 
 ## Additional CfCT examples<a name="cfct-examples"></a>
-+ An example networking use case with *Customizations for AWS Control Tower* \(CfCT\) is given in the AWS Architecture blog post, [Deploy consistent DNS with AWS Service Catalog and AWS Control Tower customizations](http://aws.amazon.com/blogs/architecture/deploy-consistent-dns-with-aws-service-catalog-and-aws-control-tower-customizations/)\.
++ An example networking use case with *Customizations for AWS Control Tower* \(CfCT\) is given in the AWS Architecture blog post, [Deploy consistent DNS with Service Catalog and AWS Control Tower customizations](http://aws.amazon.com/blogs/architecture/deploy-consistent-dns-with-aws-service-catalog-and-aws-control-tower-customizations/)\.
 + A specific example [related to CfCT and Amazon GuardDuty](https://github.com/aws-samples/aws-security-reference-architecture-examples/tree/main/aws_sra_examples/solutions/guardduty/guardduty_org/customizations_for_aws_control_tower) is available on GitHub in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\.
 + Additional code examples regarding CfCT are available as part of the AWS Security Reference Architecture, in the [`aws-samples` repository](https://github.com/aws-samples/aws-security-reference-architecture-examples)\. Many of these examples contain sample `manifest.yaml` files in a directory named `customizations_for_aws_control_tower`\.
 

@@ -7,7 +7,7 @@ If your workload does not require a VPC, you can do the following:
 + You can change your Account Factory settings so that new AWS Control Tower accounts are created without an associated VPC\.
 
 **Important**  
-If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the guardrail [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-guardrails.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\.
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides the control [Disallow internet access for an Amazon VPC instance managed by a customer](data-residency-controls.md#disallow-vpc-internet-access)\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\.
 
 ## Delete the AWS Control Tower VPC<a name="delete-master-vpc"></a>
 
@@ -23,7 +23,7 @@ You can delete the AWS Control Tower VPC, but if you later need a VPC in AWS Con
 
 1. Open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
-1. Search for **VPC** or select **VPC** from the AWS Service Catalog options\. You then see the **VPC Dashboard**\.
+1. Search for **VPC** or select **VPC** from the Service Catalog options\. You then see the **VPC Dashboard**\.
 
 1. From the menu on the left, choose **Your VPCs**\. You then see a list of all your VPCs\.
 
@@ -35,7 +35,7 @@ An AWS *\(default\)* VPC already exists in every Region for the AWS Control Towe
 
 ## Create an Account in AWS Control Tower Without a VPC<a name="create-without-vpc"></a>
 
-If your end user workloads do not require VPCs, you can use this method to set up user accounts that don't have VPCs created for them automatically\.
+If your end\-user workloads do not require VPCs, you can use this method to set up end\-user accounts that don't have VPCs created for them automatically\.
 
 From the AWS Control Tower dashboard, you can view and edit your network configurations settings\. After you change the settings so that AWS Control Tower accounts are created without an associated VPC, all new accounts are created without a VPC until you change the settings again\.
 
@@ -62,13 +62,11 @@ From the AWS Control Tower dashboard, you can view and edit your network configu
 **Option 1 – Removing subnets**
       + Turn off the **Internet\-accessible subnet** toggle switch\.
       + Set the **Maximum number of private subnets** value to 0\.
-      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
    1. 
 
 **Option 2 – Removing AWS Regions**
       + Clear every checkbox in the **Regions for VPC creation** column\.
-      + Change the **Address range \(CIDR\) restriction for account VPCs** value to `10.0.0.0/16`
 
 1. Choose **Save**\.
 

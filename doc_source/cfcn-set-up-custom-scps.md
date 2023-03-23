@@ -26,9 +26,9 @@ region: your-home-region
 version: 2021-03-15
 
 resources:
-  - name: test-preventive-guardrails
+  - name: test-preventive-controls
     description: To prevent from deleting or disabling resources in member accounts
-    resource_file: policies/preventive-guardrails.json
+    resource_file: policies/preventive-controls.json
     deploy_method: scp
     #Apply to the following OU(s)
     deployment_targets:
@@ -77,13 +77,14 @@ The following snippet is an example of a `block-s3-public.json` policy file\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "GuardPutAccountPublicAccessBlock",
-      "Effect": "Deny",
-      "Action": "s3:PutAccountPublicAccessBlock",
-      "Resource": "arn:aws:s3:::*"
-  ]
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"GuardPutAccountPublicAccessBlock",
+         "Effect":"Deny",
+         "Action":"s3:PutAccountPublicAccessBlock",
+         "Resource":"arn:aws:s3:::*"
+      }
+   ]
 }
 ```

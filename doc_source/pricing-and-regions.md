@@ -12,4 +12,4 @@ In this section of the setup process, you can add any additional AWS Regions tha
 
 **To deny access to certain Regions**
 
-To deny access to AWS resources and workloads in certain AWS Regions, select **Enabled** in the section for the Region deny guardrail\. By default, the setting for this guardrail is **Not enabled**\.
+To deny access to AWS resources and workloads in certain AWS Regions, select **Enabled** in the section for the Region deny control\. By default, the setting for this control is **Not enabled**\.

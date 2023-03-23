@@ -1,6 +1,6 @@
-# Mandatory guardrails<a name="mandatory-guardrails"></a>
+# Mandatory controls<a name="mandatory-controls"></a>
 
-Mandatory guardrails are enabled by default when you set up your landing zone and can't be disabled\. Following, you'll find a reference for each of the mandatory guardrails available in AWS Control Tower\.
+Mandatory controls are owned by AWS Control Tower, and they apply to every OU on your landing zone\. These controls are applied by default when you set up your landing zone, and they can't be deactivated\. Following, you'll find a reference for each of the mandatory controls available in AWS Control Tower\.
 
 **Topics**
 + [Disallow Changes to Encryption Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive](#disallow-changes-s3-buckets-created)
@@ -28,13 +28,13 @@ Mandatory guardrails are enabled by default when you set up your landing zone an
 + [Detect whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled](#ensure-cloudtrail-enabled-mandatory)
 
 **Note**  
-The four mandatory guardrails with `"Sid": "GRCLOUDTRAILENABLED"` are identical by design\. The sample code is correct\.
+The four mandatory controls with `"Sid": "GRCLOUDTRAILENABLED"` are identical by design\. The sample code is correct\.
 
 ## Disallow Changes to Encryption Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive<a name="disallow-changes-s3-buckets-created"></a>
 
-This guardrail prevents changes to encryption for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\. It cannot be enabled on additional OUs\.
+This control prevents changes to encryption for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive control with mandatory guidance\. By default, this control is enabled on the Security OU\. It cannot be enabled on additional OUs\.
 
-The artifact for this guardrail is the following service control policy \(SCP\)\.
+The artifact for this control is the following service control policy \(SCP\)\.
 
 ```
 {
@@ -59,9 +59,9 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
 
 ## Disallow Changes to Logging Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive<a name="disallow-logging-changes-s3-buckets-created"></a>
 
-This guardrail prevents changes to logging configuration for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\. It cannot be enabled on additional OUs\.
+This control prevents changes to logging configuration for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive control with mandatory guidance\. By default, this control is enabled on the Security OU\. It cannot be enabled on additional OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -86,9 +86,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Bucket Policy for AWS Control Tower Created Amazon S3 Buckets in Log Archive<a name="disallow-policy-changes-s3-buckets-created"></a>
 
-This guardrail prevents changes to bucket policy for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\. It cannot be enabled on additional OUs\.
+This control prevents changes to bucket policy for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive control with mandatory guidance\. By default, this control is enabled on the Security OU\. It cannot be enabled on additional OUs\.
 
-The artifact for this guardrail is the following SCP\. 
+The artifact for this control is the following SCP\. 
 
 ```
 {
@@ -114,9 +114,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Lifecycle Configuration for AWS Control Tower Created Amazon S3 Buckets in Log Archive<a name="disallow-lifecycle-changes-s3-buckets-created"></a>
 
-This guardrail prevents lifecycle configuration changes for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\. It cannot be enabled on additional OUs\.
+This control prevents lifecycle configuration changes for the Amazon S3 buckets that AWS Control Tower creates in the log archive account\. This is a preventive control with mandatory guidance\. By default, this control is enabled on the Security OU\. It cannot be enabled on additional OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -141,9 +141,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Amazon CloudWatch Logs Log Groups set up by AWS Control Tower<a name="log-group-deletion-policy"></a>
 
-This guardrail prevents changes to the retention policy for Amazon CloudWatch Logs log groups that AWS Control Tower created in the log archive account when you set up your landing zone\. It also prevents modifying the log retention policy in customer accounts\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+This control prevents changes to the retention policy for Amazon CloudWatch Logs log groups that AWS Control Tower created in the log archive account when you set up your landing zone\. It also prevents modifying the log retention policy in customer accounts\. This is a preventive control with mandatory guidance\. By default, this control is enabled on all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -173,9 +173,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower<a name="config-aggregation-authorization-policy"></a>
 
-This guardrail prevents deletion of AWS Config aggregation authorizations that AWS Control Tower created in the audit account when you set up your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+This control prevents deletion of AWS Config aggregation authorizations that AWS Control Tower created in the audit account when you set up your landing zone\. This is a preventive control with mandatory guidance\. By default, this control is enabled on all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -205,9 +205,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Deletion of Log Archive<a name="disallow-audit-bucket-deletion"></a>
 
-This guardrail prevents deletion of Amazon S3 buckets created by AWS Control Tower in the log archive account\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Security** OU\.
+This control prevents deletion of Amazon S3 buckets created by AWS Control Tower in the log archive account\. This is a preventive control with mandatory guidance\. By default, this control is enabled on the **Security** OU\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -234,9 +234,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Detect Public Read Access Setting for Log Archive<a name="log-archive-public-read"></a>
 
-This guardrail detects whether public read access is enabled to the Amazon Amazon S3 buckets in the log archive shared account\. This guardrail does not change the status of the account\. This is a detective guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Security** OU\.
+This control detects whether public read access is enabled to the Amazon S3 buckets in the log archive shared account\. This control does not change the status of the account\. This is a detective control with mandatory guidance\. By default, this control is enabled on the **Security** OU\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -261,9 +261,9 @@ Resources:
 
 ## Detect Public Write Access Setting for Log Archive<a name="log-archive-public-write"></a>
 
-This guardrail detects whether public write access is enabled to the Amazon Amazon S3 buckets in the log archive shared account\. This guardrail does not change the status of the account\. This is a detective guardrail with mandatory guidance\. By default, this guardrail is enabled on the **Security** OU\.
+This control detects whether public write access is enabled to the Amazon S3 buckets in the log archive shared account\. This control does not change the status of the account\. This is a detective control with mandatory guidance\. By default, this control is enabled on the **Security** OU\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -288,9 +288,9 @@ Resources:
 
 ## Disallow Configuration Changes to CloudTrail<a name="cloudtrail-configuration-changes"></a>
 
-This guardrail prevents configuration changes to CloudTrail in your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+This control prevents configuration changes to CloudTrail in your landing zone\. This is a preventive control with mandatory guidance\. By default, this control is enabled on all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -318,9 +318,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Integrate CloudTrail Events with Amazon CloudWatch Logs<a name="cloudtrail-integrate-events-logs"></a>
 
-This guardrail performs real\-time analysis of activity data by sending CloudTrail events to CloudWatch Logs log files\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled on all OUs\.
+This control performs real\-time analysis of activity data by sending CloudTrail events to CloudWatch Logs log files\. This is a preventive control with mandatory guidance\. By default, this control is enabled on all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -348,9 +348,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Enable CloudTrail in All Available Regions<a name="cloudtrail-enable-region"></a>
 
-This guardrail enables CloudTrail in all available AWS Regions\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control enables CloudTrail in all available AWS Regions\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -378,9 +378,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Enable Integrity Validation for CloudTrail Log File<a name="cloudtrail-enable-validation"></a>
 
-This guardrail enables integrity validation for the CloudTrail log file in all accounts and OUs\. It protects the integrity of account activity logs using CloudTrail log file validation, which creates a digitally signed digest file that contains a hash of each log that CloudTrail writes to Amazon S3\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control enables integrity validation for the CloudTrail log file in all accounts and OUs\. It protects the integrity of account activity logs using CloudTrail log file validation, which creates a digitally signed digest file that contains a hash of each log that CloudTrail writes to Amazon S3\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -408,9 +408,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Amazon CloudWatch Set Up by AWS Control Tower<a name="cloudwatch-disallow-changes"></a>
 
-This guardrail disallows changes to Amazon CloudWatch as it was configured by AWS Control Tower when you set up your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to Amazon CloudWatch; as it was configured by AWS Control Tower when you set up your landing zone\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -441,9 +441,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Tags Created by AWS Control Tower for AWS Config Resources<a name="cloudwatch-disallow-config-changes"></a>
 
-This guardrail prevents changes to the tags that AWS Control Tower created when you set up your landing zone, for AWS Config resources that collect configuration and compliance data\. It denies any `TagResource` and `UntagResource` operation for aggregation authorizations tagged by AWS Control Tower\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control prevents changes to the tags that AWS Control Tower created when you set up your landing zone, for AWS Config resources that collect configuration and compliance data\. It denies any `TagResource` and `UntagResource` operation for aggregation authorizations tagged by AWS Control Tower\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -472,9 +472,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Configuration Changes to AWS Config<a name="config-disallow-changes"></a>
 
-This guardrail prevents configuration changes to AWS Config\. It ensures that AWS Config records resource configurations in a consistent manner by disallowing AWS Config settings changes\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control prevents configuration changes to AWS Config\. It ensures that AWS Config records resource configurations in a consistent manner by disallowing AWS Config settings changes\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -505,9 +505,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Enable AWS Config in All Available Regions<a name="config-enable-regions"></a>
 
-This guardrail enables AWS Config in all available AWS Regions\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control enables AWS Config in all available AWS Regions\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -538,9 +538,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to AWS Config Rules Set Up by AWS Control Tower<a name="config-rule-disallow-changes"></a>
 
-This guardrail disallows changes to AWS Config Rules that were implemented by AWS Control Tower when the landing zone was set up\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to AWS Config Rules that were implemented by AWS Control Tower when the landing zone was set up\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -572,27 +572,27 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to AWS IAM Roles Set Up by AWS Control Tower and AWS CloudFormation<a name="iam-disallow-changes"></a>
 
-This guardrail disallows changes to the AWS IAM roles that AWS Control Tower created when the landing zone was set up\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to the AWS IAM roles that AWS Control Tower created when the landing zone was set up\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-### Guardrail update<a name="guardrail-update-hotfix"></a>
+### Control update<a name="control-update-hotfix"></a>
 
-An updated version has been released for the mandatory guardrail `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\.
+An updated version has been released for the mandatory control `AWS-GR_IAM_ROLE_CHANGE_PROHIBITED`\.
 
-This change to the guardrail is required because accounts in OUs that are being enrolled into AWS Control Tower must have the `AWSControlTowerExecution` role enabled\. The previous version of the guardrail prevents this role from being created\.
+This change to the control is required because accounts in OUs that are being enrolled into AWS Control Tower must have the `AWSControlTowerExecution` role enabled\. The previous version of the control prevents this role from being created\.
 
-AWS Control Tower updated the existing guardrail to add an exception so that AWS CloudFormation StackSets can create the `AWSControlTowerExecution` role\. As a second measure, this new guardrail protects the StackSets role to prevent principals in the child account from gaining access\.
+AWS Control Tower updated the existing control to add an exception so that AWS CloudFormation StackSets can create the `AWSControlTowerExecution` role\. As a second measure, this new control protects the StackSets role to prevent principals in the child account from gaining access\.
 
-The new guardrail version performs the following actions, in addition to all actions provided in the previous version:
+The new control version performs the following actions, in addition to all actions provided in the previous version:
 + Allows the `stacksets-exec-*` role \(owned by AWS CloudFormation\) to perform actions on IAM roles that were created by AWS Control Tower\.
 + Prevents changes to any IAM role in child accounts, where the IAM role name matches the pattern `stacksets-exec-*`\.
 
-**The update to the guardrail version affects your OUs and accounts as follows:**
-+ If you extend governance to an OU, that incoming OU receives the updated version of the guardrail as part of the registration process\. You do not need to update your landing zone to get the latest version for this OU\. AWS Control Tower applies the latest version automatically to OUs that register\.
-+ If you update or repair your landing zone at any time after this release, your guardrail will be updated to this version for future provisioning\.
-+ OUs created in or registered with AWS Control Tower before this release date, and which are part of a landing zone that has not been repaired or updated after the release date, will continue to operate with the old version of the guardrail, which blocks the creation of the `AWSControlTowerExecution` role\.
-+ One consequence of this guardrail update is that your OUs can be functioning with different versions of the guardrail\. Update your landing zone to apply the updated version of the guardrail to your OUs uniformly\.
+**The update to the control version affects your OUs and accounts as follows:**
++ If you extend governance to an OU, that incoming OU receives the updated version of the control as part of the registration process\. You do not need to update your landing zone to get the latest version for this OU\. AWS Control Tower applies the latest version automatically to OUs that register\.
++ If you update or repair your landing zone at any time after this release, your control will be updated to this version for future provisioning\.
++ OUs created in or registered with AWS Control Tower before this release date, and which are part of a landing zone that has not been repaired or updated after the release date, will continue to operate with the old version of the control, which blocks the creation of the `AWSControlTowerExecution` role\.
++ One consequence of this control update is that your OUs can be functioning with different versions of the control\. Update your landing zone to apply the updated version of the control to your OUs uniformly\.
 
-The artifact of the updated guardrail is the following SCP\.
+The artifact of the updated control is the following SCP\.
 
 ```
        
@@ -633,7 +633,7 @@ The artifact of the updated guardrail is the following SCP\.
 }
 ```
 
-The former artifact for this guardrail is the following SCP\.
+The former artifact for this control is the following SCP\.
 
 ```
 {
@@ -671,9 +671,9 @@ The former artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to AWS Lambda Functions Set Up by AWS Control Tower<a name="lambda-disallow-changes"></a>
 
-This guardrail disallows changes to AWS Lambda functions set up by AWS Control Tower\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to AWS Lambda functions set up by AWS Control Tower\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -710,9 +710,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Amazon SNS Set Up by AWS Control Tower<a name="sns-disallow-changes"></a>
 
-This guardrail disallows changes to Amazon SNS set up by AWS Control Tower\. It protects the integrity of Amazon SNS notification settings for your landing zone\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to Amazon SNS set up by AWS Control Tower\. It protects the integrity of Amazon SNS notification settings for your landing zone\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -743,9 +743,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Disallow Changes to Amazon SNS Subscriptions Set Up by AWS Control Tower<a name="sns-subscriptions-disallow-changes"></a>
 
-This guardrail disallows changes to Amazon SNS subscriptions set up by AWS Control Tower\. It protects the integrity of Amazon SNS subscriptions settings for your landing zone, to trigger notifications for AWS Config Rules compliance changes\. This is a preventive guardrail with mandatory guidance\. By default, this guardrail is enabled in all OUs\.
+This control disallows changes to Amazon SNS subscriptions set up by AWS Control Tower\. It protects the integrity of Amazon SNS subscriptions settings for your landing zone, to trigger notifications for AWS Config Rules compliance changes\. This is a preventive control with mandatory guidance\. By default, this control is enabled in all OUs\.
 
-The artifact for this guardrail is the following SCP\.
+The artifact for this control is the following SCP\.
 
 ```
 {
@@ -773,9 +773,9 @@ The artifact for this guardrail is the following SCP\.
 
 ## Detect whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled<a name="ensure-cloudtrail-enabled-mandatory"></a>
 
-This guardrail detects whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in a shared account\. This is a detective guardrail with mandatory guidance\. By default, this guardrail is enabled on the Security OU\.
+This control detects whether shared accounts under the Security organizational unit have AWS CloudTrail or CloudTrail Lake enabled\. The rule is NON\_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in a shared account\. This is a detective control with mandatory guidance\. By default, this control is enabled on the Security OU\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
      AWSTemplateFormatVersion: 2010-09-09

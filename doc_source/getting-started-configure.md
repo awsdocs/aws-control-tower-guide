@@ -8,6 +8,7 @@ The process of setting up your AWS Control Tower landing zone has multiple steps
 + During setup, you can optionally specify existing AWS accounts for AWS Control Tower to use as audit and log archive accounts\. If you plan to specify existing AWS accounts, and if those accounts have existing AWS Config resources, you must delete the existing AWS Config resources before you can enroll the accounts into AWS Control Tower\. \(This is a one\-time selection\.\)
 + If you are setting up for the first time, or if you're upgrading to landing zone version 3\.0, you can choose whether to allow AWS Control Tower to set up an organization\-level AWS CloudTrail trail for your organization, or you can opt out of trails that are managed by AWS Control Tower and manage your own CloudTrail trails\. You can opt into or opt out of organization\-level trails that are managed by AWS Control Tower any time you update your landing zone\.
 + You can optionally set a customized retention policy for your Amazon S3 log bucket and log access bucket, when you set up or update your landing zone\.
++ You can optionally specify a previously\-defined *blueprint* to use for provisioning customized member accounts from the AWS Control Tower console\. You can customize accounts later if you do not have a blueprint available\. See [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 **Configuration choices that cannot be undone**
 + You cannot change your home Region after you've set up your landing zone\.

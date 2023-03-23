@@ -29,7 +29,7 @@ AWS Control Tower sets up a well\-architected environment\. It relies upon AWS a
 **Definition of a well\-architected environment**  
 *AWS defines a well\-architected environment as one that begins with a landing zone\.*
 
-AWS Control Tower offers a landing zone that is set up automatically\. It enforces guardrails to ensure compliance with your corporate guidelines, across multiple accounts in your environment\.
+AWS Control Tower offers a landing zone that is set up automatically\. It enforces controls to ensure compliance with your corporate guidelines, across multiple accounts in your environment\.
 
 **Definition of a landing zone**  
 *The landing zone is a cloud environment that offers a recommended starting point, including default accounts, account structure, network and security layouts, and so forth\. From a landing zone, you can deploy workloads that utilize your solutions and applications\.*
@@ -58,7 +58,7 @@ AWS Control Tower and other account orchestration frameworks can make changes th
 
 Furthermore, AWS accounts often are grouped into organizational units \(OUs\), for purposes of governance and control\. OUs are designed to handle enforcement of policies across multiple accounts\.
 
-Our recommendation is that, at a minimum, you create a pre\-production \(or Staging\) environment that is distinct from your Production environment—with distinct guardrails and policies\. The Production and Staging environments can be created and governed as separate OUs, and billed as separate accounts\. In addition, you may want to set up a Sandbox OU for code testing\.
+Our recommendation is that, at a minimum, you create a pre\-production \(or Staging\) environment that is distinct from your Production environment—with distinct controls and policies\. The Production and Staging environments can be created and governed as separate OUs, and billed as separate accounts\. In addition, you may want to set up a Sandbox OU for code testing\.
 
 **Use a well\-planned structure for OUs in your landing zone**
 
@@ -86,6 +86,8 @@ AWS Control Tower recommends that you set up the Sandbox OU, but it is optional\
 **Note**  
 AWS Control Tower does not set up the Workloads OU for you\.
 
+For more information see [Production starter organization with AWS Control Tower](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/production-starter-organization.html#production-starter-organization-with-aws-control-tower)\.
+
 ## Example of AWS Control Tower with a complete multi\-account OU structure<a name="guidelines-for-full-multi-account"></a>
 
 AWS Control Tower supports a nested OU hierarchy, which means that you can create a hierarchical OU structure that meets your organization's requirements\. You can build an AWS Control Tower environment to match the AWS multi\-account strategy guidance\.
@@ -103,7 +105,7 @@ In the Foundational OUs column, two OUs have been added to the basic structure:
 
 In the Additional OUs area, several more OUs have been added to the basic structure\. These following are the next recommended OUs to create as your environment grows: 
 + **Workloads OU** – The Workloads OU, recommended previously but optional, has been separated into two OUs, Workloads\_Test \(for pre\-production workloads\) and Workloads\_Prod \(for production workloads\)\.
-+ **PolicyStaging OU** – Allows system administrators to test their changes to guardrails and policies before fully applying them\.
++ **PolicyStaging OU** – Allows system administrators to test their changes to controls and policies before fully applying them\.
 + **Suspended OU** – Offers a location for accounts that may have been disabled temporarily\.
 
 ## About the Root<a name="about-the-root"></a>

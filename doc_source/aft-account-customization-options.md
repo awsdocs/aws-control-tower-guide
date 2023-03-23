@@ -8,7 +8,7 @@ After your customizations are specified in your chosen `git` repositories, eithe
 
 **Global customizations \(optional\)**
 
-You can choose to apply certain customizations to all accounts that are provisioned by AFT\. For example, if you need to create a particular IAM role, or to deploy a custom guardrail in every account, the global customizations stage in AFT pipeline allows you to do so, automatically\.
+You can choose to apply certain customizations to all accounts that are provisioned by AFT\. For example, if you need to create a particular IAM role, or to deploy a custom control in every account, the global customizations stage in AFT pipeline allows you to do so, automatically\.
 
 **Account customizations \(optional\)**
 
@@ -107,18 +107,18 @@ Here is an example of an event schema \(JSON format\) you can create to pass inp
     },
     {
       "type": "accounts",
-      "target_value": [ "acc1","acc2"]
+      "target_value": [ "acc1_ID","acc2_ID"]
     }
   ]
 }
 ```
 
-As shown in this example event schema, you can choose accounts to include or exclude from the re\-invoke process\. You can filter by account ID, organizational unit \(OU\), and account tags\. If you don’t apply any filters and include the statement `"type":"all"`, the customization for all AFT\-provisioned accounts is re\-invoked\.
-
-After the event parameters have been filled out, the AWS Step Function runs\. It invokes the corresponding customizations\.
+ The example event schema shows that you can choose accounts to include or exclude from the re\-invoke process\. You can filter by organizational unit \(OU\), account tags, and account ID\. If you don’t apply any filters and include the statement `"type":"all"`, the customization for all AFT\-provisioned accounts is re\-invoked\. 
 
 **Note**  
-AFT can invoke a maximum of 5 customizations at a time\. The step function waits and loops until all accounts matching the event criteria are complete\.
+ If your version of AWS Control Tower is 1\.6\.5 or later, you can target nested OUs with the syntax `OU Name (ou-id-1234`\)\. For more information, see the following topic on [GitHub](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/issues/280)\. 
+
+ After you fill out the event parameters, Step Functions runs and invokes the corresponding customizations\. AFT can invoke a maximum of 5 customizations at a time\. Step Functions waits and loops until all accounts matching the event criteria are complete\. 
 
 **Step 3: Monitor the AWS Step Function output and watch AWS CodePipeline running**
 + The resulting Step Function output contains account IDs that match the Step Function input event source\.

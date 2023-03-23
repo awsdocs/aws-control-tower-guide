@@ -6,4 +6,4 @@ AWS Config resources provisioned by AWS Control Tower are tagged automatically w
 
 For more information about how AWS Config monitors and records resources in AWS Control Tower, and how it bills you for them, see [Monitoring resource changes with AWS Config](monitoring-with-config.md)\.
 
-AWS Control Tower uses AWS Config Rules to implement detective guardrails\. For more information, see [Guardrails in AWS Control Tower](guardrails.md)\. 
+AWS Control Tower uses AWS Config Rules to implement detective controls\. For more information, see [About controls in AWS Control Tower](controls.md)\. 

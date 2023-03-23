@@ -1,12 +1,17 @@
 # The ‘alfred’ helper and the AWS CloudFormation parameter files<a name="alfred-helper"></a>
 
-CfCT provides a mechanism to get the value for an [SSM Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) key defined in the AWS CloudFormation parameter JSON file \(\.json\)\. This mechanism allows you to use values stored in the parameter store without updating the AWS CloudFormation template\.
+ CfCT provides you with a mechanism known as the *alfred* helper to get the value for an [SSM Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) key that's defined in the AWS CloudFormation template\.  Using the *alfred* helper, you can use values that are stored in the SSM Parameter Store and without updating the AWS CloudFormation template\. For more information, see [What is an AWS CloudFormation template?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html#gettingstarted.templatebasics.what) in the *AWS CloudFormation User Guide*\. 
 
-For example, suppose that AWS CloudFormation **stack 1** creates an Amazon VPC and subnets in an availability zone\. The `VPC ID` and `subnet ID` must be passed into AWS CloudFormation **stack 2** as parameter values\. 
+**Important**  
+ The *alfred* helper has two limitations\. Parameters are available only in the home region of the AWS Control Tower management account\. As a best practice, consider working with values that don't change from stack instance to stack instance\. When the 'alfred' helper retreives parameters, it chooses a random stack instance from the stack set that exports the variable\. 
 
-You can store the `VPC ID` and the `subnet ID` into the SSM parameter store, using the [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html) resource in **stack 1**\. As shown in the example that follows, the *alfred* helper can get the values from the parameter store and pass them into the StackSet state machine, as input\.
+## Example<a name="w32aac24c37c15c13b7"></a>
 
-AWS CloudFormation **stack 1** snippet:
+ Suppose that you have two AWS CloudFormation stack sets\. *Stack set 1* has one stack instance and deploys to one account in one Region\. It creates an Amazon VPC and subnets in an availability zone, and the `VPC ID` and `subnet ID` must be passed into *stack set 2* as parameter values\. Before the `VPC ID` and `subnet ID` can be passed to *stack set 2*, the `VPC ID` and `subnet ID` must be stored in *stack set 1* using `AWS:::SSM::Parameter`\. For more information, see [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html) in the *AWS CloudFormation User Guide*\. 
+
+**AWS CloudFormation stack set 1:**
+
+ In the following snippet, the *alfred* helper can gets value for the `VPC ID` and `subnet ID` from the parameter store and pass them as input to the StackSet state machine\. 
 
 ```
 VpcIdParameter:
@@ -26,7 +31,9 @@ SubnetIdParameter:
       Value: !Ref MySubnet
 ```
 
-The following example shows the parameters for AWS CloudFormation **stack 2** specified in the `manifest.yaml` file\.
+**AWS CloudFormation stack set 2:**
+
+ The snippet shows the parameters that are specified in the AWS CloudFormation stack 2 `manifest.yaml` file\. 
 
 ```
 parameters:
@@ -36,7 +43,9 @@ parameters:
         parameter_value: $[alfred_ssm_/stack_1/subnet/id]
 ```
 
-Starting with version 2\.1, you can use a list of `alfred_ssm` properties under `parameter_value` to support the **CommaDelimitedList** type of AWS CloudFormation parameter\. For example:
+**AWS CloudFormation stack set 2\.1:**
+
+ The snippet shows that you can list `alfred_ssm` properties to support parameters of type *CommaDelimitedList*\. For more information, see [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#parameters-section-structure-properties-type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#parameters-section-structure-properties-type) in the *AWS CloudFormation User Guide*\. 
 
 ```
 parameters:

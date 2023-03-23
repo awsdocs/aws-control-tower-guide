@@ -5,16 +5,17 @@ AWS Control Tower is a service that's built on top of other AWS services, to ass
 For more information about how to measure a well\-architected environment, learn about the [AWS Well\-Architected Tool](https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html)\.
 
 **Topics**
-+ [Scripting Environments with AWS CloudFormation](cloudformation.md)
-+ [Monitoring Events with CloudTrail](cloudtrail.md)
-+ [Monitoring Resources and Services with CloudWatch](cloudwatch.md)
++ [Deploy Environments with AWS CloudFormation](cloudformation.md)
++ [Monitor Events with CloudTrail](cloudtrail.md)
++ [Monitor Resources and Services with CloudWatch](cloudwatch.md)
 + [Govern Resource Configurations with AWS Config](config.md)
 + [Manage Permissions for Entities with IAM](iam.md)
 + [AWS Key Management Service](kms-integration.md)
 + [Run Serverless Compute Functions with Lambda](lambda.md)
 + [Manage Accounts Through AWS Organizations](organizations.md)
 + [Store Objects with Amazon S3](s3.md)
-+ [Provisioning Accounts Through AWS Service Catalog](service-catalog.md)
-+ [Managing Users and Access Through AWS Single Sign\-On](sso.md)
-+ [Tracking Alerts Through Amazon Simple Notification Service](sns.md)
++ [Monitor your environment with Security Hub](security-hub.md)
++ [Provision Accounts Through Service Catalog](service-catalog.md)
++ [Manage Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](sso.md)
++ [Track Alerts Through Amazon Simple Notification Service](sns.md)
 + [Build Distributed Applications with AWS Step Functions](step-functions.md)

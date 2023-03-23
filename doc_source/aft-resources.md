@@ -50,7 +50,7 @@ When you set up your landing zone using AWS Control Tower Account Factory for Te
 
 | **AWS service** | **Resource type** | **Resource name** | 
 | --- | --- | --- | 
-| AWS Identity and Access Management | Roles | AWSAFTExecutionRole aws\-ct\-aft\-controltower\-events\-rule | 
+| AWS Identity and Access Management | Roles |  AWSAFTExecutionRole AWSAFTExecution aws\-ct\-aft\-controltower\-events\-rule  | 
 | AWS Systems Manager | Parameter store | /aws\-ct\-aft/account/aws\-ct\-aft\-management/account\-id | 
 | AWS Organizations \(Optional\) | Service Control Policies | aws\-ct\-aft\-protect\-resources | 
 | CloudTrail \(Optional\) | Trails | aws\-ct\-aft\-BaselineCloudTrail | 
@@ -61,7 +61,7 @@ When you set up your landing zone using AWS Control Tower Account Factory for Te
 
 | **AWS service** | **Resource type** | **Resource name** | 
 | --- | --- | --- | 
-| AWS Identity and Access Management | Roles | AWSAFTExecutionRole aws\-ct\-aft\-cloudtrail\-data\-events\-role | 
+| AWS Identity and Access Management | Roles |  AWSAFTExecutionRole AWSAFTExecution aws\-ct\-aft\-cloudtrail\-data\-events\-role  | 
 | Key Management Service \(KMS\) | Customer Managed Keys | \*\-aws\-ct\-aft\-kms\-gd\-findings | 
 | Amazon S3 | Buckets | \*\-aws\-ct\-aft\-logs\* aws\-ct\-aft\-s3\-access\-logs\* | 
 | AWS Support Center \(Optional\) | Support plans | Enterprise | 
@@ -71,6 +71,6 @@ When you set up your landing zone using AWS Control Tower Account Factory for Te
 
 | **AWS service** | **Resource type** | **Resource name** | 
 | --- | --- | --- | 
-| AWS Identity and Access Management | Roles | AWSAFTExecutionRole | 
+| AWS Identity and Access Management | Roles |  AWSAFTExecutionRole AWSAFTExecution  | 
 | Amazon S3 | Buckets | \*\-aws\-ct\-aft\-logs\-\* aws\-ct\-aft\-s3\-access\-logs\* | 
 | AWS Support Center \(Optional\) | Support plans | Enterprise | 

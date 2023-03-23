@@ -116,6 +116,9 @@ parameters:
 + **Required:** Yes
 
 **deployment\_targets** – List of accounts or Organizational Units \(OUs\), into which CfCT will deploy the AWS CloudFormation resources, specified as **accounts** or **organizational\_units**\.
+
+**Note**  
+ If you want to deploy an SCP, the target must be an OU, not an account\. 
 + **Type:** List of string `account name` or `account number` to indicate that this resource will be deployed into the given account list, or `OU names` to indicate that this resource will be deployed into the given OU list\.
 + **Required:** At least one of **accounts** or **organizational\_units**
   + **accounts:**

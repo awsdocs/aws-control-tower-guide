@@ -1,28 +1,28 @@
 # Drift prevention and notification<a name="prevention-and-notification"></a>
 
-You can enable certain guardrails and subscribe to certain SNS notifications that help you maintain compliance in AWS Control Tower\.
+You can enable certain controls and subscribe to certain SNS notifications that help you maintain compliance in AWS Control Tower\.
 
 **Drift monitoring protection**
 
-AWS Control Tower provides passive and active methods of drift monitoring protection for preventive guardrails\.
-+ **Passive protection:** AWS CloudTrail monitors and logs preventive guardrail \(SCP\) drift\.
-+ **Active protection:** The AWS Control Tower [drift monitoring service](drift.md#scp-invariance-scans) actively scans the preventive guardrail SCPs, on a regular basis\.
+AWS Control Tower provides passive and active methods of drift monitoring protection for preventive controls\.
++ **Passive protection:** AWS CloudTrail monitors and logs preventive control \(SCP\) drift\.
++ **Active protection:** The AWS Control Tower [drift monitoring service](drift.md#scp-invariance-scans) actively scans the preventive control SCPs, on a regular basis\.
 
 AWS Control Tower notifies you by means of SNS messaging, if drift is detected\.
 
 **Drift prevention** 
 
-Some guardrails prevent modification of compliance reporting mechanisms\.
-+ [Disallow Changes to AWS Config Rules Set Up by AWS Control Tower](mandatory-guardrails.md#config-rule-disallow-changes) \(Mandatory, preventive guardrail\)
-+ [Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower](mandatory-guardrails.md#config-aggregation-authorization-policy) \(Mandatory, preventive guardrail\)
-+ [Disallow Changes to Tags Created by AWS Control Tower for AWS Config Resources](mandatory-guardrails.md#cloudwatch-disallow-config-changes) \(Mandatory, preventive guardrail\)
-+ [Disallow Configuration Changes to AWS Config](mandatory-guardrails.md#config-disallow-changes) \(Mandatory, preventive guardrail\)
+Some controls prevent modification of compliance reporting mechanisms\.
++ [Disallow Changes to AWS Config Rules Set Up by AWS Control Tower](mandatory-controls.md#config-rule-disallow-changes) \(Mandatory, preventive control\)
++ [Disallow Deletion of AWS Config Aggregation Authorizations Created by AWS Control Tower](mandatory-controls.md#config-aggregation-authorization-policy) \(Mandatory, preventive control\)
++ [Disallow Changes to Tags Created by AWS Control Tower for AWS Config Resources](mandatory-controls.md#cloudwatch-disallow-config-changes) \(Mandatory, preventive control\)
++ [Disallow Configuration Changes to AWS Config](mandatory-controls.md#config-disallow-changes) \(Mandatory, preventive control\)
 
-In contrast to preventive guardrails, detective guardrails notify you of resources that violate the associated AWS Config rule\.
+In contrast to preventive controls, detective controls notify you of resources that violate the associated AWS Config rule\.
 
-**To receive SNS notifications about drift and guardrail compliance**
+**To receive SNS notifications about drift and control compliance**
 
-For information about how to receive appropriate drift and guardrail compliance notifications by Amazon SNS, see [Compliance notifications by SNS in the audit account](receive-notifications.md)\.
+For information about how to receive appropriate drift and control compliance notifications by Amazon SNS, see [Compliance notifications by SNS in the audit account](receive-notifications.md)\.
 
 ## Publishers and subscribers for SNS topics<a name="publishers-and-subscribers"></a>
 

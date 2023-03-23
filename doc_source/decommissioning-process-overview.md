@@ -1,9 +1,9 @@
 # Overview of the decommissioning process<a name="decommissioning-process-overview"></a>
 
 When you request decommissioning of your landing zone, AWS Control Tower does the following actions\.
-+ Disables each detective guardrail enabled in the landing zone\. AWS Control Tower deletes the AWS CloudFormation resources supporting the guardrail\.
-+ Disables each preventive guardrail by removing service control policies \(SCPs\) from AWS Organizations\. If a policy is empty \(which it should be after removing all SCPs managed by AWS Control Tower\), AWS Control Tower detaches and deletes the policy entirely\.
-+ Deletes all blueprints deployed as CloudFormation StackSets\.
++ Disables each detective control enabled in the landing zone\. AWS Control Tower deletes the AWS CloudFormation resources supporting the control\.
++ Disables each preventive control by removing service control policies \(SCPs\) from AWS Organizations\. If a policy is empty \(which it should be after removing all SCPs managed by AWS Control Tower\), AWS Control Tower detaches and deletes the policy entirely\.
++ Deletes all blueprints deployed as AWS CloudFormation StackSets\.
 + Deletes all blueprints deployed as CloudFormation Stacks across all Regions\.
 + For each provisioned account, AWS Control Tower does the following actions during the decommissioning process\.
   + Deletes records of each account factory account\. 

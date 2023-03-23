@@ -2,7 +2,7 @@
 
 Identifying and resolving drift is a regular operations task for AWS Control Tower management account administrators\. Resolving drift helps to ensure your compliance with governance requirements\.
 
-When you create your landing zone, the landing zone and all the organizational units \(OUs\), accounts, and resources are compliant with the governance rules enforced by your chosen guardrails\. As you and your organization members use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
+When you create your landing zone, the landing zone and all the organizational units \(OUs\), accounts, and resources are compliant with the governance rules enforced by your chosen controls\. As you and your organization members use the landing zone, changes in this compliance status may occur\. Some changes may be accidental, and some may be made intentionally to respond to time\-sensitive operational events\.
 
 Drift detection assists you in identifying resources that need changes or configuration updates to resolve the drift\. 
 
@@ -11,6 +11,9 @@ Drift detection assists you in identifying resources that need changes or config
 AWS Control Tower detects drift automatically\. To detect drift, the `AWSControlTowerAdmin` role requires persistent access to your management account so AWS Control Tower can make read\-only API calls to AWS Organizations\. These API calls show up as AWS CloudTrail events\.
 
 Drift is surfaced in the Amazon Simple Notification Service \(Amazon SNS\) notifications that are aggregated in the audit account\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\.
+
+**Note**  
+AWS Control Tower does not detect drift for controls that are part of the AWS Security Hub **Service\-Managed Standard: AWS Control Tower**\.
 
 Member account administrators can \(and as a best practice, they should\) subscribe to the SNS drift notifications for specific accounts\. For example, the `aws-controltower-AggregateSecurityNotifications` SNS topic provides drift notifications\. The AWS Control Tower console indicates to management account administrators when drift has occurred\. For more information about SNS topics for drift detection and notification, see [Drift prevention and notification](prevention-and-notification.md)\.
 
@@ -25,6 +28,9 @@ If the same type of drift occurs on the same set of resources multiple times, AW
 **Types of account drift**
 + Account moved between OUs
 + Account removed from organization
+
+**Note**  
+When you move an account from one OU to another, the controls from the previous OU are not removed\. If you enable any new hook\-based control on the destination OU, the old  hook\-based control is removed from the account, and the new control replaces it\. Controls implemented with SCPs and AWS Config rules always must be removed manually when an account changes OUs\.
 
 **Types of policy drift**
 + SCP updated
@@ -46,7 +52,7 @@ When you repair your landing zone, the landing zone is upgraded to the latest la
 
 ## Considerations about drift and SCP scans<a name="scp-invariance-scans"></a>
 
- AWS Control Tower scans your managed SCPs daily to verify that the corresponding guardrails are applied correctly and that they have not drifted\. To retrieve the SCPs and run checks on them, AWS Control Tower calls AWS Organizations on your behalf, using a role in your management account\.
+ AWS Control Tower scans your managed SCPs daily to verify that the corresponding controls are applied correctly and that they have not drifted\. To retrieve the SCPs and run checks on them, AWS Control Tower calls AWS Organizations on your behalf, using a role in your management account\.
 
 If an AWS Control Tower scan discovers drift, you'll receive a notification\. AWS Control Tower sends only one notification per drift issue, so if your landing zone already is in a state of drift, you won't receive additional notifications unless a new drift item is found\.
 
@@ -64,7 +70,7 @@ In rare situations, this limit can be reached when you call the same APIs repeat
 
 1. For each registered OU, retrieving all SCPs managed by AWS Control Tower that are attached to the OU\. Managed SCPs have identifiers that begin with `aws-guardrails`\.
 
-1. For each preventive guardrail enabled on the OU, verifying that the guardrail's policy statement is present in the OU's managed SCPs\.
+1. For each preventive control enabled on the OU, verifying that the control's policy statement is present in the OU's managed SCPs\.
 
 The daily scans consume the TPS for the following AWS Organizations APIs:
 
@@ -108,6 +114,6 @@ Moving accounts between OUs is considered drift, and it must be repaired\.
 
 ## Drift and New Account Provisioning<a name="drift-and-accounts"></a>
 
-If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\.
+If your landing zone is in a state of drift, the **Enroll account** feature in AWS Control Tower will not work\. In that case, you must provision new accounts through AWS Service Catalog\. For instructions, see [Provision accounts with AWS Service Catalog Account Factory ](provision-as-end-user.md)\.
 
-In particular, if you've made certain changes to your accounts by means of AWS Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.
+In particular, if you've made certain changes to your accounts by means of Service Catalog, such as changing the name of your portfolio, the **Enroll account** feature will not work\.

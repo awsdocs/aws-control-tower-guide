@@ -1,6 +1,6 @@
 # Manually add the required IAM role to an existing AWS account and enroll it<a name="enroll-manually"></a>
 
-If you’ve already set up your AWS Control Tower landing zone, you can begin enrolling your organization’s accounts into an OU that is registered with AWS Control Tower\. If you haven't set up your landing zone, follow the steps as described in the AWS Control Tower User Guide at [Getting Started, Step 2](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\. After the landing zone is ready, complete the following steps to bring existing accounts into governance by AWS Control Tower, manually\.
+If you’ve already set up your AWS Control Tower landing zone, you can begin enrolling your organization’s accounts into an OU that is registered with AWS Control Tower\. If you haven't set up your landing zone, follow the steps as described in the *AWS Control Tower User Guide* at [Getting Started, Step 2](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html#step-two)\. After the landing zone is ready, complete the following steps to bring existing accounts into governance by AWS Control Tower, manually\.
 
 **Be sure to review the [Prerequisites for enrollment](enrollment-prerequisites.md) noted previously in this chapter\.**
 
@@ -12,7 +12,7 @@ Before enrolling an account with AWS Control Tower, you must give AWS Control To
 
 For example, if you created this account from AWS Organizations and you use a cross\-account IAM role to sign in, then you may follow these steps:
 
-1. Sign into your organization’s management account\.
+1. Sign in to your organization’s management account\.
 
 1. Go to **AWS Organizations**\.
 
@@ -26,7 +26,7 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. Choose **Switch Role**\.
 
-1. You should now be signed into the AWS management console as the child account\.
+1. You should now be signed into the AWS Management Console as the child account\.
 
 1. When you’re finished, stay in the child account for the next part of the procedure\.
 
@@ -40,7 +40,7 @@ For example, if you created this account from AWS Organizations and you use a cr
 
 1. Choose **Create role**\.
 
-1. When asked to select which service the role is for, select **EC2** and choose **Next:Permissions**\. You will change this to “AWS Control Tower” later\.
+1. When asked to select which service the role is for, select **EC2** and choose **Next:Permissions**\. You will change this to *AWS Control Tower* later\.
 
 1. When asked to attach policies, choose **AdministratorAccess**\.
 
@@ -62,18 +62,19 @@ For example, if you created this account from AWS Organizations and you use a cr
 
    ```
    {
-   "Version": "2012-10-17",
-   "Statement": [
-   {
-   "Effect": "Allow",
-   "Principal": {
-   "AWS": "arn:aws:iam::Management Account ID:root"
-   },
-   "Action": "sts:AssumeRole",
-   "Condition": {}
-   }
-   ]
-   }
+      "Version":"2012-10-17",
+      "Statement":[
+         {
+            "Effect":"Allow",
+            "Principal":{
+               "AWS":"arn:aws:iam::Management Account ID:root"
+            },
+            "Action":"sts:AssumeRole",
+            "Condition":{
+              } 
+            }
+      ]
+     }
    ```
 
 **Step 3: Enroll the account by moving it into a registered OU, and verify enrollment\.**

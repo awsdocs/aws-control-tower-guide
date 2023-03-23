@@ -2,7 +2,7 @@
 
 This section walks you through the steps to remove accounts from AFT, so they are no longer deployed or updated by the pipeline\. For example, you may be closing accounts for retiring applications, isolating accounts that are compromised, or moving accounts from one organization to another\. 
 
-Removing an account from AFT is not the same process as removing an account from AWS Control Tower or deleting it from AWS\. An account provisioned by AFT is handled in the same way as any other AWS account\. That is, the removed AFT account is not deleted, it is only removed from management by AWS Control Tower and AFT\. To delete the account completely, follow the steps in the [Billing console](https://console.aws.amazon.com/billing/)\.
+Removing an account from AFT is not the same process as removing an account from AWS Control Tower or deleting it from AWS\. When you follow these steps, the account is not deleted, it is only removed from management by AFT\. It is still managed by AWS Control Tower\. To delete the account completely, you may follow the steps to remove the account from AWS Control Tower management, and remove the account in the [Billing console](https://console.aws.amazon.com/billing/), as you would for any other AWS account\.
 
 **Important**  
 Removing an account from the AFT pipeline is irreversible\. It can result in a loss of state\.

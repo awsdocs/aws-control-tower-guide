@@ -23,9 +23,9 @@ When you create a landing zone, the Region that you're using for access to the A
 
  After you've selected a home Region, you cannot change it\.
 
-** Guardrails and Regions**
+** Controls and Regions**
 
-Currently, all preventive guardrails work globally\. Detective guardrails, however, only work in Regions where AWS Control Tower is supported\. For more information about the behavior of guardrails when you activate AWS Control Tower in a new Region, see [Configure your AWS Control Tower Regions](#deploying-to-new-region)\.
+Currently, all preventive controls work globally\. Detective controls, however, only work in Regions where AWS Control Tower is supported\. For more information about the behavior of controls when you activate AWS Control Tower in a new Region, see [Configure your AWS Control Tower Regions](#deploying-to-new-region)\.
 
 ## Configure your AWS Control Tower Regions<a name="deploying-to-new-region"></a>
 
@@ -44,10 +44,10 @@ When configuring your AWS Control Tower Regions, be aware of the following recom
 + Select Regions in which you plan to host AWS resources or workloads\.
 + Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.
 
-When you configure your landing zone for new Regions, AWS Control Tower detective guardrails adhere to the following rules:
+When you configure your landing zone for new Regions, AWS Control Tower detective controls adhere to the following rules:
 + *What exists stays the same\.* Guardrail behavior, detective as well as preventive, is unchanged for existing accounts, in existing OUs, in existing Regions\.
-+ *You can’t apply new detective guardrails to existing OUs containing accounts that are not updated\.* When you’ve configured your AWS Control Tower landing zone into a new Region \(by updating your landing zone\), you must update existing accounts in your existing OUs before you can enable new detective guardrails on those OUs and accounts\.
-+ *Your existing detective guardrails begin working in the newly configured Regions as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to configure new Regions and then update an account, the detective guardrails that already are enabled on the OU will begin working on that account in the newly configured Regions\. 
++ *You can’t apply new detective controls to existing OUs containing accounts that are not updated\.* When you’ve configured your AWS Control Tower landing zone into a new Region \(by updating your landing zone\), you must update existing accounts in your existing OUs before you can enable new detective controls on those OUs and accounts\.
++ *Your existing detective controls begin working in the newly configured Regions as soon as you update the accounts\.* When you update your AWS Control Tower landing zone to configure new Regions and then update an account, the detective controls that already are enabled on the OU will begin working on that account in the newly configured Regions\. 
 
 **Configure AWS Control Tower Regions**
 
@@ -65,6 +65,6 @@ If you opt not to govern a Region, you can still deploy resources in that Region
 
 1. Complete the rest of the workflow, then choose **Update landing zone**\.
 
-1. When the landing zone setup completes, **Re\-register** the OUs to update the accounts in your new Regions\. For more information, see [Update existing OUs and accounts](update-existing-accounts.md)\.
+1. When the landing zone setup completes, **Re\-register** the OUs to update the accounts in your new Regions\. For more information, see [When to update AWS Control Tower OUs and accounts](update-existing-accounts.md)\.
 
-An alternative method of provisioning or updating individual accounts after configuring new Regions is by using [the API framework of AWS Service Catalog](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_Reference.html) and [the AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/servicecatalog/index.html) to update the accounts in a batch process\. For more information, see [Provision and update accounts using automation](update-accounts-by-script.md)\.
+An alternative method of provisioning or updating individual accounts after configuring new Regions is by using [the API framework of Service Catalog](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_Reference.html) and [the AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/servicecatalog/index.html) to update the accounts in a batch process\. For more information, see [Provision and update accounts using automation](update-accounts-by-script.md)\.

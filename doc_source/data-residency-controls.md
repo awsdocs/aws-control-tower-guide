@@ -1,18 +1,21 @@
-# Guardrails that enhance data residency protection<a name="data-residency-guardrails"></a>
+# Controls that enhance data residency protection<a name="data-residency-controls"></a>
 
-These elective guardrails complement your enterprise's data residency posture\. By applying these guardrails together, you can set up your multi\-account environment to help detect and inhibit the purposeful or accidental creation, sharing, or copying of data, outside of your selected AWS Region or Regions\.
+These elective controls complement your enterprise's data residency posture\. By applying these controls together, you can set up your multi\-account environment to help detect and inhibit the purposeful or accidental creation, sharing, or copying of data, outside of your selected AWS Region or Regions\.
 
-These guardrails take effect at the OU level, and they apply to all member accounts within the OU\.
+These controls take effect at the OU level, and they apply to all member accounts within the OU\.
 
 **Important**  
-Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from these guardrails\. You can identify the services that are exempt by reviewing the **Region deny SCP**, shown in the example code\. Services with "\*" after their identifier are exempt, because all actions are permitted when the "\*" notation is given\. This SCP essentially contains a list of explicitly permitted actions, and all other actions are denied\. You cannot deny access to your home Region\.
+Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from these controls\. You can identify the services that are exempt by reviewing the **Region deny SCP**, shown in the example code\. Services with "\*" after their identifier are exempt, because all actions are permitted when the "\*" notation is given\. This SCP essentially contains a list of explicitly permitted actions, and all other actions are denied\. You cannot deny access to your home Region\.
 
-## Video: Enable data residency guardrails<a name="video-walkthrough-data-residency"></a>
+## Video: Enable data residency controls<a name="video-walkthrough-data-residency"></a>
 
-This video \(5:58\) describes how to enable data residency controls with AWS Control Tower guardrails\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+This video \(5:58\) describes how to enable data residency controls with AWS Control Tower controls\. For better viewing, select the icon at the lower right corner of the video to enlarge it to full screen\. Captioning is available\.
+
+**Note**  
+We are transitioning our terminology to align better with industry usage and with other AWS services\. During this time, you may see the previous term, *guardrail*, as well as the new term, *control*, in our documentation, console, blogs, and videos\. These terms are synonymous for our purposes\.
 
 **Topics**
-+ [Video: Enable data residency guardrails](#video-walkthrough-data-residency)
++ [Video: Enable data residency controls](#video-walkthrough-data-residency)
 + [Deny access to AWS based on the requested AWS Region](#primary-region-deny-policy)
 + [Disallow internet access for an Amazon VPC instance managed by a customer](#disallow-vpc-internet-access)
 + [Disallow Amazon Virtual Private Network \(VPN\) connections](#prevent-vpn-connection)
@@ -34,94 +37,116 @@ This video \(5:58\) describes how to enable data residency controls with AWS Con
 
 ## Deny access to AWS based on the requested AWS Region<a name="primary-region-deny-policy"></a>
 
-*This guardrail is commonly referred to as the Region deny guardrail\.*
+*This control is commonly referred to as the Region deny control\.*
 
-This guardrail disallows access to unlisted operations in global and regional services outside of the specified Regions\. That includes all Regions where AWS Control Tower is not available, as well as all Regions not selected for governance in the **Landing zone settings** page\. Actions are allowed as usual in Regions with **Governed** status\.
+This control disallows access to unlisted operations in global and regional services outside of the specified Regions\. That includes all Regions where AWS Control Tower is not available, as well as all Regions not selected for governance in the **Landing zone settings** page\. Actions are allowed as usual in Regions with **Governed** status\.
 
 **Note**  
-Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from data residency guardrails\. Those services are specified in the SCP example code that follows\.
+Certain global AWS services, such as AWS Identity and Access Management \(IAM\) and AWS Organizations, are exempt from data residency controls\. Those services are specified in the SCP example code that follows\.
 
-This is an elective guardrail with preventive guidance\. It is the primary guardrail associated with the **Region deny** action\. For more information, see [Configure the Region deny guardrail](region-deny.md)\.
+This is an elective control with preventive guidance\. It is the primary control associated with the **Region deny** action\. For more information, see [Configure the Region deny control](region-deny.md)\.
 
-The format for this guardrail is based on the following SCP\.
+The format for this control is based on the following SCP\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "GRREGIONDENY",
-      "Effect": "Deny",
-      "NotAction": [
-        "a4b:*",
-        "acm:*",
-        "aws-marketplace-management:*",
-        "aws-marketplace:*",
-        "aws-portal:*",
-        "budgets:*",
-        "ce:*",
-        "chime:*",
-        "cloudfront:*",
-        "config:*",
-        "cur:*",
-        "directconnect:*",
-        "ec2:DescribeRegions",
-        "ec2:DescribeTransitGateways",
-        "ec2:DescribeVpnGateways",
-        "fms:*",
-        "globalaccelerator:*",
-        "health:*",
-        "iam:*",
-        "importexport:*",
-        "kms:*",
-        "mobileanalytics:*",
-        "networkmanager:*",
-        "organizations:*",
-        "chatbot:*",
-        "pricing:*",
-        "route53-recovery-control-config:*",
-        "route53-recovery-readiness:*",
-        "route53-recovery-cluster:*",
-        "route53:*",
-        "route53domains:*",
-        "s3:GetBucketPublicAccessBlock",
-        "s3:ListAllMyBuckets",
-        "s3:GetBucketLocation",
-        "s3:GetAccountPublic",
-        "s3:DeleteMultiRegionAccessPoint",
-        "s3:DescribeMultiRegionAccessPointOperation",
-        "s3:GetMultiRegionAccessPoint",
-        "s3:GetMultiRegionAccessPointPolicy",
-        "s3:GetMultiRegionAccessPointPolicyStatus",
-        "s3:ListMultiRegionAccessPoints",
-        "s3:GetStorageLensConfiguration",
-        "s3:GetStorageLensDashboard",
-        "s3:ListStorageLensConfigurations",
-        "s3:GetAccountPublicAccessBlock",
-        "s3:PutAccountPublic",
-        "s3:PutAccountPublicAccessBlock",
-        "shield:*",
-        "sts:*",
-        "support:*",
-        "trustedadvisor:*",
-        "waf-regional:*",
-        "waf:*",
-        "wafv2:*",
-        "access-analyzer:*"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {
-          "aws:RequestedRegion": []
-        },
-        "ArnNotLike": {
-          "aws:PrincipalARN": [
-            "arn:aws:iam::*:role/AWSControlTowerExecution"
-          ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRREGIONDENY",
+            "Effect": "Deny",
+            "NotAction": [
+                "a4b:*",
+                "access-analyzer:*",
+                "acm:*",
+                "account:*",
+                "activate:*",
+                "artifact:*",
+                "aws-marketplace-management:*",
+                "aws-marketplace:*",
+                "aws-portal:*",
+                "billingconductor:*",
+                "budgets:*",
+                "ce:*",
+                "chatbot:*",
+                "chime:*",
+                "cloudfront:*",
+                "compute-optimizer:*",
+                "config:*",
+                "cur:*",
+                "datapipeline:GetAccountLimits",
+                "devicefarm:*",
+                "directconnect:*",
+                "discovery-marketplace:*",
+                "ec2:DescribeRegions",
+                "ec2:DescribeTransitGateways",
+                "ec2:DescribeVpnGateways",
+                "ecr-public:*",
+                "fms:*",
+                "globalaccelerator:*",
+                "health:*",
+                "iam:*",
+                "importexport:*",
+                "kms:*",
+                "license-manager:ListReceivedLicenses",
+                "lightsail:Get*",
+                "mobileanalytics:*",
+                "networkmanager:*",
+                "organizations:*",
+                "pricing:*",
+                "resource-explorer-2:*",
+                "route53-recovery-cluster:*",
+                "route53-recovery-control-config:*",
+                "route53-recovery-readiness:*",
+                "route53:*",
+                "route53domains:*",
+                "s3:CreateMultiRegionAccessPoint",
+                "s3:DeleteMultiRegionAccessPoint",
+                "s3:DescribeMultiRegionAccessPointOperation",
+                "s3:GetAccountPublic",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:GetBucketLocation",
+                "s3:GetBucketPolicyStatus",
+                "s3:GetBucketPublicAccessBlock",
+                "s3:GetMultiRegionAccessPoint",
+                "s3:GetMultiRegionAccessPointPolicy",
+                "s3:GetMultiRegionAccessPointPolicyStatus",
+                "s3:GetStorageLensConfiguration",
+                "s3:GetStorageLensDashboard",
+                "s3:ListAllMyBuckets",
+                "s3:ListMultiRegionAccessPoints",
+                "s3:ListStorageLensConfigurations",
+                "s3:PutAccountPublic",
+                "s3:PutAccountPublicAccessBlock",
+                "s3:PutMultiRegionAccessPointPolicy",
+                "savingsplans:*",
+                "shield:*",
+                "sso:*",
+                "sts:*",
+                "support:*",
+                "supportapp:*",
+                "supportplans:*",
+                "sustainability:*",
+                "tag:GetResources",
+                "trustedadvisor:*",
+                "vendor-insights:ListEntitledSecurityProfiles",
+                "waf-regional:*",
+                "waf:*",
+                "wafv2:*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:RequestedRegion": []
+                },
+                "ArnNotLike": {
+                    "aws:PrincipalARN": [
+                        "arn:aws:iam::*:role/AWSControlTowerExecution"
+                    ]
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }
 ```
 
@@ -129,16 +154,16 @@ Based on this example SCP format, AWS Control Tower adds your governed Regions i
 
 ## Disallow internet access for an Amazon VPC instance managed by a customer<a name="disallow-vpc-internet-access"></a>
 
-This guardrail disallows internet access for an Amazon Virtual Private Cloud \(VPC\) instance managed by a customer, rather than by an AWS service\.
+This control disallows internet access for an Amazon Virtual Private Cloud \(VPC\) instance managed by a customer, rather than by an AWS service\.
 
 **Important**  
-If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides this guardrail\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)\.
-+ This guardrail does not apply to VPCs managed by AWS services\.
-+ Existing VPCs that have internet access retain their internet access\. It applies to new instances only\. After this guardrail is applied, access cannot be changed\.
+If you provision Account Factory accounts with VPC internet access settings enabled, that Account Factory setting overrides this control\. To avoid enabling internet access for newly provisioned accounts, you must change the setting in Account Factory\. For more information, see [Walkthrough: Configure AWS Control Tower Without a VPC](configure-without-vpc.md)\.
++ This control does not apply to VPCs managed by AWS services\.
++ Existing VPCs that have internet access retain their internet access\. It applies to new instances only\. After this control is applied, access cannot be changed\.
 
-This is a preventive guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\. 
+This is a preventive control with elective guidance\. By default, this control isn't enabled on any OUs\. 
 
-The artifact for this guardrail is the following service control policy \(SCP\)\. 
+The artifact for this control is the following service control policy \(SCP\)\. 
 
 ```
 {
@@ -173,14 +198,14 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
 
 ## Disallow Amazon Virtual Private Network \(VPN\) connections<a name="prevent-vpn-connection"></a>
 
-This guardrail prevents Virtual Private Network \(VPN\) connections \(Site\-to\-Site VPN and Client VPN\) to an Amazon Virtual Private Cloud \(VPC\)\. 
+This control prevents Virtual Private Network \(VPN\) connections \(Site\-to\-Site VPN and Client VPN\) to an Amazon Virtual Private Cloud \(VPC\)\. 
 
 **Note**  
 Existing VPCs that have internet access retain their internet access\.
 
-This is a preventive guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\. 
+This is a preventive control with elective guidance\. By default, this control isn't enabled on any OUs\. 
 
-The artifact for this guardrail is the following service control policy \(SCP\)\. 
+The artifact for this control is the following service control policy \(SCP\)\. 
 
 ```
 {
@@ -210,14 +235,14 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
 
 ## Disallow cross\-region networking for Amazon EC2, Amazon CloudFront, and AWS Global Accelerator<a name="prevent-cross-region-networking"></a>
 
-This guardrail prevents configuring cross\-region networking connections from Amazon EC2, Amazon CloudFront, and AWS Global Accelerator services\. It prevents VPC peering and transit gateway peering\.
+This control prevents configuring cross\-region networking connections from Amazon EC2, Amazon CloudFront, and AWS Global Accelerator services\. It prevents VPC peering and transit gateway peering\.
 
 **Note**  
-This guardrail prevents Amazon EC2 VPC peering and Amazon EC2 transit gateway peering within a single Region, as well as across Regions\. For this reason, this guardrail may affect certain workloads in addition to your data residency posture\.
+This control prevents Amazon EC2 VPC peering and Amazon EC2 transit gateway peering within a single Region, as well as across Regions\. For this reason, this control may affect certain workloads in addition to your data residency posture\.
 
-This is a preventive guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\. 
+This is a preventive control with elective guidance\. By default, this control isn't enabled on any OUs\. 
 
-The artifact for this guardrail is the following service control policy \(SCP\)\. 
+The artifact for this control is the following service control policy \(SCP\)\. 
 
 ```
 {
@@ -246,14 +271,14 @@ The artifact for this guardrail is the following service control policy \(SCP\)\
 
 ## Detect whether public IP addresses for Amazon EC2 autoscaling are enabled through launch configurations<a name="autoscaling-launch-config-public-ip-disabled"></a>
 
-This guardrail detects whether Amazon EC2 Auto Scaling groups have public IP addresses enabled through launch configurations\. 
+This control detects whether Amazon EC2 Auto Scaling groups have public IP addresses enabled through launch configurations\. 
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the launch configuration for an autoscaling group sets the value of the field `AssociatePublicIpAddress` set as **True**\. 
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -280,14 +305,14 @@ Resources:
 
 ## Detect whether replication instances for AWS Database Migration Service are public<a name="dms-replication-not-public"></a>
 
-This guardrail detects whether AWS Database Migration Service replication instances are public\. 
+This control detects whether AWS Database Migration Service replication instances are public\. 
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the value of the `PubliclyAccessible` field is set as **True**\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -336,14 +361,14 @@ Resources:
 
 ## Detect whether Amazon EBS snapshots are restorable by all AWS accounts<a name="ebs-snapshot-public-restorable-check"></a>
 
-This guardrail detects whether all AWS accounts have access to restore Amazon EBS snapshots\. 
+This control detects whether all AWS accounts have access to restore Amazon EBS snapshots\. 
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if any snapshots have the `RestorableByUserIds` field set to the value **All**\. In that case, the Amazon EBS snapshots are public\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -393,14 +418,14 @@ Resources:
 
 ## Detect whether any Amazon EC2 instance has an associated public IPv4 address<a name="ec2-instance-no-public-ip"></a>
 
-This guardrail detects whether an Amazon Elastic Compute Cloud \(Amazon EC2\) instance has an associated public IPv4 address\. This guardrail applies only to IPv4 addresses\.
+This control detects whether an Amazon Elastic Compute Cloud \(Amazon EC2\) instance has an associated public IPv4 address\. This control applies only to IPv4 addresses\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\. 
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\. 
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the public IP field is present in the Amazon EC2 instance configuration item\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -427,14 +452,14 @@ Resources:
 
 ## Detect whether Amazon S3 settings to block public access are set as true for the account<a name="s3-account-level-public-access-blocks-periodic"></a>
 
-This guardrail periodically detects whether the required Amazon S3 settings to block public access are configured as true for the account, rather than for a bucket or an access point\.
+This control periodically detects whether the required Amazon S3 settings to block public access are configured as true for the account, rather than for a bucket or an access point\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if at least one of the settings is false\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -493,14 +518,14 @@ Resources:
 
 ## Detects whether an Amazon EKS endpoint is blocked from public access<a name="eks-endpoint-no-public-access"></a>
 
-This guardrail detects whether an Amazon Elastic Kubernetes Service \(Amazon EKS\) endpoint is blocked from public access\. 
+This control detects whether an Amazon Elastic Kubernetes Service \(Amazon EKS\) endpoint is blocked from public access\. 
 
- This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+ This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the endpoint is publicly accessible\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -549,14 +574,14 @@ Resources:
 
 ## Detect whether an Amazon OpenSearch Service domain is in Amazon VPC<a name="elasticsearch-in-vpc-only"></a>
 
-This guardrail detects whether an Amazon OpenSearch Service domain is in Amazon VPC\. 
+This control detects whether an Amazon OpenSearch Service domain is in Amazon VPC\. 
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the OpenSearch Service domain endpoint is public\.
 
-The artifact for this guardrail is the following AWS Config rule\.
+The artifact for this control is the following AWS Config rule\.
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -605,15 +630,15 @@ Resources:
 
 ## Detect whether any Amazon EMR cluster master nodes have public IP addresses<a name="emr-master-no-public-ip"></a>
 
-This guardrail detects whether any Amazon EMR cluster master nodes have public IP addresses\.
+This control detects whether any Amazon EMR cluster master nodes have public IP addresses\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs
 
 **In the console:**
 + The rule shows **Non\-compliant** status if a master node has a public IP address\.
-+ This guardrail checks clusters that are in RUNNING or WAITING state\.
++ This control checks clusters that are in RUNNING or WAITING state\.
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -649,7 +674,7 @@ Resources:
     Type: AWS::Config::ConfigRule
     Properties:
       ConfigRuleName: !Sub ${ConfigRuleName}
-      Description: Detects whether any Amazon Elastic MapReduce (EMR) cluster master nodes have public IP addresses. The rule is NON_COMPLIANT if a master node has a public IP. This guardrail checks clusters that are in RUNNING or WAITING state.
+      Description: Detects whether any Amazon Elastic MapReduce (EMR) cluster master nodes have public IP addresses. The rule is NON_COMPLIANT if a master node has a public IP. This control checks clusters that are in RUNNING or WAITING state.
       Source:
         Owner: AWS
         SourceIdentifier: EMR_MASTER_NO_PUBLIC_IP
@@ -662,14 +687,14 @@ Resources:
 
 ## Detect whether the AWS Lambda function policy attached to the Lambda resource blocks public access<a name="lambda-function-public-access-prohibited"></a>
 
-This guardrail detects whether the AWS Lambda function policy attached to the Lambda resource blocks public access\. 
+This control detects whether the AWS Lambda function policy attached to the Lambda resource blocks public access\. 
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the Lambda function policy allows public access\. 
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -696,14 +721,14 @@ Resources:
 
 ## Detect whether public routes exist in the route table for an Internet Gateway \(IGW\)<a name="no-unrestricted-route-to-igw"></a>
 
-This guardrail detects whether public routes exist in the route table associated with an Internet Gateway \(IGW\)\.
+This control detects whether public routes exist in the route table associated with an Internet Gateway \(IGW\)\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if a route has a destination CIDR block of `0.0.0.0/0` or `::/0` or if a destination CIDR block does not match the rule parameter\.
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -730,14 +755,14 @@ Resources:
 
 ## Detect whether Amazon Redshift clusters are blocked from public access<a name="redshift-cluster-public-access-check"></a>
 
-This guardrail detects whether Amazon Redshift clusters are blocked from public access\.
+This control detects whether Amazon Redshift clusters are blocked from public access\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the `publiclyAccessible` field is set to **True** in the cluster configuration item\.
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -764,14 +789,14 @@ Resources:
 
 ## Detect whether an Amazon SageMaker notebook instance allows direct internet access<a name="sagemaker-notebook-no-direct-internet-access"></a>
 
-This guardrail detects whether an Amazon SageMaker notebook instance allows direct internet access\.
+This control detects whether an Amazon SageMaker notebook instance allows direct internet access\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if Amazon SageMaker notebook instances allow direct internet access\. 
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -820,14 +845,14 @@ Resources:
 
 ## Detect whether any Amazon VPC subnets are assigned a public IP address<a name="subnet-auto-assign-public-ip-disabled"></a>
 
-This guardrail detects whether Amazon Virtual Private Cloud \(Amazon VPC\) subnets are assigned a public IP address\.
+This control detects whether Amazon Virtual Private Cloud \(Amazon VPC\) subnets are assigned a public IP address\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**
 + The rule shows **Non\-compliant** status if the Amazon VPC has subnets that are assigned a public IP address\.
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09
@@ -855,14 +880,14 @@ Resources:
 
 ## Detect whether AWS Systems Manager documents owned by the account are public<a name="ssm-document-not-public"></a>
 
-This guardrail detects whether AWS Systems Manager documents owned by the account are public\.
+This control detects whether AWS Systems Manager documents owned by the account are public\.
 
-This is a detective guardrail with elective guidance\. By default, this guardrail isn't enabled on any OUs\.
+This is a detective control with elective guidance\. By default, this control isn't enabled on any OUs\.
 
 **In the console:**  
 The rule shows **Non\-compliant** status if any documents with owner 'Self' are public\.
 
-The artifact for this guardrail is the following AWS Config rule\. 
+The artifact for this control is the following AWS Config rule\. 
 
 ```
 AWSTemplateFormatVersion: 2010-09-09

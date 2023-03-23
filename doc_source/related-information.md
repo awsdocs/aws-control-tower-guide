@@ -24,8 +24,8 @@ Extend your security posture, integrate with external or existing identity provi
 + [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html                     ) provides secure, hierarchical storage for configuration data management and secrets management\. You can use it to share configuration information in a secure location, for use by AWS Systems Manager and by AWS CloudFormation\. For example, you can store a list of Regions in which you want to deploy conformance packs\. 
 
 <a name="identity"></a>*Identity*
-+ [Link Azure AD user identity into AWS accounts and applications for single sign\-on](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/) – This blog post describes how to use Azure AD with AWS SSO and AWS Control Tower\.
-+ [Manage access to AWS centrally for Okta users with AWS Single Sign\-On](http://aws.amazon.com/about-aws/whats-new/2020/05/manage-access-to-aws-centrally-for-okta-users-with-aws-single-sign-on/) – This blog post describes how to use Okta with AWS SSO and AWS Control Tower\. 
++ [Link Azure AD user identity into AWS accounts and applications for single sign\-on](http://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/) – This blog post describes how to use Azure AD with IAM Identity Center and AWS Control Tower\.
++ [Manage access to AWS centrally for Okta users with AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](http://aws.amazon.com/about-aws/whats-new/2020/05/manage-access-to-aws-centrally-for-okta-users-with-aws-single-sign-on/) – This blog post describes how to use Okta with IAM Identity Center and AWS Control Tower\. 
 
 <a name="logging"></a>*Logging*
 + [AWS Centralized Logging Solution](http://aws.amazon.com/solutions/implementations/centralized-logging/) – This solutions post describes the Centralized Logging solution which enables organizations to collect, analyze, and display logs on AWS across multiple accounts and AWS Regions\. 
@@ -42,7 +42,7 @@ Work with existing AWS organizations and accounts\.
 + [Enroll an account](https://docs.aws.amazon.com/controltower/latest/userguide/enroll-account) – This user guide topic describes how to enroll an existing AWS account in AWS Control Tower\. 
 + [Bring an account under AWS Control Tower](http://aws.amazon.com/blogs/architecture/field-notes-enroll-existing-aws-accounts-into-aws-control-tower/) – This blog post describes how to deploy AWS Control Tower into your existing AWS organizations\.
 +  [Extend AWS Control Tower governance using AWS Config conformance packs](http://aws.amazon.com/blogs/mt/extend-aws-control-tower-governance-using-aws-config-conformance-packs/) – This blog post describes how to deploy AWS Config conformance packs to assist with bringing existing accounts and organizations into governance by AWS Control Tower\. 
-+ [How to Detect and Mitigate Guardrail Violation with AWS Control Tower](http://aws.amazon.com/blogs/mt/how-to-detect-and-mitigate-guardrail-violation-with-aws-control-tower/) – This blog post describes how to add guardrails and how to subscribe to SNS notifications so that you can be notified by email of guardrail compliance violations\.
++ [How to Detect and Mitigate Guardrail Violation with AWS Control Tower](http://aws.amazon.com/blogs/mt/how-to-detect-and-mitigate-guardrail-violation-with-aws-control-tower/) – This blog post describes how to add controls and how to subscribe to SNS notifications so that you can be notified by email of control compliance violations\.
 
 ## Automation and integration<a name="automation-and-integration"></a>
 
@@ -64,7 +64,7 @@ AWS Control Tower acts as an orchestration layer for AWS Organizations\. Therefo
 + For a full list of services available to AWS Control Tower by means of AWS Organizations, see [AWS services that you can use with AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html)\.
 + To enable multi\-account capabilities for these related AWS services, you must enable trusted access\. For more information, see [Using AWS Organizations with other AWS services](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)\.
 **Note**  
-Remember that AWS AWS SSO, AWS Config, and AWS CloudTrail are set up for you in AWS Control Tower and fully integrated\. You do not need to modify your trusted access or delegated administration settings for these services\.
+Remember that AWS IAM Identity Center, AWS Config, and AWS CloudTrail are set up for you in AWS Control Tower and fully integrated\. You do not need to modify your trusted access or delegated administration settings for these services\.
 + Some AWS services available through AWS Organizations can use delegated administration, including AWS Systems Manager and AWS Firewall Manager\. For more information, see [Configuring a Delegated Administrator](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-setup-delegated-administrator.html), and [Enabling a delegated administrator account for Firewall Manager](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-fms.html#integrate-enable-da-fms)\. Also see this video, [Set up security groups with AWS Firewall Manager](https://docs.aws.amazon.com/controltower/latest/userguide/firewall-setup-walkthrough.html)\. 
 
 ## AWS Marketplace solutions<a name="aws-marketplace-solutions"></a>

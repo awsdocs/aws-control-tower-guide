@@ -1,18 +1,26 @@
 # How can administrators review compliance?<a name="review-compliance"></a>
 
-Compliance with detective guardrails is determined according to data retrieved from the AWS Config aggregator in the AWS Control Tower Audit account\. You can review compliance status in the AWS Control Tower console, by subscribing to SNS topics that send email messages to the Audit account, or both\.
+Compliance with detective controls is determined according to data retrieved from the AWS Config aggregator in the AWS Control Tower Audit account\. You can review compliance status in the AWS Control Tower console, by subscribing to SNS topics that send email messages to the Audit account, or both\.
 
-**Detective guardrail status**
+**Detective control status**
 
-To view the compliance status of detective guardrails in the AWS Control Tower console, select **Guardrails** in the left navigation, choose the guardrail name from the guardrails table, and then scroll to the **Accounts** section on that guardrail details page\. Accounts may show a guardrail compliance status of **Unknown** if any detective guardrails are misconfigured\. For example, status **Unknown** often can appear due to account drift, such as **Moved account** drift\. The **Unknown** status also can appear as a result of SCP drift\.
+To view the compliance status of detective controls in the AWS Control Tower console, select **Controls** in the left navigation, choose the control name from the controls table, and then scroll to the **Accounts** section on that control details page\. Accounts may show a control compliance status of **Unknown** if any detective controls are misconfigured\. For example, status **Unknown** often can appear due to account drift, such as **Moved account** drift\. The **Unknown** status also can appear as a result of SCP drift\.
 
-**Preventive guardrail status**
+**Note**  
+AWS Control Tower displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower, including rules that were activated outside of the AWS Control Tower console\. To view the compliance status of all your Config rules, navigate to the **Account details** page in the AWS Control Tower console\. You will see a list showing the compliance status of controls managed by AWS Control Tower and Config rules deployed outside of AWS Control Tower\. You can identify any non\-compliant AWS Config rule\.
 
-The compliance status of preventive guardrails on an OU may be viewed on the **OU detail** page, by scrolling to the **Enabled guardrails** section\. If any preventive guardrails are misconfigured for an OU, the **State** field for that OU may show the state of **Registration failed**, in the **Details** section near the top of the page\. Preventive guardrail misconfiguration is caused most often by SCP drift, which can occur if the guardrail's SCP is modified or detached from the OU by means of the AWS Organizations console\.
+**Preventive control status**
 
-The guardrail compliance status also can be viewed on other pages:
-+ the AWS Control Tower **Dashboard** page, by scrolling to the **Guardrails** section near the bottom of the page
-+ the **Guardrail details** page, which you can view by selecting the name of a guardrail on another page
+The compliance status of preventive controls on an OU may be viewed on the **OU detail** page, by scrolling to the **Enabled controls** section\. If any preventive controls are misconfigured for an OU, the **State** field for that OU may show the state of **Registration failed**, in the **Details** section near the top of the page\. Preventive control misconfiguration is caused most often by SCP drift, which can occur if the control's SCP is modified or detached from the OU by means of the AWS Organizations console\.
+
+**Proactive control status**
+
+The control compliance status also can be viewed on other pages:
++ On the AWS Control Tower **Dashboard** page, by scrolling to the **Controls** section near the bottom of the page\.
++ On the **Control details** page, which you can view by selecting the name of a control on another page\.
+
+**Note**  
+The **State** of a control, as viewed in the AWS Control Tower console, reflects only the enabled or de\-activated state of the control for a specific OU\. This field does not reflect any information about the framework compliance status or the drift status of the landing zone environment\. The control **State** and **Status** information is available in the console only\. It is not available from the public API\. To view the control status, navigate to the **Control details** page in the AWS Control Tower console\.
 
 **Nested OUs and compliance**
 
@@ -31,4 +39,5 @@ To receive updates about compliance, you can subscribe to SNS topics that send n
 For more information on how AWS Control Tower collects information about resources, see the [AWS Config Aggregator Documentation](https://docs.aws.amazon.com/config/latest/developerguide/aggregate-data.html)\.
 
 **Drift changes the compliance status for OU and account resources**  
-Drifted resources may be shown with status **Unknown** in the **Compliance** status field of the AWS Control Tower console\. The **Unknown** state indicates that AWS Control Tower cannot determine the compliance status of the resource, because drift is present\. Drift is not necessarily a detective guardrail compliance violation\. For more information about drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
+Drifted resources may be shown with status **Unknown** in the **Compliance** status field of the AWS Control Tower console\. The **Unknown** state indicates that AWS Control Tower cannot determine the compliance status of the resource, because drift is present\. Drift is not necessarily a detective control compliance violation\. For more information about drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.   
+In another case of this type of drift, resources may be shown as compliant when they are not\. If you delete an AWS Config rule, or if you turn off the Config recorder, compliance status may be reflected inaccurately in the console, because compliance no longer can be evaluated\. For example, if you turn off the Config recorder, the last evaluated status continues to appear in the console\. Similarly, if you delete an AWS Config rule, the resources covered by that rule always show to be compliant\. In this situation, your environment could have some non\-compliant resources that are not reported\. Avoid deleting or turning off your AWS Config resources\.

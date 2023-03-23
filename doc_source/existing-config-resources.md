@@ -37,7 +37,7 @@ For a blog that describes an automated approach to enrolling accounts with exist
 
 **Before you proceed, consider the following expectations regarding this process\.**
 + AWS Control Tower does not create any AWS Config resources in this account\.
-+ After enrollment, AWS Control Tower guardrails automatically protect the AWS Config resources you created, including the new IAM role\.
++ After enrollment, AWS Control Tower controls automatically protect the AWS Config resources you created, including the new IAM role\.
 + If any changes are made to the AWS Config resources after enrollment, those resources must be updated to align with AWS Control Tower settings before you can re\-enroll the account\.
 
 ## Step 1: Contact customer support with a ticket, to add the account to the AWS Control Tower allow list<a name="existing-config-step-1"></a>
@@ -107,7 +107,7 @@ For this step, the following information is needed about your AWS Control Tower 
 
 ## Step 5a\. AWS Config recorder resources<a name="modify-config-recorder-resources-step-5a"></a>
 
-Only one AWS Config recorder can exist per AWS Region\. If another exists, modify the settings as shown\.
+Only one AWS Config recorder can exist per AWS Region\. If one exists, modify the settings as shown\. Replace the item `GLOBAL_RESOURCE_RECORDING` with **true** in your home Region\. Replace the item with **false** for other Regions where an AWS Config recorder exists\.
 + **Name:** DON'T CHANGE
 + **RoleARN:**` IAM_ROLE_ARN`
   + **RecordingGroup:**
@@ -121,7 +121,7 @@ This modification can be made through the AWS CLI using the following command\. 
 aws configservice put-configuration-recorder --configuration-recorder  name=RECORDER_NAME,roleARN=arn:aws:iam::MEMBER_ACCOUNT_NUMBER:role/aws-controltower-ConfigRecorderRole-customer-created --recording-group allSupported=true,includeGlobalResourceTypes=GLOBAL_RESOURCE_RECORDING --region CURRENT_REGION
 ```
 
-## Step 5b\. Modify AWS Config delivery channel resources<a name="modify-config-delivery-channel-step-5"></a>
+## Step 5b\. Modify AWS Config delivery channel resources<a name="modify-config-delivery-channel-step-5b"></a>
 
 Only one AWS Config delivery channel can exist per Region\. If another exists, modify the settings as shown\.
 + **Name:** DON’T CHANGE
@@ -151,6 +151,10 @@ This modification can be made through the AWS CLI using the following command:
  `aws configservice put-aggregation-authorization --authorized-account-id AUDIT_ACCOUNT_ID --authorized-aws-region HOME_REGION --region CURRENT_REGION` 
 
 ## Step 6: Create resources where they don’t exist, in Regions governed by AWS Control Tower<a name="existing-config-step-6"></a>
+
+Revise the AWS CloudFormation template, so that in your home Region the **IncludeGlobalResourcesTypes** parameter has the value `GLOBAL_RESOURCE_RECORDING`, as shown in the example that follows\. Also update the required fields in the template, as specified in this section\.
+
+Replace the item `GLOBAL_RESOURCE_RECORDING` with **true** in your home Region\. Replace the item with **false** for other Regions where an AWS Config recorder exists\.
 
 1. Navigate to the management account’s AWS CloudFormation console\.
 

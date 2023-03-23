@@ -16,7 +16,7 @@ After you decommission your landing zone, you cannot successfully execute setup 
     `- AWSControlTowerCloudTrailRolePolicy`
 
     `- AWSControlTowerStackSetRolePolicy`
-+ You may wish to delete or update the existing AWS SSO configuration for AWS Control Tower before you up a landing zone again, but it is not required that you delete it\.
++ You may wish to delete or update the existing IAM Identity Center configuration for AWS Control Tower before you up a landing zone again, but it is not required that you delete it\.
 + You may wish to remove the VPC created by AWS Control Tower\.
 + Setup fails if the email addresses specified for the logging or audit accounts are associated with an existing AWS account\. You may close the AWS accounts, or use different email addresses to set up a landing zone again\. Alternatively, you may re\-use these existing shared accounts, with the feature that allows you to bring your own logging and audit accounts\. For more information, see [Considerations for bringing existing security or logging accounts](accounts.md#considerations-for-existing-shared-accounts)\.
 + Setup fails if Amazon S3 buckets with the following reserved names already exist in the logging account:

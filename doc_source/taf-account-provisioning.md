@@ -5,7 +5,7 @@ AWS Control Tower Account Factory for Terraform \(AFT\) follows a GitOps model t
 When account provisioning or updating is complete, the AFT workflow continues\. It runs the AFT account provisioning framework and account customizations steps\.
 
 **Note**  
-AFT does not affect workflow performance in AWS Control Tower\. For example, if you provision an account through Account Factory, or through AFT, the same back\-end workflow occurs, without any timing differences\. AFT enables automation, therefore the time required for provisioning may be less noticeable\.
+AFT does not affect workflow performance in AWS Control Tower\. For example, if you provision an account through Account Factory, or through AFT, the same backend workflow occurs, without any timing differences\. AFT enables automation, therefore the time required for provisioning may be less noticeable\.
 
 ## Prerequisites<a name="aft-prerequisites"></a>
 

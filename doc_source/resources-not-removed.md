@@ -10,14 +10,14 @@ For customers without existing AWS Organizations organizations, AWS Control Towe
 + The organization is not deleted from AWS Organizations\.
 + No accounts in AWS Organizations \(shared, provisioned, or management\) are moved or removed\.
 
-**AWS Single Sign\-On \(SSO\)**
+**AWS IAM Identity Center \(successor to AWS Single Sign\-On\) \(SSO\)**
 
-For customers without an existing AWS SSO directory, AWS Control Tower sets up AWS SSO and configures an initial directory\. When you decommission your landing zone, AWS Control Tower makes no changes to AWS SSO\. If needed, you can delete the AWS SSO information stored in your management account manually\. In particular, these areas are unchanged by decommissioning:
+For customers without an existing IAM Identity Center directory, AWS Control Tower sets up IAM Identity Center and configures an initial directory\. When you decommission your landing zone, AWS Control Tower makes no changes to IAM Identity Center\. If needed, you can delete the IAM Identity Center information stored in your management account manually\. In particular, these areas are unchanged by decommissioning:
 + Users created with Account Factory are not removed\.
 + Groups created by AWS Control Tower setup are not removed\.
 + Permission sets created by AWS Control Tower are not removed\.
-+ Associations between AWS accounts and AWS SSO permission sets are not removed\.
-+ AWS SSO directories are not changed\. 
++ Associations between AWS accounts and IAM Identity Center permission sets are not removed\.
++ IAM Identity Center directories are not changed\. 
 
 **Amazon S3 Buckets**
 
@@ -48,3 +48,5 @@ A CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, is created as pa
 
 **Note**  
 Customers on landing zone 3\.0 and later do not need to delete their individual enrolled account’s CloudTrail logs and CloudTrail logs roles, because these are created in the management account only, for the organization\-level trail\.
+
+Procedures for how to delete AWS Control Tower resources are given in [Manage AWS Control Tower Resources](walkthrough-delete.md)\.

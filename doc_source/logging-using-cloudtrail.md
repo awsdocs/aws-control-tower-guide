@@ -24,6 +24,14 @@ For an ongoing record of events in your AWS account, including events for AWS Co
 + [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)
 
 AWS Control Tower logs the following actions as events in CloudTrail log files:
+
+**Public APIs**
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_DisableControl.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_DisableControl.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_EnableControl.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_GetControlOperation.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_GetControlOperation.html)
++ [https://docs.aws.amazon.com/controltower/latest/APIReference/API_ListEnabledControls.html](https://docs.aws.amazon.com/controltower/latest/APIReference/API_ListEnabledControls.html)
+
+**Other APIs**
 + `SetupLandingZone`
 + `UpdateAccountFactoryConfig`
 + `ManageOrganizationalUnit`
@@ -55,6 +63,7 @@ Every event or log entry contains information about who generated the request\. 
 + Whether the request was made with root or AWS Identity and Access Management \(IAM\) user credentials\.
 + Whether the request was made with temporary security credentials for a role or federated user\.
 + Whether the request was made by another AWS service\.
++ Whether the request was rejected as access denied or processed successfully\.
 
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
@@ -65,6 +74,7 @@ For more information, see the [CloudTrail userIdentity Element](https://docs.aws
 The following example shows a CloudTrail log entry that shows the structure of a typical log file entry for a `SetupLandingZone` AWS Control Tower event, including a record of the identity of the user who initiated the action\. 
 
 ```
+{
   "eventVersion": "1.05",
   "userIdentity": {
     "type": "AssumedRole",

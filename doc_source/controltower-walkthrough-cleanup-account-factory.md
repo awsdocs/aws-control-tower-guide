@@ -1,6 +1,6 @@
 # Remove an Account Factory Portfolio and Product<a name="controltower-walkthrough-cleanup-account-factory"></a>
 
-The following procedure guides you through how to sign in as an AWS SSO user in the **AWSServiceCatalogAdmins** group and then clean up your Account Factory portfolio and products\.
+The following procedure guides you through how to sign in as an IAM Identity Center user in the **AWSServiceCatalogAdmins** group and then clean up your Account Factory portfolio and products\.
 
 **To sign in to your management account with the right permissions**
 
@@ -12,7 +12,7 @@ The following procedure guides you through how to sign in as an AWS SSO user in 
 
 **To clean up Account Factory**
 
-1. Open the AWS Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\.
+1. Open the Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\.
 
 1. From the left navigation menu, choose **Portfolios list**\.
 

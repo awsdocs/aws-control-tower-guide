@@ -2,9 +2,9 @@
 
 These procedures walk you through how to clean up the roles and policies that AWS Control Tower created when your landing zone was set up, or later\.
 
-**To delete the AWS SSO AWSServiceCatalogEndUserAccess role**
+**To delete the IAM Identity Center AWSServiceCatalogEndUserAccess role**
 
-1. Open the AWS Single Sign\-On console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
+1. Open the AWS IAM Identity Center \(successor to AWS Single Sign\-On\) console at [https://console\.aws\.amazon\.com/singlesignon/](https://console.aws.amazon.com/singlesignon/)\.
 
 1. Change your AWS Region to your home Region, which is the Region where you initially set up AWS Control Tower\.
 

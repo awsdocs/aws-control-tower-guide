@@ -47,7 +47,7 @@ However, your landing zone update may fail\.
 
 **Steps to take**
 
-Sign in to the management account of your organization, and sign in as root user\. Your IAM user must have AWS Control Tower administrator permissions and be part of the **AWSControlTowerAdmins** group\. Then try the update again\.
+Sign in to the management account of your organization, and sign in as root user\. Your IAM user or user in IAM Identity Center must have AWS Control Tower administrator permissions and be part of the **AWSControlTowerAdmins** group\. Then try the update again\.
 
 ## New Account Provisioning Failed<a name="account-provisioning-failed"></a>
 
@@ -58,11 +58,11 @@ Sign in to the management account of your organization, and sign in as root user
 + enabled SNS notifications,
 + enabled provisioned product notifications\.
 
-Try again to provision your account, without specifying any of those options\. For more information, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\.
+Try again to provision your account, without specifying any of those options\. For more information, see [Provision accounts with AWS Service Catalog Account Factory ](provision-as-end-user.md)\.
 
 **Other common causes for failure:**
 + If you created a provisioned product plan \(to view resource changes\), your account provisioning may remain in an **In progress** state indefinitely\.
-+ Creation of a new account in Account Factory will fail while other AWS Control Tower configuration changes are in progress\. For example, while a process is running to add a guardrail to an OU, Account Factory will display an error message if you try to provision an account\.
++ Creation of a new account in Account Factory will fail while other AWS Control Tower configuration changes are in progress\. For example, while a process is running to add a control to an OU, Account Factory will display an error message if you try to provision an account\.
 
 **To check the status of a previous action in AWS Control Tower**
 + Navigate to **AWS CloudFormation > StackSets**
@@ -96,7 +96,7 @@ However, AWS Control Tower doesn't support the AWS default VPC\. Deploying one c
 **Action to take:** You must delete the default VPC that you added, and then you will be able to update the account\.
 
 **Note**  
-The `Tainted` state causes a follow\-on issue: An account that is not updated may prevent enabling guardrails on the OU of which it is a part\.
+The `Tainted` state causes a follow\-on issue: An account that is not updated may prevent enabling controls on the OU of which it is a part\.
 
 **Case 2: **You may see an error message similar to this one:
 
@@ -107,7 +107,7 @@ The `Tainted` state causes a follow\-on issue: An account that is not updated ma
 **Action to take:**
 
 **If the account move was intended:**
-+ Terminate the account in AWS Service Catalog\.
++ Terminate the account in Service Catalog\.
 + Enroll it again\.
 + *Context/impact:* Deployed AWS Config rules don't match the configuration dictated by the destination OU\.
 +  AWS Config rules may remain from the previous OU, causing unintended spending\.
@@ -115,9 +115,9 @@ The `Tainted` state causes a follow\-on issue: An account that is not updated ma
 
 **If the account move was unintended:**
 + Return the account to its original OU\.
-+ Update the account from AWS Service Catalog\.
++ Update the account from Service Catalog\.
 + In the launch parameters, enter the OU that the account was originally in\.
-+ *Context/impact:* If the account is not returned to its original OU, its state will be inconsistent with the guardrails dictated by the new OU it's in\.
++ *Context/impact:* If the account is not returned to its original OU, its state will be inconsistent with the controls dictated by the new OU it's in\.
 + Updating an account is not a valid remediation, because it does not delete the AWS Config rules associated with its previous OU\.
 
 ## Unable to Update Landing Zone<a name="unable-to-update-landing-zone"></a>
@@ -148,7 +148,9 @@ If AWS Config is enabled in any AWS Region supported by AWS Control Tower, you m
 + `AWS Control Tower cannot create an AWS Config delivery channel because one already exists. To continue, delete the existing delivery channel and try again .`
 + `AWS Control Tower cannot create an AWS Config configuration recorder because one already exists. To continue, delete the existing delivery channel and try again .`
 
-**Common cause:** When the AWS Config service is enabled on an AWS account, it creates a configuration recorder and delivery channel with a default naming\. If you disable the AWS Config service through the console, it does not delete the configuration recorder or the delivery channel\. You must delete them through the CLI\. If the AWS Config service is enabled in any one of the Regions supported by AWS Control Tower, it can result in this failure\.
+**Common cause:** When the AWS Config service is enabled on an AWS account, it creates a configuration recorder and delivery channel with a default naming\. If you disable the AWS Config service through the console, it does not delete the configuration recorder or the delivery channel\. You must delete them through the CLI, or modify them for AWS Control Tower use\. If the AWS Config service is enabled in any one of the Regions supported by AWS Control Tower, it can result in this failure\.
+
+If the account has existing AWS Config resources, see [Enroll accounts that have existing AWS Config resources](https://docs.aws.amazon.com/controltower/latest/userguide/existing-config-resources.html) for instructions on how you can modify your existing resources\.
 
 **Action to take:** Delete the configuration recorder and delivery channel in all supported regions\. Disabling AWS Config is not enough, the configuration recorder and delivery channel must be deleted by means of the CLI\. After you’ve deleted the configuration recorder and delivery channel from the CLI, you can try again to launch AWS Control Tower and enroll the account\.
 
@@ -184,32 +186,32 @@ This error message is generated by AWS Service Catalog, which is the integrated 
 
 **Common Causes:**
 + You may be logged in as root\. AWS Control Tower does not support creating accounts when you're logged in as root\.
-+ Your AWS SSO user has not been added to the appropriate permission group\. You may need to add your AWS SSO user to one of these permission groups: **AWSAccountFactory** \(for end\-user access\) or **AWSServiceCatalogAdmins** \(for admin access\)\.
++ Your IAM Identity Center user has not been added to the appropriate permission group\. You may need to add your IAM Identity Center user to one of these permission groups: **AWSAccountFactory** \(for end\-user access\) or **AWSServiceCatalogAdmins** \(for admin access\)\.
 + If you are authenticated as an IAM user, you must add it to the AWS Service Catalog portfolio so that it has the correct permissions\.
 
 ## Received an Insufficient Permissions Error<a name="insufficient-permissions"></a>
 
-It's possible that your account may not have the necessary permissions to perform certain work in certain AWS Organizations\. If you encounter the following type of error, check all the permissions areas, such as IAM or AWS SSO permissions, to make sure your permission is not being denied from those places:
+It's possible that your account may not have the necessary permissions to perform certain work in certain AWS Organizations\. If you encounter the following type of error, check all the permissions areas, such as IAM or IAM Identity Center permissions, to make sure your permission is not being denied from those places:
 
-"You have insufficient permissions to perform AWS Organizations API actions\." 
+`You have insufficient permissions to perform AWS Organizations API actions`\. 
 
 If you believe your work requires the action you're attempting, and you can't locate any relevant restriction, contact your system administrator or [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
-## Detective guardrails are not taking effect on accounts<a name="guardrail-errors"></a>
+## Detective controls are not taking effect on accounts<a name="control-errors"></a>
 
-If you've recently expanded your AWS Control Tower deployment into a new AWS Region, newly\-applied detective guardrails do not take effect on new accounts you create **in any Region** until the individual accounts within OUs governed by AWS Control Tower are updated\. Existing detective guardrails on existing accounts are still in effect\.
+If you've recently expanded your AWS Control Tower deployment into a new AWS Region, newly\-applied detective controls do not take effect on new accounts you create **in any Region** until the individual accounts within OUs governed by AWS Control Tower are updated\. Existing detective controls on existing accounts are still in effect\.
 
-If you try to enable a detective guardrail before updating your accounts, you may see an error message similar to this one:
+If you try to enable a detective control before updating your accounts, you may see an error message similar to this one:
 
-`AWS Control Tower can't enable the selected guardrail on this OU. AWS Control Tower cannot apply the guardrail on the OU ou-xxx-xxxxxxxx, because child accounts have dependencies that are missing. Update all child accounts under the OU, then try again.`
+`AWS Control Tower can't enable the selected control on this OU. AWS Control Tower cannot apply the control on the OU ou-xxx-xxxxxxxx, because child accounts have dependencies that are missing. Update all child accounts under the OU, then try again.`
 
 **Action to take: Update accounts\.**
 
-To update your accounts from the AWS Control Tower console, see [Update existing OUs and accounts](update-existing-accounts.md)\.
+To update your accounts from the AWS Control Tower console, see [When to update AWS Control Tower OUs and accounts](update-existing-accounts.md)\.
 
 To update multiple individual accounts programmatically, you can use the APIs from AWS Service Catalog and the AWS CLI to automate the updates\. For more information about how to approach the update process, see this [Video Walkthrough](automated-provisioning-walkthrough.md#automated-provisioning-video)\.  You can substitute the **UpdateProvisionedProduct** API for the **ProvisionProduct** API shown in the video\.
 
- If you have further difficulties with enabling detective guardrails on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
+ If you have further difficulties with enabling detective controls on your accounts, contact [AWS Support](https://aws.amazon.com/premiumsupport/)\.
 
 ## Rate exceeded error returned by the AWS Organizations API<a name="rate-exceeded-error"></a>
 

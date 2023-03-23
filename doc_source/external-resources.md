@@ -28,11 +28,11 @@ When you create new OUs and accounts outside of AWS Control Tower, they are not 
 
 **Creating an OU**
 
-Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **Organization** page, but they are not governed by AWS Control Tower guardrails\.
+Organizational Units \(OUs\) created outside of AWS Control Tower are referred to as *Unregistered*\. They are displayed in the **Organization** page, but they are not governed by AWS Control Tower controls\.
 
 **Creating an account**
 
-Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Enrolled and unenrolled accounts that belong to an OU that’s registered with AWS Control Tower are displayed in the **Organization** page\. Accounts that do not belong to a registered OU can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the **Organization** page or the **Account detail** pagein AWS Control Tower and choose **Enroll account**\.
+Accounts created outside of AWS Control Tower are referred to as *Unenrolled*\. Enrolled and unenrolled accounts that belong to an OU that’s registered with AWS Control Tower are displayed in the **Organization** page\. Accounts that do not belong to a registered OU can be invited by using the AWS Organizations console\. This invitation to join does not enroll the account in AWS Control Tower or extend AWS Control Tower governance to the account\. To extend governance by enrolling the account, go to the **Organization** page or the **Account detail** page in AWS Control Tower and choose **Enroll account**\.
 
 ## Externally changing AWS Control Tower resource names<a name="changing-names"></a>
 
@@ -61,7 +61,7 @@ In this situation, the landing zone repair process creates a new Security OU and
 Before you can delete the **Security** OU, you must make sure it contains no accounts\. Specifically, you must remove the Log Archive and Audit accounts from the OU\. We recommend that you move these accounts to another OU\.
 
 **Note**  
-The action of deleting your Security OU is not to be performed without due consideration\. The action could create compliance concerns if logging is suspended temporarily, and because some guardrails might not be enforced\.
+The action of deleting your Security OU is not to be performed without due consideration\. The action could create compliance concerns if logging is suspended temporarily, and because some controls might not be enforced\.
 
  For general information about drift, see "Resolving Drift" in [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
@@ -73,14 +73,14 @@ We do not recommend that you remove any of the shared accounts from your organiz
 + If the remediation steps don't restore the account, contact AWS Support\.
 
 **The results of removing a shared account through AWS Organizations:**
-+ The account is no longer protected by AWS Control Tower mandatory guardrail service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
++ The account is no longer protected by AWS Control Tower mandatory controls with service control policies \(SCPs\)\. **Result:** *The resources created by AWS Control Tower in the account may be modified or deleted\.*
 + The account is no longer under the AWS Organizations management account\. **Result:** *The administrator of the AWS Organizations management account no longer has visibility into the account's spending\.*
 + The account is no longer guaranteed to be monitored by AWS Config\. **Result:** *The administrator of the AWS Organizations management account may not be able to detect resource changes\.*
 + The account is no longer in the organization\. **Result:** *AWS Control Tower updates and repair will fail\.*
 
 **To restore a shared account using the AWS Control Tower console \(semi\-manual procedure\)**
 
-1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\. You must sign in as an AWS Identity and Access Management \(IAM\) user or role with permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation procedure described later in this topic\.
+1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\. You must sign in as an IAM user, user in IAM Identity Center, or role with permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation procedure described later in this topic\.
 
 1. On the **Landing zone drift detected** page, choose **Re\-Invite** to remediate shared account removal by re\-inviting the shared account into the organization\. An automatically\-generated email is sent to the email address for the account\.
 
@@ -99,7 +99,7 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 **To restore a shared account using the AWS Control Tower and AWS Organizations consoles \(Manual remediation\)**
 
-1. Sign in to the AWS Organizations console at [https://console.aws.amazon.com/organizations/](https://console.aws.amazon.com/organizations/)\. You must sign in as an IAM user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. 
+1. Sign in to the AWS Organizations console at [https://console.aws.amazon.com/organizations/](https://console.aws.amazon.com/organizations/)\. You must sign in as an IAM user, user in IAM Identity Center, or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. 
 
 1. Invite the shared account back to the organization\. For information on the requirements, prerequisites, and procedure for inviting an account to AWS Organizations, see [Inviting an AWS account to your organization ](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html) in the *AWS Organizations User Guide*\.
 
@@ -107,7 +107,7 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 1. Sign in to the management account again\. 
 
-1. Sign in to the AWS Control Tower console as an IAM user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
+1. Sign in to the AWS Control Tower console as a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
 
 1. You'll see the **Landing zone drift** page with an option to repair the landing zone\. Choose **Repair** to repair the landing zone\.
 
@@ -127,6 +127,10 @@ AWS Control Tower retrieves and displays email addresses as required by the cons
 
 **Note**  
 In AWS Service Catalog, the Account Factory displays the parameters that were specified in the console when you created a provisioned product\. However, the original account email address is not updated automatically when the account email address changes\. That’s because the account is conceptually contained within the provisioned product; it is not the same as the provisioned product\. To update this value, you must update the provisioned product, which may cause a change in governance posture\.
+
+**Applying external AWS Config rules**
+
+AWS Control Tower displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower, including rules that were activated outside of the AWS Control Tower console\. 
 
 ### Deleting AWS Control Tower resources outside AWS Control Tower<a name="deleting-resources"></a>
 

@@ -8,7 +8,7 @@ The email addresses are required for:
 + **Audit account** – This account is for your team of users that need access to the audit information made available by AWS Control Tower\. You can also use this account as the access point for third\-party tools that will perform programmatic auditing of your environment to help you audit for compliance purposes\.
 + **Log archive account** – This account is for your team of users that need access to all the logging information for all of your enrolled accounts within registered OUs in your landing zone\.
 
-These accounts are set up in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you perform actions in these accounts, you should use an AWS SSO user with the appropriately scoped permissions\.
+These accounts are set up in the **Security** OU when you create your landing zone\. As a best practice, we recommend that when you perform actions in these accounts, you should use an IAM Identity Center user with the appropriately scoped permissions\.
 
 **Note**  
 If you specify existing AWS accounts as your **audit** and **log archive** accounts, the existing accounts must pass some pre\-launch checks to ensure that no resources are in conflict with AWS Control Tower requirements\. If these checks are not successful, your landing zone setup may not succeed\. In particular, the accounts must not have existing AWS Config resources\. For more information, see [Considerations for bringing existing security or logging accounts](accounts.md#considerations-for-existing-shared-accounts)\.

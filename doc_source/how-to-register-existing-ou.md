@@ -23,9 +23,9 @@ After you register an existing OU, the `AWSControlTowerExecution` role allows AW
 Other results include the following:
 + `AWSControlTowerExecution` allows auditing by the AWS Control Tower audit account\.
 + `AWSControlTowerExecution` helps you configure your organization’s logging, so that all the logs for every account are sent to the logging account\.
-+ `AWSControlTowerExecution` ensures that your selected AWS Control Tower guardrails apply automatically to every individual account in your OUs, as well as to every new account you create in AWS Control Tower\.
++ `AWSControlTowerExecution` ensures that your selected AWS Control Tower controls apply automatically to every individual account in your OUs, as well as to every new account you create in AWS Control Tower\.
 
-For a registered OU, you can provide compliance and security reports based on the auditing and logging features embodied by AWS Control Tower guardrails\. Your security and compliance teams can verify that all requirements are met, and that no organizational drift has occurred\. For more information about drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
+For a registered OU, you can provide compliance and security reports based on the auditing and logging features embodied by AWS Control Tower controls\. Your security and compliance teams can verify that all requirements are met, and that no organizational drift has occurred\. For more information about drift, see [Detect and resolve drift in AWS Control Tower](drift.md)\.
 
 **Note**  
 One unusual situation can occur when AWS Control Tower displays OUs and their accounts\. If you have created an account in a registered OU and then you subsequently move that enrolled account into another OU that’s not registered, particularly if you use AWS Organizations to move the account, you can see a result “1 of 0” accounts in your OU details page\. Furthermore, you may have created another unenrolled account in that unregistered OU\. If there’s an unregistered account, the console may read “1 of 1” for the OU\. It will seem that the single \(newly created\) account is enrolled, but in fact it is not\. You must enroll the new account\.
