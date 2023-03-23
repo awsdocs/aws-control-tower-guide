@@ -12,7 +12,7 @@ The **Service\-Managed Standard: AWS Control Tower** supports a subset of contro
 **Note**  
 AWS Control Tower does not detect drift for controls that are part of the AWS Security Hub **Service\-Managed Standard: AWS Control Tower**\.
 
-This standard is available only for AWS Control Tower customers who have created the standard in the AWS Control Tower console\. AWS Control Tower creates the standard for you when you enable the first Security Hub control in the AWS Control Tower console\. At this time, if you haven’t already enabled Security Hub, AWS Control Tower also enables Security Hub for you\.
+This standard is available only for AWS Control Tower customers who have created the standard in the AWS Control Tower console\. AWS Control Tower creates the standard for you when you enable the first Security Hub control in the AWS Control Tower console\. When you enable the first control, if you haven’t already enabled Security Hub, AWS Control Tower also enables Security Hub for you\.
 
 After you create this standard, you can view the Security Hub detective controls alongside other AWS Control Tower controls, in the AWS Control Tower console\. No controls are enabled automatically for this standard\. The Security Hub controls are active at the OU level only, not for all of AWS Control Tower OUs \(if not enabled for all\), and not for individual accounts\. AWS Control Tower does not report compliance for Security Hub controls\.
 
@@ -22,3 +22,8 @@ Based on control status, Security Hub calculates a security score for the **Serv
 When you create **Service\-Managed Standard: AWS Control Tower** and enable controls for it, Security Hub may take up to 18 hours to generate findings for controls that use the same underlying AWS Config service\-linked rule as controls from other enabled Security Hub standards\. For more information, see [Schedule for running security checks](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-schedule.html) in the AWS Security Hub User Guide\.
 
  You can delete this standard in the AWS Control Tower console by deactivating all controls in the standard\. This deletes the standard for all managed accounts and governed Regions in AWS Control Tower\. Deleting the standard does not deactivate Security Hub for your account\.
+
+**Note**  
+You can enable and manage some Security Hub controls from AWS Control Tower, with the [Security Hub Service\-managed Standard: AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/security-hub-controls.html)\.  
+It is important to know that some Security Hub controls do not operate in certain AWS Regions where AWS Control Tower is available, because those Regions do not support the required underlying functionality\. As a result, when you deploy an Security Hub control through AWS Control Tower, the control may not be operating in all Regions that you govern with AWS Control Tower\. For more information about the Security Hub controls that cannot be deployed in certain Regions, see the [Security Hub controls reference documentation](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-controls-reference.html)\.  
+ You can view the Regions for each control in the AWS Control Tower console\.

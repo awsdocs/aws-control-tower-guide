@@ -65,14 +65,13 @@ For example, if you created this account from AWS Organizations and you use a cr
       "Version":"2012-10-17",
       "Statement":[
          {
-            "Effect":"Allow",
-            "Principal":{
-               "AWS":"arn:aws:iam::Management Account ID:root"
+         "Effect":"Allow",
+         "Principal":{
+            "AWS": "arn:aws:iam::Management Account ID:root"
             },
-            "Action":"sts:AssumeRole",
-            "Condition":{
-              } 
-            }
+            "Action": "sts:AssumeRole",
+            "Condition": {} 
+         }
       ]
      }
    ```

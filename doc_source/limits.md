@@ -6,7 +6,7 @@ This chapter covers the AWS service limitations and quotas that you should keep 
 
 This section describes known limitations and unsupported use cases in AWS Control Tower\.
 + AWS Control Tower has overall concurrency limitations\. In general, one operation at a time is permitted\. Two exceptions to this limitation are allowed:
-  + Optional controls can be activated and deactivated concurrently, through an asynchronous process\. Up to ten \(10\) control\-related operations at a time can be in progress
+  + Optional controls can be activated and deactivated concurrently, through an asynchronous process\. Up to ten \(10\) control\-related operations at a time can be in progress\.
   + Accounts can be provisioned, updated, and enrolled concurrently in Account Factory, through an asynchronous process, with up to five \(5\) account\-related operations in progress simultaneously\.
 + Email addresses of shared accounts in the Security OU can be changed, but you must update your landing zone to see these changes in the AWS Control Tower console\.
 + A limit of 5 SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
@@ -23,7 +23,9 @@ When provisioning new accounts in this environment, you can use lifecycle events
 
 **Control limitations**  
 If you modify AWS Control Tower resources, such as an SCP, or remove any AWS Config resource, such as a Config recorder or aggregator, AWS Control Tower can no longer guarantee that the controls are functioning as designed\. Therefore, the security of your multi\-account environment may be compromised\. The AWS shared responsibility model of security is applicable to any such changes you may make\.   
- AWS Control Tower helps maintain the integrity of your environment by resetting the SCPs of the controls to their standard configuration when you update your landing zone\. Changes that you may have made to SCPs are replaced by the standard version of the control, by design\.
+ AWS Control Tower helps maintain the integrity of your environment by resetting the SCPs of the controls to their standard configuration when you update your landing zone\. Changes that you may have made to SCPs are replaced by the standard version of the control, by design\.  
+Some controls in AWS Control Tower do not operate in certain AWS Regions where AWS Control Tower is available, because those Regions do not support the required underlying functionality\. As a result, when you deploy that control, it may not be operating in all Regions that you govern with AWS Control Tower\. This limitation affects certain detective controls, certain proactive controls, and certain controls in the Security Hub Service\-managed Standard: AWS Control Tower\. For more information about Regional availability, see the [Regional services list documentation](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) and the [Security Hub controls reference documentation](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-controls-reference.html)\.  
+You can view the Regions for each control in the AWS Control Tower console\.
 
 ## Quotas for Integrated Services<a name="integrated-services-limits"></a>
 

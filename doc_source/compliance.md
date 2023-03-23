@@ -6,18 +6,18 @@ When AWS Control Tower evaluates the compliance of resources, it reports the com
 
 Compliance reporting is intended to let cloud administrators know when the resources associated with the accounts in their organization are compliant with established policies\. When the resources are in compliance, builders can provision new AWS accounts quickly in a few clicks\.
 
-When we talk about compliance in AWS Control Tower, we do not intend the same meaning as compliance with governmental regulations, such as data privacy or health information standards\. However, AWS Control Tower can assist your organization to comply with many governmental regulations\.
+When we talk about compliance in AWS Control Tower, we do not intend the same meaning as compliance with governmental regulations, such as data privacy or health information standards\. However, AWS Control Tower can assist your organization to comply with many governmental regulations, sometimes referred to as *frameworks*\.
++ For more information about how AWS Control Tower helps you maintain compliance with governmental regulations and industry standards, see [Compliance Validation](https://docs.aws.amazon.com/controltower/latest/userguide/compliance-program-info.html)\.
++ For more information about how you can verify AWS Control Tower resource compliance during AWS CloudFormation stack creation, see this blog post, [How AWS Control Tower users can proactively verify compliance in AWS CloudFormationstacks](https://aws.amazon.com/blogs/mt/how-aws-control-tower-users-can-proactively-verify-compliance-in-aws-cloudformation-stacks/)\.
 
-For more information about how AWS Control Tower helps you maintain compliance with governmental regulations and industry standards, see [Compliance Validation](https://docs.aws.amazon.com/controltower/latest/userguide/compliance-program-info.html)\.
+For ongoing governance, administrators can enable pre\-configured controls—clearly defined rules for security, operations, and compliance\. These controls can:
++ Prevent deployment of resources that don’t conform to policies \(by means of preventive controls, implemented with SCPs, or by means of proactive controls, implemented with AWS CloudFormation hooks\)\.
++ Continuously monitor deployed resources for nonconformance \(by means of detective controls, implemented with AWS Config rules\)\.
 
 **Examples of compliance rules \(controls\) in AWS Control Tower:**
 + [Detect Whether Public Write Access to Amazon S3 Buckets is Allowed](strongly-recommended-controls.md#s3-disallow-public-write)
 + [Detect Whether Unrestricted Incoming TCP Traffic is Allowed](strongly-recommended-controls.md#rdp-disallow-internet)
 
-**Examples of governmental compliance regulations:**
+**Examples of governmental compliance regulations \(frameworks\):**
 + The U\.S\. Health Insurance Portability and Accountability Act of 1996 \(HIPAA\)
 + The European Union’s General Data Protection Regulation of 2016 \(GDPR\)
-
-For ongoing governance, administrators can enable pre\-configured controls—clearly defined rules for security, operations, and compliance\. These controls can:
-+ Prevent deployment of resources that don’t conform to policies \(by means of preventive controls, implemented with SCPs, or by means of proactive controls, implemented with AWS CloudFormation hooks\)\.
-+ Continuously monitor deployed resources for nonconformance \(by means of detective controls, implemented with AWS Config rules\)\.

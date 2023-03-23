@@ -63,8 +63,8 @@ You may see an error banner if the key does not meet these requirements\. In tha
        "Action": [
            "kms:GenerateDataKey*",
            "kms:Decrypt"
-       ]
-       "Resource": "arn:aws:kms:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:key/YOUR-KMS-KEY-ID"
+       ],
+       "Resource": "arn:aws:kms:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:key/YOUR-KMS-KEY-ID",
        "Condition": {
            "StringEquals": {
                "aws:SourceArn": "arn:aws:cloudtrail:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:trail/aws-controltower-BaselineCloudTrail"
@@ -111,8 +111,8 @@ You may see an error banner if the key does not meet these requirements\. In tha
             "Action": [
                 "kms:GenerateDataKey*",
                 "kms:Decrypt"
-              ]
-            "Resource": "arn:aws:kms:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:key/YOUR-KMS-KEY-ID"
+              ],
+            "Resource": "arn:aws:kms:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:key/YOUR-KMS-KEY-ID",
             "Condition": {
                 "StringEquals": {
                     "aws:SourceArn": "arn:aws:cloudtrail:YOUR-HOME-REGION:YOUR-MANAGEMENT-ACCOUNT-ID:trail/aws-controltower-BaselineCloudTrail"

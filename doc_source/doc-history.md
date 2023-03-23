@@ -1,11 +1,12 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** February 16, 2023
++ **Latest documentation update:** April 6, 2023
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
-
+| [Seven additional Regions available](#doc-history) | AWS Control Tower is now available in seven additional AWS Regions: Northern California \(San Francisco\), Asia Pacific \(Hong Kong, Jakarta, and Osaka\), Europe \(Milan\), Middle East \(Bahrain\), and Africa \(Cape Town\)\. | April 6, 2023 | 
+| [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that AWS Control Tower can call the `EnableRegion`, `ListRegions`, `GetRegionOptStatus` APIs that are implemented by the AWS Account Management service\.  | April 6, 2023 | 
 | [ Account customization request tracing generally available ](#doc-history) |  AWS Control Tower now supports the ability to trace account customization requests using the Account Factory for Terraform \(AFT\) workflow\.  | February 16, 2023 | 
 | [IAM best practices update](#doc-history) | Updated guide to align with the IAM best practices recommendations\. For more information, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)\. | February 15, 2023 | 
 | [AWS Control Tower landing zone 3\.1 available](#doc-history) | AWS Control Tower landing zone 3\.1 is available\. | February 9, 2023 | 
@@ -60,4 +61,4 @@ The following table describes important changes to the *AWS Control Tower User G
 | [Settings and Activities pages are available for AWS Control Tower](#doc-history) | The Settings and Activities pages make it easier to update your landing zone and to view logged events\. | November 30, 2019 | 
 | [Additional preventive controls are available for AWS Control Tower ](#doc-history) | Preventive controls in AWS Control Tower keep your organization and resources aligned with your environment\.  | September 6, 2019 | 
 | [Additional detective controls are available for AWS Control Tower ](#doc-history) | Detective controls in AWS Control Tower give information about the state of your organization and resources\.  | August 27, 2019 | 
-| [AWS Control Tower is now generally available](#doc-history) | AWS Control Tower is a service that offers the easiest way to set up and govern your multi\-account AWS environment at scale\. | June 24, 2019 |
+| [AWS Control Tower is now generally available](#doc-history) | AWS Control Tower is a service that offers the easiest way to set up and govern your multi\-account AWS environment at scale\. | June 24, 2019 | 

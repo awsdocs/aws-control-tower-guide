@@ -16,9 +16,13 @@ You must apply an elective, SCP\-based control with the identifier **CT\.CLOUDFO
 
  **Behavior of proactive controls**
 
-Proactive controls check resources whenever those resources are created or updated by means of AWS CloudFormation stack operations\. Specifically, these proactive controls are implemented as `preCreate` and `preUpdate` AWS CloudFormation hook handlers\. As a consequence, these controls may not affect requests that are made directly to services through the AWS console, through AWS APIs, or through other means such as AWS SDKs, or other Infrastructure\-as\-Code \(IaC\) tools\. For more information about when `preCreate` and `preUpdate` hooks operate, see [AWS CloudFormation hooks](https://docs.aws.amazon.com/https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/hooks.html#hooks-characteristics)\.
+Proactive controls check resources whenever those resources are created or updated by means of AWS CloudFormation stack operations\. Specifically, these proactive controls are implemented as `preCreate` and `preUpdate` AWS CloudFormation hook handlers\. As a consequence, these controls may not affect requests that are made directly to services through the AWS console, through AWS APIs, or through other means such as AWS SDKs, or other Infrastructure\-as\-Code \(IaC\) tools\. For more information about when `preCreate` and `preUpdate` hooks operate, see [AWS CloudFormation hooks](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/hooks.html#hooks-characteristics)\.
 
 When you follow an example template to set up a test for a proactive control in your environment, be aware that the template is created to test one specific control only\. Other controls may not receive a PASS rating for that template\. This behavior is expected\. We recommend that you test proactive controls individually before you enable them in your environment\.
+
+**Note**  
+It is important to know that some proactive controls in AWS Control Tower do not operate in certain AWS Regions where AWS Control Tower is available, because those Regions do not support the required underlying functionality for AWS CloudFormation hooks\. As a result, when you deploy a proactive control through AWS Control Tower, the control may not be operating in all Regions that you govern with AWS Control Tower\.  
+You can view the Regions for each proactive control in the AWS Control Tower console\. 
 
 **Topics**
 + [Amazon API Gateway controls](api-gateway-rules.md)

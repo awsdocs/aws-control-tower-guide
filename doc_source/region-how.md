@@ -16,6 +16,13 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + Asia Pacific \(Tokyo\) Region 
 + Europe \(Paris\) Region 
 + South America \(São Paulo\) Region 
++ US West \(N\. California\) Region 
++ Asia Pacific \(Hong Kong\) Region
++ Asia Pacific \(Jakarta\) Region 
++ Asia Pacific \(Osaka\) Region 
++ Europe \(Milan\) Region 
++ Africa \(Cape Town\) Region 
++ Middle East \(Bahrain\) Region 
 
 **About your home Region**
 

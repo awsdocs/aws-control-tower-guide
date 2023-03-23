@@ -1,11 +1,12 @@
 # Account Factory for Terraform \(AFT\) troubleshooting guide<a name="account-troubleshooting-guide"></a>
 
- This section can help you troubleshoot common issues that you might encounter when using Account Factory\. 
+ This section can help you troubleshoot common issues that you might encounter when using Account Factory for Terraform \(AFT\)\. 
 
 **Topics**
 + [General issues](#w32aac32c31c45b7)
 + [Issues related to account provisioning/registration](#w32aac32c31c45b9)
 + [Issues related to customizations invocation](#w32aac32c31c45c11)
++ [Issues related to the account customizations workflow](#w32aac32c31c45c13)
 
 ## General issues<a name="w32aac32c31c45b7"></a>
 +  **Exceeded AWS resource quotas** 
@@ -64,3 +65,15 @@
 +  **Failed to create account before account customizations pipeline is created; can't customize account** 
 
    Make a change to the account specification in the account request repository\. When you make a change, such as changing a tag value for an account, Account Factory follows the path that tries to create the pipeline, even if the pipeline doesn't exist\. 
+
+## Issues related to the account customizations workflow<a name="w32aac32c31c45c13"></a>
+
+ If you're experiencing issues related to the account customizations workflow, make sure that your version of AFT is 1\.8\.0 or higher, and that you delete all instances of account\-related metadata from your DynamoDB request table\. 
+
+ For information about AFT version 1\.8\.0, see [Release 1\.8\.0](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/releases/tag/1.8.0) on GitHub\. 
+
+ For information about how to check and update your version of AFT, see the following: 
++  [Check the AFT version](https://docs.aws.amazon.com/controltower/latest/userguide/check-aft-version.html) 
++  [Update the AFT version](https://docs.aws.amazon.com/controltower/latest/userguide/update-aft-version.html) 
+
+ You can also trace and troubleshoot customization requests by using Amazon CloudWatch Logs Insights queries to filter logs containing your target account and customization request IDs\. For more information, see [Troubleshooting with AFT account customization request tracing](https://docs.aws.amazon.com/controltower/latest/userguide/aft-account-customization-options.html)\. 

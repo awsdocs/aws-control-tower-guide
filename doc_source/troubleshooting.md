@@ -18,22 +18,7 @@ If you encounter this issue, check your email\. You might have been sent confirm
 **Action to take**  
 Be sure to enable all of your required AWS Security Token Service [ \(STS\) endpoint regions](https://console.aws.amazon.com/iam/home#/account_settings) before you launch AWS Control Tower\.
 
-Currently, AWS Control Tower is supported in the following AWS Regions:
-+ US East \(N\. Virginia\)
-+ US East \(Ohio\)
-+ US West \(Oregon\)
-+ Canada \(Central\) Region
-+ Asia Pacific \(Sydney\)
-+ Asia Pacific \(Singapore\) Region
-+ Europe \(Frankfurt\) Region
-+ Europe \(Ireland\)
-+ Europe \(London\) Region
-+ Europe \(Stockholm\) Region
-+ Asia Pacific \(Mumbai\) Region 
-+ Asia Pacific \(Seoul\) Region  
-+ Asia Pacific \(Tokyo\) Region  
-+ Europe \(Paris\) Region 
-+ South America \(São Paulo\) Region 
+To view a list of AWS Regions that AWS Control Tower supports, see [How AWS Regions Work With AWS Control Tower](region-how.md)\.
 
 ## Landing zone not up to date error<a name="landing-zone-not-up-to-date"></a>
 

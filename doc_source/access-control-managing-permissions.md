@@ -59,6 +59,16 @@ The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following:
             ]
         },
         {
+            "Effect": "Allow",   # needed for opt-in Regions
+            "Action": [
+                "account:EnableRegion",
+                "account:ListRegions",
+                "account:GetRegionOptStatus"
+            ],
+            "Resource": "*"
+        },
+
+        {
             "Effect": "Allow",
             "Action": [
                 "cloudformation:CreateStack",
@@ -338,6 +348,7 @@ AWS addresses many common use cases by providing standalone IAM policies that ar
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow AWS Control Tower to make calls to the `EnableRegion`, `ListRegions`, and `GetRegionOptStatus` APIs implemented by the AWS Account Management service, to make the opt\-in AWS Regions available for customer accounts in the landing zone \(Management account, Log archive account, Audit account, OU member accounts\)\. This change is needed so that customers can have the option to expand Region governance by AWS Control Tower into the opt\-in Regions\.  | April 6, 2023 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow AWS Control Tower to assume the `AWSControlTowerBlueprintAccess` role in the blueprint \(hub\) account, which is a dedicated account in an organization, containing pre\-defined blueprints stored in one or more Service Catalog Products\. AWS Control Tower assumes the `AWSControlTowerBlueprintAccess` role to perform three tasks: create a Service Catalog Portfolio, add the requested blueprint Product, and share the Portfolio to a requested member account at account provisioning time\. This change is needed so that customers can provision customized accounts through AWS Control Tower Account Factory\.  | October 28, 2022 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow customers to set up organization\-level AWS CloudTrail trails, starting in landing zone version 3\.0\. The organization\-based CloudTrail feature requires customers to have trusted access enabled for the CloudTrail service, and the IAM user or role must have permission to create an organization\-level trail in the management account\.  | June 20, 2022 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow customers to use KMS key encryption\. The KMS feature allows customers to provide their own KMS key to encrypt their CloudTrail logs\. Customers also can change the KMS key during landing zone update or repair\. When updating the KMS key, AWS CloudFormation needs permissions to call the AWS CloudTrail `PutEventSelector` API\. The change to the policy is to allow the **AWSControlTowerAdmin** role to call the AWS CloudTrail `PutEventSelector` API\.  | July 28, 2021 | 

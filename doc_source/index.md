@@ -154,7 +154,6 @@ sponsored by Amazon.
 + [About controls in AWS Control Tower](controls.md)
    + [View control details](control-details.md)
       + [List of control objectives](list-of-control-objectives.md)
-      + [Controls grouped by objective](controls-listed-by-objective.md)
    + [Enable controls on an OU](enable-controls-on-ou.md)
    + [Controls and compliance](compliance.md)
       + [How can administrators review compliance?](review-compliance.md)

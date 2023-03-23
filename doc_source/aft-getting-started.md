@@ -52,7 +52,7 @@ This step assumes that you are experienced with Terraform, and that you have pro
  AWS Control Tower vends a Terraform module through the AWS Control Tower management account that establishes all of the infrastructure necessary to orchestrate AWS Control Tower Account Factory requests\. You can view the module in the [AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main) on GitHub\. Refer to the module’s README file for information about the input required to run the module and deploy AFT\. 
 
 **Tip**  
- The entire GitHub repository is considered the module\. Alternatively, you can view the module in the [Terraform Registry](http://aws.amazon.com/blogs/https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest)\. 
+ The entire GitHub repository is considered the module\. Alternatively, you can view the module in the [Terraform Registry](https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest)\. 
 
 If you have established pipelines for managing Terraform in your environment, you can integrate this module into your existing workflow\. Otherwise, run the module from any environment that is authenticated with the required credentials\.
 
