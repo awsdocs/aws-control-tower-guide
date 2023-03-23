@@ -1,6 +1,6 @@
 # Root OU<a name="cfct-root-ou"></a>
 
-CfCT supports **Root** as an OU value under `organizational_units` in manifest V2 version \(2021\-03\-15\)\.
+ CfCT supports **Root** as a value for an organizationl unit \(OU\) under `organizational_units` in **manifest V2 version \(2021\-03\-15\)**\. 
 + If you choose the deployment method of `scp`, when you add Root under `organizational_units`, AWS Control Tower applies the policies to all of the OUs under the Root\. If you choose the deployment method of `stack_set`, when you add Root under `organizational_units`, CfCT deploys the stack sets in all the accounts under the Root that are enrolled in AWS Control Tower, except for the management account\.
 + As per AWS Control Tower best practices, the management account is intended only to manage member accounts and for billing purposes\. Do not run production workloads in the AWS Control Tower management account\.
 

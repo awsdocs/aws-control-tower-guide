@@ -56,7 +56,7 @@ For more information about how controls are applied to nested OUs, in AWS Contro
 
 ## Exception to controls for the management account<a name="exception-to-controls"></a>
 
-The root user and any IAM administrators in the management account can perform work that controls would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
+The root user and any administrators in the management account can perform work that controls would otherwise deny\. This exception is intentional\. It prevents the management account from entering into an unusable state\. All actions taken within the management account continue to be tracked in the logs contained within the log archive account, for purposes of accountability and auditing\.
 
 ## Considerations for controls and accounts<a name="controls-and-accounts"></a>
 

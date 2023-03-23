@@ -180,7 +180,7 @@ The artifact for this control is the following SCP\.
 
 ## Detect Whether MFA is Enabled for AWS IAM Users<a name="disallow-access-mfa"></a>
 
-This control detects whether MFA is enabled for AWS IAMusers\. You can protect your account by requiring MFA for all AWS IAM users in the account\. MFA requires an additional authentication code after the user name and password are successful\. This control does not change the status of the account\. This is a detective control with elective guidance\. By default, this control is not enabled\.
+This control detects whether MFA is enabled for AWS IAM users\. You can protect your account by requiring MFA for all AWS users in the account\. MFA requires an additional authentication code after the user name and password are successful\. This control does not change the status of the account\. This is a detective control with elective guidance\. By default, this control is not enabled\.
 
 The artifact for this control is the following AWS Config rule\.
 

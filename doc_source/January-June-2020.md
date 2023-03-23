@@ -1,6 +1,6 @@
 # January \- December 2020<a name="January-June-2020"></a>
 
-Since January 1, 2020, AWS Control Tower has released the following updates:
+In 2020, AWS Control Tower released the following updates:
 + [AWS Control Tower console now links to external AWS Config rules](#config-aggregator-12-2020)
 + [AWS Control Tower now available in additional Regions](#region-expansion-11-19-20)
 + [Guardrail update](#control-update)
@@ -114,9 +114,9 @@ Updating your landing zone does not automatically update your accounts\. If you 
 
 AWS Control Tower now supports single\-step account provisioning through the AWS Control Tower console\. This feature allows you to provision new accounts from within the AWS Control Tower console\.
 
-To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(IAM Identity Center\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through AWS Service Catalog\.
+To use the simplified form, navigate to **Account Factory** in the AWS Control Tower console and then choose **Quick account provisioning**\. AWS Control Tower assigns the same email address to the provisioned account and to the single sign\-on \(IAM Identity Center\) user that is created for the account\. If you require these two email addresses to be different, you must provision your account through Service Catalog\.
 
-Update accounts that you create through quick account provisioning by using AWS Service Catalog and the AWS Control Tower account factory, just like updates to any other account\.
+Update accounts that you create through quick account provisioning by using Service Catalog and the AWS Control Tower account factory, just like updates to any other account\.
 
 **Note**  
 In April 2020, the **Quick account provisioning** capability was renamed to **Enroll account**\. In June 2022, the ability to create and update accounts in the AWS Control Tower console was separated from the ability to enroll AWS accounts\. For more information, see [Enroll an existing account](quick-account-provisioning.md)\.

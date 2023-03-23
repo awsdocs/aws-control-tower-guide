@@ -24,7 +24,7 @@ You can automate the closure of AWS Control Tower member accounts with an AWS Or
 
 *AWS Control Tower Account Factory for Terraform* \(AFT\) follows a GitOps model to automate the processes of account provisioning and account updating in AWS Control Tower\. For more information, see [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
 
-*Customizations for AWS Control Tower* \(CfCT\) helps you customize your AWS Control Tower landing zone and stay aligned with AWS best practices\. Customizations are implemented with AWS CloudFormation templates and service control policies \(SCPs\)\. For more information, see [Customizations for AWS Control Tower \(CfCT\) overview](cfct-overview.md)\.
+*Customizations for AWS Control Tower* \(CfCT\) helps you customize your AWS Control Tower landing zone and stay aligned with AWS best practices\. Customizations are implemented with AWS CloudFormation templates and service control policies \(SCPs\)\. For more information, see [ Customizations for AWS Control Tower \(CfCT\) overview ](cfct-overview.md)\.
 
 For more information and a video about automated account provisioning, see [Walkthrough: Automated account provisioning in AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/automated-provisioning-walkthrough.html) and [Automated provisioning with IAM roles](https://docs.aws.amazon.com/controltower/latest/userguide/roles-how.html#automated-provisioning)\.
 
@@ -35,6 +35,8 @@ Also see [Update accounts by script](https://docs.aws.amazon.com/controltower/la
 For more information about auditing accounts programmatically, see [Programmatic roles and trust relationships for the AWS Control Tower audit account](https://docs.aws.amazon.com/controltower/latest/userguide/roles-how.html#stacksets-and-roles)\.
 
 **Automating other tasks**
+
+For information about how to increase certain AWS Control Tower service quotas with an automated request method, view this video: [Automate Service Limit Increases](https://www.youtube.com/watch?v=3WUShZ4lZGE)\. 
 
 For technical blogs that cover automation and integration use cases, see [Automation and integration](https://docs.aws.amazon.com/controltower/latest/userguide/related-information.html#automation-and-integration)\.
 

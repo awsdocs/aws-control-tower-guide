@@ -1,4 +1,4 @@
-# Walkthrough: Automate Account Provisioning in AWS Control Tower by AWS Service Catalog APIs<a name="automated-provisioning-walkthrough"></a>
+# Walkthrough: Automate Account Provisioning in AWS Control Tower by Service Catalog APIs<a name="automated-provisioning-walkthrough"></a>
 
 AWS Control Tower is integrated with several other AWS services, such as AWS Service Catalog\. You can use the APIs to create and provision your member accounts in AWS Control Tower\.
 

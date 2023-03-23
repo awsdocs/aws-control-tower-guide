@@ -38,7 +38,6 @@ When this type of drift occurs for an Account Factory provisioned account in an 
 + Navigating to the **Organization** page in the AWS Control Tower console, selecting the account, and choosing **Update account** at the upper right \(fastest option for individual accounts\)\.
 + Navigating to the **Organization** page in the AWS Control Tower console, then choosing **Re\-register** for the OU that contains the account \(fastest option for multiple accounts\)\. For more information, see [Register an existing organizational unit with AWS Control Tower](importing-existing.md)\. 
 + Updating the provisioned product in Account Factory\. For more information, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
-+ Updating your landing zone \(slower option\)\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
 **Note**  
 If you have several individual accounts to update, also see this method for making updates with a script: [Provision and update accounts using automation](update-accounts-by-script.md)\.
 + When this type of drift occurs in an OU with more than 300 accounts, the drift resolution may depend on which type of account has been moved, as explained in the next paragraphs\. For more information, see [Update Your Landing Zone](update-controltower.md)\.
@@ -71,7 +70,7 @@ This type of drift can occur when a member account is removed from a registered 
 + For more information about resolving drift for accounts and OUs, see [If you manage resources outside of AWS Control Tower](external-resources.md)\. 
 
 **Note**  
-In AWS Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.
+In Service Catalog, the Account Factory provisioned product that represents the account is not updated to remove the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to the Service Catalog, choose the provisioned product, and then choose **Terminate**\.
 
 ## Unplanned Update to Managed SCP<a name="drift-scp-update"></a>
 
@@ -82,7 +81,7 @@ This type of drift can occur when an SCP for a control is updated in the AWS Org
   "Message" : "AWS Control Tower has detected that the managed service control policy 'aws-guardrails-012345 (p-tEXAMPLE)', attached to the registered organizational unit 'Security (ou-0123-1EXAMPLE)', has been modified. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/update-scp'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "ServiceControlPolicyUpdated",
+  "DriftType" : "SCP_UPDATED",
   "RemediationStep" : "Update Control Tower Setup",
   "OrganizationalUnitId" : "ou-0123-1EXAMPLE",
   "PolicyId" : "p-tEXAMPLE"
@@ -154,7 +153,7 @@ This type of drift can occur when an SCP for a control is attached to an account
   "Message" : "AWS Control Tower has detected that the managed service control policy 'aws-guardrails-012345 (p-tEXAMPLE)' has been attached to the member account 'account-email@amazon.com (012345678909)'. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/scp-detached-account'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "ServiceControlPolicyAttachedToAccount",
+  "DriftType" : "SCP_ATTACHED_TO_ACCOUNT",
   "RemediationStep" : "Re-register this organizational unit (OU)",
   "AccountId" : "012345678909",
   "PolicyId" : "p-tEXAMPLE"
@@ -182,7 +181,7 @@ This type of drift applies only to AWS Control Tower Foundational OUs, such as t
   "Message" : "AWS Control Tower has detected that the registered organizational unit 'Security (ou-0123-1EXAMPLE)' has been deleted. For more information, including steps to resolve this issue, see 'https://docs.aws.amazon.com/console/controltower/delete-ou'",
   "ManagementAccountId" : "012345678912",
   "OrganizationId" : "o-123EXAMPLE",
-  "DriftType" : "OrganizationalUnitDeleted",
+  "DriftType" : "ORGANIZATIONAL_UNIT_DELETED",
   "RemediationStep" : "Delete organizational unit in Control Tower",
   "OrganizationalUnitId" : "ou-0123-1EXAMPLE"
 }

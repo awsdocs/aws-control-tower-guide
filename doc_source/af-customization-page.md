@@ -2,21 +2,20 @@
 
 AWS Control Tower allows you to customize new and existing AWS accounts when you provision their resources from the AWS Control Tower console\. After you set up account factory customization, AWS Control Tower automates this process for future provisioning, so you don't have to maintain any pipelines\. Customized accounts are available for use immediately after the resources are provisioned\.
 
-Your customized accounts are provisioned in account factory, through AWS CloudFormation templates\. You'll define an AWS CloudFormation template that serves as customized account *blueprint*\. Your blueprint describes the specific resources and configurations you require when an account is provisioned\. Pre\-defined blueprints, built and managed by AWS partners, also are available\. For more information about partner\-managed blueprints, see the [AWS Service Catalog Getting Started Library](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/getting-started-library.html)\.
+Your customized accounts are provisioned in account factory, through AWS CloudFormation templates\. You'll define an AWS CloudFormation template that serves as customized account *blueprint*\. Your blueprint describes the specific resources and configurations you require when an account is provisioned\. Pre\-defined blueprints, built and managed by AWS partners, also are available\. For more information about partner\-managed blueprints, see the [Service Catalog Getting Started Library](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/getting-started-library.html)\.
 
 **Note**  
 AWS Control Tower contains *proactive controls*, which monitor AWS CloudFormation resources in AWS Control Tower\. Optionally, you can activate these controls in your landing zone\. When you apply proactive controls, they check to make sure that the resources you're about to deploy to your accounts are compliant with your organization's policies and procedures\. For more information about proactive controls, see [Proactive controls](proactive-controls.md)\.
 
-Your account blueprints are stored in an AWS account, which for our purposes is referred to as a *hub account*\. Blueprints are stored in the form of an AWS Service Catalog product\. We call this product a blueprint, to distinguish it from any other AWS Service Catalog products\. To learn more about how to create AWS Service Catalog products, see [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the AWS Service Catalog Administrator Guide\.
+Your account blueprints are stored in an AWS account, which for our purposes is referred to as a *hub account*\. Blueprints are stored in the form of an Service Catalog product\. We call this product a blueprint, to distinguish it from any other Service Catalog products\. To learn more about how to create Service Catalog products, see [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the *Service Catalog Administrator Guide*\.
 
-You can apply customized blueprints to existing accounts, also, by following the **Update account** steps in AWS Control Tower\. For details, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
+You can apply customized blueprints to existing accounts, also, by following the **Update account** steps in the AWS Control Tower console\. For details, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
 
 **Before you begin**  
 Before you begin to create customized accounts with AWS Control Tower Account Factory, you must have an AWS Control Tower landing zone environment deployed, and you must have an organizational unit \(OU\) registered with AWS Control Tower, where your newly created accounts will be placed\.
 
 **Preparation for customization**
 + You may create a new account to serve as the hub account, or you may use an existing AWS account\. We strongly recommend that you do not use the AWS Control Tower management account as your blueprint hub account\.
-+ You must configure the hub account as a delegated administrator for AWS Service Catalog\. For more information, see [Simplify sharing your AWS Service Catalog portfolios in an AWS Organizations setup](http://aws.amazon.com/blogs/mt/simplify-sharing-your-aws-service-catalog-portfolios-in-an-aws-organizations-setup/)\.
 + If you plan to enroll AWS accounts into AWS Control Tower and customize them, you must first add the `AWSControlTowerExecution` role to those accounts, as you would for any other account you are enrolling into AWS Control Tower\.
 + If you plan to use partner blueprints that have marketplace subscription requirements, you must configure these from your AWS Control Tower management account before you deploy the partner blueprints as account factory customization blueprints\.
 
@@ -36,14 +35,13 @@ Before you begin to create customized accounts with AWS Control Tower Account Fa
 One blueprint may be deployed per AWS Control Tower account\.
 
 ## Considerations for Account Factory Customizations \(AFC\)<a name="af-limitations"></a>
-+ AFC supports customization using a single AWS Service Catalog blueprint product only\.
-+ The AWS Service Catalog blueprint hub account must be a delegated administrator for the AWS Service Catalog service within the same organization\. For more information, see [Delegated admin](https://docs.aws.amazon.com/accounts/latest/reference/using-orgs-delegated-admin.html)\.
-+ The AWS Service Catalog blueprint products must be created in the hub account, and in the same Region as the AWS Control Tower landing zone home Region\.
++ AFC supports customization using a single Service Catalog blueprint product only\.
++ The Service Catalog blueprint products must be created in the hub account, and in the same Region as the AWS Control Tower landing zone home Region\.
 + The `AWSControlTowerBlueprintAccess` IAM role must be created with the proper name, permissions, and trust policy\.
 + AWS Control Tower supports two deployment options for blueprints: deploy to the home Region only, or deploy to all Regions governed by AWS Control Tower\. Selection of Regions is not available\. 
-+ When you update a blueprint in a member account, the blueprint hub account ID and the AWS Service Catalog blueprint product cannot be changed\.
-+ AWS Control Tower does not support removing an existing blueprint and adding a new blueprint in a single blueprint update operation\. You can remove a blueprint and then add a new blueprint in separate operations\.
-+ AWS Control Tower changes behavior, based on whether you are creating or enrolling customized accounts, or non\-customized accounts\. If you are not creating or enrolling customized accounts with blueprints, AWS Control Tower creates an Account Factory provisioned product \(through AWS Service Catalog\) in the AWS Control Tower management account\. If you are specifying customization when creating or enrolling accounts with blueprints, AWS Control Tower does not create an Account Factory provisioned product in the AWS Control Tower management account\.
++ When you update a blueprint in a member account, the blueprint hub account ID and the Service Catalog blueprint product cannot be changed\.
++ AWS Control Tower doesn't support removing an existing blueprint and adding a new blueprint in a single blueprint update operation\. You can remove a blueprint and then add a new blueprint in separate operations\.
++ AWS Control Tower changes behavior, based on whether you are creating or enrolling customized accounts, or non\-customized accounts\. If you are not creating or enrolling customized accounts with blueprints, AWS Control Tower creates an Account Factory provisioned product \(through Service Catalog\) in the AWS Control Tower management account\. If you are specifying customization when creating or enrolling accounts with blueprints, AWS Control Tower does not create an Account Factory provisioned product in the AWS Control Tower management account\.
 
 ## In case of a blueprint error<a name="af-error"></a>
 
@@ -89,7 +87,7 @@ When you create the `AWSControlTowerBlueprintAccess` role from an AWS Control To
 ```
 
 The following workarounds are available:
-+ \(Most recommended\) Assume the `AWSControlTowerExecution` role and create the `AWSControlTowerBlueprintAccess` role\.
++ \(Most recommended\) Assume the `AWSControlTowerExecution` role and create the `AWSControlTowerBlueprintAccess` role\. If you choose this workaround, be sure to sign out from the `AWSControlTowerExecution` role immediately afterward, to prevent unintended changes to resources\.
 + Sign into an account that is not enrolled in AWS Control Tower, and therefore not subject to this SCP\.
 + Temporarily edit this SCP to permit the operation\.
 + \(Strongly not recommended\) Use your AWS Control Tower management account as your hub account, so it is not subject to the SCP\.

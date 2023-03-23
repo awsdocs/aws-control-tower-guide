@@ -13,3 +13,8 @@ Each control enforces one of these objectives\. Sometimes controls must be appli
 + **CO\.8** Improve resiliency
 + **CO\.9** Improve availability
 + **CO\.10** Protect configurations
++ **CO\.11** Prepare for incident response
++ **CO\.12** Manage vulnerabilities
++ **CO\.13** Manage secrets
++ **CO\.14** Prepare for disaster recovery
++ **CO\.15** Use strong authentication

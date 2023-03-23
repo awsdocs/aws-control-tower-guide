@@ -6,11 +6,6 @@
 
 ## \[CT\.ELASTICBEANSTALK\.PR\.1\] Require AWS Elastic Beanstalk environments to have enhanced health reporting enabled<a name="ct-elasticbeanstalk-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether AWS Elastic Beanstalk environments and configuration templates are configured for `enhanced` health reporting\.
 + **Control objective: **Improve resiliency
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -20,7 +15,7 @@ This control checks whether AWS Elastic Beanstalk environments and configuration
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.ELASTICBEANSTALK\.PR\.1 rule specification](#ct-elasticbeanstalk-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.ELASTICBEANSTALK.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.ELASTICBEANSTALK\.PR\.1 example templates](#ct-elasticbeanstalk-pr-1-templates) 
 
 **Explanation**
 
@@ -427,12 +422,86 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.ELASTICBEANSTALK\.PR\.1 example templates<a name="ct-elasticbeanstalk-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - elasticbeanstalk.amazonaws.com
+          Action:
+          - 'sts:AssumeRole'
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+      - Ref: InstanceRole
+  App:
+    Type: AWS::ElasticBeanstalk::Application
+  ElasticBeanstalkConfigurationTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName:
+        Ref: App
+      SolutionStackName: "64bit Amazon Linux 2 v3.4.0 running Python 3.8"
+      OptionSettings:
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value:
+          Ref: InstanceProfile
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - 'sts:AssumeRole'
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+      - Ref: InstanceRole
+  App:
+    Type: AWS::ElasticBeanstalk::Application
+  ElasticBeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      SolutionStackName: "64bit Amazon Linux 2 v3.4.0 running Python 3.8"
+      ApplicationName:
+        Ref: App
+      OptionSettings:
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value:
+          Ref: InstanceProfile
+      - Namespace: aws:elasticbeanstalk:healthreporting:system
+        OptionName: SystemType
+        Value: basic
+```
+
 ## \[CT\.ELASTICBEANSTALK\.PR\.2\] Require an AWS Elastic Beanstalk environment to have managed platform updates configured<a name="ct-elasticbeanstalk-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether managed platform updates in AWS Elastic Beanstalk environments and configuration templates are activated\.
 + **Control objective: **Manage vulnerabilities

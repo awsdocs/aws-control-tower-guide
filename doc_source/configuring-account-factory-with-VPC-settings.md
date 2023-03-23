@@ -1,6 +1,6 @@
 # Configure Account Factory with Amazon Virtual Private Cloud settings<a name="configuring-account-factory-with-VPC-settings"></a>
 
-Account Factory enables you to create pre\-approved baselines and configuration options for accounts in your organization\. You can configure and provision new accounts through AWS Service Catalog\.
+Account Factory allows you to create pre\-approved baselines and configuration options for accounts in your organization\. You can configure and provision new accounts through AWS Service Catalog\.
 
 On the Account Factory page, you can see a list of organizational units \(OUs\) and their **allow list** status\. By default, all OUs are on the allow list, which means that accounts can be provisioned under them\. You can disable certain OUs for account provisioning through AWS Service Catalog\.
 

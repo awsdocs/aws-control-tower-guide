@@ -1,4 +1,4 @@
-# Amazon Simple Storage Service \(S3\) controls<a name="s3-rules"></a>
+# Amazon Simple Storage Service \(Amazon S3\) controls<a name="s3-rules"></a>
 
 **Topics**
 + [\[CT\.S3\.PR\.1\] Require an Amazon S3 bucket to have block public access settings configured](#ct-s3-pr-1-description)
@@ -12,11 +12,6 @@
 
 ## \[CT\.S3\.PR\.1\] Require an Amazon S3 bucket to have block public access settings configured<a name="ct-s3-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon Simple Storage Service \(Amazon S3\) bucket has a bucket\-level Block Public Access \(BPA\) configuration\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -26,7 +21,7 @@ This control checks whether your Amazon Simple Storage Service \(Amazon S3\) buc
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.1 rule specification](#ct-s3-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.1 example templates](#ct-s3-pr-1-templates) 
 
 **Explanation**
 
@@ -204,12 +199,39 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.1 example templates<a name="ct-s3-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+```
+
 ## \[CT\.S3\.PR\.2\] Require an Amazon S3 bucket to have server access logging configured<a name="ct-s3-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether server access logging is enabled for your Amazon S3 bucket\.
 + **Control objective: **Establish logging and monitoring
@@ -220,7 +242,7 @@ This control checks whether server access logging is enabled for your Amazon S3 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.2 rule specification](#ct-s3-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.2 example templates](#ct-s3-pr-2-templates) 
 
 **Explanation**
 
@@ -408,12 +430,30 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.S3\.PR\.2 example templates<a name="ct-s3-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      LoggingConfiguration: {}
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+```
+
 ## \[CT\.S3\.PR\.3\] Require an Amazon S3 buckets to have versioning configured and a lifecycle policy<a name="ct-s3-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon Simple Storage Service \(Amazon S3\) version\-enabled bucket has a lifecycle policy configured\.
 + **Control objective: **Optimize costs
@@ -424,7 +464,7 @@ This control checks whether your Amazon Simple Storage Service \(Amazon S3\) ver
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.3 rule specification](#ct-s3-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.3 example templates](#ct-s3-pr-3-templates) 
 
 **Explanation**
 
@@ -613,12 +653,43 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.3 example templates<a name="ct-s3-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+        - Status: Enabled
+          ExpirationInDays: 1
+          Id: FirstRule
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+        - Status: Disabled
+          ExpirationInDays: 1
+          Id: FirstRule
+```
+
 ## \[CT\.S3\.PR\.4\] Require an Amazon S3 bucket to have event notifications configured<a name="ct-s3-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon S3 events notifications are enabled on your Amazon S3 bucket\.
 + **Control objective: **Establish logging and monitoring
@@ -629,7 +700,7 @@ This control checks whether Amazon S3 events notifications are enabled on your A
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.4 rule specification](#ct-s3-pr-4-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.4) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.4 example templates](#ct-s3-pr-4-templates) 
 
 **Explanation**
 
@@ -844,12 +915,33 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.4 example templates<a name="ct-s3-pr-4-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      NotificationConfiguration:
+        EventBridgeConfiguration:
+          EventBridgeEnabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      NotificationConfiguration: {}
+```
+
 ## \[CT\.S3\.PR\.5\] Require that an Amazon S3 bucket does not manage user access with an access control list \(ACL\)<a name="ct-s3-pr-5-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon Simple Storage Service \(Amazon S3\) bucket allows user permissions through access control lists\.
 + **Control objective: **Enforce least privilege
@@ -860,7 +952,7 @@ This control checks whether your Amazon Simple Storage Service \(Amazon S3\) buc
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.5 rule specification](#ct-s3-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.5 example templates](#ct-s3-pr-5-templates) 
 
 **Explanation**
 
@@ -989,12 +1081,30 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.5 example templates<a name="ct-s3-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+```
+
 ## \[CT\.S3\.PR\.6\] Require an Amazon S3 bucket to have lifecycle policies configured<a name="ct-s3-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether a lifecycle rule is configured for Amazon S3 buckets\.
 + **Control objective: **Optimize costs, Improve availability
@@ -1005,7 +1115,7 @@ This control checks whether a lifecycle rule is configured for Amazon S3 buckets
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.6 rule specification](#ct-s3-pr-6-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.6) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.6 example templates](#ct-s3-pr-6-templates) 
 
 **Explanation**
 
@@ -1172,12 +1282,39 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.6 example templates<a name="ct-s3-pr-6-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      LifecycleConfiguration:
+        Rules:
+        - Status: Enabled
+          ExpirationInDays: 1
+          Id: FirstRule
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      LifecycleConfiguration:
+        Rules:
+        - Status: Disabled
+          ExpirationInDays: 1
+          Id: FirstRule
+```
+
 ## \[CT\.S3\.PR\.7\] Require an Amazon S3 bucket to have server\-side encryption configured<a name="ct-s3-pr-7-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether default server\-side encryption is enabled on your Amazon S3 bucket\.
 + **Control objective: **Encrypt data at rest
@@ -1188,7 +1325,7 @@ This control checks whether default server\-side encryption is enabled on your A
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.S3\.PR\.7 rule specification](#ct-s3-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.S3.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.S3\.PR\.7 example templates](#ct-s3-pr-7-templates) 
 
 **Explanation**
 
@@ -1409,12 +1546,33 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.S3\.PR\.7 example templates<a name="ct-s3-pr-7-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+```
+
 ## \[CT\.S3\.PR\.8\] Require that Amazon S3 bucket requests use Secure Socket Layer<a name="ct-s3-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered ](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon S3 bucket policies require requests to use Secure Socket Layer \(SSL\)\.
 + **Control objective: **Encrypt data in transit
@@ -1429,7 +1587,7 @@ This control checks whether Amazon S3 bucket policies require requests to use Se
 
 **Explanation**
 
-Amazon S3 buckets should have policies that require all requests \(Action: S3:\*\) to accept transmission of data over HTTPS in the S3 resource policy only, as indicated by the condition key `aws:SecureTransport`\.
+Amazon S3 buckets should have policies that require all requests \(`Action: S3:*`\) to accept transmission of data over HTTPS in the S3 resource policy only, as indicated by the condition key `aws:SecureTransport`\.
 
 ### Remediation for rule failure<a name="ct-s3-pr-8-remediation"></a>
 

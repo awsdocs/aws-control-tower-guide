@@ -15,7 +15,7 @@ For more information about how to measure a well\-architected environment, learn
 + [Manage Accounts Through AWS Organizations](organizations.md)
 + [Store Objects with Amazon S3](s3.md)
 + [Monitor your environment with Security Hub](security-hub.md)
-+ [Provision Accounts Through AWS Service Catalog](service-catalog.md)
++ [Provision Accounts Through Service Catalog](service-catalog.md)
 + [Manage Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)](sso.md)
 + [Track Alerts Through Amazon Simple Notification Service](sns.md)
 + [Build Distributed Applications with AWS Step Functions](step-functions.md)

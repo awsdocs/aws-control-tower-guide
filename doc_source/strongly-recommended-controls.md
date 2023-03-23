@@ -20,7 +20,7 @@ Strongly recommended controls are owned by AWS Control Tower\. They are based on
 
 ## Disallow Creation of Access Keys for the Root User<a name="disallow-root-access-keys"></a>
 
-Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users with limited permissions to interact with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
+Secures your AWS accounts by disallowing creation of access keys for the root user\. We recommend that you instead create access keys for the IAM users or IAM Identity Center users, which grant limited permissions to interact with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
 
 The artifact for this control is the following SCP\.
 
@@ -49,7 +49,7 @@ The artifact for this control is the following SCP\.
 
 ## Disallow Actions as a Root User<a name="disallow-root-auser-actions"></a>
 
-Secures your AWS accounts by disallowing account access with root user credentials, which are credentials of the account owner that allow unrestricted access to all resources in the account\. Instead, we recommend that you create AWS Identity and Access Management \(IAM\) users for everyday interaction with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
+Secures your AWS accounts by disallowing account access with root user credentials, which are credentials of the account owner that allow unrestricted access to all resources in the account\. Instead, we recommend that you create IAM Identity Center users for everyday interaction with your AWS account\. This is a preventive control with strongly recommended guidance\. By default, this control is not enabled\.
 
 The artifact for this control is the following SCP\.
 

@@ -6,11 +6,6 @@
 
 ## \[CT\.WAF\-REGIONAL\.PR\.1\] Require any AWS WAF regional rule to have a condition<a name="ct-waf-regional-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an AWS WAF Classic Regional rule contains any conditions\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -213,11 +208,6 @@ Resources:
 ```
 
 ## \[CT\.WAF\-REGIONAL\.PR\.2\] Require any AWS WAF regional web access control list \(ACL\) to have a rule or rule group<a name="ct-waf-regional-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an AWS WAF Classic Regional web ACL contains any WAF rules or rule groups\.
 + **Control objective: **Limit network access

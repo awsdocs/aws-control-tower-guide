@@ -40,7 +40,7 @@ To set up AWS Control Tower on an existing organization, your service limits mus
 
 **Effects of adding AWS Control Tower to your existing organization**
 
-AWS Control Tower creates two accounts in your organization: an audit account and a logging account\. These accounts keep a record of actions taken by your team, in their individual user accounts\. The **Audit** and **Log archive** accounts appear in the **Security** OU within your AWS Control Tower landing zone\.
+AWS Control Tower creates two accounts in your organization: an audit account and a logging account\. These accounts keep a record of actions taken by your team, in their individual end\-user accounts\. The **Audit** and **Log archive** accounts appear in the **Security** OU within your AWS Control Tower landing zone\.
 
 When you set up your landing zone, the accounts added by AWS Control Tower become part of your existing AWS Organizations, and as such they become part of the billing for your existing organization\.
 

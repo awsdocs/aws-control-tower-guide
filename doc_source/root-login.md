@@ -1,12 +1,12 @@
-# When to Sign in as a Root User<a name="root-login"></a>
+# When to sign in as a root user<a name="root-login"></a>
 
 Certain administrative tasks require that you must sign in as a root user\. You can sign in as a root user to an AWS account that was created by account factory in AWS Control Tower\.
 
 **You must sign in as a root user to perform the following actions:**
 + Change certain account settings, including the account name, root user password, or email address\. For more information, see [Update and move account factory accounts with AWS Control Tower or with AWS Service Catalog](updating-account-factory-accounts.md)\.
 + To change or enable your [AWS Support plan](https://docs.aws.amazon.com/controltower/latest/userguide/troubleshooting.html#getting-support)\.
-+ To [close an AWS Account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html)\.
-+ For more information about actions that require root login credentials, please see [AWS Tasks that Require AWS Root Login Credentials](https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html)\.
++ To [close an AWS account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html)\.
++ For more information about actions that require root user login credentials, see [Tasks that require root user credentials](https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html) in the *AWS Account Management Reference Guide*\.
 
 **To sign in as root user**
 

@@ -1,6 +1,6 @@
 # The AWS Control Tower controls library<a name="controls-reference"></a>
 
-The following sections include a reference entry for each of the controls available in AWS Control Tower\. Each control reference entry includes the details, artifacts, additional information, and considerations to keep in mind when enabling a specific control on a OU in your landing zone\.
+The following sections include a reference entry for each of the controls available in AWS Control Tower\. The controls are grouped into sections according to common characteristics\. Each control reference entry includes the details, artifacts, additional information, and considerations to keep in mind when enabling a specific control on a OU in your landing zone\.
 
 **Topics**
 + [Mandatory controls](mandatory-controls.md)

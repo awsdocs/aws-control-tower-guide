@@ -24,6 +24,20 @@ When you enable optional controls, AWS Control Tower creates and manages AWS res
 **Note**  
 You can enable preventive and detective controls concurrently\.
 
+**To deactivate controls for an OU, from the console**
+
+1. Using a web browser, navigate to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\.
+
+1. From the left navigation, choose **Controls**\.
+
+1. Choose a control that you want to deactivate; for example, **Control: Detect Whether Encryption is Enabled for Amazon EBS Volumes Attached to Amazon EC2 Instances**\. This choice opens the control's details page\.
+
+1. From the **Organizational units enabled** tab, select the radio button next to the OU from which you want to remove the control\.
+
+1. Choose **Disable control** at the upper right\.
+
+1. Your control is now deactivated\. It may take several minutes for the change to complete\. When it does, you'll see that this control is no longer applied to the OU you selected\.
+
 ## Concurrent deployment for optional controls<a name="concurrent-optional-controls"></a>
 
 When applying optional controls, you can deploy more than one control at a time, up to the StackSets limitation of 5000 concurrent operations\. For example, you can enable **Detect Whether MFA for the Root User is Enabled** and **Detect Whether Public Write Access to Amazon S3 Buckets is Allowed**, at the same time\.

@@ -1,18 +1,23 @@
 # Update the stack<a name="update-stack"></a>
 
-If you have previously deployed *Customizations for AWS Control Tower* \(CfCT\), follow this procedure to update the AWS CloudFormation stack for the latest version of the CfCT framework\.
+ If you previously deployed *Customizations for AWS Control Tower* \(CfCT\), follow the procedure to update the AWS CloudFormation stack for the latest version of the CfCT framework\. 
 
-1. Sign in to the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation), select your existing **Customizations for AWS Control Tower** \(CfCT\) CloudFormation stack, and select **Update**\.
+**Important**  
+ Before you can complete the following procedure, you must upload the [latest template from GitHub](  https://github.com/aws-solutions/aws-control-tower-customizations/blob/main/customizations-for-aws-control-tower.template) to an Amazon Simple Storage Service \(Amazon S3\) bucket\. For instructions on how to get started with Amazon S3, see [Getting started with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) in the *Amazon Simple Storage Service User Guide*\. 
 
-1. Select **Replace current template**\.
+1.  Sign in to the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation)\. 
 
-1. Under **Specify template**: 
+1.  Select your existing **Customizations for AWS Control Tower** \(CfCT\) CloudFormation stack, and then select **Update**\. 
 
-   1. Copy the link of the [latest template from GitHub](  https://github.com/aws-solutions/aws-control-tower-customizations/blob/main/customizations-for-aws-control-tower.template)\.
+1.  Under **Prerequisite — Prepare template**, select **Replace current template**\. 
 
-   1. Paste the link in the **URL** box\.
+1.  Under **Specify template**, do the following: 
 
-   1. Verify that the correct template URL shows in the ** URL** text box and choose **Next**\. Choose **Next** again\.
+   1.  For **Template source**, select **Replace current template**\. 
+
+   1.  For **Amazon S3 URL**, enter the template URL for the template that you previously uploaded from GitGub to Amazon S3, and then choose **Next**\. 
+
+   1.  Verify that the template URL is correct\. Then choose **Next** and **Next** again\. 
 
 1. Under **Parameters**, review the parameters for the template and modify them as necessary\. Refer to [Step 1\. Launch the stack](step1.md) for details about the parameters\.
 

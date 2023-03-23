@@ -109,7 +109,7 @@ The next example shows the `aws:SourceAccount` and `aws:SourceArn` conditions ap
 
 The example illustrates the `aws:SourceArn` condition statement, with an added `aws:SourceAccount` condition statement\. For more information, see [Prevent cross\-service impersonation](prevent-confused-deputy.md)\.
 
- For general information about permission policies in AWS Control Tower see [Managing Access to Resources](access-control-overview.md#access-control-manage-access-intro)\.
+ For general information about permission policies in AWS Control Tower see [Manage access to resources](access-control-manage-access-intro.md)\.
 
 **Recommendations:**
 

@@ -13,7 +13,7 @@ AWS Control Tower supports creating `AWS::ControlTower::EnabledControl` \(contro
 **Note**  
 The limit for `EnableControl`and `DisableControl` updates in AWS Control Tower is 10 concurrent operations\.
 
-To view some AWS Control Tower examples for the CLI and the console, see [Enable controls with AWS CloudFormation](enable-controls.md)\.
+To view some AWS Control Tower examples for the CLI and the console, see [ Enable controls with AWS CloudFormation](enable-controls.md)\.
 
 ## Learn more about AWS CloudFormation<a name="learn-more-cloudformation"></a>
 

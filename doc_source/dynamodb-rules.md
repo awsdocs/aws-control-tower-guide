@@ -5,11 +5,6 @@
 
 ## \[CT\.DYNAMODB\.PR\.1\] Require that point\-in\-time recovery for an Amazon DynamoDB table is activated<a name="ct-dynamodb-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether point\-in\-time recovery \(PITR\) is enabled for an Amazon DynamoDB table\.
 + **Control objective: **Improve resiliency
 + **Implementation: **AWS CloudFormation Guard Rule

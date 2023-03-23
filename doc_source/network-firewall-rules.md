@@ -8,11 +8,6 @@
 
 ## \[CT\.NETWORK\-FIREWALL\.PR\.1\] Require any AWS Network Firewall firewall policy to have an associated rule group<a name="ct-network-firewall-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether there is at least one stateful or stateless rule group associated with an AWS Network Firewall firewall policy\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -290,11 +285,6 @@ Resources:
 
 ## \[CT\.NETWORK\-FIREWALL\.PR\.2\] Require any AWS Network Firewall firewall policy to drop or forward stateless full packets by default when they do not match a rule<a name="ct-network-firewall-pr-2-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an AWS Network Firewall firewall policy is configured with a user\-defined stateless default action for full packets\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -304,7 +294,7 @@ This control checks whether an AWS Network Firewall firewall policy is configure
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.NETWORK\-FIREWALL\.PR\.2 rule specification](#ct-network-firewall-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.NETWORK-FIREWALL.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.NETWORK\-FIREWALL\.PR\.2 example templates](#ct-network-firewall-pr-2-templates) 
 
 **Explanation**
 
@@ -521,12 +511,43 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.NETWORK\-FIREWALL\.PR\.2 example templates<a name="ct-network-firewall-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  FirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName:
+        Fn::Sub: ${AWS::StackName}-example
+      FirewallPolicy:
+        StatelessFragmentDefaultActions:
+        - aws:forward_to_sfe
+        StatelessDefaultActions:
+        - aws:drop
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  FirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName:
+        Fn::Sub: ${AWS::StackName}-example
+      FirewallPolicy:
+        StatelessFragmentDefaultActions:
+        - aws:pass
+        StatelessDefaultActions:
+        - aws:pass
+```
+
 ## \[CT\.NETWORK\-FIREWALL\.PR\.3\] Require any AWS Network Firewall firewall policy to drop or forward fragmented packets by default when they do not match a stateless rule<a name="ct-network-firewall-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an AWS Network Firewall firewall policy is configured with a default action to drop or forward fragmented packets, when the packets do not match a stateless rule\.
 + **Control objective: **Limit network access
@@ -537,7 +558,7 @@ This control checks whether an AWS Network Firewall firewall policy is configure
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.NETWORK\-FIREWALL\.PR\.3 rule specification](#ct-network-firewall-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.NETWORK-FIREWALL.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.NETWORK\-FIREWALL\.PR\.3 example templates](#ct-network-firewall-pr-3-templates) 
 
 **Explanation**
 
@@ -754,12 +775,43 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.NETWORK\-FIREWALL\.PR\.3 example templates<a name="ct-network-firewall-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  FirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName:
+        Fn::Sub: ${AWS::StackName}-example
+      FirewallPolicy:
+        StatelessDefaultActions:
+        - aws:forward_to_sfe
+        StatelessFragmentDefaultActions:
+        - aws:drop
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  FirewallPolicy:
+    Type: AWS::NetworkFirewall::FirewallPolicy
+    Properties:
+      FirewallPolicyName:
+        Fn::Sub: ${AWS::StackName}-example
+      FirewallPolicy:
+        StatelessDefaultActions:
+        - aws:pass
+        StatelessFragmentDefaultActions:
+        - aws:pass
+```
+
 ## \[CT\.NETWORK\-FIREWALL\.PR\.4\] Require any AWS Network Firewall rule group to contain at least one rule<a name="ct-network-firewall-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an AWS Network Firewall stateless rule group contains rules\.
 + **Control objective: **Limit network access
@@ -770,7 +822,7 @@ This control checks whether an AWS Network Firewall stateless rule group contain
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.NETWORK\-FIREWALL\.PR\.4 rule specification](#ct-network-firewall-pr-4-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.NETWORK-FIREWALL.PR.4) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.NETWORK\-FIREWALL\.PR\.4 example templates](#ct-network-firewall-pr-4-templates) 
 
 **Explanation**
 
@@ -1010,4 +1062,61 @@ rule is_cfn_template(doc) {
 rule is_cfn_hook(doc, RESOURCE_TYPE) {
     %doc.%RESOURCE_TYPE.resourceProperties exists
 }
+```
+
+### CT\.NETWORK\-FIREWALL\.PR\.4 example templates<a name="ct-network-firewall-pr-4-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  NetworkFirewallRuleGroup:
+    Type: AWS::NetworkFirewall::RuleGroup
+    Properties:
+      RuleGroupName:
+        Fn::Sub: ${AWS::StackName}-example
+      Capacity: 100
+      Description: Example rule group
+      Type: STATELESS
+      RuleGroup:
+        RulesSource:
+          StatelessRulesAndCustomActions:
+            StatelessRules:
+            - RuleDefinition:
+                MatchAttributes:
+                  Sources:
+                  - AddressDefinition: 0.0.0.0/0
+                  Destinations:
+                  - AddressDefinition: 10.0.0.0/8
+                  SourcePorts:
+                  - FromPort: 15000
+                    ToPort: 30000
+                  DestinationPorts:
+                  - FromPort: 443
+                    ToPort: 443
+                  Protocols:
+                  - 6
+                Actions:
+                - aws:forward_to_sfe
+              Priority: 1
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  NetworkFirewallRuleGroup:
+    Type: AWS::NetworkFirewall::RuleGroup
+    Properties:
+      RuleGroupName:
+        Fn::Sub: ${AWS::StackName}-example
+      Capacity: 100
+      Description: Example rule group
+      Type: STATELESS
+      RuleGroup:
+        RulesSource:
+          StatelessRulesAndCustomActions:
+            StatelessRules: []
 ```

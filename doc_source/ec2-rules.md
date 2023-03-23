@@ -1,4 +1,4 @@
-# Amazon Elastic Compute Cloud \(EC2\) controls<a name="ec2-rules"></a>
+# Amazon Elastic Compute Cloud \(Amazon EC2\) controls<a name="ec2-rules"></a>
 
 **Topics**
 + [\[CT\.EC2\.PR\.1\] Require an Amazon EC2 launch template to have IMDSv2 configured](#ct-ec2-pr-1-description)
@@ -15,11 +15,6 @@
 + [\[CT\.EC2\.PR\.12\] Require an Amazon EC2 instance to configure one ENI only](#ct-ec2-pr-12-description)
 
 ## \[CT\.EC2\.PR\.1\] Require an Amazon EC2 launch template to have IMDSv2 configured<a name="ct-ec2-pr-1-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon EC2 launch templates are configured with Instance Metadata Service Version 2 \(IMDSv2\)\.
 + **Control objective: **Enforce least privilege, Protect configurations
@@ -280,11 +275,6 @@ Resources:
 ```
 
 ## \[CT\.EC2\.PR\.2\] Require that Amazon EC2 launch templates restrict the token hop limit to a maximum of one<a name="ct-ec2-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether an Amazon EC2 launch template has a metadata token hop limit set to `1`\.
 + **Control objective: **Enforce least privilege, Protect configurations
@@ -568,11 +558,6 @@ Resources:
 
 ## \[CT\.EC2\.PR\.3\] Require an Amazon EC2 security group to allow incoming traffic on authorized ports only<a name="ct-ec2-pr-3-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether security groups that allow unrestricted incoming traffic \(`0.0.0.0/0` or `::/0`\), only allow inbound TCP or UDP connections on authorized ports\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -582,7 +567,7 @@ This control checks whether security groups that allow unrestricted incoming tra
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.3 rule specification](#ct-ec2-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.3 example templates](#ct-ec2-pr-3-templates) 
 
 **Explanation**
 
@@ -858,12 +843,47 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.3 example templates<a name="ct-ec2-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription:
+        Fn::Sub: ${AWS::StackName}-example
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        CidrIp: 0.0.0.0/0
+        FromPort: 80
+        ToPort: 80
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription:
+        Fn::Sub: ${AWS::StackName}-example
+  SecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId:
+        Fn::GetAtt: [ SecurityGroup, GroupId ]
+      IpProtocol: udp
+      CidrIpv6: ::/0
+      FromPort: 80
+      ToPort: 443
+```
+
 ## \[CT\.EC2\.PR\.4\] Require that an Amazon EC2 security group does not allow incoming traffic for high\-risk ports<a name="ct-ec2-pr-4-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon EC2 security groups allow unrestricted incoming TCP or UDP traffic to ports `3389`, `20`, `23`, `110`, `143`, `3306`, `8080`, `1433`, `9200`, `9300`, `25`, `445`, `135`, `21`, `1434`, `4333`, `5432`, `5500`, `5601`, `22`, `3000`, `5000`, `8088`, `8888`\.
 + **Control objective: **Limit network access
@@ -1190,11 +1210,6 @@ Resources:
 
 ## \[CT\.EC2\.PR\.5\] Require any Amazon EC2 network ACL to prevent ingress from 0\.0\.0\.0/0 to port 22 or port 3389<a name="ct-ec2-pr-5-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether the Amazon EC2 network ACL inbound entry allows unrestricted incoming traffic \(`0.0.0.0/0` or `::/0`\) for SSH or RDP\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1204,7 +1219,7 @@ This control checks whether the Amazon EC2 network ACL inbound entry allows unre
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.5 rule specification](#ct-ec2-pr-5-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.5) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.5 example templates](#ct-ec2-pr-5-templates) 
 
 **Explanation**
 
@@ -1501,12 +1516,67 @@ rule is_cfn_hook(doc, NETWORK_ACL_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.5 example templates<a name="ct-ec2-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16
+  NACL:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId:
+        Ref: VPC
+  NetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: false
+      NetworkAclId:
+        Ref: NACL
+      Protocol: 6
+      PortRange:
+        From: 2000
+        To: 2005
+      RuleAction: allow
+      RuleNumber: 100
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16
+  NACL:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId:
+        Ref: VPC
+  NetworkAclEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: false
+      NetworkAclId:
+        Ref: NACL
+      Protocol: 6
+      PortRange:
+        From: 3000
+        To: 3500
+      RuleAction: allow
+      RuleNumber: 100
+```
+
 ## \[CT\.EC2\.PR\.6\] Require that Amazon EC2 transit gateways refuse automatic Amazon VPC attachment requests<a name="ct-ec2-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon EC2 transit gateways are configured to accept Amazon VPC attachment requests automatically\.
 + **Control objective: **Limit network access
@@ -1682,11 +1752,6 @@ Resources:
 
 ## \[CT\.EC2\.PR\.7\] Require that an Amazon EBS volume attached to an Amazon EC2 instance is encrypted at rest<a name="ct-ec2-pr-7-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your standalone Amazon EC2 EBS volumes and new Amazon EBS volumes created through EC2 instance Block Device Mappings are encrypted at rest\.
 + **Control objective: **Encrypt data at rest
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1696,7 +1761,7 @@ This control checks whether your standalone Amazon EC2 EBS volumes and new Amazo
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.7 rule specification](#ct-ec2-pr-7-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.7) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.7 example templates](#ct-ec2-pr-7-templates) 
 
 **Explanation**
 
@@ -1984,12 +2049,103 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.7 example templates<a name="ct-ec2-pr-7-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Ref: LatestAmiId
+      InstanceType: t3.micro
+      NetworkInterfaces:
+      - DeviceIndex: 0
+        SubnetId:
+          Ref: Subnet
+        AssociatePublicIpAddress: false
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdm"
+        Ebs:
+          VolumeType: gp3
+          Iops: 200
+          Encrypted: true
+          DeleteOnTermination: true
+          VolumeSize: 20
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Ref: LatestAmiId
+      InstanceType: t3.micro
+      NetworkInterfaces:
+      - DeviceIndex: 0
+        SubnetId:
+          Ref: Subnet
+        AssociatePublicIpAddress: false
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdm"
+        Ebs:
+          VolumeType: gp3
+          Iops: 200
+          Encrypted: false
+          DeleteOnTermination: true
+          VolumeSize: 20
+```
+
 ## \[CT\.EC2\.PR\.8\] Require any Amazon EC2 instance to have a non\-public IP address<a name="ct-ec2-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon EC2 instance is configured to associate a public IP address\.
 + **Control objective: **Limit network access
@@ -2000,7 +2156,7 @@ This control checks whether your Amazon EC2 instance is configured to associate 
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.8 rule specification](#ct-ec2-pr-8-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.8) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.8 example templates](#ct-ec2-pr-8-templates) 
 
 **Explanation**
 
@@ -2250,12 +2406,84 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.8 example templates<a name="ct-ec2-pr-8-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId:
+        Ref: LatestAmiId
+      NetworkInterfaces:
+      - DeviceIndex: 0
+        SubnetId:
+          Ref: Subnet
+        AssociatePublicIpAddress: false
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId:
+        Ref: LatestAmiId
+      SubnetId:
+        Ref: Subnet
+```
+
 ## \[CT\.EC2\.PR\.9\] Require any Amazon EC2 launch template not to auto\-assign public IP addresses to network interfaces<a name="ct-ec2-pr-9-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon EC2 launch templates are configured to assign public IP addresses to network interfaces\.
 + **Control objective: **Limit network access
@@ -2266,7 +2494,7 @@ This control checks whether your Amazon EC2 launch templates are configured to a
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.9 rule specification](#ct-ec2-pr-9-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.9) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.9 example templates](#ct-ec2-pr-9-templates) 
 
 **Explanation**
 
@@ -2509,12 +2737,73 @@ rule query_for_resource(doc, resource_key, referenced_resource_type) {
 }
 ```
 
+### CT\.EC2\.PR\.9 example templates<a name="ct-ec2-pr-9-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        NetworkInterfaces:
+        - DeviceIndex: 0
+          SubnetId:
+            Ref: Subnet
+          AssociatePublicIpAddress: false
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+  EC2LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        NetworkInterfaces:
+        - DeviceIndex: 0
+          SubnetId:
+            Ref: Subnet
+          AssociatePublicIpAddress: true
+```
+
 ## \[CT\.EC2\.PR\.10\] Require Amazon EC2 launch templates to have Amazon CloudWatch detailed monitoring activated<a name="ct-ec2-pr-10-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether the Amazon EC2 launch template has detailed monitoring enabled\.
 + **Control objective: **Establish logging and monitoring
@@ -2525,7 +2814,7 @@ This control checks whether the Amazon EC2 launch template has detailed monitori
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.10 rule specification](#ct-ec2-pr-10-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.10) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.10 example templates](#ct-ec2-pr-10-templates) 
 
 **Explanation**
 
@@ -2683,12 +2972,35 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.10 example templates<a name="ct-ec2-pr-10-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  EC2LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        Monitoring:
+          Enabled: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  EC2LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        Monitoring:
+          Enabled: false
+```
+
 ## \[CT\.EC2\.PR\.11\] Require that an Amazon EC2 subnet does not automatically assign public IP addresses<a name="ct-ec2-pr-11-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon VPC subnets assign public IP addresses automatically\.
 + **Control objective: **Limit network access
@@ -2699,7 +3011,7 @@ This control checks whether your Amazon VPC subnets assign public IP addresses a
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.11 rule specification](#ct-ec2-pr-11-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.11) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.11 example templates](#ct-ec2-pr-11-templates) 
 
 **Explanation**
 
@@ -2903,12 +3215,52 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.EC2\.PR\.11 example templates<a name="ct-ec2-pr-11-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: ''
+      MapPublicIpOnLaunch: true
+```
+
 ## \[CT\.EC2\.PR\.12\] Require an Amazon EC2 instance to configure one ENI only<a name="ct-ec2-pr-12-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon Elastic Compute Cloud \(Amazon EC2\) instance uses multiple ENIs \(Elastic Network Interfaces\)\.
 + **Control objective: **Protect configurations
@@ -2919,7 +3271,7 @@ This control checks whether your Amazon Elastic Compute Cloud \(Amazon EC2\) ins
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.EC2\.PR\.12 rule specification](#ct-ec2-pr-12-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.EC2.PR.12) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.EC2\.PR\.12 example templates](#ct-ec2-pr-12-templates) 
 
 **Explanation**
 
@@ -3079,4 +3431,77 @@ rule is_cfn_template(doc) {
 rule is_cfn_hook(doc, RESOURCE_TYPE) {
     %doc.%RESOURCE_TYPE.resourceProperties exists
 }
+```
+
+### CT\.EC2\.PR\.12 example templates<a name="ct-ec2-pr-12-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Ref: LatestAmiId
+      InstanceType: t3.micro
+      NetworkInterfaces:
+      - SubnetId:
+          Ref: Subnet
+        DeviceIndex: 0
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Parameters:
+  LatestAmiId:
+    Description: Region specific latest AMI ID from the Parameter Store
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:
+        Ref: LatestAmiId
+      InstanceType: t3.micro
+      NetworkInterfaces:
+      - SubnetId:
+          Ref: Subnet
+        DeviceIndex: 0
+      - SubnetId:
+          Ref: Subnet
+        DeviceIndex: 1
 ```

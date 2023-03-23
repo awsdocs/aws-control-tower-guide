@@ -12,7 +12,7 @@ The following procedure guides you through how to sign in as an IAM Identity Cen
 
 **To clean up Account Factory**
 
-1. Open the AWS Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\.
+1. Open the Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\.
 
 1. From the left navigation menu, choose **Portfolios list**\.
 
