@@ -50,81 +50,103 @@ The format for this control is based on the following SCP\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "GRREGIONDENY",
-      "Effect": "Deny",
-      "NotAction": [
-        "a4b:*",
-        "acm:*",
-        "aws-marketplace-management:*",
-        "aws-marketplace:*",
-        "aws-portal:*",
-        "budgets:*",
-        "ce:*",
-        "chime:*",
-        "cloudfront:*",
-        "config:*",
-        "cur:*",
-        "directconnect:*",
-        "ec2:DescribeRegions",
-        "ec2:DescribeTransitGateways",
-        "ec2:DescribeVpnGateways",
-        "fms:*",
-        "globalaccelerator:*",
-        "health:*",
-        "iam:*",
-        "importexport:*",
-        "kms:*",
-        "mobileanalytics:*",
-        "networkmanager:*",
-        "organizations:*",
-        "chatbot:*",
-        "pricing:*",
-        "route53-recovery-control-config:*",
-        "route53-recovery-readiness:*",
-        "route53-recovery-cluster:*",
-        "route53:*",
-        "route53domains:*",
-        "s3:GetBucketPublicAccessBlock",
-        "s3:ListAllMyBuckets",
-        "s3:GetBucketLocation",
-        "s3:GetAccountPublic",
-        "s3:DeleteMultiRegionAccessPoint",
-        "s3:DescribeMultiRegionAccessPointOperation",
-        "s3:GetMultiRegionAccessPoint",
-        "s3:GetMultiRegionAccessPointPolicy",
-        "s3:GetMultiRegionAccessPointPolicyStatus",
-        "s3:ListMultiRegionAccessPoints",
-        "s3:GetStorageLensConfiguration",
-        "s3:GetStorageLensDashboard",
-        "s3:ListStorageLensConfigurations",
-        "s3:GetAccountPublicAccessBlock",
-        "s3:PutAccountPublic",
-        "s3:PutAccountPublicAccessBlock",
-        "shield:*",
-        "sts:*",
-        "support:*",
-        "trustedadvisor:*",
-        "waf-regional:*",
-        "waf:*",
-        "wafv2:*",
-        "access-analyzer:*"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringNotEquals": {
-          "aws:RequestedRegion": []
-        },
-        "ArnNotLike": {
-          "aws:PrincipalARN": [
-            "arn:aws:iam::*:role/AWSControlTowerExecution"
-          ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GRREGIONDENY",
+            "Effect": "Deny",
+            "NotAction": [
+                "a4b:*",
+                "access-analyzer:*",
+                "acm:*",
+                "account:*",
+                "activate:*",
+                "artifact:*",
+                "aws-marketplace-management:*",
+                "aws-marketplace:*",
+                "aws-portal:*",
+                "billingconductor:*",
+                "budgets:*",
+                "ce:*",
+                "chatbot:*",
+                "chime:*",
+                "cloudfront:*",
+                "compute-optimizer:*",
+                "config:*",
+                "cur:*",
+                "datapipeline:GetAccountLimits",
+                "devicefarm:*",
+                "directconnect:*",
+                "discovery-marketplace:*",
+                "ec2:DescribeRegions",
+                "ec2:DescribeTransitGateways",
+                "ec2:DescribeVpnGateways",
+                "ecr-public:*",
+                "fms:*",
+                "globalaccelerator:*",
+                "health:*",
+                "iam:*",
+                "importexport:*",
+                "kms:*",
+                "license-manager:ListReceivedLicenses",
+                "lightsail:Get*",
+                "mobileanalytics:*",
+                "networkmanager:*",
+                "organizations:*",
+                "pricing:*",
+                "resource-explorer-2:*",
+                "route53-recovery-cluster:*",
+                "route53-recovery-control-config:*",
+                "route53-recovery-readiness:*",
+                "route53:*",
+                "route53domains:*",
+                "s3:CreateMultiRegionAccessPoint",
+                "s3:DeleteMultiRegionAccessPoint",
+                "s3:DescribeMultiRegionAccessPointOperation",
+                "s3:GetAccountPublic",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:GetBucketLocation",
+                "s3:GetBucketPolicyStatus",
+                "s3:GetBucketPublicAccessBlock",
+                "s3:GetMultiRegionAccessPoint",
+                "s3:GetMultiRegionAccessPointPolicy",
+                "s3:GetMultiRegionAccessPointPolicyStatus",
+                "s3:GetStorageLensConfiguration",
+                "s3:GetStorageLensDashboard",
+                "s3:ListAllMyBuckets",
+                "s3:ListMultiRegionAccessPoints",
+                "s3:ListStorageLensConfigurations",
+                "s3:PutAccountPublic",
+                "s3:PutAccountPublicAccessBlock",
+                "s3:PutMultiRegionAccessPointPolicy",
+                "savingsplans:*",
+                "shield:*",
+                "sso:*",
+                "sts:*",
+                "support:*",
+                "supportapp:*",
+                "supportplans:*",
+                "sustainability:*",
+                "tag:GetResources",
+                "trustedadvisor:*",
+                "vendor-insights:ListEntitledSecurityProfiles",
+                "waf-regional:*",
+                "waf:*",
+                "wafv2:*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:RequestedRegion": []
+                },
+                "ArnNotLike": {
+                    "aws:PrincipalARN": [
+                        "arn:aws:iam::*:role/AWSControlTowerExecution"
+                    ]
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }
 ```
 

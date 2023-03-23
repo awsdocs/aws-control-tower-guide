@@ -10,12 +10,7 @@
 
 ## \[CT\.CODEBUILD\.PR\.1\] Require OAuth on GitHub or Bitbucket source repository URLs for AWS CodeBuild projects<a name="ct-codebuild-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
-This control checks whether the GitHub or Bitbucket source repository URL contains either personal access tokens or a username and password\.
+This control checks whether the GitHub or Bitbucket source repository URL contains either personal access tokens or a user name and password\.
 + **Control objective: **Use strong authentication
 + **Implementation: **AWS CloudFormation Guard Rule
 + **Control behavior: **Proactive
@@ -462,11 +457,6 @@ Resources:
 
 ## \[CT\.CODEBUILD\.PR\.2\] Require any AWS CodeBuild project environment variable to encrypt credentials in environment variables<a name="ct-codebuild-pr-2-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether AWS CodeBuild projects contain environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` stored as `PLAINTEXT`\.
 + **Control objective: **Use strong authentication
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -840,11 +830,6 @@ Resources:
 ```
 
 ## \[CT\.CODEBUILD\.PR\.3\] Require any AWS CodeBuild project environment to have logging configured<a name="ct-codebuild-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether AWS CodeBuild projects environment has at least one logging option enabled\.
 + **Control objective: **Establish logging and monitoring
@@ -1339,11 +1324,6 @@ Resources:
 
 ## \[CT\.CODEBUILD\.PR\.4\] Require any AWS CodeBuild project to deactivate privileged mode when running<a name="ct-codebuild-pr-4-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether AWS CodeBuild projects have privileged mode turned off\.
 + **Control objective: **Enforce least privilege
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1691,11 +1671,6 @@ Resources:
 ```
 
 ## \[CT\.CODEBUILD\.PR\.5\] Require encryption on all AWS CodeBuild project artifacts<a name="ct-codebuild-pr-5-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether AWS CodeBuild projects are configured to encrypt artifacts\.
 + **Control objective: **Encrypt data at rest
@@ -2205,11 +2180,6 @@ Resources:
 ```
 
 ## \[CT\.CODEBUILD\.PR\.6\] Require encryption on all Amazon S3 logs for AWS CodeBuild projects<a name="ct-codebuild-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether AWS CodeBuild projects configured with Amazon S3 logs have encryption enabled\.
 + **Control objective: **Encrypt data at rest

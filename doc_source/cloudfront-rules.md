@@ -15,11 +15,6 @@
 
 ## \[CT\.CLOUDFRONT\.PR\.1\] Require an Amazon CloudFront distribution to have a default root object configured<a name="ct-cloudfront-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an Amazon CloudFront distribution is configured to return a specific object that is the default root object\.
 + **Control objective: **Protect configurations
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -288,11 +283,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.2\] Require any Amazon CloudFront distributions with Amazon S3 backed origins to have an origin access identity configured<a name="ct-cloudfront-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether Amazon CloudFront distributions backed by Amazon S3 are configured with an origin access identity\.
 + **Control objective: **Protect configurations
@@ -732,11 +722,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 
 ## \[CT\.CLOUDFRONT\.PR\.3\] Require an Amazon CloudFront distribution to have encryption in transit configured<a name="ct-cloudfront-pr-3-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon CloudFront distributions use HTTPS, either directly or through a redirection\.
 + **Control objective: **Encrypt data in transit
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1104,11 +1089,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 
 ## \[CT\.CLOUDFRONT\.PR\.4\] Require an Amazon CloudFront distribution to have origin failover configured<a name="ct-cloudfront-pr-4-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon CloudFront distribution is configured with an origin group that contains two origin group members\.
 + **Control objective: **Improve availability
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1470,11 +1450,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 
 ## \[CT\.CLOUDFRONT\.PR\.5\] Require any Amazon CloudFront distribution to have logging enabled<a name="ct-cloudfront-pr-5-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon CloudFront distributions are configured with access logging\.
 + **Control objective: **Establish logging and monitoring
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -1815,11 +1790,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.6\] Require an Amazon CloudFront distribution to use custom SSL/TLS certificates<a name="ct-cloudfront-pr-6-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether the certificate associated with an Amazon CloudFront distribution is a custom SSL/TLS certificate\.
 + **Control objective: **Encrypt data in transit
@@ -2178,11 +2148,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.7\] Require an Amazon CloudFront distribution to use SNI to serve HTTPS requests<a name="ct-cloudfront-pr-7-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon CloudFront distributions are configured to use SNI to serve HTTPS requests\.
 + **Control objective: **Encrypt data in transit, Improve availability
@@ -2563,11 +2528,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.8\] Require an Amazon CloudFront distribution to encrypt traffic to custom origins<a name="ct-cloudfront-pr-8-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon CloudFront distributions are encrypting traffic to custom origins\.
 + **Control objective: **Encrypt data in transit
@@ -3038,11 +2998,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 
 ## \[CT\.CLOUDFRONT\.PR\.9\] Require an Amazon CloudFront distribution to have a security policy of TLSv1\.2 as a minimum<a name="ct-cloudfront-pr-9-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your Amazon CloudFront distributions are using a minimum security policy and cipher suite of TLSv1\.2 or greater for viewer connections\.
 + **Control objective: **Manage vulnerabilities
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -3385,11 +3340,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.10\] Require any Amazon CloudFrontdistributions with Amazon S3 backed origins to have origin access control configured<a name="ct-cloudfront-pr-10-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon CloudFront distributions backed by Amazon S3 are configured to use an origin access control\.
 + **Control objective: **Enforce least privilege, Protect configurations
@@ -3829,11 +3779,6 @@ ParametersInCacheKeyAndForwardedToOrigin:
 ```
 
 ## \[CT\.CLOUDFRONT\.PR\.11\] Require an Amazon CloudFront distribution to use updated SSL protocols between edge locations and custom origins<a name="ct-cloudfront-pr-11-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and custom origins\.
 + **Control objective: **Manage vulnerabilities

@@ -36,7 +36,7 @@ We recommend that you create a separate OU in your AWS organization, where you w
 
 AFT requires a separate AWS account to manage and orchestrate its own requests\. From the AWS Control Tower management account that's associated with your AWS Control Tower landing zone, you'll provision this account for AFT\.
 
-To provision the AFT management account, see [Provision Account Factory accounts with AWS Service Catalog](provision-as-end-user.md)\. When specifying an OU, be sure to select the OU you created in Step 2\. When specifying a name, use `AFT-Management`\.
+To provision the AFT management account, see [Provision accounts with AWS Service Catalog Account Factory ](provision-as-end-user.md)\. When specifying an OU, be sure to select the OU you created in Step 2\. When specifying a name, use `AFT-Management`\.
 
 **Note**  
 It can take up to 30 minutes for the account to be fully provisioned\. Validate that you have access to the AFT management account\.
@@ -45,11 +45,14 @@ It can take up to 30 minutes for the account to be fully provisioned\. Validate 
 
 This step assumes that you are experienced with Terraform, and that you have procedures in place for executing Terraform\. AFT supports Terraform Version `0.15.x` or later\.
 
-**Step 5: Call the Account Factory for Terraform module to deploy AFT**
+ ** Step 5: Call the Account Factory for Terraform module to deploy AFT ** 
 
-The Account Factory for Terraform module must be called while you are authenticated with **AdministratorAccess** credentials in your AWS Control Tower management account\.
+ The Account Factory for Terraform module must be called while the **AdministratorAccess** credentials in your AWS Control Tower management account are authenticated\. 
 
-AWS Control Tower, through the AWS Control Tower management account, vends a Terraform module that establishes all infrastructure necessary to orchestrate your AWS Control Tower account factory requests\. You can view that module in [the AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main)\. Refer to the module’s README file for information about the input required to run the module and deploy AFT\.
+ AWS Control Tower vends a Terraform module through the AWS Control Tower management account that establishes all of the infrastructure necessary to orchestrate AWS Control Tower Account Factory requests\. You can view the module in the [AFT repository](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main) on GitHub\. Refer to the module’s README file for information about the input required to run the module and deploy AFT\. 
+
+**Tip**  
+ The entire GitHub repository is considered the module\. Alternatively, you can view the module in the [Terraform Registry](http://aws.amazon.com/blogs/https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest)\. 
 
 If you have established pipelines for managing Terraform in your environment, you can integrate this module into your existing workflow\. Otherwise, run the module from any environment that is authenticated with the required credentials\.
 
@@ -59,4 +62,4 @@ The AFT Terraform module does not manage a backend Terraform state\. Be sure to 
 Certain input variables may contain sensitive values, such as a private `ssh` key or Terraform token\. These values may be viewable as plain text in Terraform state file, depending on your deployment method\. It is your responsibility to protect the Terraform state file, which may contain sensitive data\. See [the Terraform documentation](https://www.terraform.io/docs/language/state/sensitive-data.html) for more information\.
 
 **Note**  
-Deploying AFT through the Terraform module requires several minutes\. Initial deployment may require up to 30 minutes\. As a best practice, use AWS Security Token Service \(STS\) credentials and ensure that the credentials have a timeout sufficient for a full deployment, because a timeout causes the deployment to fail\. The minimum timeout for AWS STS credentials is 60 minutes or more\. Alternatively, you can leverage any IAM user that has **AdministratorAccess** permissions in the AWS Control Tower management account\.
+Deploying AFT through the Terraform module requires several minutes\. Initial deployment may require up to 30 minutes\. As a best practice, use AWS Security Token Service \(STS\) credentials and ensure that the credentials have a timeout sufficient for a full deployment, because a timeout causes the deployment to fail\. The minimum timeout for AWS STS credentials is 60 minutes or more\. 

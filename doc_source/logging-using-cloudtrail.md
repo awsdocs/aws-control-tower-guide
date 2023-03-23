@@ -63,6 +63,7 @@ Every event or log entry contains information about who generated the request\. 
 + Whether the request was made with root or AWS Identity and Access Management \(IAM\) user credentials\.
 + Whether the request was made with temporary security credentials for a role or federated user\.
 + Whether the request was made by another AWS service\.
++ Whether the request was rejected as access denied or processed successfully\.
 
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
@@ -73,6 +74,7 @@ For more information, see the [CloudTrail userIdentity Element](https://docs.aws
 The following example shows a CloudTrail log entry that shows the structure of a typical log file entry for a `SetupLandingZone` AWS Control Tower event, including a record of the identity of the user who initiated the action\. 
 
 ```
+{
   "eventVersion": "1.05",
   "userIdentity": {
     "type": "AssumedRole",

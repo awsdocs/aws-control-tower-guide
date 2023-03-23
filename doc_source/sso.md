@@ -4,7 +4,7 @@ AWS IAM Identity Center \(successor to AWS Single Sign\-On\) is a cloud\-based s
 
 **Working With AWS IAM Identity Center and AWS Control Tower**
 
-In AWS Control Tower, AWS IAM Identity Center \(successor to AWS Single Sign\-On\) allows central cloud administrators and end users to manage access to multiple AWS accounts and business applications\. AWS Control Tower uses this service to set up and manage access to the accounts created through AWS Service Catalog\.
+In AWS Control Tower, AWS IAM Identity Center \(successor to AWS Single Sign\-On\) allows central cloud administrators and end users to manage access to multiple AWS accounts and business applications\. AWS Control Tower uses this service to set up and manage access to the accounts created through Service Catalog\.
 
 ## <a name="sso-video"></a>
 
@@ -12,7 +12,7 @@ For a brief tutorial about how to set up your IAM Identity Center users and perm
 
 **About setting up AWS Control Tower with IAM Identity Center **
 
-When you initially set up AWS Control Tower, only the root user and any IAM users with the correct permissions can add IAM Identity Center users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new IAM Identity Center users from the Account Factory wizard\. For more information, see [Provision and manage accounts with Account Factory](account-factory.md)\.
+When you initially set up AWS Control Tower, only the root user user and any IAM users with the correct permissions can add IAM Identity Center users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new IAM Identity Center users from the Account Factory wizard\. For more information, see [Provision and manage accounts with Account Factory](account-factory.md)\.
 
 Your landing zone is set up with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
 
@@ -23,9 +23,9 @@ You can delegate administration of AWS IAM Identity Center \(successor to AWS Si
 
 User groups manage specialized *roles* that are defined within your shared accounts\. Roles establish sets of permissions that belong together\. All members of a group inherit the permission sets, or roles, associated with the group\. You can create new groups for the end users of your member accounts, so that you can custom\-assign only the roles that are needed for the specific tasks a group performs\. 
 
-The permission sets available cover a broad range of distinct user permission requirements, such as read\-only access, AWS Control Tower administrative access, and AWS Service Catalog access\. These permission sets enable your end users to provision their own AWS accounts in your landing zone quickly, and in compliance with your enterprise's guidelines\.
+The permission sets available cover a broad range of distinct user permission requirements, such as read\-only access, AWS Control Tower administrative access, and Service Catalog access\. These permission sets enable your end users to provision their own AWS accounts in your landing zone quickly, and in compliance with your enterprise's guidelines\.
 
-For tips on planning your allocations of users, groups, and permissions, refer to [Recommendations for setting up groups, roles, and policies](roles-recommendations.md)
+For tips on planning your allocations of users, groups, and permissions, refer to [ Recommendations for setting up groups, roles, and policies ](roles-recommendations.md)
 
 For more information on how to use this service in the context of AWS Control Tower, see the following topics in the *AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide*\.
 + To add users, see [Add Users](https://docs.aws.amazon.com/singlesignon/latest/userguide/addusers.html)\. 

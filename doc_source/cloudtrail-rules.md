@@ -7,11 +7,6 @@
 
 ## \[CT\.CLOUDTRAIL\.PR\.1\] Require an AWS CloudTrail trail to have encryption at rest activated<a name="ct-cloudtrail-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether your AWS CloudTrail is configured to use the server\-side encryption \(SSE\) AWS KMS key encryption\.
 + **Control objective: **Encrypt data at rest
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -21,7 +16,7 @@ This control checks whether your AWS CloudTrail is configured to use the server\
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.CLOUDTRAIL\.PR\.1 rule specification](#ct-cloudtrail-pr-1-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.CLOUDTRAIL.PR.1) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.CLOUDTRAIL\.PR\.1 example templates](#ct-cloudtrail-pr-1-templates) 
 
 **Explanation**
 
@@ -204,12 +199,173 @@ rule query_for_resource(doc, resource_key, referenced_RESOURCE_TYPE) {
 }
 ```
 
+### CT\.CLOUDTRAIL\.PR\.1 example templates<a name="ct-cloudtrail-pr-1-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  KMSKey:
+    Type: AWS::KMS::Key
+    Properties:
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: example-cloudtrail-key-policy
+        Statement:
+        - Sid: Enable IAM User Permissions
+          Effect: Allow
+          Principal:
+            AWS:
+              Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:root
+          Action: kms:*
+          Resource: '*'
+        - Sid: Allow CloudTrail to encrypt logs
+          Effect: Allow
+          Action: "kms:GenerateDataKey*"
+          Principal:
+            Service: "cloudtrail.amazonaws.com"
+          Resource: '*'
+          Condition:
+            StringLike:
+              "kms:EncryptionContext:aws:cloudtrail:arn": [
+                Fn::Sub: "arn:aws:cloudtrail:*:${AWS::AccountId}:trail/*"
+              ]
+            StringEquals:
+              "aws:SourceArn": 
+                Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+        - Sid: Allow CloudTrail to describe key
+          Effect: Allow
+          Principal:
+            Service: "cloudtrail.amazonaws.com"
+          Action: kms:DescribeKey
+          Resource: '*'
+        - Sid: Allow principals in the account to decrypt log files
+          Effect: Allow
+          Principal:
+            AWS: "*"
+          Action:
+           - "kms:Decrypt"
+           - "kms:ReEncryptFrom"
+          Resource: "*"
+          Condition:
+            StringEquals: 
+              "kms:CallerAccount":
+                Ref: AWS::AccountId
+              "kms:EncryptionContext:aws:cloudtrail:arn":
+                Fn::Sub: "arn:aws:cloudtrail:*:${AWS::AccountId}:trail/*"
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      KMSKeyId:
+        Ref: KMSKey
+      S3BucketName:
+        Ref: LoggingBucket
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      S3BucketName:
+        Ref: LoggingBucket
+```
+
 ## \[CT\.CLOUDTRAIL\.PR\.2\] Require an AWS CloudTrail trail to have log file validation activated<a name="ct-cloudtrail-pr-2-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether log file integrity validation is enabled on an AWS CloudTrail trail\.
 + **Control objective: **Manage secrets
@@ -220,7 +376,7 @@ This control checks whether log file integrity validation is enabled on an AWS C
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.CLOUDTRAIL\.PR\.2 rule specification](#ct-cloudtrail-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.CLOUDTRAIL.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.CLOUDTRAIL\.PR\.2 example templates](#ct-cloudtrail-pr-2-templates) 
 
 **Explanation**
 
@@ -371,12 +527,125 @@ rule is_cfn_hook(doc, RESOURCE_TYPE) {
 }
 ```
 
+### CT\.CLOUDTRAIL\.PR\.2 example templates<a name="ct-cloudtrail-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      S3BucketName:
+        Ref: LoggingBucket
+      EnableLogFileValidation: true
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      S3BucketName:
+        Ref: LoggingBucket
+      EnableLogFileValidation: false
+```
+
 ## \[CT\.CLOUDTRAIL\.PR\.3\] Require an AWS CloudTrail trail to have an Amazon CloudWatch Logs log group configuration<a name="ct-cloudtrail-pr-3-description"></a>
-
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
 
 This control checks whether your AWS CloudTrail trail is configured to send logs to Amazon CloudWatch Logs Logs\.
 + **Control objective: **Establish logging and monitoring
@@ -387,7 +656,7 @@ This control checks whether your AWS CloudTrail trail is configured to send logs
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.CLOUDTRAIL\.PR\.3 rule specification](#ct-cloudtrail-pr-3-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.CLOUDTRAIL.PR.3) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.CLOUDTRAIL\.PR\.3 example templates](#ct-cloudtrail-pr-3-templates) 
 
 **Explanation**
 
@@ -602,4 +871,153 @@ rule query_for_resource(doc, resource_key, referenced_RESOURCE_TYPE) {
         Type == %referenced_RESOURCE_TYPE
     }
 }
+```
+
+### CT\.CLOUDTRAIL\.PR\.3 example templates<a name="ct-cloudtrail-pr-3-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudWatchLogsRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: AssumeRole
+          Effect: Allow
+          Principal:
+            Service: 'cloudtrail.amazonaws.com'
+          Action: 'sts:AssumeRole'
+      Policies:
+      - PolicyName: 'cloudtrail-policy'
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - 'logs:CreateLogStream'
+            - 'logs:PutLogEvents'
+            Resource: 
+              Fn::GetAtt: [LogGroup, Arn]
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: {}
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      S3BucketName:
+        Ref: LoggingBucket
+      CloudWatchLogsRoleArn:
+        Fn::GetAtt:
+        - CloudWatchLogsRole
+        - Arn
+      CloudWatchLogsLogGroupArn:
+        Fn::GetAtt:
+        - LogGroup
+        - Arn
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 's3:GetBucketAcl'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: LoggingBucket
+                  - /AWSLogs/
+                  - Ref: AWS::AccountId
+                  - /*
+            Principal:
+              Service: "cloudtrail.amazonaws.com"
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': 'bucket-owner-full-control'
+                "aws:SourceArn": 
+                  Fn::Sub: "arn:aws:cloudtrail:${AWS::Region}:${AWS::AccountId}:trail/${AWS::StackName}-example-trail"
+  CloudTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      IsLogging: true
+      TrailName:
+        Fn::Sub: ${AWS::StackName}-example-trail
+      S3BucketName:
+        Ref: LoggingBucket
 ```

@@ -1,10 +1,12 @@
 # Update a blueprint<a name="update-a-blueprint"></a>
 
+The following procedures describe how to update custom blueprints and how to deploy them\.
+
 **To update your custom blueprints**
 
 1. Update your AWS CloudFormation template \(that is, your blueprint\) with your new configurations\.
 
-1. Save the updated template \(blueprint\) as a new version in AWS Service Catalog\.
+1. Save the updated template \(blueprint\) as a new version in Service Catalog\.
 
 **To deploy your updated blueprint**
 

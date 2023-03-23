@@ -1,13 +1,19 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** November 28, 2022
++ **Latest documentation update:** February 16, 2023
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [Compliance status viewable for all AWS Config rules](#doc-history) | AWS Control Tower now displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower\. | November 18, 2022 |
+
+| [ Account customization request tracing generally available ](#doc-history) |  AWS Control Tower now supports the ability to trace account customization requests using the Account Factory for Terraform \(AFT\) workflow\.  | February 16, 2023 | 
+| [IAM best practices update](#doc-history) | Updated guide to align with the IAM best practices recommendations\. For more information, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)\. | February 15, 2023 | 
+| [AWS Control Tower landing zone 3\.1 available](#doc-history) | AWS Control Tower landing zone 3\.1 is available\. | February 9, 2023 | 
+| [Proactive controls generally available](#doc-history) | Proactive controls are launched from preview status to general availability\. | January 24, 2023 | 
+| [Concurrent account operations](#doc-history) | AWS Control Tower now supports up to five \(5\) concurrent actions in account factory\. You can create, update, or enroll up to five accounts at a time\. | December 16, 2022 | 
 | [Proactive controls assist in resource provisioning](#doc-history) | AWS Control Tower now supports proactive controls, implemented through AWS CloudFormation hooks\. | November 28, 2022 | 
 | [Account factory customization available](#doc-history) | AWS Control Tower now supports account provisioning with customizable account templates, called blueprints, directly from the AWS Control Tower console\. | November 28, 2022 | 
+| [Compliance status viewable for all AWS Config rules](#doc-history) | AWS Control Tower now displays the compliance status of all AWS Config rules deployed into organizational units registered with AWS Control Tower\. | November 18, 2022 | 
 | [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that AWS Control Tower can assume the `AWSControlTowerBlueprintAccess` role, which is needed for Account Factory customizations\.  | October 28, 2022 | 
 | [APIs for controls, AWS CloudFormation resource](#doc-history) | AWS Control Tower now supports activation and deactivation of controls through a set of API calls, and a new AWS CloudFormation resource\. | September 1, 2022 | 
 | [CfCT supports stack set deletion](#doc-history) | CfCT supports stack set deletion, by setting a parameter in the manifest file\. | August 26, 2022 | 

@@ -5,12 +5,10 @@
 
 ## \[CT\.DAX\.PR\.1\] Require encryption at rest for all Amazon DynamoDB Accelerator \(DAX\) clusters<a name="ct-dax-pr-1-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether Amazon DynamoDB Accelerator \(DAX\) clusters are encrypted at rest\.
+
+**Note**  
+The control CT\.DAX\.PR\.1 cannot be activated from home Regions Canada \(Central\) Region, Europe \(Stockholm\) Region, and Asia Pacific \(Seoul\) Region, because the `AWS::DAX::Cluster` resource type is not available in those Regions\. If your home Region is not one of these three, you can activate the control for these three Regions from another home Region, if these three Regions are governed by AWS Control Tower in your landing zone\. For example, if your home Region is US West \(Oregon\) Region, you can deploy the control to Canada \(Central\) Region, if Canada \(Central\) Region is governed by AWS Control Tower\.
 + **Control objective: **Encrypt data at rest
 + **Implementation: **AWS CloudFormation Guard Rule
 + **Control behavior: **Proactive

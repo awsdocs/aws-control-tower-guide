@@ -2,6 +2,11 @@
 
 AWS Control Tower is integrated with AWS Security Hub to provide detective controls that help you monitor your AWS environment\. The integration is accomplished with a Security Hub standard, called the **Service\-Managed Standard: AWS Control Tower**\.
 
+
+|  | 
+| --- |
+|  The AWS Security Hub integration with AWS Control Tower is in preview\. Controls owned by Security Hub are not aggregated in the compliance status of accounts and OUs in AWS Control Tower\. As a precaution, we recommend that you review the Security Hub findings and the AWS Control Tower noncompliant resources before you remediate your accounts and OUs\. To learn more, see [Viewing control status for the Service\-Managed Standard: AWS Control Tower](https://docs.aws.amazon.com/securityhub/latest/userguide/service-managed-standard-aws-control-tower.html#aws-control-tower-standard-control-status) in the Security Hub documentation\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing\.](http://aws.amazon.com/controltower/pricing/)   | 
+
 The **Service\-Managed Standard: AWS Control Tower** supports a subset of controls in the **AWS Foundational Security Best Practices \(FSBP\)** standard\. To learn more about this standard and to view the available controls, see [Service\-Managed Standard: AWS Control Tower](https://docs.aws.amazon.com/securityhub/latest/userguide/service-managed-standard-aws-control-tower.html#aws-control-tower-standard-controls)\. For more general information about Security Hub standards, see [Security standards and controls in Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html), in the *AWS Security Hub User Guide*\.
 
 **Note**  

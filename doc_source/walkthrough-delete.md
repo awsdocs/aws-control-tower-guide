@@ -26,7 +26,7 @@ If you no longer intend to use AWS Control Tower for your enterprise, or if you 
 
 The individual procedures in this chapter guide you through manual methods of removing AWS Control Tower resources\. These procedures can be followed when you need to delete a specific resource from your landing zone\.
 
-Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user with administrative permissions for the management account that contains your landing zone\.
+Before performing these procedures, unless it's otherwise indicated, you must be signed in to the AWS Management Console in the home Region for your landing zone, and you must be signed in as an IAM user or user in IAM Identity Center with administrative permissions for the management account that contains your landing zone\.
 
 **Warning**  
 These are destructive actions that can introduce governance drift into your AWS Control Tower setup\. They cannot be undone\.

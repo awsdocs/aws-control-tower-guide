@@ -1,18 +1,18 @@
 # AWS Control Tower quick start guide<a name="quick-start"></a>
 
-If you are new to AWS, you can follow the steps in this section to get started quickly with AWS Control Tower\. If you prefer to customize your AWS Control Tower environment right away, see [Step 2\. Configure and launch your landing zone](step-two.md)\.
+If you are new to AWS, you can follow the steps in this section to get started quickly with AWS Control Tower\. If you prefer to customize your AWS Control Tower environment right away, see [ Step 2\. Configure and launch your landing zone ](step-two.md)\.
 
 **Note**  
 AWS Control Tower sets up paid services, such as AWS CloudTrail, AWS Config, Amazon CloudWatch, Amazon S3, and Amazon VPC\. When used, these services may incur costs, as shown on the [pricing page](http://aws.amazon.com/controltower/pricing/?loc=ft)\. The AWS management console shows you the usage of any paid services and the costs incurred\. No additional costs are created by AWS Control Tower itself\.
 
 **Before you begin**
 
-The most important decision to make before you begin the setup process is to *choose your home Region*\. Your home Region is the AWS Region in which you'll run most of your workloads or store most of your data\. It cannot be changed after you've set up your AWS Control Tower landing zone\. For more information about how to choose a home Region, see [Administrative tips for landing zone setup](tips-for-admin-setup.md)\.
+The most important decision to make before you begin the setup process is to *choose your home Region*\. Your home Region is the AWS Region in which you'll run most of your workloads or store most of your data\. It cannot be changed after you've set up your AWS Control Tower landing zone\. For more information about how to choose a home Region, see [ Administrative tips for landing zone setup ](tips-for-admin-setup.md)\.
 
 **Note**  
 By default, AWS Control Tower chooses the Region in which your account is operating currently as your home Region\. You can see your current Region in the upper right of your AWS management console screen\.
 
-The quick start procedure assumes that you'll accept the default values for the resources in your AWS Control Tower environment\. Many of these choices can be changed later\. A few one\-time choices are listed in the section called [Expectations for landing zone configuration](getting-started-configure.md)\.
+The quick start procedure assumes that you'll accept the default values for the resources in your AWS Control Tower environment\. Many of these choices can be changed later\. A few one\-time choices are listed in the section called [ Expectations for landing zone configuration ](getting-started-configure.md)\.
 
 If you've created a new AWS account, it automatically meets the required prerequisites for setting up AWS Control Tower\. You can proceed through the steps that follow\.
 

@@ -4,9 +4,9 @@ Now that your landing zone is set up, it's ready for use\.
 
 To learn more about how you can use AWS Control Tower, see the following topics:
 + For recommended administrative practices, see [Best Practices](https://docs.aws.amazon.com/controltower/latest/userguide/best-practices.html)\.
-+ You can set up IAM Identity Center users and groups with specific roles and permissions\. For recommendations, see [Recommendations for setting up groups, roles, and policies](roles-recommendations.md)\.
++ You can set up IAM Identity Center users and groups with specific roles and permissions\. For recommendations, see [ Recommendations for setting up groups, roles, and policies ](roles-recommendations.md)\.
 + To begin enrolling organizations and accounts from your AWS Organizations deployments, see [Govern existing organizations and accounts](https://docs.aws.amazon.com/controltower/latest/userguide/importing-existing.html)\.
-+ Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for Configuring and Provisioning Accounts](account-factory.md#configure-provision-new-account)\.
++ Your end users can provision their own AWS accounts in your landing zone using Account Factory\. For more information, see [Permissions for configuring and provisioning accounts](account-factory.md#configure-provision-new-account)\.
 + To assure [Compliance Validation for AWS Control Tower](compliance-program-info.md), your central cloud administrators can review log archives in the Log Archive account, and designated third\-party auditors can review audit information in the Audit \(shared\) account, which is a member of the Security OU\. 
 + To learn more about the capabilities of AWS Control Tower, see [Related information](https://docs.aws.amazon.com/controltower/latest/userguide/related-information.html)\.
 + Try visiting a [curated list of YouTube videos](https://www.youtube.com/playlist?list=PLhr1KZpdzukdS9skEXbY0z67F-wrcpbjm) that explain more about how to use AWS Control Tower functionality\. 

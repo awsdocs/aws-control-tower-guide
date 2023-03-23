@@ -10,6 +10,7 @@ The following table contains a list of AWS Control Tower landing zone update rel
 
 | **Version** | Release date | Description | 
 | --- | --- | --- | 
+| 3\.1 | 2\-09\-2023 | [Landing zone version 3\.1](2023-all.md#lz-3-1) | 
 | 3\.0 | 7\-26\-2022 | [Landing zone version 3\.0](2022-all.md#version-3.0) | 
 | 2\.9 | 4\-22\-2022 | [Landing zone version 2\.9](2022-all.md#version-2.9) | 
 | 2\.8 | 2\-10\-2022 | [Landing zone version 2\.8](2022-all.md#version-2.8) | 
@@ -31,7 +32,7 @@ Each time you update your landing zone, you have the opportunity to modify your 
 + You can activate or deactivate your organization\-level CloudTrail trail\.
 + You can resolve [landing zone drift](governance-drift.md)
 
-When you update your landing zone, you receive the latest features for AWS Control Tower, automatically\.
+When you update your landing zone, you receive the latest features for AWS Control Tower, automatically\. View your current landing zone version on the **Landing zone settings** page\.
 
 You have the opportunity to clear unused AWS Identity center \(formerly called AWS SSO\) mappings when you update your landing zone\. For more information, see [Field Notes: Clear Unused IAM Identity Center Mappings Automatically During AWS Control Tower Upgrades](http://aws.amazon.com/blogs/architecture/field-notes-clear-unused-aws-sso-mappings-automatically-during-aws-control-tower-upgrades/)\.
 

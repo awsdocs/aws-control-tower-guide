@@ -5,11 +5,6 @@
 
 ## \[CT\.LAMBDA\.PR\.2\] Require AWS Lambda function policies to prohibit public access<a name="ct-lambda-pr-2-description"></a>
 
-
-|  | 
-| --- |
-| Comprehensive controls management is available as a preview in all [AWS Regions where AWS Control Tower is offered](https://docs.aws.amazon.com/controltower/latest/userguide/region-how.html)\. These enhanced control capabilities reduce the time required to define and manage the controls you need, to help you meet common control objectives and industry regulations\. No additional charges apply while you use these new capabilities during the preview\. However, when you set up AWS Control Tower, you incur costs for the AWS services that establish your landing zone and implement mandatory controls\. For more information, see [AWS Control Tower pricing](http://aws.amazon.com/controltower/pricing/)\. | 
-
 This control checks whether an AWS Lambda function resource\-based policy prohibits public access\.
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
@@ -19,7 +14,7 @@ This control checks whether an AWS Lambda function resource\-based policy prohib
 
 **Details and examples**
 + For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.LAMBDA\.PR\.2 rule specification](#ct-lambda-pr-2-rule) 
-+ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [GitHub](https://docs.aws.amazon.com/https://github.com/aws-samples/aws-control-tower-samples/tree/main/samples/CT.LAMBDA.PR.2) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.LAMBDA\.PR\.2 example templates](#ct-lambda-pr-2-templates) 
 
 **Explanation**
 
@@ -329,4 +324,103 @@ rule check_is_string_and_not_empty(value) {
         this != /\A\s*\z/
     }
 }
+```
+
+### CT\.LAMBDA\.PR\.2 example templates<a name="ct-lambda-pr-2-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: LambdaFunctionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: '*'
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Role:
+        Fn::GetAtt: LambdaFunctionRole.Arn
+      Handler: index.handler
+      Runtime: python3.9
+      Code:
+        ZipFile: "def handler(event, context):\n  print(\"hello\")\n"
+      Description: TestS3EventFunction
+  LambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Ref: LambdaFunction
+      Principal:
+        Ref: AWS::AccountId
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: LambdaFunctionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: '*'
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Role:
+        Fn::GetAtt: LambdaFunctionRole.Arn
+      Handler: index.handler
+      Runtime: python3.9
+      Code:
+        ZipFile: "def handler(event, context):\n  print(\"hello\")\n"
+      Description: TestS3EventFunction
+  LambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Ref: LambdaFunction
+      Principal: '*'
 ```

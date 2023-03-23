@@ -1,26 +1,49 @@
 # Set up for customization<a name="afc-setup-steps"></a>
 
-The next sections give steps to set up account factory for the customization process\. We recommend that you set up [delegated admin](https://docs.aws.amazon.com/accounts/latest/reference/using-orgs-delegated-admin.html) for the hub account, before you begin these steps\.
+The next sections give steps to set up Account Factory for the customization process\. We recommend that you set up [delegated admin](https://docs.aws.amazon.com/accounts/latest/reference/using-orgs-delegated-admin.html) for the hub account, before you begin these steps\.
 
 **Summary**
-+ **Step 1\. Create the required role\.** Create an IAM role that grants permission for AWS Control Tower to have access to the \(hub\) account, where the AWS Service Catalog products, also called blueprints, are stored\.
-+ **Step 2\. Create the AWS Service Catalog product\.** Create the AWS Service Catalog product \(also called a “blueprint product”\) that you'll need for baselining the custom account\.
-+ **Step 3\. Review your custom blueprint\.** Inspect the AWS Service Catalog product \(blueprint\) that you created\.
++ **Step 1\. Create the required role\.** Create an IAM role that grants permission for AWS Control Tower to have access to the \(hub\) account, where the Service Catalog products, also called blueprints, are stored\.
++ **Step 2\. Create the Service Catalog product\.** Create the Service Catalog product \(also called a “blueprint product”\) that you'll need for baselining the custom account\.
++ **Step 3\. Review your custom blueprint\.** Inspect the Service Catalog product \(blueprint\) that you created\.
 + **Step 4\. Call your blueprint to create a customized account\.** Enter the blueprint product information and the role information into the proper fields in Account Factory, in the AWS Control Tower console, while creating the account\.
 
 ## Step 1\. Create the required role<a name="step-1-create-blueprint-access-role"></a>
 
-Navigate to the IAM console to set up the required role\.
+Before you begin to customize accounts, you must set up a role that contains a trust relationship between AWS Control Tower and your hub account\. When assumed, the role grants AWS Control Tower access to administer the hub account\. The role must be named **AWSControlTowerBlueprintAccess**\. 
 
-Before you begin to customize accounts, you must set up a role that contains a trust relationship between AWS Control Tower and your hub account\. When assumed, the role grants AWS Control Tower access to administer the hub account\. It must be named **AWSControlTowerBlueprintAccess**\. 
+AWS Control Tower assumes this role to create a Portfolio resource on your behalf in Service Catalog, then to add your blueprint as a Service Catalog Product to this Portfolio, and then to share this Portfolio, and your blueprint, with your member account during account provisioning\.
 
-AWS Control Tower assumes this role to create a Portfolio resource on your behalf in AWS Service Catalog, then to add your blueprint as a Service Catalog Product to this Portfolio, and then to share this Portfolio, and your blueprint, with your member account during account provisioning\.
+You'll create the `AWSControlTowerBlueprintAccess` role, as explained in the following sections\.
 
- The **AWSControlTowerBlueprintAccess** role must be set up to grant trust to two principals:
-+ The principal \(IAM user\) that runs AWS Control Tower in the AWS Control Tower management account\. 
-+ The role named **AWSControlTowerAdmin** in the AWS Control Tower management account\.
+**Navigate to the IAM console to set up the required role\.**  
 
-Here's an example trust policy, similar to one you will need to include for your role\. This policy demonstrates the best practice of granting least\-privilege access\. When you make your own policy, replace the term `YourManagementAccountId` with the actual acccount ID of your AWS Control Tower management account, and replace the term `YourControlTowerUserRole` with the identifier of the IAM role for your management account\.
+
+**To set up the role in an enrolled AWS Control Tower account**
+
+1. Federate or sign in as the principal in the AWS Control Tower management account\.
+
+1. From the federated principal in the management account, assume or switch roles to the `AWSControlTowerExecution` role in the enrolled AWS Control Tower account that you select to serve as the blueprint hub account\. 
+
+1. From the `AWSControlTowerExecution` role in the enrolled AWS Control Tower account, create the `AWSControlTowerBlueprintAccess` role with proper permissions and trust relationships\.
+
+**Note**  
+To comply with AWS best practices guidance, it's important that you sign out of the `AWSControlTowerExecution` role immediately after you create the `AWSControlTowerBlueprintAccess` role\.  
+To prevent unintended changes to resources, the `AWSControlTowerExecution` role is intended for use by AWS Control Tower only\.
+
+If your blueprint hub account isn't enrolled in AWS Control Tower, the `AWSControlTowerExecution` role won't exist in the account, and there's no need to assume it before you continue with setting up the `AWSControlTowerBlueprintAccess` role\. 
+
+**To set up the role in an unenrolled member account**
+
+1. Federate or sign in as a principal in the account that you wish to designate as the hub account, by means of your preferred method\.
+
+1. When signed in as the principal in the account, create the `AWSControlTowerBlueprintAccess` role with proper permissions and trust relationships\.
+
+The **AWSControlTowerBlueprintAccess** role must be set up to grant trust to two principals:
++ The principal \(user\) that runs AWS Control Tower in the AWS Control Tower management account\. 
++ The role named `AWSControlTowerAdmin` in the AWS Control Tower management account\.
+
+Here's an example trust policy, similar to one you will need to include for your role\. This policy demonstrates the best practice of granting least\-privilege access\. When you make your own policy, replace the term *YourManagementAccountId* with the actual acccount ID of your AWS Control Tower management account, and replace the term *YourControlTowerUserRole* with the identifier of the IAM role for your management account\.
 
 ```
 {
@@ -42,23 +65,21 @@ Here's an example trust policy, similar to one you will need to include for your
 
 **Required permissions policy**
 
-AWS Control Tower requires that the managed policy named `AWSServiceCatalogAdminFullAccess` must be attached to the **AWSControlTowerBlueprintAccess** role\. This policy provides permissions that AWS Service Catalog looks for when it allows AWS Control Tower to administer your Portfolio and AWS Service Catalog Product resources\. You can attach this policy when you're creating the role in the IAM console\.
+AWS Control Tower requires that the managed policy named `AWSServiceCatalogAdminFullAccess` must be attached to the `AWSControlTowerBlueprintAccess` role\. This policy provides permissions that Service Catalog looks for when it allows AWS Control Tower to administer your portfolio and Service Catalog Product resources\. You can attach this policy when you're creating the role in the IAM console\.
 
-AWS Control Tower also requires the `AmazonS3ReadOnlyAccess` permission policy for the role\.
+## Step 2\. Create the Service Catalog product<a name="step-2-create-blueprint-product"></a>
 
-## Step 2\. Create the AWS Service Catalog product<a name="step-2-create-blueprint-product"></a>
-
-To create an AWS Service Catalog product, follow the steps at [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the AWS Service Catalog Administrator Guide\. You'll add your account blueprint as a template when you create the AWS Service Catalog product\.
+To create an Service Catalog product, follow the steps at [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the *Service Catalog Administrator Guide*\. You'll add your account blueprint as a template when you create the Service Catalog product\.
 
 **Summary of steps to create a blueprint**
 + Create or download an AWS CloudFormation template that will become your account blueprint\. Some template examples are given later in this section\.
 + Sign in to the AWS account where you store your Account Factory blueprints \(sometimes called the hub account\)\.
-+ Navigate to the AWS Service Catalog console\. Choose **Product list**, and then choose **Upload new product**\.
++ Navigate to the Service Catalog console\. Choose **Product list**, and then choose **Upload new product**\.
 + In the **Product details** pane, enter details for your blueprint product, such as a name and description\.
 + Select **Use a template file** and then select **Choose file**\. Select or paste the AWS CloudFormation template you've developed or downloaded for use as your blueprint\.
 + Choose **Create product** at the bottom of the console page\.
 
-You can download an AWS CloudFormation template from the AWS Service Catalog reference architecture repository\. [One example from that repository helps set up a backup plan for your resources](https://raw.githubusercontent.com/aws-samples/aws-service-catalog-reference-architectures/master/backup/backup-tagoptions.yml)\.
+ You can download an AWS CloudFormation template from the Service Catalog reference architecture repository\. [One example from that repository helps set up a backup plan for your resources](https://github.com/aws-samples/aws-service-catalog-reference-architectures/blob/master/backup/backup-tagoptions.yml)\. 
 
 Here's an example template, for a fictitious company called **Best Pets**\. It helps set up a connection to their pet database\.
 
@@ -118,24 +139,24 @@ Resources:
 
 ## Step 3\. Review your custom blueprint<a name="step-3-review-blueprint"></a>
 
-You can view your blueprint in the AWS Service Catalog console\. For more information, see [Managing products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_products.html#productmgmt-menu) in the AWS Service Catalog Adminstrator Guide\.
+You can view your blueprint in the Service Catalog console\. For more information, see [Managing products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_products.html#productmgmt-menu) in the *Service Catalog Adminstrator Guide*\.
 
 ## Step 4\. Call your blueprint to create a customized account<a name="step-4-call-the-blueprint"></a>
 
 When you follow the **Create account** workflow in the AWS Control Tower console, you'll see an optional section where you can enter information about the blueprint you'd like to use for customizing accounts\.
 
 **Note**  
-You must set up your customization hub account and add at least one blueprint \(AWS Service Catalog product\) before you can enter that information into the AWS Control Tower console and begin to provision customized accounts\.
+You must set up your customization hub account and add at least one blueprint \(Service Catalog product\) before you can enter that information into the AWS Control Tower console and begin to provision customized accounts\.
 
 **Create or update a customized account in the AWS Control Tower console\.**
 
 1. Enter the account ID for the account that contains your blueprints\.
 
-1. From that account, select an existing AWS Service Catalog product; that is, select an existing blueprint\.
+1. From that account, select an existing Service Catalog product; that is, select an existing blueprint\.
 
-1. Select the proper version of the blueprint \(AWS Service Catalog product\), if you have more than one version\.
+1. Select the proper version of the blueprint \(Service Catalog product\), if you have more than one version\.
 
-1. You can add or change a blueprint provisioning policy at this point in the process\. The blueprint provisioning policy, written in JSON, is attached to an IAM role to provision the resources specified in the blueprint template\. By default, the **AdministratorAccess** policy is applied here\.
+1. \(Optional\) You can add or change a blueprint provisioning policy at this point in the process\. The blueprint provisioning policy is written in JSON and attached to an IAM role, so it can provision the resources that are specified in the blueprint template\. AWS Control Tower creates this role in the member account so that Service Catalog can deploy resources using AWS CloudFormation stack sets\. The role is named `AWSControlTower-BlueprintExecution-bp-xxxx`\. The `AdministratorAccess` policy is applied here by default\. 
 
 1. Choose the AWS Region or Regions in which you wish to deploy accounts based on this blueprint\.
 

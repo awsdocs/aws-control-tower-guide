@@ -80,7 +80,7 @@ We do not recommend that you remove any of the shared accounts from your organiz
 
 **To restore a shared account using the AWS Control Tower console \(semi\-manual procedure\)**
 
-1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\. You must sign in as an AWS Identity and Access Management \(IAM\) user or role with permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation procedure described later in this topic\.
+1. Sign in to the AWS Control Tower console at [https://console\.aws\.amazon\.com/controltower](https://console.aws.amazon.com/controltower)\. You must sign in as an IAM user, user in IAM Identity Center, or role with permissions to run `organizations:InviteAccountToOrganization`\. If you don't have such permissions, use the manual remediation procedure described later in this topic\.
 
 1. On the **Landing zone drift detected** page, choose **Re\-Invite** to remediate shared account removal by re\-inviting the shared account into the organization\. An automatically\-generated email is sent to the email address for the account\.
 
@@ -99,7 +99,7 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 **To restore a shared account using the AWS Control Tower and AWS Organizations consoles \(Manual remediation\)**
 
-1. Sign in to the AWS Organizations console at [https://console.aws.amazon.com/organizations/](https://console.aws.amazon.com/organizations/)\. You must sign in as an IAM user or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. 
+1. Sign in to the AWS Organizations console at [https://console.aws.amazon.com/organizations/](https://console.aws.amazon.com/organizations/)\. You must sign in as an IAM user, user in IAM Identity Center, or role with the `AWSOrganizationsFullAccess` managed policy or equivalent\. 
 
 1. Invite the shared account back to the organization\. For information on the requirements, prerequisites, and procedure for inviting an account to AWS Organizations, see [Inviting an AWS account to your organization ](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html) in the *AWS Organizations User Guide*\.
 
@@ -107,7 +107,7 @@ If the remediation steps don't restore the account, contact AWS Support\.
 
 1. Sign in to the management account again\. 
 
-1. Sign in to the AWS Control Tower console as an IAM user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
+1. Sign in to the AWS Control Tower console as a user or role with the `AWSControlTowerServiceRolePolicy` managed policy or equivalent, and permissions to run all AWS Control Tower actions \(controltower:\*\)\.
 
 1. You'll see the **Landing zone drift** page with an option to repair the landing zone\. Choose **Repair** to repair the landing zone\.
 

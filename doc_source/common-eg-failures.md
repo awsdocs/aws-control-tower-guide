@@ -49,7 +49,7 @@ In general, when you register or re\-register an OU, all accounts within that OU
   This account has been suspended\. It cannot be enrolled into AWS Control Tower\. Remove the account from this OU, and try again\.
 + **IAM user not in portfolio**
 
-  Add the AWS Identity and Access Management \(IAM\) user to the AWS Service Catalog portfolio before registering your OU\. This error pertains to the management account only\.
+  Add the AWS Identity and Access Management \(IAM\) user to the Service Catalog portfolio before registering your OU\. This error pertains to the management account only\.
 + **Account does not meet prerequisites**
 
   The account doesn’t meet prerequisites for account enrollment\. For example, the account may be missing roles and permissions required to enroll it in AWS Control Tower\. Instructions for adding a role are available in [Manually add the required IAM role to an existing AWS account and enroll it](enroll-manually.md)\.
