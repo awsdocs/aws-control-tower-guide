@@ -504,5 +504,5 @@ AWSTemplateFormatVersion: 2010-09-09
 	       Description: Detects whether an account has AWS CloudTrail or CloudTrail Lake enabled. The rule is NON_COMPLIANT if either CloudTrail or CloudTrail Lake is not enabled in an account.
 	       Source:
 	         Owner: AWS
-	         SourceIdentifier: CLOUD_TRAIL_ENABLED
+	         SourceIdentifier: CLOUDTRAIL_ENABLED_ON_MEMBER_ACCOUNTS
 ```
