@@ -33,21 +33,21 @@ The following procedure guides you through how to update your account in Account
 
 **To update an Account Factory account or change its OU through Service Catalog**
 
-1.  Sign in to the AWS Management Console, and open the AWS Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\. 
+1. Sign in to the AWS Management Console, and open the AWS Service Catalog console at [https://console\.aws\.amazon\.com/servicecatalog/](https://console.aws.amazon.com/servicecatalog/)\. 
 **Note**  
- You must sign in as a user with permissions to provision new products in Service Catalog \(for example, an IAM Identity Center user in `AWSAccountFactory` or `AWSServiceCatalogAdmins` groups\)\. 
+You must sign in as a user with permissions to provision new products in Service Catalog \(for example, an IAM Identity Center user in `AWSAccountFactory` or `AWSServiceCatalogAdmins` groups\)\.
 
-1.  In the navigation pane, choose **Provisioning**, and then choose **Provisioned products**\. 
+1. In the navigation pane, choose **Provisioning**, and then choose **Provisioned products**\.
 
-1.  For each of the member accounts listed, perform the following steps to update all member accounts: 
+1.  For each of the member accounts listed, perform the following steps to update all member accounts:
 
-   1.  Select a member account\. You're directed to the *Provisioned product details* page for that account\. 
+   1. Select a member account\. You're directed to the *Provisioned product details* page for that account\.
 
-   1.  On the *Provisioned product details* page, choose the **Events** tab\. 
+   1. On the *Provisioned product details* page, choose the **Events** tab\.
 
-   1.  Make a note of the following parameters: 
-      +  **SSOUserEmail** \(Available in provisioned product details\) 
-      +  **AccountEmail** \(Available in provisioned product details\) 
+   1. Make a note of the following parameters:
+      +  **SSOUserEmail** \(Available in provisioned product details\)
+      +  **AccountEmail** \(Available in provisioned product details\)
       +  **SSOUserFirstName** \(Available in IAM Identity Center\) 
       +  **SSOUSerLastName** \(Available in IAM Identity Center\) 
       +  **AccountName** \(Available in IAM Identity Center\) 

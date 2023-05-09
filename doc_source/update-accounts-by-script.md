@@ -1,7 +1,7 @@
 # Provision and update accounts using automation<a name="update-accounts-by-script"></a>
 
 You can provision or update individual accounts in AWS Control Tower by several methods:
-+ You can provision and customize accounts with *AWS Control Tower Account Factory for Terraform* \(AFT\)\. For more information, see [Overview of AWS Control Tower Account Factory for Terraform](aft-overview.md)\.
++ You can provision and customize accounts with *AWS Control Tower Account Factory for Terraform* \(AFT\)\. For more information, see [Overview of AWS Control Tower Account Factory for Terraform \(AFT\)](aft-overview.md)\.
 + You can update accounts with *Customizations for AWS Control Tower* \(CfCT\)\. For more information, see [ Customizations for AWS Control Tower \(CfCT\) overview ](cfct-overview.md)\.
 + **Script automation**: If you prefer to use an API approach, you can update accounts using the [API framework](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_Reference.html) of Service Catalog and the AWS CLI to update the accounts in a batch process\. You'd call the [https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html](https://docs.aws.amazon.com/servicecatalog/latest/dg/API_UpdateProvisionedProduct.html) API of Service Catalog for each account\. You can write a script to update the accounts, one by one, with this API\. More information about this approach, when adding Regions for governance, is available in a blog post, [Enabling guardrails in new AWS Regions](http://aws.amazon.com/blogs/architecture/field-notes-enabling-guardrails-in-new-aws-regions-the-aws-control-tower-supports/)\.
 

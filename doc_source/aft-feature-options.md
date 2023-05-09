@@ -1,6 +1,6 @@
 # Enable feature options<a name="aft-feature-options"></a>
 
-AFT offers feature options based on best practices\. You can opt\-in to these features, by means of feature flags, during AFT deployment\. Refer to [ Provision a new account with AFT ](aft-provision-account.md) for more information about AFT input configuration parameters\.
+AFT offers feature options based on best practices\. You can opt\-in to these features, by means of feature flags, during AFT deployment\. Refer to [Provision a new account with AFT](aft-provision-account.md) for more information about AFT input configuration parameters\.
 
 These features are not enabled by default\. You must explicitly enable each one in your environment\.
 

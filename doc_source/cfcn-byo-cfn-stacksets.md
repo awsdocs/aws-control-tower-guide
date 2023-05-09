@@ -16,14 +16,14 @@ version: 2021-03-15
 resources:
   
   - name: block-s3-public-access
-      description: To S3 buckets to have public access
-      resource_file: policies/block-s3-public.json
-      deploy_method: scp
-      #Apply to the following OU(s)
-      deployment_targets:
-        organizational_units: #array of strings
-          - OUName1
-          - OUName2
+    description: To S3 buckets to have public access
+    resource_file: policies/block-s3-public.json
+    deploy_method: scp
+    #Apply to the following OU(s)
+    deployment_targets:
+    organizational_units: #array of strings
+    - OUName1
+    - OUName2
 ```
 
 The following snippet shows an edited sample manifest file that contains the `resources` details\. The order of `resources` determines the execution order for creating `resources` dependencies\. You can edit the following example manifest file according to your business requirements\.
@@ -111,7 +111,7 @@ resources:
 
 When you update the folder structure, you can include all supporting AWS CloudFormation template files and SCP policy files that are in the manifest file\. Verify that the file paths match what is provided in the manifest file\. 
 + A *template* file contains the AWS resources to be deployed in OUs and accounts\.
-+ A *parameter* file contains the input parameters used in the template file\.
++ A *policy* file contains the input parameters used in the template file\.
 
 The following example shows the folder structure for the sample manifest file created in [Step 1](#cfcn-byo-cfn-stacksets-step-1)\.
 

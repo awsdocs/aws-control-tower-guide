@@ -5,7 +5,7 @@ You can enable certain controls and subscribe to certain SNS notifications that 
 **Drift monitoring protection**
 
 AWS Control Tower provides passive and active methods of drift monitoring protection for preventive controls\.
-+ **Passive protection:** AWS CloudTrail monitors and logs preventive control \(SCP\) drift\.
++ **Passive protection:** AWS Organizations monitors and logs preventive control \(SCP\) drift\.
 + **Active protection:** The AWS Control Tower [drift monitoring service](drift.md#scp-invariance-scans) actively scans the preventive control SCPs, on a regular basis\.
 
 AWS Control Tower notifies you by means of SNS messaging, if drift is detected\.

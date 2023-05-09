@@ -23,7 +23,7 @@ When AWS Control Tower creates a VPC using the CIDR range you select, it assigns
 
 **Subnets**
 
-Within each VPC, AWS Control Tower divides your specified CIDR range evenly into nine subnets\. None of the subnets within a VPC overlap\. Therefore, they all can communicate with each other, within the VPC\.
+Within each VPC, AWS Control Tower divides your specified CIDR range evenly into nine subnets \(except in US West \(N\. California\), where it is six subnets\)\. None of the subnets within a VPC overlap\. Therefore, they all can communicate with each other, within the VPC\.
 
 In summary, by default, subnet communication within the VPC is unrestricted\. The best practice for controlling communication among your VPC subnets, if needed, is to set up access control lists with rules that define the permitted traffic flow\. Use security groups for control of traffic among specific instances\. For more information about setting up security groups and firewalls in AWS Control Tower, see [Walkthrough: Set Up Security Groups in AWS Control Tower With AWS Firewall Manager](firewall-setup-walkthrough.md)\.
 

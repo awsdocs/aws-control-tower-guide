@@ -35,30 +35,29 @@ Global customizations are applied automatically, after the AFT account provision
 
 ****
 
- To apply account customizations, you must push a specific folder structure to your chosen repository\.
+ You can apply account customizations by pushing a specific folder structure to your chosen repository\. Account customizations are applied automatically in the AFT pipeline and after the global customizations stage\. You can also create multiple folders that contain different account customizations in your account customizations repository\. For each account customization that you require, use the following steps\. 
+
+**To apply account customizations**
+
+1.  ** Step 1: Create a folder for an account customization ** 
+
+    In your chosen repository, copy the `ACCOUNT_TEMPLATE` folder that AFT provides to a new folder\. The name of your new folder should match the `account_customizations_name` that you provide in your account request\. 
+
+1.  ** Add the configurations to your specific account customizations folder ** 
+
+    You can add configurations to your account customizations folder based on the format of your configurations\. 
+   +  If your custom configurations are in the form of Python programs or scripts, place them under the ***\[account\_customizations\_name\]*/api\_helpers/python** folder that's in your repository\. 
+   +  If your custom configurations are in the form of Bash scripts, place them under the ***\[account\_customizations\_name\]*/api\_helpers** folder that's in your repository\. 
+   +  If your custom configurations are in the form of Terraform, place them under the ***\[account\_customizations\_name\]*/terraform** folder that's in your repository\. 
+
+    For more information about creating custom configurations, refer to the account customizations README file\. 
+
+1.  ** Refer to the specific `account_customizations_name` parameter in the account request file ** 
+
+    The AFT account request file includes the input parameter `account_customizations_name`\. Enter the name of your account customization as the value for this parameter\. 
 
 **Note**  
-Account customizations are applied automatically, after the global customizations stage in the AFT pipeline\.
-
-**Step 1: Create a folder for specific account customization**
-
-First, locate the sample `ACCOUNT_TEMPLATE` folder \(provided by AFT\) in your chosen repository\. You can copy that sample to a new folder with the name of your specific account customization, depending upon your organizational requirements\. For example, **prod\-customizations** or **finance\-customizations**\.
-
-**Step 2: Add configurations for your specific account customizations folder**
-+ If your custom configurations are in the form of Python programs or scripts, place those under ***\[account\_customizations\_name\]*/api\_helpers/python** folder in your repository\.
-+ If your custom configurations are in the form of Bash scripts, place those under ***\[account\_customizations\_name\]*/api\_helpers** folder in your repository\.
-+ If your custom configurations are in the form of Terraform, place those under ***\[account\_customizations\_name\]*/terraform** folder in your repository\.
-+ Refer to the account customizations README file for more details on creating custom configurations\.
-
-**Step 3: Refer to the specific **account\_customizations\_name** parameter in the account request input file**
-
-The AFT account request file provides an input parameter where you can specify the account customizations you wish to apply, after each account has been provisioned by means of the AFT pipeline\. Enter the name of your specific account customizations folder as the value of the **account\_customizations\_name** parameter, in your account request input file, as shown in [Post\-deployment steps](aft-post-deployment.md)\.
-
-To apply similar account customizations to multiple accounts in your environment, you may refer to the **account\_customizations\_name** input parameter in multiple account requests\.
-
-**Multiple specific customizations**
-
-You can create multiple folders in your account customizations repository, which can set up a variety of specific account customizations\. For each specific account customization implementation that you require, follow the steps given\.
+ You can submit multiple account requests for accounts in your environement\. When you want to apply different or similar account customizations, specifiy the account customizations using the `account_customizations_name` input parameter in your account requests\. For more information, see [Submit multiple account requests](https://docs.aws.amazon.com/controltower/latest/userguide/aft-multiple-account-requests.html)\. 
 
 ## Re\-invoke customizations<a name="aft-re-invoke-customizations"></a>
 

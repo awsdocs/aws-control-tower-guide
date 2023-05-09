@@ -59,7 +59,7 @@ The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following:
             ]
         },
         {
-            "Effect": "Allow",   # needed for opt-in Regions
+            "Effect": "Allow",
             "Action": [
                 "account:EnableRegion",
                 "account:ListRegions",
@@ -67,7 +67,6 @@ The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following:
             ],
             "Resource": "*"
         },
-
         {
             "Effect": "Allow",
             "Action": [
@@ -128,7 +127,7 @@ The JSON artifact for `AWSControlTowerServiceRolePolicy` is the following:
                 "sts:AssumeRole"
             ],
             "Resource": [
-                "arn:aws:iam::*:role/AWSControlTowerExecution"
+                "arn:aws:iam::*:role/AWSControlTowerExecution",
                 "arn:aws:iam::*:role/AWSControlTowerBlueprintAccess"
             ]
         },

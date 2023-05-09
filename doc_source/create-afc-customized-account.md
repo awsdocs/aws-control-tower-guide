@@ -16,7 +16,7 @@ After you have created custom blueprints, you can start creating custom accounts
 
 1. Expand the **Account factory customization** section\.
 
-1. Enter the blueprint hub account ID that contains your Service Catalog products and choose **Validate**\.
+1. Enter the account ID of the blueprint hub account that contains your Service Catalog products and choose **Validate**\. For more information about a blueprint hub account, see [Customize accounts with Account Factory Customization \(AFC\)](af-customization-page.md)\.
 
 1. Select the dropdown menu that contains all blueprints from your Service Catalog Product List \(all custom and partner blueprints\)\. Choose a blueprint and corresponding version to deploy\. 
 

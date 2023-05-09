@@ -25,11 +25,10 @@ These prerequisites are required before you can enroll an account in AWS Control
            "Principal": {
            "AWS": "arn:aws:iam::Management Account ID:root"
                 },
-               "Action": "sts:AssumeRole",
-               "Condition": {}
+               "Action": "sts:AssumeRole"
              }
-             ]
-            }
+           ]
+         }
    ```
 
 To check other prerequisites for enrollment, see [Getting Started with AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-with-control-tower.html)\.

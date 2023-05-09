@@ -3,7 +3,7 @@
  To change the email address of an enrolled member account in AWS Control Tower, follow the procedure in this section\. 
 
 **Note**  
- The following procedure doesn't allow you to change the email address of a **management account**, **log archive account**, or **audit account**\. 
+ The following procedure doesn't allow you to change the email address of a **management account**, **log archive account**, or **audit account**\. For more information about that, see [How do I change the email address associated with my AWS account?](http://aws.amazon.com/premiumsupport/knowledge-center/change-email-address/) or contact AWS Support\. 
 
 **To change the email address of an account that AWS Control Tower creates**
 

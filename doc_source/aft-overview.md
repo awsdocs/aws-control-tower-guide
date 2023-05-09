@@ -1,4 +1,4 @@
-# Overview of AWS Control Tower Account Factory for Terraform<a name="aft-overview"></a>
+# Overview of AWS Control Tower Account Factory for Terraform \(AFT\)<a name="aft-overview"></a>
 
  Account Factory for Terraform \(AFT\) sets up a Terraform pipeline to help you provision and customize accounts in AWS Control Tower\. AFT provides you with the advantage of Terraform\-based account provisioning while allowing you to govern your accounts with AWS Control Tower\. 
 

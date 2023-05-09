@@ -15,6 +15,7 @@ Here are some types of AWS Config resources that your account could have already
 **Assumptions**
 + Your account is not enrolled with AWS Control Tower already\.
 + Your account has at least one pre\-existing AWS Config resource in at least one of the AWS Control Tower Regions governed by the management account\.
++ Your account is not the AWS Control Tower management account\.
 
 For a blog that describes an automated approach to enrolling accounts with existing AWS Config resources, see [Automate enrollment of accounts with existing AWS Config resources into AWS Control Tower](http://aws.amazon.com/blogs/mt/automate-enrollment-of-accounts-with-existing-aws-config-resources-into-aws-control-tower/)\. You'll be able to submit a single support ticket for all of the accounts you wish to enroll, as described in [Step 1: Contact customer support with a ticket, to add the account to the AWS Control Tower allow list](#existing-config-step-1), which follows\.
 
@@ -84,6 +85,10 @@ For a blog that describes an automated approach to enrolling accounts with exist
 1. Provide the name for the stack as **CustomerCreatedConfigRecorderRoleForControlTower**
 
 1. Create the stack\.
+
+**Note**  
+Any SCPs that you create should exclude an `aws-controltower-ConfigRecorderRole*` role\. Do not modify the permissions that restrict the ability for AWS Config rules to perform evaluations\.  
+Follow these guidelines so that you don't receive an `AccessDeniedException` when you have SCPs that block `aws-controltower-ConfigRecorderRole*` from calling Config\.
 
 ## Step 3: Identify the AWS Regions with pre\-existing resources<a name="existing-config-step-3"></a>
 

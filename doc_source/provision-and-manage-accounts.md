@@ -28,7 +28,7 @@ Account Factory Customization \(AFC\) is a way of provisioning customized accoun
 
 **Automated methods:**
 + **Lambda code: **From your AWS Control Tower landing zone's management account, using Lambda code and appropriate IAM roles\. See [Automated Account Provisioning With IAM Roles](roles-how.md#automated-provisioning)\.
-+ **Terraform: **From the AWS Control Tower Account Factory for Terraform \(AFT\), which relies on Account Factory and a GitOps model to allow automation of account provisioning and updating\. See [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
++ **Terraform: **From the AWS Control Tower Account Factory for Terraform \(AFT\), which relies on Account Factory and a GitOps model to allow automation of account provisioning and updating\. See [ Provision accounts with AWS Control Tower Account Factory for Terraform \(AFT\) ](taf-account-provisioning.md)\.
 + **Account Factory customization in the AWS Control Tower console:** After the setup steps, future provisioning of customized accounts requires no additional configuration or pipeline maintenance\. Accounts are provisioned by means of AWS CloudFormation templates\.
 
 ## What happens when AWS Control Tower creates an account<a name="what-happens-in-account-creation"></a>

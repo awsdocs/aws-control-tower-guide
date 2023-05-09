@@ -11,7 +11,7 @@ We are transitioning our terminology to align better with industry usage and wit
 
 **The purpose of controls**
 
-Controls assist you to express your policy intentions\. For example, if you enable the detective control **Detect Whether Public Read Access to Amazon S3 Buckets is Allowed** on an OU, you can determine whether a user would be permitted to have read access to any S3 buckets for any accounts under that OU\.
+Controls assist you to express your policy intentions\. For example, if you enable the detective control **Detect Whether Public Read Access to Amazon S3 Buckets is Allowed** on an OU, you can determine whether an entity \(such as a user\) would be permitted to have read access over the internet to any Amazon S3 buckets, for any accounts under that OU\.
 
 ## Control behavior and guidance<a name="control-behavior"></a>
 
@@ -49,7 +49,8 @@ When working with controls and OUs, consider the following properties:
 **Controls, landing zones, and OUs**
 + After you create your landing zone, all resources in your landing zone are subject to controls\. For example, certain controls apply to Amazon S3 buckets\.
 + OUs created through AWS Control Tower have mandatory controls applied to them automatically\. Optional controls are applied at the discretion of administrators\.
-+ OUs created outside of an AWS Control Tower landing zone \(that is,* unregistered OUs*\) are displayed in the AWS Control Tower console, but AWS Control Tower controls do not apply to them, unless they become registered OUs\.
++ OUs created outside of an AWS Control Tower landing zone \(such as,* unregistered OUs created in AWS Organizations*\) are displayed in the AWS Control Tower console, but AWS Control Tower controls do not apply to those OUs, unless they become registered OUs\.
++ Regarding nested OUs, preventive controls enabled on any OUs higher in the tree will apply to unregistered OUs in that tree\.
 + When you enable controls on an organizational unit \(OU\) that is registered with AWS Control Tower, preventive controls apply to all member accounts under the OU, enrolled and unenrolled\. Detective controls apply to enrolled accounts only\.
 
 For more information about how controls are applied to nested OUs, in AWS Control Tower, see [Nested OUs and controls](nested-ous.md#nested-ous-and-controls)\.

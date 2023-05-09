@@ -12,7 +12,7 @@ The initial step of establishing the AWS CodeStar connection is accomplished by 
 
 AFT requires that you manage [four repositories:](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main/sources/aft-customizations-repos)
 
-1. Account requests – This repository handles placing or updating account requests\. [Examples available](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main/sources/aft-customizations-repos/aft-account-request) \. For more information about AFT account requests, see [ Provision a new account with AFT ](aft-provision-account.md)\.
+1. Account requests – This repository handles placing or updating account requests\. [Examples available](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main/sources/aft-customizations-repos/aft-account-request) \. For more information about AFT account requests, see [Provision a new account with AFT](aft-provision-account.md)\.
 
 1. AFT account provisioning customizations – This repository manages customizations that are applied to all accounts created by and managed with AFT, before beginning the global customizations stage\. [Examples available](https://github.com/aws-ia/terraform-aws-control_tower_account_factory/tree/main/sources/aft-customizations-repos/aft-account-provisioning-customizations) \. To create AFT account provisioning customizations, see [Create your AFT account provisioning customizations state machine](aft-provisioning-framework.md#aft-create-customizations)\.
 

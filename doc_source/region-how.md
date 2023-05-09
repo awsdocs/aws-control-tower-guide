@@ -4,25 +4,25 @@ Currently, AWS Control Tower is supported in the following AWS Regions:
 + US East \(N\. Virginia\)
 + US East \(Ohio\)
 + US West \(Oregon\)
-+ Canada \(Central\) Region
++ Canada \(Central\)
 + Asia Pacific \(Sydney\)
-+ Asia Pacific \(Singapore\) Region
-+ Europe \(Frankfurt\) Region
++ Asia Pacific \(Singapore\)
++ Europe \(Frankfurt\)
 + Europe \(Ireland\)
-+ Europe \(London\) Region
-+ Europe \(Stockholm\) Region
-+ Asia Pacific \(Mumbai\) Region 
-+ Asia Pacific \(Seoul\) Region 
-+ Asia Pacific \(Tokyo\) Region 
-+ Europe \(Paris\) Region 
-+ South America \(São Paulo\) Region 
-+ US West \(N\. California\) Region 
-+ Asia Pacific \(Hong Kong\) Region
-+ Asia Pacific \(Jakarta\) Region 
-+ Asia Pacific \(Osaka\) Region 
-+ Europe \(Milan\) Region 
-+ Africa \(Cape Town\) Region 
-+ Middle East \(Bahrain\) Region 
++ Europe \(London\)
++ Europe \(Stockholm\)
++ Asia Pacific \(Mumbai\) 
++ Asia Pacific \(Seoul\) 
++ Asia Pacific \(Tokyo\) 
++ Europe \(Paris\) 
++ South America \(São Paulo\) 
++ US West \(N\. California\) 
++ Asia Pacific \(Hong Kong\)
++ Asia Pacific \(Jakarta\) 
++ Asia Pacific \(Osaka\) 
++ Europe \(Milan\) 
++ Africa \(Cape Town\) 
++ Middle East \(Bahrain\) 
 
 **About your home Region**
 
@@ -32,11 +32,11 @@ When you create a landing zone, the Region that you're using for access to the A
 
 ** Controls and Regions**
 
-Currently, all preventive controls work globally\. Detective controls, however, only work in Regions where AWS Control Tower is supported\. For more information about the behavior of controls when you activate AWS Control Tower in a new Region, see [Configure your AWS Control Tower Regions](#deploying-to-new-region)\.
+Currently, all preventive controls work globally\. Detective and proactive controls, however, only work in Regions where AWS Control Tower is supported\. For more information about the behavior of controls when you activate AWS Control Tower in a new Region, see [Configure your AWS Control Tower Regions](#deploying-to-new-region)\.
 
 ## Configure your AWS Control Tower Regions<a name="deploying-to-new-region"></a>
 
-This section describes the behavior you can expect when you extend your AWS Control Tower landing zone into a new AWS Region\. or remove a Region from your landing zone configuration\. Generally, this action is performed through the **Update** function of the AWS Control Tower console\.
+This section describes the behavior you can expect when you extend your AWS Control Tower landing zone into a new AWS Region, or remove a Region from your landing zone configuration\. Generally, this action is performed through the **Update** function of the AWS Control Tower console\.
 
 **Note**  
 We recommend that you avoid expanding your AWS Control Tower landing zone into AWS Regions in which you do not require your workloads to run\. Opting out of a Region does not prevent you from deploying resources in that Region, but those resources will remain outside of AWS Control Tower governance\.

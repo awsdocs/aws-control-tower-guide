@@ -1,12 +1,11 @@
 # Manifest version upgrades<a name="cfct-compatibility"></a>
 
-For information about the latest version of *Customizations for AWS Control Tower* \(CfCT\), see the [CHANGELOG\.md file](https://github.com/aws-solutions/aws-control-tower-customizations/blob/master/CHANGELOG.md) in the GitHub repository\.
+ For information about the latest version of *Customizations for AWS Control Tower* \(CfCT\), see the [CHANGELOG\.md file](https://github.com/aws-solutions/aws-control-tower-customizations/blob/master/CHANGELOG.md) in the GitHub repository\. 
 
-The previous release, version 2\.2\.0, of *Customizations for AWS Control Tower* \(CfCT\) introduced a manifest schema version, *2021\-03\-15*, to simplify and align with related AWS service APIs\. It allows a single file \(manifest\.yaml\) that manages supported resources \(AWS CloudFormation templates and SCPs\) through decoupled DevOps workflows\.
-
-We strongly recommend that you update the manifest schema version *2020\-01\-01* to schema version *2021\-03\-15* or later\.
-
-CfCT continues to support version *2021\-03\-15* and *2020\-01\-01* of the `manifest.yaml` file\. No change to your existing configuration is required\. However, version *2020\-01\-01* is at **End of Support**\. We will no longer provide updates or add enhancements to version *2020\-01\-01*\. The Root OU and nested OU features are not supported in version *2020\-01\-01*\.
+**Warning**  
+ Version 2\.2\.0 of *Customizations for AWS Control Tower* \(CfCT\) introduced a manifest schema \(version *2021\-03\-15*\) to align with related AWS service APIs\. The manifest schema allows a single manifest\.yaml file to manages supported resources \(AWS CloudFormation templates and SCPs\) through decoupled DevOps workflows\.   
+ We strongly recommend that you update the manifest schema from version *2020\-01\-01* to version *2021\-03\-15* or later\.  
+ CfCT continues to support version *2021\-03\-15* and *2020\-01\-01* of the `manifest.yaml` file\. No changes to your existing configuration are required\. However, version *2020\-01\-01* is at **End of Support**\. We no longer provide updates or add enhancements to version *2020\-01\-01*\. The Root OU and nested OU features aren't supported in version *2020\-01\-01*\. 
 
 **Deprecated properties in manifest version *2021\-03\-15:***
 

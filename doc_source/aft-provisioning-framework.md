@@ -18,7 +18,7 @@ After the account provisioning stage of the pipeline is complete, the AFT framew
 
 1. Applies the AFT account provisioning customizations you provided\. The next section tells more about how to set up these customizations with an AWS Step Functions state machine, in a `git` repository\. This stage is sometimes referred to as the *account provisioning framework* stage\. It is part of the core provisioning process, but you've previously set up a framework that delivers customized integrations as part of your account provisioning workflow, before additional customizations are added to the accounts in the next stage\.
 
-1. For each account provisioned, it creates a pipeline in the AFT management account, which will run to perform the \(next, global\) [Account customizations](aft-account-customization-options.md) stage\.
+1. For each account provisioned, it creates an AWS CodePipeline in the AFT management account, which will run to perform the \(next, global\) [Account customizations](aft-account-customization-options.md) stage\.
 
 1. Invokes the account customizations pipeline for each account provisioned \(and targeted\)\.
 

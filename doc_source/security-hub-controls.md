@@ -26,4 +26,10 @@ When you create **Service\-Managed Standard: AWS Control Tower** and enable cont
 **Note**  
 You can enable and manage some Security Hub controls from AWS Control Tower, with the [Security Hub Service\-managed Standard: AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/security-hub-controls.html)\.  
 It is important to know that some Security Hub controls do not operate in certain AWS Regions where AWS Control Tower is available, because those Regions do not support the required underlying functionality\. As a result, when you deploy an Security Hub control through AWS Control Tower, the control may not be operating in all Regions that you govern with AWS Control Tower\. For more information about the Security Hub controls that cannot be deployed in certain Regions, see the [Security Hub controls reference documentation](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-controls-reference.html)\.  
+Asia Pacific \(Hong Kong\) Region, ap\-east\-1
+Asia Pacific \(Jakarta\) Region, ap\-southeast\-3
+Asia Pacific \(Osaka\) Region, ap\-northeast\-3 
+Europe \(Milan\) Region, eu\-south\-1 
+Africa \(Cape Town\) Region, af\-south\-1
+Middle East \(Bahrain\) Region, me\-south\-1 
  You can view the Regions for each control in the AWS Control Tower console\.

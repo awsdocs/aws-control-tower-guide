@@ -22,7 +22,7 @@ Manually deleting all of your AWS Control Tower resources is not the same as dec
 ## <a name="manual-cleanup-required"></a>
 
 **Manual cleanup tasks required after decommissioning**
-+ You must specify different email addresses for the logging and audit accounts if you create a new landing zone after decommissioning one\.
++ You must specify different email addresses for the Log archive and Audit accounts if you create a new landing zone after decommissioning one, or follow the procedure for bringing your own existing Log archive or Audit accounts\.
 + The CloudWatch Logs log group, `aws-controltower/CloudTrailLogs`, must be deleted manually before you set up another landing zone\.
 + The two Amazon S3 buckets with reserved names for logs must be removed, or renamed, manually\.
 + You must delete, or rename, the existing **Security** and **Sandbox** organizational units manually\.

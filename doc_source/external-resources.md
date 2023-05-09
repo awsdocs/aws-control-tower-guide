@@ -142,16 +142,12 @@ Within AWS Organizations, you can remove empty organizational units \(OUs\) by u
 
 AWS Control Tower receives a notification from AWS Organizations when an OU is deleted\. It updates the OU list in the Account Factory, so that the list of registered OUs remains consistent\.
 
-If you see a deleted OU displayed in the AWS Control Tower console, repair your landing zone to remove outdated entries\.
-
 **Note**  
 In AWS Service Catalog, the Account Factory is updated to remove the deleted OU from the list of available OUs into which you can provision an account\.
 
 **Deleting an enrolled account from an OU**
 
 When you delete an enrolled account, AWS Control Tower receives a notification and makes updates, so that the information remains consistent\.
-
-If you see a deleted account displayed in the AWS Control Tower console, repair your landing zone to remove the outdated entry\.
 
 **Note**  
 In AWS Service Catalog, the Account Factory provisioned product that represents the governed account is not updated to delete the account\. Instead, the provisioned product is displayed as `TAINTED` and in an error state\. To clean up, go to AWS Service Catalog, choose the provisioned product, and then choose **Terminate**\.

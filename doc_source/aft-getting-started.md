@@ -30,7 +30,7 @@ Before launching AFT, you must have a working AWS Control Tower landing zone in 
 
 **Step 2: Create a new organizational unit for AFT \(recommended\)**
 
-We recommend that you create a separate OU in your AWS organization, where you will deploy the AFT management account\. Create an OU through your *AWS Control Tower management account*\. For instructions on how to create an OU, refer to [Create an organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_create.html#create-org) in the *AWS Organizations User Guide*\.
+We recommend that you create a separate OU in your AWS organization, where you will deploy the AFT management account\. Create an OU through your *AWS Control Tower management account*\. For instructions on how to create an OU, refer to [https://docs.aws.amazon.com/controltower/latest/userguide/create-new-ou.html](https://docs.aws.amazon.com/controltower/latest/userguide/create-new-ou.html)\.
 
 **Step 3: Provision the AFT management account**
 

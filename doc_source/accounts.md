@@ -14,7 +14,7 @@ The **Organization** page lists all OUs and accounts in your organization, regar
 
 To view a specific account on the **Organization** page, you can choose **Accounts only** from the dropdown menu at the upper right, and then select the name of your account from the table\. Alternatively, you can select the name of the parent OU from the table, and you can view a list of all accounts within that OU on the **Details** page for that OU\.
 
-On the **Organization** page and the **Account details** page, you can see the account's **State**, which is one of these:
+On the **Organization** page and the**Account details** page, you can see the account's **State**, which is one of these:
 + **Not enrolled** – The account is a member of the parent OU, but it is not fully managed by AWS Control Tower\. If the parent OU is registered, the account is governed by the preventive controls configured for its registered parent OU, but the OU’s detective controls do not apply to this account\. If the parent OU is unregistered, no controls apply to this account\. 
 + **Enrolling** – The account is being brought into governance by AWS Control Tower\. We are aligning the account with the control configuration for the parent OU\. This process may require several minutes per account resource\. 
 + **Enrolled** – The account is governed by the controls configured for its parent OU\. It is fully managed by AWS Control Tower\.
@@ -84,7 +84,7 @@ Member accounts are the accounts through which your users perform their AWS work
 + [ Automate tasks in AWS Control Tower ](automating-tasks.md)
 + [AWS Organizations Terminology and Concepts](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html) in the *AWS Organizations User Guide*\.
 
-Also see [Provision accounts with AWS Control Tower Account Factory for Terraform](taf-account-provisioning.md)\.
+Also see [ Provision accounts with AWS Control Tower Account Factory for Terraform \(AFT\) ](taf-account-provisioning.md)\.
 
 **Accounts and controls**  
 Member accounts can be *enrolled* in AWS Control Tower, or they can be *unenrolled*\. Controls apply differently to enrolled and unenrolled accounts, and controls may apply to accounts in nested OUs based on inheritance\.

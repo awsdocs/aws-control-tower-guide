@@ -4,9 +4,17 @@ Each control in AWS Control Tower has a unique identifier for use with the contr
 
 The following list contains the `API controlIdentifier` designations of the \(legacy\) **Strongly recommended** and **Elective**, *preventive* and *detective*, controls that are owned by AWS Control Tower, including the elective **Data residency** controls\. Mandatory controls cannot be deactivated by the control APIs\.
 
+**View control identifiers**
+
 To view the control identifiers and other details about [Proactive controls](proactive-controls.md), navigate to the **Control details** page in the AWS Control Tower console\. You can find the identifier in the **API controlIdentifier** field\.
 
-Each item in the list that follows serves as a link, which provides more information about these individual controls, given in [The AWS Control Tower controls library](controls-reference.md)\.
+**Example forms of Identifiers**  
+When you look in the AWS Control Tower console, here are examples of identifiers you may see\.   
+Security Hub example **API controlIdentifier**: `arn:aws:controltower:us-east-1::control/OOTDCUSIKIZZ`
+Legacy control example **API controlIdentifier**: `arn:aws:controltower:us-east-1::control/AWS-GR_LOG_GROUP_POLICY`
+Proactive control example **API controlIdentifier**: `arn:aws:controltower:us-east-1::control/EHSOKSSMVFWF`
+
+Each item in the list that follows serves as a link, which provides more information about these individual \(legacy\) controls that are owned my AWS Control Tower, as given in [The AWS Control Tower controls library](controls-reference.md)\.
 
 ## <a name="control-arns-for-elective-gr"></a>
 

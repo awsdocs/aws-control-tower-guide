@@ -231,7 +231,7 @@ Resources:
 
 ## Detect Whether MFA for the Root User is Enabled<a name="enable-root-mfa"></a>
 
-This control detects whether multi\-factor authentication \(MFA\) is enabled for the root user\. MFA reduces vulnerability risks from weak authentication by requiring an additional authentication code after the user name and password are successful\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
+This control detects whether multi\-factor authentication \(MFA\) is enabled for the root user of the management account\. MFA reduces vulnerability risks from weak authentication by requiring an additional authentication code after the user name and password are successful\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
 The artifact for this control is the following AWS Config rule\.
 

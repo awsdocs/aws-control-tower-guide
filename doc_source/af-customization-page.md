@@ -14,6 +14,8 @@ You can apply customized blueprints to existing accounts, also, by following the
 **Before you begin**  
 Before you begin to create customized accounts with AWS Control Tower Account Factory, you must have an AWS Control Tower landing zone environment deployed, and you must have an organizational unit \(OU\) registered with AWS Control Tower, where your newly created accounts will be placed\.
 
+For more information about working with AFC, see [Automate account customization using Account Factory Customization in AWS Control Tower](http://aws.amazon.com/blogs/mt/automate-account-customization-using-account-factory-customization-in-aws-control-tower/)\.
+
 **Preparation for customization**
 + You may create a new account to serve as the hub account, or you may use an existing AWS account\. We strongly recommend that you do not use the AWS Control Tower management account as your blueprint hub account\.
 + If you plan to enroll AWS accounts into AWS Control Tower and customize them, you must first add the `AWSControlTowerExecution` role to those accounts, as you would for any other account you are enrolling into AWS Control Tower\.

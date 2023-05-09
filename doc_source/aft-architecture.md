@@ -6,7 +6,7 @@
 
 1.  Account requests are created and submitted to the pipeline\. You can create and submit more than one account request at a time\. Account Factory processes requests in a first\-in\-first\-out order\. For more information, see [Submit multiple account requests](https://docs.aws.amazon.com/controltower/latest/userguide/aft-multiple-account-requests.html)\. 
 
-1.  Each account is provisioned\.  
+1.  Each account is provisioned\. This stage runs in the AWS Control Tower management account\. 
 
 1.  Global customizations run in the pipelines that are created for each vended account\. 
 
