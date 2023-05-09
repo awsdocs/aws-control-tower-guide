@@ -2,6 +2,10 @@
 
 The following AWS services are components of *Customizations for AWS Control Tower* \(CfCT\)\.
 
+## AWS Step Functions<a name="comp-aws-sfn"></a>
+
+CfCT creates an AWS Step Function to orchestrate the deployment of your customizations. This Step Function translates the configuration file and situation (e.g. new account added or change to the configuration repo) to deploy the customizations as needed across your environment.
+
 ## Amazon Simple Storage Service<a name="comp-amazon-s3"></a>
 
 When you deploy CfCT, it creates an Amazon Simple Storage Service \(Amazon S3\) bucket with a unique name of this form: 
