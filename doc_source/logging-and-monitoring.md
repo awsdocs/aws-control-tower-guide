@@ -32,3 +32,4 @@ The following sections describe monitoring and logging in AWS Control Tower with
 + [Monitoring ](monitoring-overview.md)
 +  [Logging AWS Control Tower Actions with AWS CloudTrail](logging-using-cloudtrail.md)
 + [Lifecycle Events in AWS Control Tower](lifecycle-events.md)
++ [Using AWS User Notifications with AWS Control Tower](using-user-notifications.md)

@@ -1,10 +1,11 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** April 19, 2023
++ **Latest documentation update:** May 19, 2023
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Additional proactive controls available](#doc-history) | New proactive controls assist you in governing your multi\-account environment and meeting specific control objectives\. | May 19, 2023 | 
 | [Seven additional Regions available](#doc-history) | AWS Control Tower is now available in seven additional AWS Regions: Northern California \(San Francisco\), Asia Pacific \(Hong Kong, Jakarta, and Osaka\), Europe \(Milan\), Middle East \(Bahrain\), and Africa \(Cape Town\)\. | April 19, 2023 | 
 | [Change to a managed policy](#doc-history) | We changed the **AWSControlTowerServiceRolePolicy** so that AWS Control Tower can call the `EnableRegion`, `ListRegions`, `GetRegionOptStatus` APIs that are implemented by the AWS Account Management service\.  | April 6, 2023 | 
 | [ Account customization request tracing generally available ](#doc-history) |  AWS Control Tower now supports the ability to trace account customization requests using the Account Factory for Terraform \(AFT\) workflow\.  | February 16, 2023 | 

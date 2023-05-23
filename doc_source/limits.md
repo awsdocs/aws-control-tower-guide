@@ -14,7 +14,7 @@ This section describes known limitations and unsupported use cases in AWS Contro
 + A limit of five \(5\) SCPs per OU applies to OUs in your AWS Control Tower landing zone\.
 + Existing OUs with over 300 directly nested accounts cannot be registered or re\-registered in AWS Control Tower\.
 + If all 22 commercial Regions where AWS Control Tower is available are activated, including opt\-in Regions, the upper limit on the number of accounts per organizational unit \(OU\), when extending governance to an OU, is reduced\. The limit is 220 accounts, instead of 300\. This reduction is due to StackSet limitations\. If you require to extend governance to OUs with more than 220 accounts, reduce the number of activated Regions\.
-+ CfCT is not available in opt\-in Regions\.
++ CfCT is unavailable in these opt\-in Regions: Asia Pacific \(Jakarta and Osaka\)\.
 + When calling a control API to activate or deactivate a control, the limit for `EnableControl` and `DisableControl` updates in AWS Control Tower is ten \(10\) concurrent operations\. You may need to adjust your code to wait for completions\.
 
 You can contact [AWS Support](http://aws.amazon.com/premiumsupport/) to request a limit increase for some resources in AWS Control Tower\. For example, you can request a limit increase from five of up to ten concurrent account\-related operations\. Some AWS Control Tower performance characteristics may change after a limit increase\. For example, it may take longer to update an OU when you have more accounts in it\. Or it may take longer to complete an action on OU with five SCPs than with three SCPs\.
@@ -38,13 +38,17 @@ For more information about how AWS Control Tower manages the limitations of Regi
 
 You can view the Regions for each control in the AWS Control Tower console\.
 
-**The following opt\-in AWS Regions do not support controls that are part of the Security Hub Service\-managed Standard: AWS Control Tower, and they do not support CfCT\.**
+**The following opt\-in AWS Regions do not support controls that are part of the Security Hub Service\-managed Standard: AWS Control Tower\.**
 + Asia Pacific \(Hong Kong\) Region, ap\-east\-1
 + Asia Pacific \(Jakarta\) Region, ap\-southeast\-3
 + Asia Pacific \(Osaka\) Region, ap\-northeast\-3 
 + Europe \(Milan\) Region, eu\-south\-1 
 + Africa \(Cape Town\) Region, af\-south\-1
 + Middle East \(Bahrain\) Region, me\-south\-1 
+
+**The following opt\-in Regions do not support CfCT, due to a dependency on AWS CodePipeline, which is not available in these Regions:**
++ Asia Pacific \(Jakarta\) Region, ap\-southeast\-3 
++ Asia Pacific \(Osaka\) Region, ap\-northeast\-3 
 
 **The following table shows 16 detective controls that are not supported in certain AWS Regions\. **
 

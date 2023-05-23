@@ -5,6 +5,7 @@
 + [\[CT\.APIGATEWAY\.PR\.2\] Require an Amazon API Gateway REST API stage to have AWS X\-Ray tracing activated](#ct-apigateway-pr-2-description)
 + [\[CT\.APIGATEWAY\.PR\.3\] Require that an Amazon API Gateway REST API stage has encryption at rest configured for cache data](#ct-apigateway-pr-3-description)
 + [\[CT\.APIGATEWAY\.PR\.4\] Require an Amazon API Gateway V2 stage to have access logging activated](#ct-apigateway-pr-4-description)
++ [\[CT\.APIGATEWAY\.PR\.5\] Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type](#ct-apigateway-pr-5-description)
 
 ## \[CT\.APIGATEWAY\.PR\.1\] Require an Amazon API Gateway REST and WebSocket API to have logging activated<a name="ct-apigateway-pr-1-description"></a>
 
@@ -1244,4 +1245,290 @@ Resources:
       Description: Example Stage
       ApiId:
         Ref: HttpApi
+```
+
+## \[CT\.APIGATEWAY\.PR\.5\] Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type<a name="ct-apigateway-pr-5-description"></a>
+
+This control checks whether Amazon API Gateway V2 API routes have an authorization type set\.
++ **Control objective: **Use strong authentication
++ **Implementation: **AWS CloudFormation guard rule
++ **Control behavior: **Proactive
++ **Resource types: **`AWS::ApiGatewayV2::Route`, `AWS::ApiGatewayV2::ApiGatewayManagedOverrides`
++ **AWS CloudFormation guard rule: ** [CT\.APIGATEWAY\.PR\.5 rule specification](#ct-apigateway-pr-5-rule) 
+
+**Details and examples**
++ For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.APIGATEWAY\.PR\.5 rule specification](#ct-apigateway-pr-5-rule) 
++ For examples of PASS and FAIL AWS CloudFormation Templates related to this control, see: [CT\.APIGATEWAY\.PR\.5 example templates](#ct-apigateway-pr-5-templates) 
+
+**Explanation**
+
+API Gateway supports multiple mechanisms for controlling and managing access to your Websocket or HTTP API\. By specifying an authorization type, you can restrict access to your API, to allow only required users or processes\.
+
+**Usage considerations**  
+This control applies only to routes created by means of the `AWS::ApiGatewayV2::Route` resource, and to managed overrides that apply to HTTP API routes that are created through quick create\.
+This control does not evaluate HTTP API routes imported using the `Body` or `BodyS3Location` properties of `AWS::ApiGatewayV2::API` resources\.
+
+### Remediation for rule failure<a name="ct-apigateway-pr-5-remediation"></a>
+
+For Amazon API Gateway V2 routes, set `AuthorizationType` to `AWS_IAM`, `JWT` or `CUSTOM`\. For Amazon API Gateway V2 managed route overrides with `AuthorizationType`, set `AuthorizationType` to `AWS_IAM`, `JWT` or `CUSTOM`\.
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon API Gateway V2 Route \- Example<a name="ct-apigateway-pr-5-remediation-1"></a>
+
+Amazon API Gateway V2 route configured with AWS IAM authorization\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "ApiGatewayV2Route": {
+        "Type": "AWS::ApiGatewayV2::Route",
+        "Properties": {
+            "ApiId": {
+                "Ref": "WebsocketApi"
+            },
+            "RouteKey": "$connect",
+            "AuthorizationType": "AWS_IAM"
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+ApiGatewayV2Route:
+  Type: AWS::ApiGatewayV2::Route
+  Properties:
+    ApiId: !Ref 'WebsocketApi'
+    RouteKey: $connect
+    AuthorizationType: AWS_IAM
+```
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon API Gateway V2 Managed Overrides \- Example<a name="ct-apigateway-pr-5-remediation-2"></a>
+
+Amazon API Gateway V2 managed overrides configured with AWS IAM authorization\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "ApiGatewayManagedOverride": {
+        "Type": "AWS::ApiGatewayV2::ApiGatewayManagedOverrides",
+        "Properties": {
+            "ApiId": {
+                "Ref": "HttpApi"
+            },
+            "Route": {
+                "AuthorizationType": "AWS_IAM"
+            }
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+ApiGatewayManagedOverride:
+  Type: AWS::ApiGatewayV2::ApiGatewayManagedOverrides
+  Properties:
+    ApiId: !Ref 'HttpApi'
+    Route:
+      AuthorizationType: AWS_IAM
+```
+
+### CT\.APIGATEWAY\.PR\.5 rule specification<a name="ct-apigateway-pr-5-rule"></a>
+
+```
+# ###################################
+##       Rule Specification        ##
+#####################################
+# 
+# Rule Identifier:
+#   api_gw_v2_authorization_type_configured_check
+# 
+# Description:
+#   This control checks whether Amazon API Gateway V2 API routes have an authorization type set.
+# 
+# Reports on:
+#   AWS::ApiGatewayV2::Route, AWS::ApiGatewayV2::ApiGatewayManagedOverrides
+# 
+# Evaluates:
+#   AWS CloudFormation, AWS CloudFormation hook
+# 
+# Rule Parameters:
+#   None
+# 
+# Scenarios:
+#   Scenario: 1
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document does not contain any Amazon API Gateway V2 route or managed route overrides resources
+#      Then: SKIP
+#   Scenario: 2
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an Amazon API Gateway V2 managed route overrides resource
+#       And: In 'Route', 'AuthorizationType' has not been provided
+#      Then: SKIP
+#   Scenario: 3
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an Amazon API Gateway V2 route resource
+#       And: 'AuthorizationType' has not been provided
+#      Then: FAIL
+#   Scenario: 4
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an Amazon API Gateway V2 route or managed route overrides resource
+#       And: 'AuthorizationType' has been provided and set to a value other than 'AWS_IAM', 'JWT' or 'CUSTOM'
+#      Then: FAIL
+#   Scenario: 5
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an Amazon API Gateway V2 route or managed route overrides resource
+#       And: 'AuthorizationType' has been provided and set to a value of 'AWS_IAM', 'JWT' or 'CUSTOM'
+#      Then: PASS
+
+#
+# Constants
+#
+let API_GW_ROUTE_TYPE = "AWS::ApiGatewayV2::Route"
+let API_GW_MANAGED_OVERRIDE_TYPE = "AWS::ApiGatewayV2::ApiGatewayManagedOverrides"
+let ALLOWED_AUTHORIZATION_TYPES = ["AWS_IAM", "JWT", "CUSTOM"]
+let INPUT_DOCUMENT = this
+
+#
+# Assignments
+#
+let api_route = Resources.*[ Type == %API_GW_ROUTE_TYPE ]
+let api_override = Resources.*[ Type == %API_GW_MANAGED_OVERRIDE_TYPE ]
+
+#
+# Primary Rules
+#
+rule api_gw_v2_authorization_type_configured_check when is_cfn_template(%INPUT_DOCUMENT)
+                                                        %api_route not empty {
+    check_api_route(%api_route.Properties)
+         <<
+         [CT.APIGATEWAY.PR.5]: Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type
+            [FIX]: For Amazon API Gateway V2 routes, set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'. For Amazon API Gateway V2 managed route overrides with 'AuthorizationType', set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'.
+         >>
+}
+
+rule api_gw_v2_authorization_type_configured_check when is_cfn_template(%INPUT_DOCUMENT)
+                                                        %api_override not empty {
+    check_api_override(%api_override.Properties)
+         <<
+         [CT.APIGATEWAY.PR.5]: Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type
+            [FIX]: For Amazon API Gateway V2 routes, set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'. For Amazon API Gateway V2 managed route overrides with 'AuthorizationType', set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'.
+         >>
+}
+
+rule api_gw_v2_authorization_type_configured_check when is_cfn_hook(%INPUT_DOCUMENT, %API_GW_ROUTE_TYPE) {
+    check_api_route(%INPUT_DOCUMENT.%API_GW_ROUTE_TYPE.resourceProperties)
+         <<
+         [CT.APIGATEWAY.PR.5]: Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type
+            [FIX]: For Amazon API Gateway V2 routes, set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'. For Amazon API Gateway V2 managed route overrides with 'AuthorizationType', set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'.
+         >>
+}
+
+rule api_gw_v2_authorization_type_configured_check when is_cfn_hook(%INPUT_DOCUMENT, %API_GW_MANAGED_OVERRIDE_TYPE) {
+    check_api_override(%INPUT_DOCUMENT.%API_GW_MANAGED_OVERRIDE_TYPE.resourceProperties)
+         <<
+         [CT.APIGATEWAY.PR.5]: Require Amazon API Gateway V2 Websocket and HTTP routes to specify an authorization type
+            [FIX]: For Amazon API Gateway V2 routes, set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'. For Amazon API Gateway V2 managed route overrides with 'AuthorizationType', set 'AuthorizationType' to 'AWS_IAM', 'JWT' or 'CUSTOM'.
+         >>
+}
+
+#
+# Parameterized Rules
+#
+rule check_api_route(api_route) {
+    %api_route {
+        # Scenario 3
+        AuthorizationType exists
+
+        # Scenario 4 and 5
+        AuthorizationType in %ALLOWED_AUTHORIZATION_TYPES
+    }
+}
+
+rule check_api_override(api_override) {
+    %api_override [
+        # Scenario 2
+        Route exists
+        Route is_struct
+        Route {
+            AuthorizationType exists
+        }
+    ]{
+        check_api_route(Route)
+    }
+}
+
+#
+# Utility Rules
+#
+rule is_cfn_template(doc) {
+    %doc {
+        AWSTemplateFormatVersion exists  or
+        Resources exists
+    }
+}
+
+rule is_cfn_hook(doc, RESOURCE_TYPE) {
+     %doc.%RESOURCE_TYPE.resourceProperties exists
+ }
+```
+
+### CT\.APIGATEWAY\.PR\.5 example templates<a name="ct-apigateway-pr-5-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ApiGatewayV2Route:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: a1bcdef2gh
+      RouteKey: $connect
+      AuthorizationType: AWS_IAM
+```
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  ApiGatewayManagedOverride:
+    Type: AWS::ApiGatewayV2::ApiGatewayManagedOverrides
+    Properties:
+      ApiId: a1bcdef2gh
+      Route:
+        AuthorizationType: AWS_IAM
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ApiGatewayV2Route:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: a1bcdef2gh
+      RouteKey: $connect
+      AuthorizationType: NONE
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  ApiGatewayManagedOverride:
+    Type: AWS::ApiGatewayV2::ApiGatewayManagedOverrides
+    Properties:
+      ApiId: a1bcdef2gh
+      Route:
+        AuthorizationType: NONE
 ```

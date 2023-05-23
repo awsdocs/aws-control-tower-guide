@@ -25,6 +25,7 @@
 + [\[CT\.RDS\.PR\.22\] Require an Amazon RDS database instance to have a unique administrator username](#ct-rds-pr-22-description)
 + [\[CT\.RDS\.PR\.23\] Require an Amazon RDS database instance to not be publicly accessible](#ct-rds-pr-23-description)
 + [\[CT\.RDS\.PR\.24\] Require an Amazon RDS database instance to have encryption at rest configured](#ct-rds-pr-24-description)
++ [\[CT\.RDS\.PR\.25\] Require an Amazon RDS database cluster to have logging configured](#ct-rds-pr-25-description)
 
 ## \[CT\.RDS\.PR\.1\] Require that an Amazon RDS database instance is configured with multiple Availability Zones<a name="ct-rds-pr-1-description"></a>
 
@@ -7084,4 +7085,363 @@ Resources:
         Fn::Sub: '{{resolve:secretsmanager:${DBInstanceSecret}::password}}'
       StorageEncrypted: false
     DeletionPolicy: Delete
+```
+
+## \[CT\.RDS\.PR\.25\] Require an Amazon RDS database cluster to have logging configured<a name="ct-rds-pr-25-description"></a>
+
+This control checks whether Amazon RDS database clusters have all available log types enabled for export to Amazon CloudWatch Logs\.
++ **Control objective: **Establish logging and monitoring
++ **Implementation: **AWS CloudFormation guard rule
++ **Control behavior: **Proactive
++ **Resource types: **`AWS::RDS::DBCluster`
++ **AWS CloudFormation guard rule: ** [CT\.RDS\.PR\.25 rule specification](#ct-rds-pr-25-rule) 
+
+**Details and examples**
++ For details about the PASS, FAIL, and SKIP behaviors associated with this control, see the: [CT\.RDS\.PR\.25 rule specification](#ct-rds-pr-25-rule) 
++ For examples of PASS and FAIL CloudFormation Templates related to this control, see: [CT\.RDS\.PR\.25 example templates](#ct-rds-pr-25-templates) 
+
+**Explanation**
+
+Amazon RDS databases should have relevant logs enabled\. Database logging provides detailed records of requests made to RDS\. Database logs can assist with security and access audits, and they can help to diagnose availability issues\.
+
+**Usage considerations**  
+This control applies only to Amazon RDS DB cluster engine types `aurora`, `aurora-mysql`, `aurora-postgresql`, `mysql` and `postgres`\.
+
+### Remediation for rule failure<a name="ct-rds-pr-25-remediation"></a>
+
+Specify `EnableCloudwatchLogsExports` with a list of all supported log types for the Amazon RDS database cluster engine\.
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon RDS database \(DB\) Cluster \- Example One<a name="ct-rds-pr-25-remediation-1"></a>
+
+Amazon RDS Aurora DB cluster configured with all available log types enabled for export to Amazon CloudWatch Logs\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "DBCluster": {
+        "Type": "AWS::RDS::DBCluster",
+        "Properties": {
+            "Engine": "aurora",
+            "MasterUsername": {
+                "Fn::Sub": "{{resolve:secretsmanager:${DBClusterSecret}::username}}"
+            },
+            "MasterUserPassword": {
+                "Fn::Sub": "{{resolve:secretsmanager:${DBClusterSecret}::password}}"
+            },
+            "DBSubnetGroupName": {
+                "Ref": "DBSubnetGroup"
+            },
+            "EnableCloudwatchLogsExports": [
+                "audit",
+                "error",
+                "general",
+                "slowquery"
+            ]
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+DBCluster:
+  Type: AWS::RDS::DBCluster
+  Properties:
+    Engine: aurora
+    MasterUsername: !Sub '{{resolve:secretsmanager:${DBClusterSecret}::username}}'
+    MasterUserPassword: !Sub '{{resolve:secretsmanager:${DBClusterSecret}::password}}'
+    DBSubnetGroupName: !Ref 'DBSubnetGroup'
+    EnableCloudwatchLogsExports:
+      - audit
+      - error
+      - general
+      - slowquery
+```
+
+The examples that follow show how to implement this remediation\.
+
+#### Amazon RDS DB Cluster \- Example Two<a name="ct-rds-pr-25-remediation-2"></a>
+
+Amazon RDS Multi\-AZ Postgres DB cluster configured with all available log types enabled for export to Amazon CloudWatch Logs\. The example is shown in JSON and in YAML\.
+
+**JSON example**
+
+```
+{
+    "DBCluster": {
+        "Type": "AWS::RDS::DBCluster",
+        "Properties": {
+            "Engine": "aurora",
+            "MasterUsername": {
+                "Fn::Sub": "{{resolve:secretsmanager:${DBClusterSecret}::username}}"
+            },
+            "MasterUserPassword": {
+                "Fn::Sub": "{{resolve:secretsmanager:${DBClusterSecret}::password}}"
+            },
+            "DBSubnetGroupName": {
+                "Ref": "DBSubnetGroup"
+            },
+            "EnableCloudwatchLogsExports": [
+                "audit",
+                "error",
+                "general",
+                "slowquery"
+            ]
+        }
+    }
+}
+```
+
+**YAML example**
+
+```
+DBCluster:
+  Type: AWS::RDS::DBCluster
+  Properties:
+    Engine: aurora
+    MasterUsername: !Sub '{{resolve:secretsmanager:${DBClusterSecret}::username}}'
+    MasterUserPassword: !Sub '{{resolve:secretsmanager:${DBClusterSecret}::password}}'
+    DBSubnetGroupName: !Ref 'DBSubnetGroup'
+    EnableCloudwatchLogsExports:
+      - audit
+      - error
+      - general
+      - slowquery
+```
+
+### CT\.RDS\.PR\.25 rule specification<a name="ct-rds-pr-25-rule"></a>
+
+```
+# ###################################
+##       Rule Specification        ##
+#####################################
+# 
+# Rule Identifier:
+#   rds_cluster_logging_enabled_check
+# 
+# Description:
+#   This control checks whether Amazon RDS database clusters have all available log types enabled for export to Amazon CloudWatch Logs.
+# 
+# Reports on:
+#   AWS::RDS::DBCluster
+# 
+# Evaluates:
+#   AWS CloudFormation, AWS CloudFormation hook
+# 
+# Rule Parameters:
+#   None
+# 
+# Scenarios:
+#   Scenario: 1
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document does not contain any RDS DB cluster resources
+#      Then: SKIP
+#   Scenario: 2
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster Resource
+#       And: 'Engine' is not one of 'aurora', 'aurora-mysql', 'aurora-postgresql', 'mysql' or 'postgres'
+#      Then: SKIP
+#   Scenario: 3
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is one of 'aurora', 'aurora-mysql', 'aurora-postgresql', 'mysql' or 'postgres'
+#       And: 'EnableCloudwatchLogsExports' has not been specified or has been specified as an empty list
+#      Then: FAIL
+#   Scenario: 4
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is one of 'aurora', 'aurora-mysql', 'aurora-postgresql', 'mysql' or 'postgres'
+#       And: 'EnableCloudwatchLogsExports' has been specified and is a non-empty list
+#       And: One or more log types in 'EnableCloudwatchLogsExports' are not supported by the specified 'Engine'
+#      Then: FAIL
+#   Scenario: 5
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is one of 'aurora', 'aurora-mysql', 'aurora-postgresql', 'mysql' or 'postgres'
+#       And: 'EnableCloudwatchLogsExports' has been specified and is a non-empty list
+#       And: 'EnableCloudwatchLogsExports' does not contain all log types supported by the specified 'Engine'
+#      Then: FAIL
+#   Scenario: 6
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is one of 'aurora', 'aurora-mysql' or 'mysql'
+#       And: 'EnableCloudwatchLogsExports' has been specified as a list with all supported log types
+#             for the 'Engine' ('audit', 'error', 'general' and 'slowquery')
+#      Then: PASS
+#   Scenario: 7
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is 'aurora-postgresql'
+#       And: 'EnableCloudwatchLogsExports' has been specified as a list with all supported log types
+#             for the 'Engine' ('postgresql')
+#      Then: PASS
+#   Scenario: 8
+#     Given: The input document is an AWS CloudFormation or AWS CloudFormation hook document
+#       And: The input document contains an RDS DB cluster resource
+#       And: 'Engine' is 'postgres'
+#       And: 'EnableCloudwatchLogsExports' has been specified as a list with all supported log types
+#             for the 'Engine' ('postgresql', 'upgrade')
+#      Then: PASS
+
+#
+# Constants
+#
+let RDS_DB_CLUSTER_TYPE = "AWS::RDS::DBCluster"
+let INPUT_DOCUMENT = this
+
+let SUPPORTED_RDS_CLUSTER_ENGINES = [
+    "aurora", "aurora-mysql", "aurora-postgresql", "mysql", "postgres"
+]
+
+let MYSQL_ENGINE_SUBTYPES = [ "aurora", "aurora-mysql", "mysql" ]
+let AURORA_POSTGRES_ENGINE_SUBTYPES = [ "aurora-postgresql" ]
+let POSTGRES_ENGINE_SUBTYPES = [ "postgres" ]
+
+let MYSQL_SUPPORTED_LOG_TYPES = [ "audit", "error", "general", "slowquery" ]
+let AURORA_POSTGRES_SUPPORTED_LOG_TYPES  = [ "postgresql" ]
+let POSTGRES_SUPPORTED_LOG_TYPES = [ "postgresql", "upgrade" ]
+
+#
+# Assignments
+#
+let rds_db_clusters = Resources.*[ Type == %RDS_DB_CLUSTER_TYPE ]
+
+#
+# Primary Rules
+#
+rule rds_cluster_logging_enabled_check when is_cfn_template(%INPUT_DOCUMENT)
+                                             %rds_db_clusters not empty {
+    check(%rds_db_clusters.Properties)
+        <<
+        [CT.RDS.PR.25]: Require an Amazon RDS database cluster to have logging configured
+            [FIX]: Specify 'EnableCloudwatchLogsExports' with a list of all supported log types for the Amazon RDS database cluster engine.
+        >>
+}
+
+rule rds_cluster_logging_enabled_check when is_cfn_hook(%INPUT_DOCUMENT, %RDS_DB_CLUSTER_TYPE) {
+    check(%INPUT_DOCUMENT.%RDS_DB_CLUSTER_TYPE.resourceProperties)
+        <<
+        [CT.RDS.PR.25]: Require an Amazon RDS database cluster to have logging configured
+            [FIX]: Specify 'EnableCloudwatchLogsExports' with a list of all supported log types for the Amazon RDS database cluster engine.
+        >>
+}
+
+#
+# Parameterized Rules
+#
+rule check(rds_db_cluster) {
+    %rds_db_cluster [
+        filter_engine(this)
+    ] {
+        # Scenario 3
+        EnableCloudwatchLogsExports exists
+        check_is_list_and_not_empty(EnableCloudwatchLogsExports)
+
+        # Scenario 4 and 6
+        when Engine IN %MYSQL_ENGINE_SUBTYPES {
+            %MYSQL_SUPPORTED_LOG_TYPES.* IN EnableCloudwatchLogsExports[*]
+            EnableCloudwatchLogsExports.* IN %MYSQL_SUPPORTED_LOG_TYPES[*]
+        }
+
+        # Scenario 4 and 7
+        when Engine IN %AURORA_POSTGRES_ENGINE_SUBTYPES {
+            %AURORA_POSTGRES_SUPPORTED_LOG_TYPES.* IN EnableCloudwatchLogsExports[*]
+            EnableCloudwatchLogsExports.* IN %AURORA_POSTGRES_SUPPORTED_LOG_TYPES[*]
+        }
+
+        # Scenario 4 and 8
+        when Engine IN %POSTGRES_ENGINE_SUBTYPES {
+            %POSTGRES_SUPPORTED_LOG_TYPES.* in EnableCloudwatchLogsExports[*]
+            EnableCloudwatchLogsExports.* IN %POSTGRES_SUPPORTED_LOG_TYPES[*]
+        }
+    }
+}
+
+rule filter_engine(db_properties) {
+    %db_properties {
+        # Scenario 2
+        Engine exists
+        Engine in %SUPPORTED_RDS_CLUSTER_ENGINES
+    }
+}
+
+#
+# Utility Rules
+#
+rule check_is_list_and_not_empty(value) {
+    %value {
+        this is_list
+        this not empty
+    }
+}
+
+rule is_cfn_template(doc) {
+    %doc {
+        AWSTemplateFormatVersion exists  or
+        Resources exists
+    }
+}
+
+rule is_cfn_hook(doc, RESOURCE_TYPE) {
+    %doc.%RESOURCE_TYPE.resourceProperties exists
+}
+```
+
+### CT\.RDS\.PR\.25 example templates<a name="ct-rds-pr-25-templates"></a>
+
+You can view examples of the PASS and FAIL test artifacts for the AWS Control Tower proactive controls\.
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      MasterUsername: exampleusername
+      MasterUserPassword: example-password
+      DBSubnetGroupName: example-db-subnet-group
+      Engine: aurora
+      EnableCloudwatchLogsExports:
+        - audit
+        - error
+        - general
+        - slowquery
+```
+
+PASS Example \- Use this template to verify a compliant resource creation\.
+
+```
+Resources:
+  DBCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      DBClusterInstanceClass: db.m6gd.large
+      MasterUsername: exampleusername
+      MasterUserPassword: example-password
+      DBSubnetGroupName: example-db-subnet-group
+      Engine: postgres
+      AllocatedStorage: 100
+      StorageType: io1
+      Iops: 3000
+      EnableCloudwatchLogsExports:
+        - postgresql
+        - upgrade
+```
+
+FAIL Example \- Use this template to verify that the control prevents non\-compliant resource creation\.
+
+```
+Resources:
+  DBCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      MasterUsername: exampleusername
+      MasterUserPassword: example-password
+      DBSubnetGroupName: example-db-subnet-group
+      Engine: aurora
 ```
