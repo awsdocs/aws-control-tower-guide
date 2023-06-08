@@ -29,6 +29,7 @@ sponsored by Amazon.
       + [Step 2b. Configure your organizational units (OUs)](configure-ous.md)
       + [Step 2c. Configure your shared accounts, logging, and encryption](configure-shared-accounts.md)
          + [Optionally configure log retention](configure-log-retention.md)
+         + [Optionally self-manage AWS account access](select-idp.md)
          + [Optionally configure AWS CloudTrail trails](configure-org-trails.md)
          + [Optionally configure AWS KMS keys](configure-kms-keys.md)
          + [Optionally configure and create customized member accounts](configure-customized-accounts.md)

@@ -12,9 +12,6 @@ AWS Control Tower detects drift automatically\. To detect drift, the `AWSControl
 
 Drift is surfaced in the Amazon Simple Notification Service \(Amazon SNS\) notifications that are aggregated in the audit account\. Notifications in each member account send alerts to a local Amazon SNS topic, and to a Lambda function\.
 
-**Note**  
-AWS Control Tower does not detect drift for controls that are part of the AWS Security Hub **Service\-Managed Standard: AWS Control Tower**\.
-
 Member account administrators can \(and as a best practice, they should\) subscribe to the SNS drift notifications for specific accounts\. For example, the `aws-controltower-AggregateSecurityNotifications` SNS topic provides drift notifications\. The AWS Control Tower console indicates to management account administrators when drift has occurred\. For more information about SNS topics for drift detection and notification, see [Drift prevention and notification](prevention-and-notification.md)\.
 
 **Drift notification de\-duplication**

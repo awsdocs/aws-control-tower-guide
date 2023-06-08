@@ -2,12 +2,14 @@
 
 AWS Control Tower allows you to customize new and existing AWS accounts when you provision their resources from the AWS Control Tower console\. After you set up account factory customization, AWS Control Tower automates this process for future provisioning, so you don't have to maintain any pipelines\. Customized accounts are available for use immediately after the resources are provisioned\.
 
-Your customized accounts are provisioned in account factory, through AWS CloudFormation templates\. You'll define an AWS CloudFormation template that serves as customized account *blueprint*\. Your blueprint describes the specific resources and configurations you require when an account is provisioned\. Pre\-defined blueprints, built and managed by AWS partners, also are available\. For more information about partner\-managed blueprints, see the [Service Catalog Getting Started Library](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/getting-started-library.html)\.
+Your customized accounts are provisioned in account factory, through AWS CloudFormation templates, or with Terraform\. You'll define a template that serves as customized account *blueprint*\. Your blueprint describes the specific resources and configurations you require when an account is provisioned\. Pre\-defined blueprints, built and managed by AWS partners, also are available\. For more information about partner\-managed blueprints, see the [Service Catalog Getting Started Library](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/getting-started-library.html)\.
 
 **Note**  
 AWS Control Tower contains *proactive controls*, which monitor AWS CloudFormation resources in AWS Control Tower\. Optionally, you can activate these controls in your landing zone\. When you apply proactive controls, they check to make sure that the resources you're about to deploy to your accounts are compliant with your organization's policies and procedures\. For more information about proactive controls, see [Proactive controls](proactive-controls.md)\.
 
 Your account blueprints are stored in an AWS account, which for our purposes is referred to as a *hub account*\. Blueprints are stored in the form of an Service Catalog product\. We call this product a blueprint, to distinguish it from any other Service Catalog products\. To learn more about how to create Service Catalog products, see [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the *Service Catalog Administrator Guide*\.
+
+**Apply blueprints to existing accounts**
 
 You can apply customized blueprints to existing accounts, also, by following the **Update account** steps in the AWS Control Tower console\. For details, see [Update the account in the console](updating-account-factory-accounts.md#update-account-in-console)\.
 
@@ -31,7 +33,8 @@ For more information about working with AFC, see [Automate account customization
 + [Partner blueprints](partner-blueprints.md)
 + [Considerations for Account Factory Customizations \(AFC\)](#af-limitations)
 + [In case of a blueprint error](#af-error)
-+ [Customizing your policy document for AFC blueprints](#custom-policy-document)
++ [Customizing your policy document for AFC blueprints based on CloudFormation](#custom-policy-document)
++ [Additional permissions required for creating a Terraform\-based Service Catalog product](#custom-policy-document-tf)
 
 **Note**  
 One blueprint may be deployed per AWS Control Tower account\.
@@ -94,7 +97,7 @@ The following workarounds are available:
 + Temporarily edit this SCP to permit the operation\.
 + \(Strongly not recommended\) Use your AWS Control Tower management account as your hub account, so it is not subject to the SCP\.
 
-## Customizing your policy document for AFC blueprints<a name="custom-policy-document"></a>
+## Customizing your policy document for AFC blueprints based on CloudFormation<a name="custom-policy-document"></a>
 
 When you enable a blueprint through account factory, AWS Control Tower directs AWS CloudFormation to create a StackSet on your behalf\. AWS CloudFormation requires access to your managed account to create AWS CloudFormation stacks in the StackSet\. Although AWS CloudFormation already has administrator privileges in the managed account through the `AWSControlTowerExecution` role, this role is not assumable by AWS CloudFormation\.
 
@@ -132,3 +135,38 @@ The `AllowCloudFormationActionsOnStacks` statement is required for all AFC custo
 **Resolve permission issues**
 
 When you enable a blueprint with a restricted policy, you may find that there are insufficient permissions to enable the blueprint\. To resolve these issues, revise your policy document and update the member account's blueprint preferences to use the corrected policy\. To check that the policy is sufficient to enable the blueprint, ensure that the AWS CloudFormation permissions are granted, and that you can create a stack directly using that role\.
+
+## Additional permissions required for creating a Terraform\-based Service Catalog product<a name="custom-policy-document-tf"></a>
+
+When you're creating an Service Catalog Terraform product for AFC, Service Catalog requires certain permissions to be added to your AFC custom IAM policy, in addition to permissions required to create the resources defined in your template\. If you choose the default full **Admin** policy, you do not need to add these extra permissions\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "resource-groups:CreateGroup",
+                "resource-groups:ListGroupResources",
+                "resource-groups:DeleteGroup",
+                "resource-groups:Tag"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "tag:GetResources",
+                "tag:GetTagKeys",
+                "tag:GetTagValues",
+                "tag:TagResources",
+                "tag:UntagResources"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+
+For more information about creating Terraform products in Service Catalog, see [Step 5: Create launch roles](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/getstarted-launchrole-Terraform.html) in the Service Catalog Administrator Guide\.

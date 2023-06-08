@@ -16,6 +16,7 @@ This section describes known limitations and unsupported use cases in AWS Contro
 + If all 22 commercial Regions where AWS Control Tower is available are activated, including opt\-in Regions, the upper limit on the number of accounts per organizational unit \(OU\), when extending governance to an OU, is reduced\. The limit is 220 accounts, instead of 300\. This reduction is due to StackSet limitations\. If you require to extend governance to OUs with more than 220 accounts, reduce the number of activated Regions\.
 + CfCT is unavailable in these opt\-in Regions: Asia Pacific \(Jakarta and Osaka\)\.
 + When calling a control API to activate or deactivate a control, the limit for `EnableControl` and `DisableControl` updates in AWS Control Tower is ten \(10\) concurrent operations\. You may need to adjust your code to wait for completions\.
++ When you are provisioning accounts with AFC, with blueprints that are based in Terraform, you can deploy those blueprints to only one AWS Region\. By default, AWS Control Tower deploys to the home Region\.
 
 You can contact [AWS Support](http://aws.amazon.com/premiumsupport/) to request a limit increase for some resources in AWS Control Tower\. For example, you can request a limit increase from five of up to ten concurrent account\-related operations\. Some AWS Control Tower performance characteristics may change after a limit increase\. For example, it may take longer to update an OU when you have more accounts in it\. Or it may take longer to complete an action on OU with five SCPs than with three SCPs\.
 
@@ -73,3 +74,5 @@ You can view the Regions for each control in the AWS Control Tower console\.
 | `AWS-GR_RESTRICTED_COMMON_PORTS` | ap\-northeast\-3, ap\-southeast\-3, af\-south\-1, eu\-south\-1 | 
 
 More information about AWS quotas is available in the [AWS General Reference](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config)\.
+
+Control behavior also is limited in case of *mixed governance*\. For more information, see [Avoid mixed governance when configuring Regions](region-how.md#mixed-governance)\.

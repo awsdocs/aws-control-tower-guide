@@ -340,6 +340,122 @@ The following example shows a least\-privilege trust policy:
 
 You are required to attach the managed policy **AWSServiceCatalogAdminFullAccess** to the role\.
 
+## AWSServiceRoleForAWSControlTower<a name="AWSServiceRoleForAWSControlTower"></a>
+
+This role provides AWS Control Tower with access to the Log Archive account, Audit account, and member accounts, for operations critical to maintaining the landing zone, such as notifying you of drifted resources\.
+
+The `AWSServiceRoleForAWSControlTower` role requires an attached managed policy and a role trust policy for the IAM role\.
+
+**Managed policy for this role: **`AWSControlTowerAccountServiceRolePolicy`
+
+Role trust policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "controltower.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+```
+
+## AWSControlTowerAccountServiceRolePolicy<a name="account-service-role-policy"></a>
+
+This AWS\-managed policy allows AWS Control Tower to call AWS services that provide automated account configuration and centralized governance on your behalf\.
+
+The policy contains the minimum permissions for AWS Control Tower to implement AWS Security Hub findings forwarding for resources managed by Security Hub controls that are part of the **Security Hub Service\-managed Standard: AWS Control Tower**, and it prevents changes that restrict the ability to manage customer accounts\. It is part of background AWS Security Hub drift detection process that is not directly initiated by a customer\.
+
+The policy gives permissions to create Amazon EventBridge rules, specifically for Security Hub controls, in each member account, and these rules must specify an exact EventPattern\. Also, a rule can operate only on rules managed by our service principal\.
+
+**Service principal:** `controltower.amazonaws.com`
+
+The JSON artifact for `AWSControlTowerAccountServiceRolePolicy` is the following:
+
+```
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+		//For creating the managed rule
+			"Sid": "AllowPutRuleOnSpecificSourcesAndDetailTypes",
+			"Effect": "Allow",
+			"Action": "events:PutRule",
+			"Resource": "arn:aws:events:*:*:rule/*ControlTower*",
+			"Condition": {
+				"ForAnyValue:StringEquals": {
+					"events:source": "aws.securityhub"
+				},
+				"Null": {
+					"events:detail-type": "false"
+				},
+				"StringEquals": {
+					"events:ManagedBy": "controltower.amazonaws.com",
+					"events:detail-type": "Security Hub Findings - Imported"
+				}
+			}
+		},
+		// Other operations to manage the managed rule
+		{
+			"Sid": "AllowOtherOperationsOnRulesManagedByControlTower",
+			"Effect": "Allow",
+			"Action": [
+				"events:DeleteRule",
+				"events:EnableRule",
+				"events:DisableRule",
+				"events:PutTargets",
+				"events:RemoveTargets"
+			],
+			"Resource": "arn:aws:events:*:*:rule/*ControlTower*",
+			"Condition": {
+				"StringEquals": {
+					"events:ManagedBy": "controltower.amazonaws.com"
+				}
+			}
+		},
+		// More managed rule permissions
+		{
+			"Sid": "AllowDescribeOperationsOnRulesManagedByControlTower",
+			"Effect": "Allow",
+			"Action": [
+				"events:DescribeRule",
+				"events:ListTargetsByRule"
+			],
+			"Resource": "arn:aws:events:*:*:rule/*ControlTower*"
+		},
+		// Add permission to publish the security notifications to SNS
+		{
+			"Sid": "AllowControlTowerToPublishSecurityNotifications",
+			"Effect": "Allow",
+			"Action": "sns:publish",
+			"Resource": "arn:aws:sns:*:*:aws-controltower-AggregateSecurityNotifications",
+			"Condition": {
+				"StringEquals": {
+					"aws:PrincipalAccount": "${aws:ResourceAccount}"
+				}
+			}
+		},
+		// For drift verification
+		{
+			"Sid": "AllowActionsForSecurityHubIntegration",
+			"Effect": "Allow",
+			"Action": [
+				"securityhub:DescribeStandardsControls",
+				"securityhub:GetEnabledStandards"
+			],
+			"Resource": "arn:aws:securityhub:*:*:hub/default"
+		}
+	]
+}
+```
+
+Updates to this managed policy are summarized in the table, [Managed policies for AWS Control Tower](#managed-policies-table)\.
+
 ## Managed policies for AWS Control Tower<a name="managed-policies-table"></a>
 
 AWS addresses many common use cases by providing standalone IAM policies that are created and administered by AWS\. Managed policies grant necessary permissions for common use cases so you can avoid having to investigate what permissions are needed\. For more information, see [AWS Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\. 
@@ -347,6 +463,7 @@ AWS addresses many common use cases by providing standalone IAM policies that ar
 
 | Change | Description | Date | 
 | --- | --- | --- | 
+|  [AWSControlTowerAccountServiceRolePolicy](#account-service-role-policy) – A new policy  |  AWS Control Tower added a new service\-linked role that allows AWS Control Tower to create and manage event rules, and based on those rules, to manage drift detection for controls that are related to Security Hub\.  This change is needed so that customers can view drifted resources in the console, when those resources are related to Security Hub controls that are part of the **Security Hub Service\-managed Standard: AWS Control Tower**\. | May 22, 2023 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow AWS Control Tower to make calls to the `EnableRegion`, `ListRegions`, and `GetRegionOptStatus` APIs implemented by the AWS Account Management service, to make the opt\-in AWS Regions available for customer accounts in the landing zone \(Management account, Log archive account, Audit account, OU member accounts\)\. This change is needed so that customers can have the option to expand Region governance by AWS Control Tower into the opt\-in Regions\.  | April 6, 2023 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow AWS Control Tower to assume the `AWSControlTowerBlueprintAccess` role in the blueprint \(hub\) account, which is a dedicated account in an organization, containing pre\-defined blueprints stored in one or more Service Catalog Products\. AWS Control Tower assumes the `AWSControlTowerBlueprintAccess` role to perform three tasks: create a Service Catalog Portfolio, add the requested blueprint Product, and share the Portfolio to a requested member account at account provisioning time\. This change is needed so that customers can provision customized accounts through AWS Control Tower Account Factory\.  | October 28, 2022 | 
 |  [AWSControlTowerServiceRolePolicy](#AWSControlTowerServiceRolePolicy) – Update to an existing policy  |  AWS Control Tower added new permissions that allow customers to set up organization\-level AWS CloudTrail trails, starting in landing zone version 3\.0\. The organization\-based CloudTrail feature requires customers to have trusted access enabled for the CloudTrail service, and the IAM user or role must have permission to create an organization\-level trail in the management account\.  | June 20, 2022 | 

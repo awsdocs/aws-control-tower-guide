@@ -1,6 +1,6 @@
 # Provision a new account with AFT<a name="aft-provision-account"></a>
 
- To provision a new account with AFT, create an account request Terraform file\. This file contains the input for parameters in the **aft\-account\-request** repository\. After creating an account request Terraform file, begin processing your account request by running `git push`\. This command invokes the `ct-aft-account-request` operation in the AWS CodePipeline, which is created in the AFT management account after account provisioning finishes\. For more information, see [AFT account provisining pipeline](https://docs.aws.amazon.com/controltower/latest/userguide/aft-provisioning-framework.html)\. 
+ To provision a new account with AFT, create an account request Terraform file\. This file contains the input for parameters in the **aft\-account\-request** repository\. After creating an account request Terraform file, begin processing your account request by running `git push`\. This command invokes the `ct-aft-account-request` operation in the AWS CodePipeline, which is created in the AFT management account after account provisioning finishes\. For more information, see [AFT account provisioning pipeline](https://docs.aws.amazon.com/controltower/latest/userguide/aft-provisioning-framework.html)\. 
 
 ## Account request Terraform file parameters<a name="w32aac32c31c11b5"></a>
 

@@ -728,6 +728,9 @@ This is a detective control with elective guidance\. By default, this control is
 **In the console:**
 + The rule shows **Non\-compliant** status if a route has a destination CIDR block of `0.0.0.0/0` or `::/0` or if a destination CIDR block does not match the rule parameter\.
 
+**Note**  
+This control fails if any of the routes to an IGW has a destination CIDR block of `0.0.0.0/0` or `::/0`\.
+
 The artifact for this control is the following AWS Config rule\. 
 
 ```

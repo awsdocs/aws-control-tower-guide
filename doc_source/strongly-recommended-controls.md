@@ -107,6 +107,9 @@ Resources:
 
 This control helps reduce a server's exposure to risk by detecting whether unrestricted incoming TCP traffic is allowed\. It detects whether internet connections are enabled to Amazon EC2 instances through services such as Remote Desktop Protocol \(RDP\)\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
 
+**Note**  
+This control fails if any of the rules in a security group allow ingress traffic from `0.0.0.0/0` or `::/0` for those ports\.
+
 The artifact for this control is the following AWS Config rule\.
 
 ```
@@ -205,6 +208,9 @@ Resources:
 ## Detect Whether Unrestricted Internet Connection Through SSH is Allowed<a name="ssh-disallow-internet"></a>
 
 This control detects whether internet connections are allowed through remote services such as the Secure Shell \(SSH\) protocol\. This control does not change the status of the account\. This is a detective control with strongly recommended guidance\. By default, this control is not enabled\.
+
+**Note**  
+This control fails if any of the rules in a security group allow ingress traffic from `0.0.0.0/0` or `::/0` for SSH traffic\.
 
 The artifact for this control is the following AWS Config rule\.
 

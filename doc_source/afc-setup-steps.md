@@ -67,6 +67,10 @@ Here's an example trust policy, similar to one you will need to include for your
 
 AWS Control Tower requires that the managed policy named `AWSServiceCatalogAdminFullAccess` must be attached to the `AWSControlTowerBlueprintAccess` role\. This policy provides permissions that Service Catalog looks for when it allows AWS Control Tower to administer your portfolio and Service Catalog Product resources\. You can attach this policy when you're creating the role in the IAM console\.
 
+**Additional permissions may be required**  
+If you store your blueprints in Amazon S3, AWS Control Tower also requires the `AmazonS3ReadOnlyAccess` permission policy for the `AWSControlTowerBlueprintAccess` role\.
+The AWS Service Catalog Terraform type of product requires you to add some additional permissions to the AFC custom IAM policy, if you don't utilize the default **Admin** policy\. It requires these in addition to the permissions required to create the resources that you define in your terraform template\.
+
 ## Step 2\. Create the Service Catalog product<a name="step-2-create-blueprint-product"></a>
 
 To create an Service Catalog product, follow the steps at [Creating products](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/productmgmt-cloudresource.html) in the *Service Catalog Administrator Guide*\. You'll add your account blueprint as a template when you create the Service Catalog product\.

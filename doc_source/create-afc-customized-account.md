@@ -26,4 +26,7 @@ After you have created custom blueprints, you can start creating custom accounts
 
 1. After all fields are completed, select **Create account**\.
 
+**Note**  
+Blueprints created with Terraform can deploy to one Region only, not multiple Regions\.
+
 You can view the progress of your account provisioning on the **Organization** page\. When your account provisioning is complete, the resources specified by your blueprint are already deployed within it\. To view the details of the account and blueprint, go to the **Account details** page\.
