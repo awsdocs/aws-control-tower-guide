@@ -205,7 +205,6 @@ sponsored by Amazon.
    + [Monitor Events with CloudTrail](cloudtrail.md)
    + [Monitor Resources and Services with CloudWatch](cloudwatch.md)
    + [Govern Resource Configurations with AWS Config](config.md)
-   + [Manage Permissions for Entities with IAM](iam.md)
    + [AWS Key Management Service](kms-integration.md)
    + [Run Serverless Compute Functions with Lambda](lambda.md)
    + [Manage Accounts Through AWS Organizations](organizations.md)
@@ -256,4 +255,5 @@ sponsored by Amazon.
    + [January - December 2020](January-June-2020.md)
    + [January - December 2019](January-December-2019.md)
 + [Document history](doc-history.md)
++ [Tables of control metadata](control-metadata-tables.md)
 + [AWS glossary](glossary.md)

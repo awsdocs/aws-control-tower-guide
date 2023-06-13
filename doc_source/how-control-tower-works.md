@@ -16,7 +16,7 @@ The structure of a landing zone in AWS Control Tower is as follows:
 When you set up a landing zone, AWS Control Tower performs the following actions in your management account on your behalf:
 + Creates two AWS Organizations organizational units \(OUs\): Security, and Sandbox \(optional\), contained within the organizational root structure\.
 + Creates or adds two shared accounts in the Security OU: the Log Archive account and the Audit account\.
-+ Creates a cloud\-native directory in IAM Identity Center, with preconfigured groups and single sign\-on access\.
++ Creates a cloud\-native directory in IAM Identity Center, with preconfigured groups and single sign\-on access, if you choose the default AWS Control Tower configuration, or it allows you to self\-manage your identity provider\.
 + Applies all mandatory, preventive controls to enforce policies\.
 + Applies all mandatory, detective controls to detect configuration violations\.
 + Preventive controls are not applied to the management account\.

@@ -55,6 +55,9 @@ New accounts in AWS Control Tower are created and then provisioned by an interac
 
 The permissions required for each method of provisioning and updating are discussed in each section, respectively\. With the appropriate user group permissions, provisioners can specify standardized baselines and network configurations for any accounts in their organization\.
 
+**Note**  
+When provisioning an account, the account requester always must have the `CreateAccount` and the `DescribeCreateAccountStatus` permissions\. This permission set is part of the Admin role, and it is given automatically when a requester assumes the Admin role\. If you delegate permission to provision accounts, you may need to add these permissions directly for the account requestors\.
+
 For general information about permissions required in AWS Control Tower, see [Using identity\-based policies \(IAM policies\) for AWS Control Tower](access-control-managing-permissions.md)\. For information about roles and accounts in AWS Control Tower, see [How AWS Control Tower works with roles to create and manage accounts](roles-how.md)\.
 
 ## <a name="w32aac32c17"></a>

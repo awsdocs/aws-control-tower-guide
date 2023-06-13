@@ -9,7 +9,6 @@ For more information about how to measure a well\-architected environment, learn
 + [Monitor Events with CloudTrail](cloudtrail.md)
 + [Monitor Resources and Services with CloudWatch](cloudwatch.md)
 + [Govern Resource Configurations with AWS Config](config.md)
-+ [Manage Permissions for Entities with IAM](iam.md)
 + [AWS Key Management Service](kms-integration.md)
 + [Run Serverless Compute Functions with Lambda](lambda.md)
 + [Manage Accounts Through AWS Organizations](organizations.md)

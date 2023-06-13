@@ -1,10 +1,13 @@
 # Document history<a name="doc-history"></a>
-+ **Latest documentation update:** June 6, 2023
++ **Latest documentation update:** June 14, 2023
 
 The following table describes important changes to the *AWS Control Tower User Guide*\. For notifications about documentation updates, you can subscribe to the RSS feed\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [AWS Control Tower handles accounts based on ID](#doc-history) | AWS Control Tower tracks the AWS account ID, rather than the account's email address\. | June 14, 2023 | 
+| [Additional Security Hub detective controls available](#doc-history) | AWS Control Tower adds ten new controls to the controls library, for the Security Hub Service\-Managed Standard: AWS Control Tower\. | June 12, 2023 | 
+| [AWS Control Tower publishes control metadata tables](#doc-history) | AWS Control Tower now provides tables of control metadata as part of the published documentation\. | June 7, 2023 | 
 | [Terraform support for Account Factory Customization](#doc-history) | Single\-region support for Terraform open source blueprints in AFC\. | June 6, 2023 | 
 | [AWS IAM self\-management available for landing zone](#doc-history) | AWS Control Tower now supports customers in choosing their identity provider for a landing zone\. | June 6, 2023 | 
 | [New role added](#doc-history) | AWS Control Tower added a new service\-linked role, **AWSServiceRoleForAWSControlTower**, and associated policy, **AWSControlTowerAccountServiceRolePolicy**\. | June 1, 2023 | 

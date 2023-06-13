@@ -1,10 +1,14 @@
 # Manage Users and Access Through AWS IAM Identity Center \(successor to AWS Single Sign\-On\)<a name="sso"></a>
 
-AWS IAM Identity Center \(successor to AWS Single Sign\-On\) is a cloud\-based service that simplifies how you manage IAM Identity Center access to AWS accounts and business applications\. You can control IAM Identity Center access and user permissions across all your AWS accounts in AWS Organizations\. You also can administer access to popular business applications and custom applications that support Security Assertion Markup Language \(SAML\) 2\.0\. Also, IAM Identity Center offers a user portal where your users can find all their assigned AWS accounts, business applications, and custom applications in one place\. For more information, see *[AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide](https://docs.aws.amazon.com/singlesignon/latest/userguide/)*\.
+AWS IAM Identity Center \(successor to AWS Single Sign\-On\) is a web\-based service for securely controlling access to other AWS services\. With IAM, you can centrally manage users, along with their security credentials—such as access keys and permissions—that designate the AWS resources to which specific users and applications are granted access\.
+
+AWS Identity and Access Management \(IAM\) simplifies how you manage access to AWS accounts and business applications\. You can control IAM Identity Center access and user permissions across all your AWS accounts in AWS Control Tower\.
+
+With IAM Identity Center, you also can administer access to popular business applications and custom applications that support Security Assertion Markup Language \(SAML\) 2\.0\. Also, IAM Identity Center offers a user portal where your users can find all their assigned AWS accounts, business applications, and custom applications in one place\. For more information, see *[AWS IAM Identity Center \(successor to AWS Single Sign\-On\) User Guide](https://docs.aws.amazon.com/singlesignon/latest/userguide/)*\.
 
 **Working With AWS IAM Identity Center and AWS Control Tower**
 
-In AWS Control Tower, AWS IAM Identity Center \(successor to AWS Single Sign\-On\) allows central cloud administrators and end users to manage access to multiple AWS accounts and business applications\. AWS Control Tower uses this service to set up and manage access to the accounts created through Service Catalog\.
+In AWS Control Tower, IAM Identity Center allows central cloud administrators and end\-users to manage access to multiple AWS accounts and business applications\. By default, AWS Control Tower uses this service to set up and manage access to the accounts created through Account Factory, unless you have selected the option to self\-manage your identity and access control\.
 
 ## <a name="sso-video"></a>
 
@@ -14,7 +18,7 @@ For a brief tutorial about how to set up your IAM Identity Center users and perm
 
 When you initially set up AWS Control Tower, only the root user user and any IAM users with the correct permissions can add IAM Identity Center users\. However, after end users have been added in the **AWSAccountFactory** group, they can create new IAM Identity Center users from the Account Factory wizard\. For more information, see [Provision and manage accounts with Account Factory](account-factory.md)\.
 
-Your landing zone is set up with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
+If you choose the recommended default, AWS Control Tower sets up your landing zone with a preconfigured directory that helps you manage user identities and single sign\-on, so that your users have federated access across accounts\. When you set up your landing zone, this default directory is created to contain *user groups* and *permission sets*\.
 
 **Note**  
 You can delegate administration of AWS IAM Identity Center \(successor to AWS Single Sign\-On\) in your organization to an account other than the management account\. For more information, see this blog post, entitled, [Getting started with AWS SSO delegated administration](http://aws.amazon.com/blogs/security/getting-started-with-aws-sso-delegated-administration/)
@@ -46,7 +50,7 @@ Here are some good things to know when working with IAM Identity Center user acc
 
 ## IAM Identity Center Groups for AWS Control Tower<a name="sso-groups"></a>
 
-AWS Control Tower offers preconfigured groups to organize users that perform specific tasks in your accounts\. You can add users and assign them to these groups directly in IAM Identity Center\. Doing so matches permission sets to users in groups within your accounts\. The groups created when you set up your landing zone are as follows\.
+AWS Control Tower offers preconfigured groups to organize users that perform specific tasks in your accounts\. You can add users and assign them to these groups directly in IAM Identity Center\. Doing so matches permission sets to users in groups within your accounts\. The following groups are created when you set up your landing zone\.
 
 
 **AWSAccountFactory**  

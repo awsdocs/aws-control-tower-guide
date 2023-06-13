@@ -915,7 +915,7 @@ Resources:
 
 ## \[CT\.EC2\.PR\.4\] Require that any Amazon EC2 security group rule does not use the source IP range `0.0.0.0/0` or `::/0` for specific high\-risk ports<a name="ct-ec2-pr-4-description"></a>
 
-This control checks whether an Amazon EC2 security group rule that contains the strings `0.0.0.0/0` or `::/0` as a source IP range does not allow incoming TCP, UDP, ICMP, or ICMPv6 traffic to the following ports: `3389`, `20`, `23`, `110`, `143`, `3306`, `8080`, `1433`, `9200`, `9300`, `25`, `445`, `135`, `21`, `1434`, `4333`, `5432`, `5500`, `5601`, `22`, `3000`, `5000`, `8088`, `8888`\. The use of managed prefix lists is not supported\.
+This control checks whether an Amazon EC2 security group rule that contains the strings `0.0.0.0/0` or `::/0` as a source IP range does not allow incoming TCP, UDP, ICMP, or ICMPv6 traffic to the following ports: `3389`, `20`, `23`, `110`, `143`, `3306`, `8080`, `1433`, `9200`, `9300`, `25`, `445`, `135`, `21`, `1434`, `4333`, `5432`, `5500`, `5601`, `22`, `3000`, `5000`, `8088`, `8888`\. 
 + **Control objective: **Limit network access
 + **Implementation: **AWS CloudFormation Guard Rule
 + **Control behavior: **Proactive
@@ -942,8 +942,6 @@ This control applies only to Amazon EC2 security group and security group ingres
 ### Remediation for rule failure<a name="ct-ec2-pr-4-remediation"></a>
 
 Remove Amazon EC2 security group ingress rules that allow traffic from `0.0.0.0/0` or `::/0` to high\-risk ports: `3389`, `20`, `23`, `110`, `143`, `3306`, `8080`, `1433`, `9200`, `9300`, `25`, `445`, `135`, `21`, `1434`, `4333`, `5432`, `5500`, `5601`, `22`, `3000`, `5000`, `8088`, `8888`\.
-
-The use of managed prefix lists is not supported\.
 
 The examples that follow show how to implement this remediation\.
 

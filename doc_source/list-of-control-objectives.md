@@ -3,6 +3,8 @@
 Each control enforces one of these objectives\. Sometimes controls must be applied in a group so that the control objective is enforced\. Information about related controls is viewable in the AWS Control Tower console, on the **Control details** page\.
 
 **Control objectives**
+
+For more information about controls and their associated control objectives, see [Tables of control metadata](control-metadata-tables.md)\.
 + **CO\.1** Establish logging and monitoring
 + **CO\.2** Encrypt data at rest
 + **CO\.3** Encrypt data in transit

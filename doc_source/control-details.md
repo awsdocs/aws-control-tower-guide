@@ -1,6 +1,8 @@
 # View control details<a name="control-details"></a>
 
-To view details about an individual control, select the name of the control from the table on the **Controls** page\.
+To view details about an individual control in the console, select the name of the control from the table on the **Controls** page\.
+
+To view more details about an individual control in the *AWS Control Tower User Guide*, see [Tables of control metadata](control-metadata-tables.md)\. For each control, the **API controlIdentifer** for each Region is available, along with the framework and objective\. Certain additional information is available only in the console, as described in the next sections\.
 
 In each **Control details** page of the console, you can find the following details for each control:
 + **Name** – The name of the control\.
